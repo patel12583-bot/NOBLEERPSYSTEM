@@ -20,10 +20,28 @@ enum UserRole {
   HR_STAFF
 }
 
-enum UserStatus { ACTIVE INACTIVE }
-enum StudentStatus { ACTIVE INACTIVE GRADUATED TRANSFERRED CANCELLED }
-enum AttendanceStatus { PRESENT ABSENT LATE }
-enum LeaveStatus { PENDING APPROVED REJECTED CANCELLED }
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+}
+enum StudentStatus {
+  ACTIVE
+  INACTIVE
+  GRADUATED
+  TRANSFERRED
+  CANCELLED
+}
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+}
+enum LeaveStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
 
 model User {
   id           String     @id @default(cuid())
