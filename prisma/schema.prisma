@@ -89,7 +89,6 @@ model Department {
   name        String
   hodId       String?
   programs    Program[]
-  feeStructures FeeStructure[]
   faculty     Faculty[]
   students    Student[]
   subjects    Subject[]
@@ -120,6 +119,8 @@ model AcademicYear {
   active    Boolean      @default(false)
   students  Student[]
   semesters Semester[]
+  feeStructures FeeStructure[]
+  exams Exam[]
   createdAt DateTime     @default(now())
 }
 
@@ -202,6 +203,8 @@ model Faculty {
   department    Department?         @relation(fields: [departmentId], references: [id])
   attendance    FacultyAttendance[]
   leaves        FacultyLeave[]
+  subjects      FacultySubject[]
+  timetables    Timetable[]
   createdAt     DateTime            @default(now())
   updatedAt     DateTime            @updatedAt
 }
