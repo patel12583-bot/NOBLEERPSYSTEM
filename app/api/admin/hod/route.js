@@ -1,0 +1,11 @@
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { getSessionUser } from "@/lib/auth";
+export const runtime="nodejs"; export const dynamic="force-dynamic";
+async function guard(){const u=await getSessionUser();return u&&["SUPER_ADMIN","ADMIN"].includes(u.role)?u:null;}
+export async function GET(){const u=await guard();if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});const departments=await prisma.department.findMany({orderBy:{name:"asc"},include:{hod:{include:{user:{select:{username:true,status:true}}}},faculty:{where:{status:"ACTIVE"},orderBy:{name:"asc"}}}});return NextResponse.json({departments});}
+export async function PUT(req){const u=await guard();if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});const {departmentId,facultyId}=await req.json();try{const dep=await prisma.department.findUnique({where:{id:departmentId},include:{hod:true}});if(!dep)return NextResponse.json({error:"Department not found."},{status:404});
+if(facultyId){const f=await prisma.faculty.findUnique({where:{id:facultyId}});if(!f||f.status!=="ACTIVE")return NextResponse.json({error:"Active faculty not found."},{status:400});if(f.departmentId!==departmentId)return NextResponse.json({error:"HOD must belong to the same department."},{status:400});
+await prisma.$transaction(async tx=>{if(dep.hodId&&dep.hodId!==facultyId){const old=await tx.faculty.findUnique({where:{id:dep.hodId}});if(old?.userId)await tx.user.update({where:{id:old.userId},data:{role:"FACULTY"}});}await tx.department.update({where:{id:departmentId},data:{hodId:facultyId}});if(f.userId)await tx.user.update({where:{id:f.userId},data:{role:"HOD"}});});
+}else{if(dep.hodId){const old=await prisma.faculty.findUnique({where:{id:dep.hodId}});await prisma.$transaction(async tx=>{await tx.department.update({where:{id:departmentId},data:{hodId:null}});if(old?.userId)await tx.user.update({where:{id:old.userId},data:{role:"FACULTY"}});});}}
+return NextResponse.json({ok:true});}catch(e){return NextResponse.json({error:e.message||"Unable to update HOD."},{status:400});}}
