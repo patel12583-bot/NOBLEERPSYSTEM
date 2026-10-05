@@ -87,7 +87,8 @@ model Department {
   id          String    @id @default(cuid())
   code        String    @unique
   name        String
-  hodId       String?
+  hodId       String? @unique
+  hod         Faculty?  @relation("DepartmentHod", fields: [hodId], references: [id], onDelete: SetNull)
   programs    Program[]
   faculty     Faculty[]
   students    Student[]
@@ -202,6 +203,7 @@ model Faculty {
   user          User?               @relation(fields: [userId], references: [id])
   departmentId  String?
   department    Department?         @relation(fields: [departmentId], references: [id])
+  hodDepartment Department?         @relation("DepartmentHod")
   attendance    FacultyAttendance[]
   leaves        FacultyLeave[]
   subjects      FacultySubject[]
