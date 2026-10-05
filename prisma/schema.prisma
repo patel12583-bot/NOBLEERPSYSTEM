@@ -203,7 +203,7 @@ model Faculty {
   user          User?               @relation(fields: [userId], references: [id])
   departmentId  String?
   department    Department?         @relation(fields: [departmentId], references: [id])
-  hodDepartment Department?         @relation("DepartmentHod")
+  hodDepartments Department[]       @relation("DepartmentHod")
   attendance    FacultyAttendance[]
   leaves        FacultyLeave[]
   subjects      FacultySubject[]
