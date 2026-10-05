@@ -146,6 +146,7 @@ model Division {
   program     Program  @relation(fields: [programId], references: [id])
   semester    Semester @relation(fields: [semesterId], references: [id])
   students    Student[]
+  timetables  Timetable[]
   createdAt   DateTime @default(now())
   @@unique([name, programId, semesterId])
 }
