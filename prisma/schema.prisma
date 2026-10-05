@@ -92,6 +92,7 @@ model Program {
   department   Department @relation(fields: [departmentId], references: [id])
   students     Student[]
   subjects     Subject[]
+  divisions    Division[]
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
@@ -103,6 +104,7 @@ model AcademicYear {
   endDate   DateTime
   active    Boolean   @default(false)
   students  Student[]
+  semesters Semester[]
   createdAt DateTime  @default(now())
 }
 
@@ -114,6 +116,7 @@ model Semester {
   academicYear  AcademicYear? @relation(fields: [academicYearId], references: [id])
   students      Student[]
   subjects      Subject[]
+  divisions     Division[]
   createdAt     DateTime @default(now())
   @@unique([number, academicYearId])
 }
