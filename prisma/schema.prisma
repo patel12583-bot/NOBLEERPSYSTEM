@@ -222,8 +222,12 @@ model Subject {
   program      Program?     @relation(fields: [programId], references: [id])
   semesterId   String?
   semester     Semester?    @relation(fields: [semesterId], references: [id])
-  attendance   Attendance[]
-  createdAt    DateTime      @default(now())
+  attendance      Attendance[]
+  facultySubjects FacultySubject[]
+  timetables      Timetable[]
+  examSchedules   ExamSchedule[]
+  results         Result[]
+  createdAt       DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 }
 
