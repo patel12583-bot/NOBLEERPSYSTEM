@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 const configs={
@@ -15,7 +15,7 @@ const configs={
  notices:{title:"Notices",fields:[["title","Title","text"],["content","Content","text"],["audience","Audience","text"],["published","Published","checkbox"]]}
 };
 
-export default function CoreAdminPage(){
+function CoreAdminContent(){
  const params=useSearchParams();
  const module=params.get("module")||"departments";
  const cfg=configs[module]||configs.departments;
@@ -41,4 +41,9 @@ export default function CoreAdminPage(){
    {loading?<p>Loading…</p>:<div style={{overflowX:"auto"}}><table style={{width:"100%",borderCollapse:"collapse"}}><thead><tr>{cfg.fields.map(x=><th key={x[0]} style={{textAlign:"left",padding:"10px"}}>{x[1]}</th>)}<th>Actions</th></tr></thead><tbody>{filtered.map(row=><tr key={row.id}>{cfg.fields.map(([key])=><td key={key} style={{padding:"10px",borderTop:"1px solid #eee"}}>{String(row[key]??"")}</td>)}<td style={{padding:"10px",borderTop:"1px solid #eee"}}><button onClick={()=>edit(row)}>Edit</button>{" "}<button onClick={()=>remove(row.id)}>Delete</button></td></tr>)}</tbody></table></div>}
   </div>
  </main>
+}
+
+
+export default function CoreAdminPage(){
+ return <Suspense fallback={<main className="content" style={{padding:"32px"}}><p>Loading management module…</p></main>}><CoreAdminContent/></Suspense>;
 }
