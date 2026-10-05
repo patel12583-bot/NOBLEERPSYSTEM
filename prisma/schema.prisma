@@ -24,6 +24,7 @@ enum UserStatus {
   ACTIVE
   INACTIVE
 }
+
 enum StudentStatus {
   ACTIVE
   INACTIVE
@@ -31,11 +32,13 @@ enum StudentStatus {
   TRANSFERRED
   CANCELLED
 }
+
 enum AttendanceStatus {
   PRESENT
   ABSENT
   LATE
 }
+
 enum LeaveStatus {
   PENDING
   APPROVED
@@ -93,41 +96,41 @@ model Program {
   students     Student[]
   subjects     Subject[]
   divisions    Division[]
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
 
 model AcademicYear {
-  id        String    @id @default(cuid())
-  name      String    @unique
+  id        String       @id @default(cuid())
+  name      String       @unique
   startDate DateTime
   endDate   DateTime
-  active    Boolean   @default(false)
+  active    Boolean      @default(false)
   students  Student[]
   semesters Semester[]
-  createdAt DateTime  @default(now())
+  createdAt DateTime     @default(now())
 }
 
 model Semester {
-  id            String @id @default(cuid())
-  number        Int
-  name          String
+  id             String        @id @default(cuid())
+  number         Int
+  name           String
   academicYearId String?
-  academicYear  AcademicYear? @relation(fields: [academicYearId], references: [id])
-  students      Student[]
-  subjects      Subject[]
-  divisions     Division[]
-  createdAt     DateTime @default(now())
+  academicYear   AcademicYear? @relation(fields: [academicYearId], references: [id])
+  students       Student[]
+  subjects       Subject[]
+  divisions      Division[]
+  createdAt      DateTime      @default(now())
   @@unique([number, academicYearId])
 }
 
 model Division {
-  id          String @id @default(cuid())
+  id          String   @id @default(cuid())
   name        String
   capacity    Int?
   programId   String
   semesterId  String
-  program     Program @relation(fields: [programId], references: [id])
+  program     Program  @relation(fields: [programId], references: [id])
   semester    Semester @relation(fields: [semesterId], references: [id])
   students    Student[]
   createdAt   DateTime @default(now())
@@ -138,7 +141,7 @@ model Student {
   id             String        @id @default(cuid())
   studentId      String        @unique
   enrollmentNo   String?       @unique
-  admissionNo    String?      @unique
+  admissionNo    String?       @unique
   name           String
   email          String?
   mobile         String?
@@ -169,40 +172,40 @@ model Student {
 }
 
 model Faculty {
-  id           String     @id @default(cuid())
-  facultyId    String     @unique
-  name         String
-  email        String?
-  mobile       String?
-  designation  String?
+  id            String              @id @default(cuid())
+  facultyId     String              @unique
+  name          String
+  email         String?
+  mobile        String?
+  designation   String?
   qualification String?
-  joiningDate  DateTime?
-  status       UserStatus @default(ACTIVE)
-  userId       String?    @unique
-  user         User?      @relation(fields: [userId], references: [id])
-  departmentId String?
-  department   Department? @relation(fields: [departmentId], references: [id])
-  attendance   FacultyAttendance[]
-  leaves       FacultyLeave[]
-  createdAt    DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  joiningDate   DateTime?
+  status        UserStatus          @default(ACTIVE)
+  userId        String?             @unique
+  user          User?               @relation(fields: [userId], references: [id])
+  departmentId  String?
+  department    Department?         @relation(fields: [departmentId], references: [id])
+  attendance    FacultyAttendance[]
+  leaves        FacultyLeave[]
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
 }
 
 model Subject {
-  id           String @id @default(cuid())
-  code         String @unique
+  id           String        @id @default(cuid())
+  code         String        @unique
   name         String
   credits      Float?
   type         String?
   departmentId String?
-  department   Department? @relation(fields: [departmentId], references: [id])
+  department   Department?  @relation(fields: [departmentId], references: [id])
   programId    String?
-  program      Program? @relation(fields: [programId], references: [id])
+  program      Program?     @relation(fields: [programId], references: [id])
   semesterId   String?
-  semester     Semester? @relation(fields: [semesterId], references: [id])
+  semester     Semester?    @relation(fields: [semesterId], references: [id])
   attendance   Attendance[]
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 }
 
 model Attendance {
@@ -210,12 +213,12 @@ model Attendance {
   studentId String
   subjectId String
   date      DateTime
-  period    Int?
+  period    Int              @default(0)
   status    AttendanceStatus
   student   Student          @relation(fields: [studentId], references: [id])
   subject   Subject          @relation(fields: [subjectId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
   @@unique([studentId, subjectId, date, period])
 }
 
@@ -225,7 +228,7 @@ model FacultyAttendance {
   date      DateTime
   status    AttendanceStatus
   faculty   Faculty          @relation(fields: [facultyId], references: [id])
-  createdAt DateTime @default(now())
+  createdAt DateTime         @default(now())
   @@unique([facultyId, date])
 }
 
@@ -237,8 +240,8 @@ model Leave {
   reason    String
   status    LeaveStatus @default(PENDING)
   student   Student     @relation(fields: [studentId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 }
 
 model FacultyLeave {
@@ -249,19 +252,19 @@ model FacultyLeave {
   reason    String
   status    LeaveStatus @default(PENDING)
   faculty   Faculty     @relation(fields: [facultyId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 }
 
 model Document {
-  id         String   @id @default(cuid())
-  studentId  String
-  name       String
-  type       String
-  url        String
-  verified   Boolean  @default(false)
-  student    Student  @relation(fields: [studentId], references: [id])
-  createdAt  DateTime @default(now())
+  id        String  @id @default(cuid())
+  studentId String
+  name      String
+  type      String
+  url       String
+  verified  Boolean @default(false)
+  student   Student @relation(fields: [studentId], references: [id])
+  createdAt DateTime @default(now())
 }
 
 model AuditLog {
