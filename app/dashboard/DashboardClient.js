@@ -25,7 +25,7 @@ export default function DashboardClient({ user }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const role = user.role;
-  const coreLinks = { Students:"/admin/students", Faculty:"/admin/faculty", HOD:"/admin/hod", Departments:"/admin/core?module=departments", Programs:"/admin/core?module=programs", Academics:"/admin/core?module=academicYears", Semesters:"/admin/core?module=semesters", Divisions:"/admin/core?module=divisions", Subjects:"/admin/core?module=subjects", "Academic Management":"/admin/academics", "Timetable":"/admin/core?module=rooms", "Institutes":"/admin/institute", "Settings":"/admin/institute", "Rooms/Labs":"/admin/core?module=rooms", Library:"/admin/core?module=books", Notices:"/admin/core?module=notices" };
+  const coreLinks = { Students:"/admin/students", Faculty:"/admin/faculty", HOD:"/admin/hod", Departments:"/admin/core?module=departments", Programs:"/admin/core?module=programs", Academics:"/admin/core?module=academicYears", Semesters:"/admin/core?module=semesters", Divisions:"/admin/core?module=divisions", Subjects:"/admin/core?module=subjects", "Academic Management":"/admin/academics", "Timetable":"/admin/timetable","Attendance":"/admin/attendance","Reports":"/admin/attendance/reports", "Institutes":"/admin/institute", "Settings":"/admin/institute", "Rooms/Labs":"/admin/core?module=rooms", Library:"/admin/core?module=books", Notices:"/admin/core?module=notices" };
   const displayRole = roleNames[role] || role;
   const items = menus[role] || menus.STUDENT;
   const displayName = user.username || user.email || "User";
