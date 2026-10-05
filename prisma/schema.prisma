@@ -289,3 +289,169 @@ model AuditLog {
   createdAt DateTime @default(now())
   user      User?    @relation(fields: [userId], references: [id])
 }
+
+
+model Institute {
+  id        String   @id @default(cuid())
+  name      String
+  address   String
+  phone1    String?
+  phone2    String?
+  email     String?
+  logoUrl   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Room {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  name      String
+  capacity  Int?
+  type      String?
+  timetables Timetable[]
+  createdAt DateTime @default(now())
+}
+
+model FacultySubject {
+  id        String  @id @default(cuid())
+  facultyId String
+  subjectId String
+  faculty   Faculty @relation(fields: [facultyId], references: [id], onDelete: Cascade)
+  subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  @@unique([facultyId, subjectId])
+}
+
+model Timetable {
+  id         String   @id @default(cuid())
+  dayOfWeek  Int
+  startTime  String
+  endTime    String
+  divisionId String
+  subjectId  String
+  facultyId  String
+  roomId     String?
+  division   Division @relation(fields: [divisionId], references: [id], onDelete: Cascade)
+  subject    Subject  @relation(fields: [subjectId], references: [id])
+  faculty    Faculty  @relation(fields: [facultyId], references: [id])
+  room       Room?    @relation(fields: [roomId], references: [id])
+  createdAt  DateTime @default(now())
+  @@index([divisionId, dayOfWeek])
+  @@index([facultyId, dayOfWeek])
+}
+
+model FeeStructure {
+  id        String   @id @default(cuid())
+  name      String
+  academicYearId String?
+  programId String?
+  amount    Decimal  @db.Decimal(12,2)
+  dueDate   DateTime?
+  active    Boolean  @default(true)
+  academicYear AcademicYear? @relation(fields: [academicYearId], references: [id])
+  program Program? @relation(fields: [programId], references: [id])
+  studentFees StudentFee[]
+  createdAt DateTime @default(now())
+}
+
+model StudentFee {
+  id        String   @id @default(cuid())
+  studentId String
+  feeStructureId String
+  amountDue Decimal @db.Decimal(12,2)
+  amountPaid Decimal @default(0) @db.Decimal(12,2)
+  status    String   @default("PENDING")
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  feeStructure FeeStructure @relation(fields: [feeStructureId], references: [id])
+  payments Payment[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Payment {
+  id            String @id @default(cuid())
+  studentFeeId  String
+  receiptNo     String @unique
+  amount        Decimal @db.Decimal(12,2)
+  method        String
+  transactionNo String?
+  paidAt        DateTime @default(now())
+  studentFee    StudentFee @relation(fields: [studentFeeId], references: [id])
+}
+
+model Exam {
+  id            String @id @default(cuid())
+  name          String
+  examType      String
+  academicYearId String?
+  startDate     DateTime?
+  endDate       DateTime?
+  status        String @default("DRAFT")
+  academicYear  AcademicYear? @relation(fields: [academicYearId], references: [id])
+  schedules     ExamSchedule[]
+  results       Result[]
+  createdAt     DateTime @default(now())
+}
+
+model ExamSchedule {
+  id        String @id @default(cuid())
+  examId    String
+  subjectId String
+  date      DateTime
+  startTime String
+  endTime   String
+  roomId    String?
+  exam      Exam @relation(fields: [examId], references: [id], onDelete: Cascade)
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  room      Room? @relation(fields: [roomId], references: [id])
+  @@unique([examId, subjectId])
+}
+
+model Result {
+  id        String @id @default(cuid())
+  examId    String
+  studentId String
+  subjectId String
+  marks     Float?
+  grade     String?
+  status    String @default("DRAFT")
+  exam      Exam @relation(fields: [examId], references: [id], onDelete: Cascade)
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  @@unique([examId, studentId, subjectId])
+}
+
+model Book {
+  id        String @id @default(cuid())
+  isbn      String? @unique
+  title     String
+  author    String?
+  category  String?
+  quantity  Int @default(1)
+  available Int @default(1)
+  issues    BookIssue[]
+  createdAt DateTime @default(now())
+}
+
+model BookIssue {
+  id        String @id @default(cuid())
+  bookId    String
+  studentId String?
+  issueDate DateTime @default(now())
+  dueDate   DateTime
+  returnDate DateTime?
+  fine      Decimal @default(0) @db.Decimal(10,2)
+  book      Book @relation(fields: [bookId], references: [id])
+  student   Student? @relation(fields: [studentId], references: [id])
+}
+
+model Notice {
+  id        String @id @default(cuid())
+  title     String
+  content   String
+  audience  String
+  published Boolean @default(false)
+  publishedAt DateTime?
+  createdAt DateTime @default(now())
+}
