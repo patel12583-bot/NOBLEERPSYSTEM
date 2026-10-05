@@ -25,20 +25,24 @@ export async function POST(req){
 export async function PUT(req){
  const u=await guard(); if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});
  try{
-  const b=await req.json(); if(!b.id)return NextResponse.json({error:"Exam id required."},{status:400});
+  const b=await req.json();
   if(b.action==="schedule"){
    if(!b.subjectId||!b.date||!b.startTime||!b.endTime)return NextResponse.json({error:"Subject, date and time are required."},{status:400});
    if(b.startTime>=b.endTime)return NextResponse.json({error:"End time must be after start time."},{status:400});
    const date=new Date(b.date+"T00:00:00");
+   if(!b.examId)return NextResponse.json({error:"Exam id required."},{status:400});
+   const exam=await prisma.exam.findUnique({where:{id:b.examId}});
+   if(!exam)return NextResponse.json({error:"Examination not found."},{status:404});
    const [existing,subject]=await Promise.all([
     prisma.examSchedule.findMany({where:{date,OR:[{roomId:b.roomId||undefined},{subjectId:b.subjectId}]}}),
     prisma.subject.findUnique({where:{id:b.subjectId}})
    ]);
-   const clash=existing.find(x=>overlap(b.startTime,b.endTime,x.startTime,x.endTime));
+   const clash=existing.find(x=>x.examId!==b.examId && overlap(b.startTime,b.endTime,x.startTime,x.endTime));
    if(clash)return NextResponse.json({error:"Exam schedule clash detected for this subject or room."},{status:409});
    const row=await prisma.examSchedule.upsert({where:{examId_subjectId:{examId:b.examId,subjectId:b.subjectId}},update:{date,startTime:b.startTime,endTime:b.endTime,roomId:b.roomId||null},create:{examId:b.examId,subjectId:b.subjectId,date,startTime:b.startTime,endTime:b.endTime,roomId:b.roomId||null}});
    return NextResponse.json({schedule:row});
   }
+  if(!b.id)return NextResponse.json({error:"Exam id required."},{status:400});
   const row=await prisma.exam.update({where:{id:b.id},data:{name:b.name,examType:b.examType,academicYearId:b.academicYearId||null,startDate:b.startDate?new Date(b.startDate):null,endDate:b.endDate?new Date(b.endDate):null,status:b.status||"DRAFT"}});
   return NextResponse.json({exam:row});
  }catch(e){return NextResponse.json({error:"Unable to update exam or schedule."},{status:400})}
