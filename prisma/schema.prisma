@@ -89,6 +89,7 @@ model Department {
   name        String
   hodId       String?
   programs    Program[]
+  feeStructures FeeStructure[]
   faculty     Faculty[]
   students    Student[]
   subjects    Subject[]
@@ -106,6 +107,7 @@ model Program {
   students     Student[]
   subjects     Subject[]
   divisions    Division[]
+  feeStructures FeeStructure[]
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
 }
@@ -177,6 +179,9 @@ model Student {
   attendance     Attendance[]
   leaves         Leave[]
   documents      Document[]
+  studentFees    StudentFee[]
+  results        Result[]
+  bookIssues     BookIssue[]
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
 }
@@ -309,7 +314,8 @@ model Room {
   name      String
   capacity  Int?
   type      String?
-  timetables Timetable[]
+  timetables Timetable[] @relation("TimetableRoom")
+  examSchedules ExamSchedule[] @relation("ExamRoom")
   createdAt DateTime @default(now())
 }
 
@@ -335,7 +341,7 @@ model Timetable {
   division   Division @relation(fields: [divisionId], references: [id], onDelete: Cascade)
   subject    Subject  @relation(fields: [subjectId], references: [id])
   faculty    Faculty  @relation(fields: [facultyId], references: [id])
-  room       Room?    @relation(fields: [roomId], references: [id])
+  room       Room?    @relation("TimetableRoom", fields: [roomId], references: [id])
   createdAt  DateTime @default(now())
   @@index([divisionId, dayOfWeek])
   @@index([facultyId, dayOfWeek])
@@ -404,7 +410,7 @@ model ExamSchedule {
   roomId    String?
   exam      Exam @relation(fields: [examId], references: [id], onDelete: Cascade)
   subject   Subject @relation(fields: [subjectId], references: [id])
-  room      Room? @relation(fields: [roomId], references: [id])
+  room      Room? @relation("ExamRoom", fields: [roomId], references: [id])
   @@unique([examId, subjectId])
 }
 
