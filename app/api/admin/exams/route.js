@@ -37,7 +37,7 @@ export async function PUT(req){
     prisma.examSchedule.findMany({where:{date,OR:[{roomId:b.roomId||undefined},{subjectId:b.subjectId}]}}),
     prisma.subject.findUnique({where:{id:b.subjectId}})
    ]);
-   const clash=existing.find(x=>x.examId!==b.examId && overlap(b.startTime,b.endTime,x.startTime,x.endTime));
+   const clash=existing.find(x=>!(x.examId===b.examId && x.subjectId===b.subjectId) && overlap(b.startTime,b.endTime,x.startTime,x.endTime));
    if(clash)return NextResponse.json({error:"Exam schedule clash detected for this subject or room."},{status:409});
    const row=await prisma.examSchedule.upsert({where:{examId_subjectId:{examId:b.examId,subjectId:b.subjectId}},update:{date,startTime:b.startTime,endTime:b.endTime,roomId:b.roomId||null},create:{examId:b.examId,subjectId:b.subjectId,date,startTime:b.startTime,endTime:b.endTime,roomId:b.roomId||null}});
    return NextResponse.json({schedule:row});
