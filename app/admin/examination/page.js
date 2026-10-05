@@ -3,19 +3,21 @@ import {useEffect,useState} from "react";
 const date=d=>d?new Date(d).toISOString().slice(0,10):"";
 export default function ExaminationPage(){
  const [d,setD]=useState({exams:[],years:[],subjects:[],rooms:[]}),[form,setForm]=useState({name:"",examType:"SEMESTER",academicYearId:"",startDate:"",endDate:"",status:"DRAFT"}),[sch,setSch]=useState({examId:"",subjectId:"",date:"",startTime:"",endTime:"",roomId:""}),[edit,setEdit]=useState(null),[msg,setMsg]=useState(""),[loading,setLoading]=useState(true);
- async function load(){setLoading(true);const r=await fetch("/api/admin/exams");const x=await r.json();if(r.ok)setD(x);else setMsg(x.error||"Unable to load.");setLoading(false)}
+ async function load(){setLoading(true);try{const r=await fetch("/api/admin/exams");const text=await r.text();let x={};try{x=text?JSON.parse(text):{}}catch{throw new Error("Server returned an invalid response.")}if(!r.ok)throw new Error(x.error||"Unable to load.");setD(x)}catch(e){setMsg(e.message||"Unable to load.")}finally{setLoading(false)}}
  useEffect(()=>{load()},[]);
  const set=(k,v)=>setForm(x=>({...x,[k]:v})); const ss=(k,v)=>setSch(x=>({...x,[k]:v}));
- async function save(e){e.preventDefault();const r=await fetch("/api/admin/exams",{method:edit?"PUT":"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...form,id:edit})});const x=await r.json();setMsg(r.ok?"Exam saved.":x.error||"Save failed.");if(r.ok){setForm({name:"",examType:"SEMESTER",academicYearId:"",startDate:"",endDate:"",status:"DRAFT"});setEdit(null);load()}}
- async function schedule(e){e.preventDefault();const r=await fetch("/api/admin/exams",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"schedule",...sch})});const x=await r.json();setMsg(r.ok?"Schedule saved.":x.error||"Schedule failed.");if(r.ok){setSch(x=>({...x,subjectId:"",date:"",startTime:"",endTime:"",roomId:""}));load()}}
- async function del(id){if(!confirm("Delete this exam?"))return;await fetch("/api/admin/exams",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})});load()}
+ async function save(e){e.preventDefault();try{const r=await fetch("/api/admin/exams",{method:edit?"PUT":"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...form,id:edit})});const text=await r.text();let x={};try{x=text?JSON.parse(text):{}}catch{throw new Error("Server returned an invalid response.")}if(!r.ok)throw new Error(x.error||"Save failed.");setMsg("Exam saved.");setForm({name:"",examType:"SEMESTER",academicYearId:"",startDate:"",endDate:"",status:"DRAFT"});setEdit(null);load()}catch(e){setMsg(e.message||"Save failed.")}}
+ async function schedule(e){e.preventDefault();try{const r=await fetch("/api/admin/exams",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"schedule",...sch})});const text=await r.text();let x={};try{x=text?JSON.parse(text):{}}catch{throw new Error("Server returned an invalid response.")}if(!r.ok)throw new Error(x.error||"Schedule failed.");setMsg("Schedule saved.");setSch(x=>({...x,subjectId:"",date:"",startTime:"",endTime:"",roomId:""}));load()}catch(e){setMsg(e.message||"Schedule failed.")}}
+ async function del(id){if(!confirm("Delete this exam?"))return;try{const r=await fetch("/api/admin/exams",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})});const text=await r.text();let x={};try{x=text?JSON.parse(text):{}}catch{throw new Error("Server returned an invalid response.")}if(!r.ok)throw new Error(x.error||"Delete failed.");setMsg("Exam deleted.");load()}catch(e){setMsg(e.message||"Delete failed.")}}
  async function delS(id){
-   await fetch("/api/admin/exams", {
-     method:"DELETE",
-     headers:{"Content-Type":"application/json"},
-     body:JSON.stringify({scheduleId:id})
-   });
-   load();
+   if(!confirm("Delete this subject schedule?"))return;
+   try{
+     const r=await fetch("/api/admin/exams",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({scheduleId:id})});
+     const text=await r.text();
+     let x={}; try{x=text?JSON.parse(text):{}}catch{throw new Error("Server returned an invalid response.")}
+     if(!r.ok)throw new Error(x.error||"Delete failed.");
+     setMsg("Schedule deleted."); load();
+   }catch(e){setMsg(e.message||"Delete failed.")}
  }
  return <main className="content" style={{padding:"32px",maxWidth:"1500px"}}><div className="eyebrow">NOBLE ERP • EXAMINATION</div><h1>Examination Management</h1><p>Create examinations, build subject schedules and allocate rooms with clash detection.</p>{msg&&<div className="error">{msg}</div>}
  <form onSubmit={save} className="panel" style={{padding:22,margin:"22px 0"}}><div className="panelTitle"><b>{edit?"Edit Examination":"Create Examination"}</b></div><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",gap:12}}><label>Name<input required value={form.name} onChange={e=>set("name",e.target.value)}/></label><label>Type<select value={form.examType} onChange={e=>set("examType",e.target.value)}><option>SEMESTER</option><option>INTERNAL</option><option>UNIT TEST</option><option>PRACTICAL</option><option>BACKLOG</option></select></label><label>Academic Year<select value={form.academicYearId} onChange={e=>set("academicYearId",e.target.value)}><option value="">Select</option>{d.years.map(y=><option key={y.id} value={y.id}>{y.name}</option>)}</select></label><label>Start<input type="date" value={form.startDate} onChange={e=>set("startDate",e.target.value)}/></label><label>End<input type="date" value={form.endDate} onChange={e=>set("endDate",e.target.value)}/></label><label>Status<select value={form.status} onChange={e=>set("status",e.target.value)}><option>DRAFT</option><option>PUBLISHED</option><option>COMPLETED</option></select></label></div><button className="primary">{edit?"Update Exam":"Create Exam"} →</button></form>
