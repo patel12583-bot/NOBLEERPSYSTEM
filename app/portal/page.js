@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
-const labels={profile:"My Profile",attendance:"Attendance",timetable:"Timetable",results:"Results",examination:"Examination",subjects:"My Subjects"};
+const labels={profile:"My Profile",attendance:"Attendance",timetable:"Timetable",results:"Results",examination:"Examination",subjects:"My Subjects",fees:"Fees & Payments"};
 const days=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
 function PortalView(){
@@ -29,6 +29,8 @@ function PortalView(){
     {data&&module==="subjects"&&<div className="panel"><div className="panelTitle"><b>My Subjects</b></div><div className="quick">{data.rows?.map(r=><div key={r.id} className="panel"><b>{r.code} — {r.name}</b><span>{r.type||"Subject"} • {r.credits??"—"} credits</span></div>)}</div></div>}
 
     {data&&module==="results"&&<div className="panel"><div className="panelTitle"><b>Results</b></div><div style={{overflowX:"auto"}}><table style={{width:"100%"}}><thead><tr><th>Exam</th><th>Subject</th><th>Marks</th><th>Grade</th><th>Status</th></tr></thead><tbody>{data.rows?.map(r=><tr key={r.id}><td>{r.exam?.name}</td><td>{r.subject?.code} — {r.subject?.name}</td><td>{r.marks??"—"}</td><td>{r.grade||"—"}</td><td>{r.status}</td></tr>)}</tbody></table></div></div>}
+
+    {data&&module==="fees"&&<div className="panel"><div className="panelTitle"><b>Fees & Payments</b><span>Live ledger</span></div><div style={{overflowX:"auto"}}><table style={{width:"100%"}}><thead><tr><th>Student</th><th>Fee</th><th>Due</th><th>Paid</th><th>Balance</th><th>Status</th></tr></thead><tbody>{data.rows?.map(r=><tr key={r.id}><td>{r.student?.name||"My Account"}</td><td>{r.feeStructure?.name}</td><td>₹{Number(r.amountDue)}</td><td>₹{Number(r.amountPaid)}</td><td>₹{Number(r.amountDue)-Number(r.amountPaid)}</td><td>{r.status}</td></tr>)}</tbody></table></div></div>}
 
     {data&&module==="examination"&&<div className="panel"><div className="panelTitle"><b>Exam Schedule</b></div><div style={{overflowX:"auto"}}><table style={{width:"100%"}}><thead><tr><th>Exam</th><th>Subject</th><th>Date</th><th>Time</th><th>Room</th></tr></thead><tbody>{data.rows?.map(r=><tr key={r.id}><td>{r.exam?.name}</td><td>{r.subject?.code} — {r.subject?.name}</td><td>{new Date(r.date).toLocaleDateString("en-IN")}</td><td>{r.startTime} – {r.endTime}</td><td>{r.room?.code||"—"}</td></tr>)}</tbody></table></div></div>}
   </main>;
