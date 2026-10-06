@@ -1,5 +1,7 @@
-import ModuleHeader from "@/components/ModuleHeader";
 "use client";
+
+import ModuleHeader from "@/components/ModuleHeader";
+
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
