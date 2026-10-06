@@ -24,7 +24,7 @@ export default function DocumentsPage(){
   const d=await r.json();if(!r.ok)setErr(d.error);else load();
  }
  return <main className="content" style={{padding:32,maxWidth:1350}}>
-  <div className="eyebrow">NOBLE ERP • DOCUMENTS</div><h1>Student Documents</h1><p>Upload and manage real PDF, DOC/DOCX, Excel and image files.</p>
+  <div className="eyebrow">NOBLE ERP • DOCUMENTS</div><div style={{display:"flex",justifyContent:"flex-end",marginBottom:"12px"}}><button type="button" className="back" onClick={()=>{if(window.history.length>1)window.history.back();else window.location.href="/dashboard"}}>← Back to Dashboard</button></div><h1>Student Documents</h1><p>Upload and manage real PDF, DOC/DOCX, Excel and image files.</p>
   {err&&<div className="error" style={{margin:"16px 0"}}>{err}</div>}{msg&&<div className="panel" style={{margin:"16px 0"}}>{msg}</div>}
   <form className="panel" onSubmit={upload} style={{padding:22,margin:"20px 0"}}>
    <b>Upload Document</b><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:14,marginTop:14}}>
