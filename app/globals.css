@@ -46,3 +46,17 @@ body{background:#f5f8fc;color:var(--erp-text)}
 .content code{background:#f1f5f9!important;border:1px solid #e0e7ef!important;border-radius:5px!important;padding:2px 5px!important;font-size:10px!important}
 .content details{background:#f7fafc!important;border:1px solid #e1e8ef!important;border-radius:10px!important;padding:10px 12px!important}
 @media(max-width:760px){.content{padding:72px 16px 35px!important}.globalBack{right:14px!important;top:12px!important}.content>h1{font-size:28px!important}.content .panelTitle{align-items:flex-start!important;flex-direction:column!important}}
+
+/* Role portals + navigation polish */
+.loginShell{min-height:100vh!important;background:linear-gradient(135deg,#f4f8fd 0%,#fff 52%,#edf5ff 100%)!important}
+.loginCard{border:1px solid #dce7f2!important;box-shadow:0 24px 70px rgba(18,48,79,.12)!important;border-radius:24px!important}
+.loginCard select,.loginCard input{border-radius:10px!important}
+.loginCard .primary{background:linear-gradient(135deg,#1769d5,#0b4d9c)!important;border-radius:11px!important}
+.authLinks{display:flex!important;justify-content:space-between!important;gap:10px!important;flex-wrap:wrap!important}
+.authLinks .back{font-size:11px!important}
+.roleHint{font-size:11px;color:#7b8da0;margin-top:-4px}
+.dash .moduleCard{border:1px solid #dce6f0!important;background:linear-gradient(180deg,#fff,#f9fbfe)!important;box-shadow:0 8px 24px rgba(18,48,79,.055)!important}
+.dash .moduleCard:hover{border-color:#8ab5e7!important;box-shadow:0 14px 32px rgba(23,105,213,.12)!important;transform:translateY(-2px)}
+.dash .sideNav button{border-radius:9px!important}
+.dash .sideNav button.selected{background:linear-gradient(90deg,rgba(23,105,213,.16),rgba(23,105,213,.05))!important}
+@media(max-width:700px){.authLinks{flex-direction:column}.authLinks .back{width:100%}}
