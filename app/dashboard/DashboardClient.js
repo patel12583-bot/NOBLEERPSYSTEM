@@ -29,14 +29,14 @@ export default function DashboardClient({ user }) {
   const role = user.role;
   const adminLinks = {
     Students:"/admin/students", Faculty:"/admin/faculty", HOD:"/admin/hod",
-    Departments:"/admin/core?module=departments", Programs:"/admin/core?module=programs",
+    Departments:"/admin/core?module=departments", Department:"/admin/core?module=departments", Programs:"/admin/core?module=programs",
     Academics:"/admin/academics", Semesters:"/admin/core?module=semesters",
-    Divisions:"/admin/core?module=divisions", Subjects:"/admin/subjects",
-    "Academic Management":"/admin/academics", Timetable:"/admin/timetable",
+    Divisions:"/admin/core?module=divisions", Subjects:"/admin/subjects", Approvals:"/leave",
+    "Academic Management":"/admin/academics", Timetable:"/admin/timetable", Workload:"/admin/faculty",
     Attendance:"/admin/attendance", "Attendance Reports":"/admin/attendance/reports",
     Reports:"/admin/attendance/reports", Institutes:"/admin/institute",
     Settings:"/admin/institute", "Leave":"/leave", Examination:"/admin/examination",
-    "Hall Ticket":"/hall-ticket", Fees:"/portal?module=fees", Payments:"/admin/fees", Fees:"/admin/fees", Payments:"/admin/fees", Results:"/admin/results", "Examinations":"/admin/examination", "Schedules":"/admin/examination", "Hall Tickets":"/hall-ticket", "Books":"/admin/library", "Issue/Return":"/admin/library", Fines:"/admin/library"
+    "Hall Ticket":"/hall-ticket", Fees:"/admin/fees", Payments:"/admin/fees", Results:"/admin/results", "Examinations":"/admin/examination", "Schedules":"/admin/examination", "Hall Tickets":"/hall-ticket", "Books":"/admin/library", "Issue/Return":"/admin/library", Fines:"/admin/library"
   };
   const portalLinks = {
     "My Profile":"/portal?module=profile", "Student Profile":"/portal?module=profile",
