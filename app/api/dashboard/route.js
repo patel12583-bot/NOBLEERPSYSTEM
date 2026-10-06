@@ -99,18 +99,21 @@ export async function GET() {
     if (user.role === "STUDENT") {
       const student = await prisma.student.findUnique({
         where: { userId: user.id },
-        include: { subjects: false }
+        
       });
       const records = student
         ? await prisma.attendance.findMany({ where: { studentId: student.id }, select: { status: true } })
         : [];
       const present = records.filter(x => x.status === "PRESENT").length;
       const total = records.length;
+      const studentSubjectIds = student
+        ? (await prisma.subject.findMany({ where: { semesterId: student.semesterId || "__none__" }, select: { id: true } })).map(x => x.id)
+        : [];
       const [subjects, leaves, exams] = student
         ? await Promise.all([
-            prisma.subject.count({ where: { semesterId: student.semesterId || "__none__" } }),
+            Promise.resolve(studentSubjectIds.length),
             prisma.leave.count({ where: { studentId: student.id, status: "PENDING" } }),
-            prisma.examSchedule.count({ where: { subjectId: { in: await prisma.subject.findMany({ where: { semesterId: student.semesterId || "__none__" }, select: { id: true } }).then(x => x.map(s => s.id)) } } })
+            prisma.examSchedule.count({ where: { subjectId: { in: studentSubjectIds.length ? studentSubjectIds : ["__none__"] } } })
           ])
         : [0, 0, 0];
       base.stats = {
