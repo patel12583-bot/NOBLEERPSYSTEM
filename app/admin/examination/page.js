@@ -12,7 +12,7 @@ export default function ExaminationPage(){
  async function delS(id){
    if(!confirm("Delete this subject schedule?"))return;
    try{
-     const r=await fetch("/api/admin/exams",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({scheduleId:id})});
+     const r=await fetch("/api/admin/exams",{method:"DELETE",headers:{"Content-Type":"application/json"},body: JSON.stringify({ scheduleId: id })});
      const text=await r.text();
      let x={}; try{x=text?JSON.parse(text):{}}catch{throw new Error("Server returned an invalid response.")}
      if(!r.ok)throw new Error(x.error||"Delete failed.");
