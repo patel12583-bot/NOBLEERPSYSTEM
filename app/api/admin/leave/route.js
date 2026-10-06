@@ -90,6 +90,19 @@ export async function PUT(req){
     if(action==="approve"||action==="reject"){
       if(!STAFF.includes(user.role)) return NextResponse.json({error:"You cannot approve or reject leave."},{status:403});
       const status=action==="approve"?"APPROVED":"REJECTED";
+      if(user.role==="HOD"){
+        const hod=await prisma.faculty.findUnique({where:{userId:user.id}});
+        if(!hod) return NextResponse.json({error:"HOD profile not found."},{status:403});
+        const deptIds=(await prisma.department.findMany({where:{hodId:hod.id},select:{id:true}})).map(x=>x.id);
+        if(b.type==="FACULTY"){
+          const row=await prisma.facultyLeave.findUnique({where:{id},include:{faculty:{select:{departmentId:true}}}});
+          if(!row||!deptIds.includes(row.faculty.departmentId)) return NextResponse.json({error:"You can only manage leave from your department."},{status:403});
+          return NextResponse.json({leave:await prisma.facultyLeave.update({where:{id},data:{status}})});
+        }
+        const row=await prisma.leave.findUnique({where:{id},include:{student:{select:{departmentId:true}}}});
+        if(!row||!deptIds.includes(row.student.departmentId)) return NextResponse.json({error:"You can only manage leave from your department."},{status:403});
+        return NextResponse.json({leave:await prisma.leave.update({where:{id},data:{status}})});
+      }
       if(b.type==="FACULTY") return NextResponse.json({leave:await prisma.facultyLeave.update({where:{id},data:{status}})});
       return NextResponse.json({leave:await prisma.leave.update({where:{id},data:{status}})});
     }
