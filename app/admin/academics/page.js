@@ -1,3 +1,4 @@
+import ModuleHeader from "@/components/ModuleHeader";
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -57,8 +58,7 @@ function AcademicPage(){
  }
  function edit(r){const x={...r};["startDate","endDate"].forEach(k=>{if(x[k])x[k]=new Date(x[k]).toISOString().slice(0,10)});setForm(x);setEditing(r.id);window.scrollTo({top:0,behavior:"smooth"});}
  return <main className="content" style={{padding:"30px",maxWidth:"1400px"}}>
-  <div className="eyebrow">NOBLE ERP • ACADEMIC MANAGEMENT</div>
-  <h1>Academic Management</h1><p>Build the academic structure once and reuse it across students, timetable, attendance and examinations.</p>
+  <ModuleHeader eyebrow="NOBLE ERP • ACADEMIC MANAGEMENT" title="Academic Management" description="Build the academic structure once and reuse it across students, timetable, attendance and examinations." />
   <div style={{display:"flex",gap:8,flexWrap:"wrap",margin:"24px 0"}}>{tabs.map(t=><button key={t.key} className={tab===t.key?"primary":"back"} onClick={()=>setTab(t.key)}>{t.label}</button>)}</div>
   <form onSubmit={save} style={{padding:22,border:"1px solid #ddd",borderRadius:18,display:"grid",gap:16,marginBottom:24}}>
    <b>{editing?"Edit ":"Add "}{cfg.label}</b>
