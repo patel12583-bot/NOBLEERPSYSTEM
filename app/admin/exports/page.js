@@ -1,5 +1,7 @@
-import ModuleHeader from "@/components/ModuleHeader";
 "use client";
+
+import ModuleHeader from "@/components/ModuleHeader";
+
 import {useState} from "react";
 const reports=[
  ["students","Student Master"],["attendance","Attendance"],["fees","Fees & Payments"],
