@@ -58,7 +58,7 @@ function LoginForm() {
       {error && <div className="error">{error}</div>}
       <button className="primary full" disabled={loading}>{loading ? "Signing in…" : <>Sign in <span>→</span></>}</button>
     </form>
-    <button className="back" onClick={() => router.push("/")}>← Back to Noble ERP</button>
+    <div className="authLinks"><button className="back" onClick={() => router.push("/register")}>Create a new account</button><button className="back" onClick={() => router.push("/")}>← Back to Noble ERP</button></div>
   </div></main>;
 }
 
