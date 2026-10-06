@@ -1,5 +1,7 @@
-import ModuleHeader from "@/components/ModuleHeader";
 "use client";
+
+import ModuleHeader from "@/components/ModuleHeader";
+
 import {useEffect,useState} from "react";
 const date=d=>d?new Date(d).toISOString().slice(0,10):"";
 export default function ExaminationPage(){
