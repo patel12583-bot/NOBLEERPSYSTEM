@@ -42,12 +42,23 @@ export default function StudentsPage(){
   window.scrollTo({top:0,behavior:"smooth"});
  }
  function csvParse(text){
-  const lines=text.split(/\r?\n/).filter(Boolean);
-  if(lines.length<2)return [];
-  const headers=lines[0].split(",").map(x=>x.trim());
-  return lines.slice(1).map(line=>{
-   const vals=line.split(","); const o={}; headers.forEach((h,i)=>o[h]=vals[i]?.trim()||""); return o;
-  });
+  const rows=[]; let row=[], cell="", quoted=false;
+  for(let i=0;i<text.length;i++){
+   const ch=text[i], next=text[i+1];
+   if(ch === '"'){ if(quoted && next === '"'){cell+='"';i++;} else quoted=!quoted; }
+   else if(ch === "," && !quoted){row.push(cell.trim());cell="";}
+   else if((ch === "\n" || ch === "\r") && !quoted){if(ch==="\r"&&next==="\n")i++;row.push(cell.trim());cell="";if(row.some(Boolean)){rows.push(row);row=[];}}
+   else cell+=ch;
+  }
+  if(cell.length||row.length){row.push(cell.trim());rows.push(row);}
+  if(rows.length<2)return [];
+  const headers=rows[0].map(x=>x.trim());
+  return rows.slice(1).map(vals=>Object.fromEntries(headers.map((h,i)=>[h,vals[i]||""])));
+ }
+ function downloadTemplate(){
+  const headers="studentId,name,enrollmentNo,admissionNo,email,mobile,dob,gender,address,departmentId,programId,semesterId,divisionId,academicYearId,status";
+  const blob=new Blob([headers+"\n,Example Student,,,,,,,,,,,,,,ACTIVE\n"],{type:"text/csv;charset=utf-8"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="noble-student-import-template.csv";a.click();URL.revokeObjectURL(a.href);
  }
  async function bulkUpload(e){
   const file=e.target.files?.[0]; if(!file)return;
@@ -80,7 +91,7 @@ export default function StudentsPage(){
    <label>Address<textarea value={form.address} onChange={e=>set("address",e.target.value)} /></label>
    <button className="primary" disabled={saving}>{saving?"Saving…":editing?"Update Student →":"Create Student + Account →"}</button>
   </form>
-  <div className="panel" style={{marginBottom:"22px"}}><div className="panelTitle"><b>Bulk Student Import</b><input type="file" accept=".csv" onChange={bulkUpload} disabled={bulkBusy}/></div><p>CSV headers: <code>studentId,name,enrollmentNo,admissionNo,email,mobile,dob,gender,address,departmentId,programId,semesterId,divisionId,academicYearId,status</code></p><small>Student ID may be blank; one will be generated automatically. Each imported student gets a real login account.</small></div>
+  <div className="panel" style={{marginBottom:"22px"}}><div className="panelTitle"><b>Bulk Student Import</b><div><button type="button" onClick={downloadTemplate}>Download Template</button>{" "}<input type="file" accept=".csv" onChange={bulkUpload} disabled={bulkBusy}/></div></div><p>CSV headers: <code>studentId,name,enrollmentNo,admissionNo,email,mobile,dob,gender,address,departmentId,programId,semesterId,divisionId,academicYearId,status</code></p><small>Student ID may be blank; one will be generated automatically. Each imported student gets a real login account. CSV values containing commas should be quoted.</small></div>
   <div className="panel"><div className="panelTitle"><b>Students ({filtered.length})</b><input placeholder="Search students…" value={query} onChange={e=>setQuery(e.target.value)}/></div>
    {loading?<p>Loading…</p>:<div style={{overflowX:"auto"}}><table style={{width:"100%",borderCollapse:"collapse"}}><thead><tr>{["Student ID","Name","Program","Semester","Division","Department","Account","Status","Actions"].map(x=><th key={x} style={{textAlign:"left",padding:"10px"}}>{x}</th>)}</tr></thead><tbody>{filtered.map(r=><tr key={r.id}>{<><td style={{padding:"10px"}}>{r.studentId}</td><td style={{padding:"10px"}}>{r.name}</td><td style={{padding:"10px"}}>{r.program?.name||"—"}</td><td style={{padding:"10px"}}>{r.semester?.name||"—"}</td><td style={{padding:"10px"}}>{r.division?.name||"—"}</td><td style={{padding:"10px"}}>{r.department?.name||"—"}</td><td style={{padding:"10px"}}>{r.user?.status||"—"}</td><td style={{padding:"10px"}}>{r.status}</td><td style={{padding:"10px",whiteSpace:"nowrap"}}><button onClick={()=>edit(r)}>Edit</button>{" "}<button onClick={()=>deactivate(r.id)}>Deactivate</button></td></>}</tr>)}</tbody></table></div>}
   </div>
