@@ -1,3 +1,4 @@
+import ModuleHeader from "@/components/ModuleHeader";
 "use client";
 
 import { useEffect, useState } from "react";
@@ -54,7 +55,7 @@ export default function InstituteSetup() {
 
   return <main className="content" style={{padding:"40px",maxWidth:"1000px"}}>
     <div className="eyebrow">SUPER ADMIN • SETTINGS</div><div style={{display:"flex",justifyContent:"flex-end",marginBottom:"12px"}}><button type="button" className="back" onClick={()=>{if(window.history.length>1)window.history.back();else window.location.href="/dashboard"}}>← Back to Dashboard</button></div>
-    <h1>Institute Setup</h1>
+    <ModuleHeader eyebrow="SUPER ADMIN • INSTITUTE" title="Institute Setup" description="Manage the official Noble Group of Institutes information used across the ERP." />
     <p>Manage the official Noble Group of Institutes information used across the ERP.</p>
     <form onSubmit={save} style={{marginTop:"28px",display:"grid",gap:"18px"}}>
       <label>Institute Name<input value={form.name} onChange={e=>change("name",e.target.value)} /></label>
