@@ -1,12 +1,12 @@
 import {NextResponse} from "next/server";import {prisma} from "@/lib/prisma";import {getSessionUser} from "@/lib/auth";export const runtime="nodejs";export const dynamic="force-dynamic";
 async function guard(){const u=await getSessionUser();return u&&["SUPER_ADMIN","ADMIN","HOD","FACULTY"].includes(u.role)?u:null}
-export async function GET(req){const u=await guard();if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});const s=new URL(req.url).searchParams,date=s.get("date")||new Date().toISOString().slice(0,10),divisionId=s.get("divisionId"),subjectId=s.get("subjectId");const faculty=u.role==="FACULTY"?await prisma.faculty.findUnique({where:{userId:u.id},include:{subjects:true}}):null;
+export async function GET(req){const u=await guard();if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});const s=new URL(req.url).searchParams,date=s.get("date")||new Date().toISOString().slice(0,10),divisionId=s.get("divisionId"),subjectId=s.get("subjectId");const faculty=["FACULTY","HOD"].includes(u.role)?await prisma.faculty.findUnique({where:{userId:u.id},include:{subjects:true}}):null;const deptId=u.role==="HOD"?faculty?.departmentId:null;
 const allowedSubjectIds=faculty?.subjects.map(x=>x.subjectId)||[];
-const subjectWhere=faculty?{id:{in:allowedSubjectIds.length?allowedSubjectIds:["__none__"]}}:{};
+const subjectWhere=u.role==="FACULTY"?{id:{in:allowedSubjectIds.length?allowedSubjectIds:["__none__"]}}:deptId?{departmentId:deptId}:{};
 const [divisions,subjects,students,records]=await Promise.all([
- prisma.division.findMany({orderBy:{name:"asc"},include:{program:true,semester:true}}),
+ prisma.division.findMany({where:deptId?{program:{departmentId:deptId}}:{},orderBy:{name:"asc"},include:{program:true,semester:true}}),
  prisma.subject.findMany({where:subjectWhere,orderBy:{name:"asc"}}),
- prisma.student.findMany({where:{status:"ACTIVE",...(divisionId?{divisionId}:{})},orderBy:{name:"asc"}}),
- prisma.attendance.findMany({where:{date:new Date(date),...(subjectId?{subjectId}:{})}})
+ prisma.student.findMany({where:{status:"ACTIVE",...(divisionId?{divisionId}:{}),...(deptId?{departmentId:deptId}:{})},orderBy:{name:"asc"}}),
+ prisma.attendance.findMany({where:{date:new Date(date),...(subjectId?{subjectId}:{}) ,...(deptId?{student:{departmentId:deptId}}:{})}})
 ]);return NextResponse.json({date,divisions,subjects,students,records})}
 export async function POST(req){const u=await guard();if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});const b=await req.json();if(u.role==="FACULTY"){const f=await prisma.faculty.findUnique({where:{userId:u.id},include:{subjects:true}});if(!f?.subjects.some(x=>x.subjectId===b.subjectId))return NextResponse.json({error:"You are not assigned to this subject."},{status:403});}if(!b.date||!b.subjectId||!b.items?.length)return NextResponse.json({error:"Date, subject and attendance are required."},{status:400});try{const rows=await prisma.$transaction(b.items.map(x=>prisma.attendance.upsert({where:{studentId_subjectId_date_period:{studentId:x.studentId,subjectId:b.subjectId,date:new Date(b.date),period:Number(b.period||0)}},update:{status:x.status},create:{studentId:x.studentId,subjectId:b.subjectId,date:new Date(b.date),period:Number(b.period||0),status:x.status}})));return NextResponse.json({count:rows.length})}catch(e){return NextResponse.json({error:"Unable to save attendance."},{status:400})}}
