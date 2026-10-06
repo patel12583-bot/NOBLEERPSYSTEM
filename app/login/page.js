@@ -51,7 +51,7 @@ function LoginForm() {
     <div className="loginTitle"><div className="eyebrow">SECURE PORTAL</div><h1>Welcome back.</h1><p>Sign in to your Noble ERP workspace.</p></div>
     <form onSubmit={submit}>
       <label>Portal role<select value={role} onChange={e => setRole(e.target.value)}>
-        {["Student","Faculty","HOD","Parent","Admin","Super Admin"].map(x => <option key={x}>{x}</option>)}
+        {["Student","Faculty","HOD","Parent","Admin","Super Admin","Accountant","Examination Officer","Librarian","HR/Staff"].map(x => <option key={x}>{x}</option>)}
       </select></label>
       <label>User ID / Email<input value={id} onChange={e => setId(e.target.value)} placeholder="Enter your ID or email" autoComplete="username" /></label>
       <label>Password<input type="password" value={pass} onChange={e => setPass(e.target.value)} placeholder="Enter password" autoComplete="current-password" /></label>
