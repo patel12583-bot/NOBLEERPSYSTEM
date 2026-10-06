@@ -50,6 +50,11 @@ export async function GET(request) {
         return NextResponse.json({ module, rows });
       }
 
+      if (module === "fees") {
+        const rows = await prisma.studentFee.findMany({ where: { studentId: student.id }, include: { feeStructure: true, payments: true }, orderBy: { createdAt: "desc" } });
+        return NextResponse.json({ module, rows });
+      }
+
       if (module === "examination") {
         const subjectIds = (await prisma.subject.findMany({ where: { semesterId: student.semesterId || "__none__" }, select: { id: true } })).map(x => x.id);
         const rows = await prisma.examSchedule.findMany({ where: { subjectId: { in: subjectIds.length ? subjectIds : ["__none__"] } }, include: { exam: true, subject: true, room: true }, orderBy: { date: "asc" } });
@@ -81,6 +86,10 @@ export async function GET(request) {
       }
       if (module === "results") {
         const rows = await prisma.result.findMany({ where: { studentId: { in: ids.length ? ids : ["__none__"] } }, include: { student: true, subject: true, exam: true }, orderBy: { id: "desc" } });
+        return NextResponse.json({ module, rows });
+      }
+      if (module === "fees") {
+        const rows = await prisma.studentFee.findMany({ where: { studentId: { in: ids.length ? ids : ["__none__"] } }, include: { student: true, feeStructure: true, payments: true }, orderBy: { createdAt: "desc" } });
         return NextResponse.json({ module, rows });
       }
     }
