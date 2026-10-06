@@ -36,7 +36,7 @@ export default function DashboardClient({ user }) {
     Attendance:"/admin/attendance", "Attendance Reports":"/admin/attendance/reports",
     Reports:"/admin/attendance/reports", Institutes:"/admin/institute",
     Settings:"/admin/institute", "Leave":"/leave", Examination:"/admin/examination",
-    "Hall Ticket":"/hall-ticket", Fees:"/portal?module=fees", Payments:"/admin/fees", Fees:"/admin/fees", Payments:"/admin/fees", Results:"/admin/results", "Examinations":"/admin/examination", "Schedules":"/admin/examination", "Hall Tickets":"/hall-ticket", "Books":"/admin/core?module=books"
+    "Hall Ticket":"/hall-ticket", Fees:"/portal?module=fees", Payments:"/admin/fees", Fees:"/admin/fees", Payments:"/admin/fees", Results:"/admin/results", "Examinations":"/admin/examination", "Schedules":"/admin/examination", "Hall Tickets":"/hall-ticket", "Books":"/admin/library", "Issue/Return":"/admin/library", Fines:"/admin/library"
   };
   const portalLinks = {
     "My Profile":"/portal?module=profile", "Student Profile":"/portal?module=profile",
