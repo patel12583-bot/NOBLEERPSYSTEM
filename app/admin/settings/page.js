@@ -1,3 +1,4 @@
+import ModuleHeader from "@/components/ModuleHeader";
 "use client";
 
 import { useEffect, useState } from "react";
@@ -20,12 +21,7 @@ export default function SettingsPage(){
       .catch(()=>setStatus("ERP service check could not be completed."));
   },[]);
   return <main className="content" style={{padding:"32px",maxWidth:"1250px"}}>
-    <div className="eyebrow">NOBLE ERP • SYSTEM SETTINGS</div>
-    <div style={{display:"flex",justifyContent:"flex-end",marginBottom:"12px"}}>
-      <button type="button" className="back" onClick={()=>{if(window.history.length>1)window.history.back();else router.push("/dashboard")}}>← Back to Dashboard</button>
-    </div>
-    <h1>System Settings</h1>
-    <p>Central administration for institute configuration, users, academic structure and reporting.</p>
+    <ModuleHeader eyebrow="NOBLE ERP • SYSTEM SETTINGS" title="System Settings" description="Central administration for institute configuration, users, academics and reporting." />
     <div className="panel" style={{margin:"20px 0",padding:"18px"}}>
       <b>System status</b><p style={{marginBottom:0}}>{status}</p>
     </div>
