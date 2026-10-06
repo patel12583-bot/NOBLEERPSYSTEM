@@ -1,3 +1,4 @@
+import ModuleHeader from "@/components/ModuleHeader";
 "use client";
 import {useState} from "react";
 const reports=[
@@ -16,7 +17,7 @@ export default function ExportsPage(){
   }catch(e){alert(e.message)}finally{setBusy("")}
  }
  return <main className="content" style={{padding:32,maxWidth:1100}}>
-  <div className="eyebrow">NOBLE ERP • REPORTS</div><div style={{display:"flex",justifyContent:"flex-end",marginBottom:"12px"}}><button type="button" className="back" onClick={()=>{if(window.history.length>1)window.history.back();else window.location.href="/dashboard"}}>← Back to Dashboard</button></div><h1>Exports & Reports</h1><p>Download live database reports as native Excel workbooks or PDF files.</p>
+  <ModuleHeader eyebrow="NOBLE ERP • REPORTS" title="Exports & Reports" description="Download live ERP records as Excel workbooks or PDF reports." />
   <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:16,marginTop:24}}>
    {reports.map(([id,name])=><div className="panel" key={id} style={{padding:22}}><b>{name}</b><p style={{opacity:.7}}>Current live records</p><button onClick={()=>download(id,"xlsx")} disabled={!!busy}>{busy===id+"xlsx"?"Preparing…":"Download XLSX"}</button>{" "}<button className="primary" onClick={()=>download(id,"pdf")} disabled={!!busy}>{busy===id+"pdf"?"Preparing…":"Download PDF"}</button></div>)}
   </div>
