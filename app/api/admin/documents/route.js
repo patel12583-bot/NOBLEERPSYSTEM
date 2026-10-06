@@ -47,7 +47,7 @@ export async function POST(req){
   const student=await prisma.student.findUnique({where:{id:studentId},select:{id:true}});
   if(!student)return NextResponse.json({error:"Student not found."},{status:404});
   const safe=String(file.name).replace(/[^a-zA-Z0-9._-]/g,"_");
-  const blob=await put("noble-erp/students/"+studentId+"/"+Date.now()+"-"+safe",file,{access:"public",addRandomSuffix:false});
+  const blob=await put("noble-erp/students/"+studentId+"/"+Date.now()+"-"+safe,file,{access:"public",addRandomSuffix:false});
   const doc=await prisma.document.create({data:{studentId,name:file.name,type:file.type,url:blob.url}});
   return NextResponse.json({document:doc},{status:201});
  }catch(e){console.error(e);return NextResponse.json({error:e.message||"Unable to upload file."},{status:400})}
