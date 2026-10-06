@@ -10,7 +10,8 @@ function pct(present, total) {
 }
 
 export async function GET() {
-  const user = await getSessionUser();
+  try {
+    const user = await getSessionUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   try {
