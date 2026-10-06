@@ -12,13 +12,10 @@ function pct(present, total) {
 export async function GET() {
   try {
     const user = await getSessionUser();
-  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  try {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
 
     const base = {
       role: user.role,
@@ -98,10 +95,7 @@ export async function GET() {
     }
 
     if (user.role === "STUDENT") {
-      const student = await prisma.student.findUnique({
-        where: { userId: user.id },
-        
-      });
+      const student = await prisma.student.findUnique({ where: { userId: user.id } });
       const records = student
         ? await prisma.attendance.findMany({ where: { studentId: student.id }, select: { status: true } })
         : [];
@@ -132,9 +126,13 @@ export async function GET() {
     if (user.role === "PARENT") {
       const parent = await prisma.parent.findUnique({ where: { userId: user.id }, include: { students: true } });
       const studentIds = parent?.students.map(x => x.id) || [];
-      const records = studentIds.length ? await prisma.attendance.findMany({ where: { studentId: { in: studentIds } }, select: { status: true } }) : [];
+      const records = studentIds.length
+        ? await prisma.attendance.findMany({ where: { studentId: { in: studentIds } }, select: { status: true } })
+        : [];
       const present = records.filter(x => x.status === "PRESENT").length;
-      const pending = studentIds.length ? await prisma.leave.count({ where: { studentId: { in: studentIds }, status: "PENDING" } }) : 0;
+      const pending = studentIds.length
+        ? await prisma.leave.count({ where: { studentId: { in: studentIds }, status: "PENDING" } })
+        : 0;
       base.stats = {
         cards: [
           { label: "CHILDREN", value: studentIds.length, detail: "Linked student accounts" },
