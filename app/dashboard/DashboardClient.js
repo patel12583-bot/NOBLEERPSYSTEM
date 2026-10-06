@@ -36,13 +36,13 @@ export default function DashboardClient({ user }) {
     Attendance:"/admin/attendance", "Attendance Reports":"/admin/attendance/reports",
     Reports:"/admin/attendance/reports", Institutes:"/admin/institute",
     Settings:"/admin/institute", "Leave":"/leave", Examination:"/admin/examination",
-    "Hall Ticket":"/admin/examination"
+    "Hall Ticket":"/hall-ticket", Fees:"/admin/fees", Payments:"/admin/fees", Results:"/admin/results", "Examinations":"/admin/examination", "Schedules":"/admin/examination", "Hall Tickets":"/hall-ticket", "Books":"/admin/core?module=books"
   };
   const portalLinks = {
     "My Profile":"/portal?module=profile", "Student Profile":"/portal?module=profile",
     Profile:"/portal?module=profile", Attendance:"/portal?module=attendance",
     Timetable:"/portal?module=timetable", Results:"/portal?module=results",
-    Examination:"/portal?module=examination", "Hall Ticket":"/portal?module=examination",
+    Examination:"/portal?module=examination", "Hall Ticket":"/hall-ticket",
     Subjects:"/portal?module=subjects", Leave:"/leave"
   };
   const coreLinks = ["ADMIN","SUPER_ADMIN","HOD"].includes(role)
