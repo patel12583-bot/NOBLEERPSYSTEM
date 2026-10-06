@@ -72,7 +72,7 @@ export default function StudentsPage(){
   }catch(e){setError(e.message)}finally{setBulkBusy(false);e.target.value=""}
  }
  return <main className="content" style={{padding:"32px",maxWidth:"1400px"}}>
-  <div className="eyebrow">NOBLE ERP • STUDENT MANAGEMENT</div>
+  <div className="eyebrow">NOBLE ERP • STUDENT MANAGEMENT</div><div style={{display:"flex",justifyContent:"flex-end",marginBottom:"12px"}}><button type="button" className="back" onClick={()=>{if(window.history.length>1)window.history.back();else window.location.href="/dashboard"}}>← Back to Dashboard</button></div>
   <h1>Student Management</h1><p>Real student records, academic mapping and database-backed login accounts.</p>
   {error&&<div className="error" style={{margin:"18px 0"}}>{error}</div>}
   {credentials&&<div className="panel" style={{margin:"18px 0"}}><b>Student account created successfully.</b><p>Username: <strong>{credentials.username}</strong> &nbsp; Password: <strong>{credentials.password}</strong></p><small>Save these credentials now. The password is shown only at creation time.</small></div>}
