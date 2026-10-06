@@ -1,5 +1,7 @@
-import ModuleHeader from "@/components/ModuleHeader";
 "use client";
+
+import ModuleHeader from "@/components/ModuleHeader";
+
 import {useEffect,useMemo,useState} from "react";
 const empty={facultyId:"",name:"",email:"",mobile:"",designation:"",qualification:"",joiningDate:"",departmentId:"",status:"ACTIVE"};
 export default function FacultyPage(){const[rows,setRows]=useState([]),[deps,setDeps]=useState([]),[subs,setSubs]=useState([]),[form,setForm]=useState(empty),[edit,setEdit]=useState(null),[q,setQ]=useState(""),[cred,setCred]=useState(null),[err,setErr]=useState(""),[busy,setBusy]=useState(false);
