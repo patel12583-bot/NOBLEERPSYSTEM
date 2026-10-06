@@ -16,3 +16,33 @@
 .globalBack{position:fixed;left:22px;top:20px;z-index:9999;border:1px solid rgba(255,255,255,.18);background:rgba(7,31,55,.92);color:#fff;border-radius:11px;padding:10px 14px;font-size:11px;font-weight:800;letter-spacing:.2px;box-shadow:0 10px 30px rgba(7,31,55,.18);backdrop-filter:blur(12px);transition:.18s}.globalBack:hover{background:#1769d5;transform:translateY(-1px);box-shadow:0 14px 34px rgba(23,105,213,.25)}.globalBack span{margin-left:3px}
 .content{position:relative}.content>h1{font-size:38px;font-weight:700;color:#102d4b;margin-top:10px}.content>p{max-width:850px;color:#718196;line-height:1.65}.content>.eyebrow{margin-top:4px}.content>.panel,.content form.panel{border-radius:16px;border-color:#dbe5ef;box-shadow:0 12px 34px rgba(17,45,73,.055);background:rgba(255,255,255,.96)}.content>form:not(.panel){background:#fff;border:1px solid #dbe5ef;box-shadow:0 12px 34px rgba(17,45,73,.055);border-radius:16px;padding:24px!important}.content table{border-radius:12px;overflow:hidden}.content table thead th{background:#edf4fb;color:#48637e;font-size:9px;font-weight:800}.content table tbody tr{transition:.15s}.content table tbody tr:hover{background:#f7fbff}.content button:not(.globalBack):not(.primary):not(.secondary){border:1px solid #d6e1ec;background:#fff;color:#38536d;border-radius:9px;padding:9px 13px;font-weight:700;font-size:11px;transition:.16s}.content button:not(.globalBack):not(.primary):not(.secondary):hover{border-color:#8eb8e8;color:#1769d5;background:#f6faff}.content .primary{border:0!important;border-radius:10px!important;background:linear-gradient(135deg,#1769d5,#0b4d9c);box-shadow:0 10px 24px rgba(23,105,213,.2)}.content input,.content select,.content textarea{min-height:40px;border-radius:9px}.content label{font-size:10px;font-weight:800;color:#536a80}.content .error{border:1px solid #ffd0d5;border-radius:11px;margin:14px 0}.content a{color:#1769d5;font-weight:700;text-decoration:none}.content a:hover{text-decoration:underline}
 @media(max-width:600px){.globalBack{left:12px;top:12px;padding:9px 11px}.globalBack span{display:none}.content>h1{font-size:30px}.content{padding-top:58px!important}}
+
+/* --- Noble ERP complete module UI system --- */
+:root{--erp-navy:#0b2340;--erp-blue:#1769d5;--erp-blue2:#0b4d9c;--erp-line:#dfe8f1;--erp-soft:#f4f8fc;--erp-text:#17324d;--erp-muted:#718399}
+body{background:#f5f8fc;color:var(--erp-text)}
+.globalBack{position:fixed!important;right:24px!important;left:auto!important;top:18px!important;z-index:9999!important;border:1px solid #d5e1ed!important;background:#fff!important;color:#17324d!important;border-radius:10px!important;padding:9px 14px!important;font-size:11px!important;font-weight:800!important;box-shadow:0 8px 22px rgba(20,48,78,.10)!important;backdrop-filter:none!important}
+.globalBack:hover{background:#1769d5!important;color:#fff!important;border-color:#1769d5!important}
+.back{display:inline-flex;align-items:center;gap:5px;border:1px solid #d5e1ed!important;background:#fff!important;color:#38536d!important;border-radius:9px!important;padding:9px 14px!important;font-size:11px!important;font-weight:800!important;box-shadow:0 5px 15px rgba(20,48,78,.06)!important}
+.back:hover{background:#1769d5!important;color:#fff!important;border-color:#1769d5!important}
+.content{min-height:100vh!important;padding:42px 42px 60px!important;max-width:1500px!important;margin:0 auto!important}
+.content>.eyebrow{font-size:10px!important;letter-spacing:1.6px!important;color:#1769d5!important;font-weight:900!important;margin-bottom:8px!important}
+.content>h1{font-size:34px!important;line-height:1.15!important;letter-spacing:-.6px!important;color:#102d4b!important;margin:0 0 8px!important}
+.content>p{font-size:13px!important;color:#738398!important;margin:0 0 24px!important}
+.content .panel{background:#fff!important;border:1px solid var(--erp-line)!important;border-radius:16px!important;box-shadow:0 8px 28px rgba(20,48,78,.055)!important}
+.content .panelTitle{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:14px!important;padding-bottom:15px!important;margin-bottom:14px!important;border-bottom:1px solid #edf2f6!important}
+.content form.panel,.content>form{background:#fff!important;border:1px solid var(--erp-line)!important;border-radius:16px!important;box-shadow:0 8px 28px rgba(20,48,78,.055)!important}
+.content input,.content select,.content textarea{background:#fbfdff!important;border:1px solid #d8e3ed!important;color:#213b55!important;outline:none!important;transition:.16s!important}
+.content input:focus,.content select:focus,.content textarea:focus{border-color:#6fa7e6!important;box-shadow:0 0 0 3px rgba(23,105,213,.09)!important;background:#fff!important}
+.content label{display:flex!important;flex-direction:column!important;gap:7px!important}
+.content button{transition:all .16s ease}
+.content table{border:1px solid #e1e9f1!important;border-radius:12px!important;background:#fff!important}
+.content table thead{background:#f1f6fb!important}
+.content table th{color:#557089!important;text-transform:uppercase!important;letter-spacing:.5px!important;font-size:9px!important;font-weight:900!important;border-bottom:1px solid #dfe8f1!important}
+.content table td{border-bottom:1px solid #edf2f6!important;color:#304b64!important;font-size:11px!important}
+.content table tbody tr:hover{background:#f8fbff!important}
+.content .primary{background:linear-gradient(135deg,#1769d5,#0b4d9c)!important;color:#fff!important;border:0!important;border-radius:10px!important;padding:11px 17px!important;font-weight:800!important;box-shadow:0 8px 20px rgba(23,105,213,.18)!important}
+.content .primary:hover{transform:translateY(-1px)!important;box-shadow:0 12px 25px rgba(23,105,213,.24)!important}
+.content .error{background:#fff6f6!important;border:1px solid #ffd4d8!important;color:#b42332!important;border-radius:11px!important;padding:12px 14px!important}
+.content code{background:#f1f5f9!important;border:1px solid #e0e7ef!important;border-radius:5px!important;padding:2px 5px!important;font-size:10px!important}
+.content details{background:#f7fafc!important;border:1px solid #e1e8ef!important;border-radius:10px!important;padding:10px 12px!important}
+@media(max-width:760px){.content{padding:72px 16px 35px!important}.globalBack{right:14px!important;top:12px!important}.content>h1{font-size:28px!important}.content .panelTitle{align-items:flex-start!important;flex-direction:column!important}}
