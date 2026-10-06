@@ -27,7 +27,7 @@ export default function DashboardClient({ user }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
   const role = user.role;
-  const coreLinks = {
+  const adminLinks = {
     Students:"/admin/students", Faculty:"/admin/faculty", HOD:"/admin/hod",
     Departments:"/admin/core?module=departments", Programs:"/admin/core?module=programs",
     Academics:"/admin/academics", Semesters:"/admin/core?module=semesters",
@@ -35,9 +35,19 @@ export default function DashboardClient({ user }) {
     "Academic Management":"/admin/academics", Timetable:"/admin/timetable",
     Attendance:"/admin/attendance", "Attendance Reports":"/admin/attendance/reports",
     Reports:"/admin/attendance/reports", Institutes:"/admin/institute",
-    Settings:"/admin/institute", Rooms:"/admin/core?module=rooms",
-    "Leave":"/leave", Examination:"/admin/examination", "Hall Ticket":"/admin/examination"
+    Settings:"/admin/institute", "Leave":"/leave", Examination:"/admin/examination",
+    "Hall Ticket":"/admin/examination"
   };
+  const portalLinks = {
+    "My Profile":"/portal?module=profile", "Student Profile":"/portal?module=profile",
+    Profile:"/portal?module=profile", Attendance:"/portal?module=attendance",
+    Timetable:"/portal?module=timetable", Results:"/portal?module=results",
+    Examination:"/portal?module=examination", "Hall Ticket":"/portal?module=examination",
+    Subjects:"/portal?module=subjects", Leave:"/leave"
+  };
+  const coreLinks = ["ADMIN","SUPER_ADMIN","HOD"].includes(role)
+    ? adminLinks
+    : { ...portalLinks, Faculty:"/admin/faculty", HOD:"/admin/hod" };
   const displayRole = roleNames[role] || role;
   const items = menus[role] || menus.STUDENT;
   const displayName = user.username || user.email || "User";
