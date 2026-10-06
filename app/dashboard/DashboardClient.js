@@ -36,7 +36,7 @@ export default function DashboardClient({ user }) {
     Attendance:"/admin/attendance", "Attendance Reports":"/admin/attendance/reports",
     Reports:"/admin/attendance/reports", Institutes:"/admin/institute",
     Settings:"/admin/institute", "Leave":"/leave", Examination:"/admin/examination",
-    "Hall Ticket":"/hall-ticket", Fees:"/admin/fees", Payments:"/admin/fees", Results:"/admin/results", "Examinations":"/admin/examination", "Schedules":"/admin/examination", "Hall Tickets":"/hall-ticket", "Books":"/admin/library", "Issue/Return":"/admin/library", Fines:"/admin/library"
+    "Hall Ticket":"/hall-ticket", Fees:"/admin/fees", Payments:"/admin/fees", Results:"/admin/results", "Examinations":"/admin/examination", "Schedules":"/admin/examination", "Hall Tickets":"/hall-ticket", "Books":"/admin/library", "Issue/Return":"/admin/library", Fines:"/admin/library", Staff:"/admin/hr", Payroll:"/admin/hr"
   };
   const portalLinks = {
     "My Profile":"/portal?module=profile", "Student Profile":"/portal?module=profile",
@@ -47,7 +47,9 @@ export default function DashboardClient({ user }) {
   };
   const coreLinks = ["ADMIN","SUPER_ADMIN","HOD"].includes(role)
     ? adminLinks
-    : { ...portalLinks, Faculty:"/admin/faculty", HOD:"/admin/hod" };
+    : role === "HR_STAFF"
+      ? { ...portalLinks, Staff:"/admin/hr", Payroll:"/admin/hr", Attendance:"/admin/attendance/reports", Leave:"/leave" }
+      : { ...portalLinks, Faculty:"/admin/faculty", HOD:"/admin/hod" };
   const displayRole = roleNames[role] || role;
   const items = menus[role] || menus.STUDENT;
   const displayName = user.username || user.email || "User";
