@@ -1,5 +1,7 @@
-import ModuleHeader from "@/components/ModuleHeader";
 "use client";
+
+import ModuleHeader from "@/components/ModuleHeader";
+
 import {useEffect,useState} from "react";
 export default function AttendanceReports(){const[d,setD]=useState({rows:[],summary:{},divisions:[],subjects:[]}),[from,setFrom]=useState(new Date().toISOString().slice(0,10)),[to,setTo]=useState(new Date().toISOString().slice(0,10)),[division,setDivision]=useState(""),[subject,setSubject]=useState(""),[loading,setLoading]=useState(false),[err,setErr]=useState("");
 async function load(){setLoading(true);setErr("");const r=await fetch("/api/admin/attendance/reports?from="+from+"&to="+to+"&divisionId="+division+"&subjectId="+subject);const x=await r.json();setLoading(false);if(!r.ok)return setErr(x.error||"Unable to load report.");setD(x)}useEffect(()=>{load()},[]);
