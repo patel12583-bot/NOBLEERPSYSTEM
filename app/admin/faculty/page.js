@@ -3,7 +3,7 @@
 import ModuleHeader from "@/components/ModuleHeader";
 
 import {useEffect,useMemo,useState} from "react";
-const empty={facultyId:"",name:"",email:"",mobile:"",designation:"",qualification:"",joiningDate:"",departmentId:"",status:"ACTIVE"};
+const empty={facultyId:"",name:"",email:"",mobile:"",designation:"",qualification:"",joiningDate:"",facultyRole:"",departmentId:"",status:"ACTIVE"};
 export default function FacultyPage(){const[rows,setRows]=useState([]),[deps,setDeps]=useState([]),[subs,setSubs]=useState([]),[form,setForm]=useState(empty),[edit,setEdit]=useState(null),[q,setQ]=useState(""),[cred,setCred]=useState(null),[err,setErr]=useState(""),[busy,setBusy]=useState(false);
 async function load(){const r=await fetch("/api/admin/faculty");const d=await r.json();if(!r.ok)return setErr(d.error);setRows(d.faculty||[]);setDeps(d.departments||[]);setSubs(d.subjects||[])}useEffect(()=>{load()},[]);
 const filtered=useMemo(()=>rows.filter(x=>JSON.stringify(x).toLowerCase().includes(q.toLowerCase())),[rows,q]);const set=(k,v)=>setForm(x=>({...x,[k]:v}));
