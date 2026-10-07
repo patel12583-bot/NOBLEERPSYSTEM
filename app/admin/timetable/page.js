@@ -1,4 +1,7 @@
 "use client";
+
+import ModuleHeader from "@/components/ModuleHeader";
+
 import {useEffect,useMemo,useState} from "react";
 const empty={dayOfWeek:"1",startTime:"09:00",endTime:"10:00",divisionId:"",subjectId:"",facultyId:"",roomId:""};
 const days=["","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
