@@ -9,6 +9,9 @@ const empty={studentId:"",enrollmentNo:"",admissionNo:"",name:"",email:"",mobile
 
 export default function StudentsPage(){
  const [rows,setRows]=useState([]),[form,setForm]=useState(empty),[editing,setEditing]=useState(null),[options,setOptions]=useState({departments:[],programs:[],semesters:[],divisions:[],academicYears:[]}),[query,setQuery]=useState(""),[loading,setLoading]=useState(true),[saving,setSaving]=useState(false),[error,setError]=useState(""),[credentials,setCredentials]=useState(null),[bulk,setBulk]=useState(null),[bulkBusy,setBulkBusy]=useState(false);
+ const programs=useMemo(()=>options.programs.filter(x=>!form.departmentId||x.departmentId===form.departmentId),[options.programs,form.departmentId]);
+ const semesters=useMemo(()=>options.semesters.filter(x=>!form.academicYearId||x.academicYearId===form.academicYearId),[options.semesters,form.academicYearId]);
+ const divisions=useMemo(()=>options.divisions.filter(x=>(!form.programId||x.programId===form.programId)&&(!form.semesterId||x.semesterId===form.semesterId)),[options.divisions,form.programId,form.semesterId]);
 
  async function load(){
   setLoading(true); setError("");
@@ -23,7 +26,16 @@ export default function StudentsPage(){
  useEffect(()=>{load()},[]);
 
  const filtered=useMemo(()=>rows.filter(r=>JSON.stringify(r).toLowerCase().includes(query.toLowerCase())),[rows,query]);
- const set=(k,v)=>setForm(x=>({...x,[k]:v}));
+ const set=(k,v)=>{
+  setForm(x=>{
+    const next={...x,[k]:v};
+    if(k==="departmentId"){next.programId="";next.divisionId="";}
+    if(k==="programId"){next.divisionId="";}
+    if(k==="semesterId"){next.divisionId="";}
+    if(k==="academicYearId"){next.semesterId="";next.divisionId="";}
+    return next;
+  });
+ };
 
  async function save(e){
   e.preventDefault(); setSaving(true); setError(""); setCredentials(null);
@@ -84,10 +96,10 @@ export default function StudentsPage(){
    <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))",gap:"14px"}}>
     {[["studentId","Student ID","text"],["enrollmentNo","Enrollment No.","text"],["admissionNo","Admission No.","text"],["name","Full Name","text"],["email","Email","email"],["mobile","Mobile","text"],["dob","Date of Birth","date"],["gender","Gender","text"]].map(([k,l,t])=><label key={k}>{l}<input value={form[k]} type={t} onChange={e=>set(k,e.target.value)} required={k==="name"}/></label>)}
     <label>Department<select value={form.departmentId} onChange={e=>set("departmentId",e.target.value)}><option value="">Select</option>{options.departments.map(x=><option key={x.id} value={x.id}>{x.code} — {x.name}</option>)}</select></label>
-    <label>Program<select value={form.programId} onChange={e=>set("programId",e.target.value)}><option value="">Select</option>{options.programs.map(x=><option key={x.id} value={x.id}>{x.code} — {x.name}</option>)}</select></label>
-    <label>Semester<select value={form.semesterId} onChange={e=>set("semesterId",e.target.value)}><option value="">Select</option>{options.semesters.map(x=><option key={x.id} value={x.id}>{x.name} ({x.number})</option>)}</select></label>
-    <label>Division<select value={form.divisionId} onChange={e=>set("divisionId",e.target.value)}><option value="">Select</option>{options.divisions.map(x=><option key={x.id} value={x.id}>{x.name}</option>)}</select></label>
+    <label>Program<select value={form.programId} onChange={e=>set("programId",e.target.value)} disabled={!form.departmentId}><option value="">{form.departmentId?"Select":"Select department first"}</option>{programs.map(x=><option key={x.id} value={x.id}>{x.code} — {x.name}</option>)}</select></label>
     <label>Academic Year<select value={form.academicYearId} onChange={e=>set("academicYearId",e.target.value)}><option value="">Select</option>{options.academicYears.map(x=><option key={x.id} value={x.id}>{x.name}</option>)}</select></label>
+    <label>Semester<select value={form.semesterId} onChange={e=>set("semesterId",e.target.value)} disabled={!form.academicYearId}><option value="">{form.academicYearId?"Select":"Select academic year first"}</option>{semesters.map(x=><option key={x.id} value={x.id}>{x.name} ({x.number})</option>)}</select></label>
+    <label>Division<select value={form.divisionId} onChange={e=>set("divisionId",e.target.value)} disabled={!form.programId||!form.semesterId}><option value="">{form.programId&&form.semesterId?"Select":"Select program + semester first"}</option>{divisions.map(x=><option key={x.id} value={x.id}>{x.name}</option>)}</select></label>
     <label>Status<select value={form.status} onChange={e=>set("status",e.target.value)}><option>ACTIVE</option><option>INACTIVE</option><option>GRADUATED</option><option>TRANSFERRED</option><option>CANCELLED</option></select></label>
    </div>
    <label>Address<textarea value={form.address} onChange={e=>set("address",e.target.value)} /></label>
