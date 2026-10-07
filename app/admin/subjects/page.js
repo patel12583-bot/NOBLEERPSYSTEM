@@ -1,4 +1,7 @@
 "use client";
+
+import ModuleHeader from "@/components/ModuleHeader";
+
 import {useEffect,useMemo,useState} from "react";
 export default function SubjectsPage(){
  const [subjects,setSubjects]=useState([]),[faculty,setFaculty]=useState([]),[deps,setDeps]=useState([]),[programs,setPrograms]=useState([]),[semesters,setSemesters]=useState([]),[form,setForm]=useState({code:"",name:"",credits:"",type:"THEORY",departmentId:"",programId:"",semesterId:""}),[edit,setEdit]=useState(null),[q,setQ]=useState(""),[busy,setBusy]=useState(false),[err,setErr]=useState("");
