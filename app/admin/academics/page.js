@@ -34,7 +34,7 @@ function AcademicPage(){
   try{
    const r=await fetch("/api/admin/core",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"seedDefaultAcademic"})});
    const d=await r.json();if(!r.ok)throw new Error(d.error||"Unable to prepare academic structure.");
-   setSeedMsg(d.message+" "+d.programs+" programs and "+d.semesters+" semesters are ready.");
+   setSeedMsg(d.message+" "+d.programs+" programs, "+d.academicYears+" academic years, "+d.semesters+" semesters and "+d.divisions+" divisions are ready.");
    await Promise.all(tabs.map(x=>load(x.key)));
   }catch(e){setError(e.message)}finally{setSeedBusy(false)}
  }
@@ -72,7 +72,7 @@ function AcademicPage(){
  return <main className="content" style={{padding:"30px",maxWidth:"1400px"}}>
   <ModuleHeader eyebrow="NOBLE ERP • ACADEMIC MANAGEMENT" title="Academic Management" description="Build the academic structure once and reuse it across students, timetable, attendance and examinations." />
   <div className="panel" style={{padding:"18px",margin:"20px 0",display:"flex",justifyContent:"space-between",alignItems:"center",gap:16,flexWrap:"wrap"}}>
- <div><b>Standard Academic Setup</b><p style={{margin:"6px 0 0",opacity:.72}}>BCA, BRS, BSW, MSW, Diploma Engineering (Mechanical, Computer, IT, Civil) + Semester 1–6.</p></div>
+ <div><b>Standard Academic Setup</b><p style={{margin:"6px 0 0",opacity:.72}}>Academic Years 2023-24 to 2030-31 + BCA, BRS, BSW, MSW, Diploma Engineering (Mechanical, Computer, IT, Civil) + Semester 1–6 + Divisions A/B/C.</p></div>
  <button type="button" className="primary" disabled={seedBusy} onClick={seedDefaultAcademic}>{seedBusy?"Preparing…":"Add Standard Programs & Semesters →"}</button>
 </div>
 {seedMsg&&<div className="success" style={{marginBottom:16}}>{seedMsg}</div>}
