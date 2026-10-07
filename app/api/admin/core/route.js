@@ -53,6 +53,59 @@ export async function POST(request) {
   const user = await guard();
   if (!user) return NextResponse.json({error:"Unauthorized"},{status:401});
   const body = await request.json();
+
+  if (body.action === "seedDefaultAcademic") {
+    try {
+      const departments = [
+        ["BCA", "Bachelor of Computer Applications"],
+        ["BRS", "Bachelor of Rural Studies"],
+        ["BSW", "Bachelor of Social Work"],
+        ["MSW", "Master of Social Work"],
+        ["DIPLOMA", "Diploma Engineering"]
+      ];
+      const programs = [
+        ["BCA", "BCA", "Bachelor of Computer Applications", 3, "BCA"],
+        ["BRS", "BRS", "Bachelor of Rural Studies", 3, "BRS"],
+        ["BSW", "BSW", "Bachelor of Social Work", 3, "BSW"],
+        ["MSW", "MSW", "Master of Social Work", 2, "MSW"],
+        ["DIP-MECH", "Diploma Mechanical Engineering", "Diploma Mechanical Engineering", 3, "DIPLOMA"],
+        ["DIP-COMP", "Diploma Computer Engineering", "Diploma Computer Engineering", 3, "DIPLOMA"],
+        ["DIP-IT", "Diploma IT Engineering", "Diploma IT Engineering", 3, "DIPLOMA"],
+        ["DIP-CIVIL", "Diploma Civil Engineering", "Diploma Civil Engineering", 3, "DIPLOMA"]
+      ];
+
+      const result = await prisma.$transaction(async tx => {
+        const depMap = {};
+        for (const [code,name] of departments) {
+          const row = await tx.department.upsert({where:{code},update:{name},create:{code,name}});
+          depMap[code]=row;
+        }
+        const createdPrograms=[];
+        for (const [code,name,displayName,duration,depCode] of programs) {
+          const row = await tx.program.upsert({
+            where:{code},
+            update:{name:displayName,durationYears:duration,departmentId:depMap[depCode].id},
+            create:{code,name:displayName,durationYears:duration,departmentId:depMap[depCode].id}
+          });
+          createdPrograms.push(row);
+        }
+        const semesters=[];
+        for(let number=1;number<=6;number++){
+          const existing=await tx.semester.findFirst({where:{number,academicYearId:null}});
+          const row=existing
+            ? await tx.semester.update({where:{id:existing.id},data:{name:"Semester "+number}})
+            : await tx.semester.create({data:{number,name:"Semester "+number}});
+          semesters.push(row);
+        }
+        return {departments:Object.keys(depMap).length,programs:createdPrograms.length,semesters:semesters.length};
+      });
+      return NextResponse.json({ok:true,message:"Default programs and semesters are ready.",...result});
+    } catch(e) {
+      console.error("Academic seed error:",e);
+      return NextResponse.json({error:"Unable to prepare default academic structure."},{status:400});
+    }
+  }
+
   const cfg = allowed[body.module];
   if (!cfg) return NextResponse.json({error:"Invalid module"},{status:400});
   try {
