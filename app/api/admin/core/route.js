@@ -89,15 +89,30 @@ export async function POST(request) {
           });
           createdPrograms.push(row);
         }
+        const academicYears=[];
+        for(let y=2023;y<=2030;y++){
+          const name=`${y}-${String(y+1).slice(-2)}`;
+          const startDate=new Date(`${y}-07-01T00:00:00.000Z`);
+          const endDate=new Date(`${y+1}-06-30T23:59:59.999Z`);
+          const row=await tx.academicYear.upsert({where:{name},update:{startDate,endDate,active:name==="2026-27"},create:{name,startDate,endDate,active:name==="2026-27"}});
+          academicYears.push(row);
+        }
+        const activeYear=academicYears.find(x=>x.name==="2026-27")||academicYears[0];
         const semesters=[];
         for(let number=1;number<=6;number++){
-          const existing=await tx.semester.findFirst({where:{number,academicYearId:null}});
-          const row=existing
-            ? await tx.semester.update({where:{id:existing.id},data:{name:"Semester "+number}})
-            : await tx.semester.create({data:{number,name:"Semester "+number}});
+          const row=await tx.semester.upsert({where:{number_academicYearId:{number,academicYearId:activeYear.id}},update:{name:"Semester "+number},create:{number,name:"Semester "+number,academicYearId:activeYear.id}});
           semesters.push(row);
         }
-        return {departments:Object.keys(depMap).length,programs:createdPrograms.length,semesters:semesters.length};
+        const divisions=[];
+        for(const program of createdPrograms){
+          for(const semester of semesters){
+            for(const name of ["A","B","C"]){
+              const row=await tx.division.upsert({where:{name_programId_semesterId:{name,programId:program.id,semesterId:semester.id}},update:{capacity:60},create:{name,capacity:60,programId:program.id,semesterId:semester.id}});
+              divisions.push(row);
+            }
+          }
+        }
+        return {departments:Object.keys(depMap).length,programs:createdPrograms.length,academicYears:academicYears.length,semesters:semesters.length,divisions:divisions.length};
       });
       return NextResponse.json({ok:true,message:"Default programs and semesters are ready.",...result});
     } catch(e) {
