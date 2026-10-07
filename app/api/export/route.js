@@ -37,10 +37,10 @@ async function makePdf(rows,title){
  const doc=await PDFDocument.create(),font=await doc.embedFont(StandardFonts.Helvetica),bold=await doc.embedFont(StandardFonts.HelveticaBold);
  let page=doc.addPage([842,595]),y=555;
  const draw=(text,x,size=8,f=font)=>{page.drawText(String(text).slice(0,100),{x,y,size,font:f,color:rgb(0,0,0)});}
- draw(title,30,16,bold);y-=28;
+ draw("NOBLE GROUP OF INSTITUTES",30,18,bold);y-=20;draw(title,30,12,bold);y-=14;draw("Generated: "+new Date().toLocaleString("en-IN"),30,8);y-=18;
  const keys=Object.keys(rows[0]||{});draw(keys.join(" | "),30,7,bold);y-=15;
  for(const row of rows){
-  if(y<30){page=doc.addPage([842,595]);y=555;draw(title,30,12,bold);y-=20;draw(keys.join(" | "),30,7,bold);y-=15;}
+  if(y<30){page=doc.addPage([842,595]);y=555;draw("NOBLE GROUP OF INSTITUTES",30,13,bold);y-=18;draw(title,30,10,bold);y-=16;draw(keys.join(" | "),30,7,bold);y-=15;}
   draw(keys.map(k=>csvSafe(row[k])).join(" | "),30,6);y-=11;
  }
  return doc.save();
