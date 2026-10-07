@@ -196,6 +196,7 @@ model Faculty {
   email         String?
   mobile        String?
   designation   String?
+  facultyRole   String?
   qualification String?
   joiningDate   DateTime?
   status        UserStatus          @default(ACTIVE)
