@@ -18,7 +18,7 @@ const tabs=[
 const blank={};
 function AcademicPage(){
  const router=useRouter();
- const [tab,setTab]=useState("departments"),[data,setData]=useState({}),[form,setForm]=useState({}),[editing,setEditing]=useState(null),[q,setQ]=useState(""),[busy,setBusy]=useState(false),[error,setError]=useState("");
+ const [tab,setTab]=useState("departments"),[data,setData]=useState({}),[form,setForm]=useState({}),[editing,setEditing]=useState(null),[q,setQ]=useState(""),[busy,setBusy]=useState(false),[error,setError]=useState(""),[seedBusy,setSeedBusy]=useState(false),[seedMsg,setSeedMsg]=useState("");
  const cfg=tabs.find(x=>x.key===tab)||tabs[0];
  async function load(key){
   const r=await fetch("/api/admin/core?module="+key,{cache:"no-store"});
@@ -28,6 +28,16 @@ function AcademicPage(){
  useEffect(()=>{tabs.forEach(x=>load(x.key));},[]);
  useEffect(()=>{setForm({});setEditing(null);setError("");},[tab]);
  const rows=useMemo(()=>((data[tab]||[]).filter(x=>JSON.stringify(x).toLowerCase().includes(q.toLowerCase()))),[data,tab,q]);
+ async function seedDefaultAcademic(){
+  if(!confirm("Add BCA, BRS, BSW, MSW, Diploma Mechanical, Computer, IT, Civil and Semesters 1–6? Existing matching records will be updated, not duplicated.")) return;
+  setSeedBusy(true);setSeedMsg("");setError("");
+  try{
+   const r=await fetch("/api/admin/core",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"seedDefaultAcademic"})});
+   const d=await r.json();if(!r.ok)throw new Error(d.error||"Unable to prepare academic structure.");
+   setSeedMsg(d.message+" "+d.programs+" programs and "+d.semesters+" semesters are ready.");
+   await Promise.all(tabs.map(x=>load(x.key)));
+  }catch(e){setError(e.message)}finally{setSeedBusy(false)}
+ }
  const list=(key)=>data[key]||[];
  const label=(key,id)=>{
   const r=list(key).find(x=>x.id===id); return r ? (r.name||r.code||r.title||id) : "—";
@@ -61,7 +71,12 @@ function AcademicPage(){
  function edit(r){const x={...r};["startDate","endDate"].forEach(k=>{if(x[k])x[k]=new Date(x[k]).toISOString().slice(0,10)});setForm(x);setEditing(r.id);window.scrollTo({top:0,behavior:"smooth"});}
  return <main className="content" style={{padding:"30px",maxWidth:"1400px"}}>
   <ModuleHeader eyebrow="NOBLE ERP • ACADEMIC MANAGEMENT" title="Academic Management" description="Build the academic structure once and reuse it across students, timetable, attendance and examinations." />
-  <div style={{display:"flex",gap:8,flexWrap:"wrap",margin:"24px 0"}}>{tabs.map(t=><button key={t.key} className={tab===t.key?"primary":"back"} onClick={()=>setTab(t.key)}>{t.label}</button>)}</div>
+  <div className="panel" style={{padding:"18px",margin:"20px 0",display:"flex",justifyContent:"space-between",alignItems:"center",gap:16,flexWrap:"wrap"}}>
+ <div><b>Standard Academic Setup</b><p style={{margin:"6px 0 0",opacity:.72}}>BCA, BRS, BSW, MSW, Diploma Engineering (Mechanical, Computer, IT, Civil) + Semester 1–6.</p></div>
+ <button type="button" className="primary" disabled={seedBusy} onClick={seedDefaultAcademic}>{seedBusy?"Preparing…":"Add Standard Programs & Semesters →"}</button>
+</div>
+{seedMsg&&<div className="success" style={{marginBottom:16}}>{seedMsg}</div>}
+<div style={{display:"flex",gap:8,flexWrap:"wrap",margin:"24px 0"}}>{tabs.map(t=><button key={t.key} className={tab===t.key?"primary":"back"} onClick={()=>setTab(t.key)}>{t.label}</button>)}</div>
   <form onSubmit={save} style={{padding:22,border:"1px solid #ddd",borderRadius:18,display:"grid",gap:16,marginBottom:24}}>
    <b>{editing?"Edit ":"Add "}{cfg.label}</b>
    <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(210px,1fr))",gap:14}}>
