@@ -27,7 +27,7 @@ export async function GET(req){
  const q=new URL(req.url).searchParams,staff=staffRoles.includes(u.role);
  if(u.role==="STUDENT"){const s=await prisma.student.findUnique({where:{userId:u.id}});if(!s)return NextResponse.json({error:"Student profile not found."},{status:404});const d=await ticketData(s.id);return NextResponse.json(d);}
  if(!staff)return NextResponse.json({error:"You are not allowed to view another student's hall ticket."},{status:403});
- if(q.get("bulk")==="1"){const students=await prisma.student.findMany({where:{status:"ACTIVE"},orderBy:{name:"asc"},select:{id:true}});const tickets=(await Promise.all(students.map(s=>ticketData(s.id)))).filter(Boolean);const out=await bulkPdf(tickets);return new Response(out,{headers:{"Content-Type":"application/pdf","Content-Disposition:"attachment; filename=noble-erp-hall-tickets.pdf"}});}
+ if(q.get("bulk")==="1"){const students=await prisma.student.findMany({where:{status:"ACTIVE"},orderBy:{name:"asc"},select:{id:true}});const tickets=(await Promise.all(students.map(s=>ticketData(s.id)))).filter(Boolean);const out=await bulkPdf(tickets);return new Response(out,{headers:{"Content-Type":"application/pdf","Content-Disposition":"attachment; filename=noble-erp-hall-tickets.pdf"}});}
  const studentId=q.get("studentId");
  if(!studentId){const students=await prisma.student.findMany({where:{status:"ACTIVE"},orderBy:{name:"asc"},select:{id:true,studentId:true,name:true,program:{select:{name:true}},semester:{select:{name:true}},division:{select:{name:true}}}});return NextResponse.json({students});}
  const d=await ticketData(studentId);if(!d)return NextResponse.json({error:"Student not found."},{status:404});return NextResponse.json(d);
