@@ -9,7 +9,7 @@ export const dynamic="force-dynamic";
 
 async function guard(){ const u=await getSessionUser(); return u&&["SUPER_ADMIN","ADMIN","HOD"].includes(u.role)?u:null; }
 function pass(){ return crypto.randomBytes(6).toString("base64url").slice(0,10)+"Aa1!"; }
-function clean(d){ const o={}; for(const k of ["facultyId","name","email","mobile","designation","qualification","departmentId","status"]) if(d[k]!==undefined&&d[k]!=="") o[k]=d[k]; if(d.joiningDate)o.joiningDate=new Date(d.joiningDate); return o; }
+function clean(d){ const o={}; for(const k of ["facultyId","name","email","mobile","designation","qualification","facultyRole","departmentId","status"]) if(d[k]!==undefined&&d[k]!=="") o[k]=d[k]; if(d.joiningDate)o.joiningDate=new Date(d.joiningDate); return o; }
 
 export async function GET(){
  const u=await guard(); if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});
