@@ -55,9 +55,9 @@ function password(){
   return crypto.randomBytes(5).toString("base64url").slice(0,10)+"Aa1!";
 }
 
-async function createStudent(data,user){
+async function createStudent(data,sessionUser){
   const clean=cleanStudent(data);
-  assertScope(user,clean.departmentId);
+  assertScope(sessionUser,clean.departmentId);
   await validateAcademicMapping(clean);
   if(!clean.name) throw new Error("Student name is required.");
   if(!clean.studentId) clean.studentId="NGI"+Date.now().toString().slice(-7);
@@ -74,10 +74,10 @@ async function createStudent(data,user){
     }
   });
   try{
-    const student=await prisma.student.create({data:{...clean,userId:user.id}});
+    const student=await prisma.student.create({data:{...clean,userId:accountUser.id}});
     return {student,credentials:{username:clean.studentId,password:tempPassword}};
   }catch(e){
-    await prisma.user.delete({where:{id:user.id}}).catch(()=>{});
+    await prisma.user.delete({where:{id:accountUser.id}}).catch(()=>{});
     throw e;
   }
 }
