@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import ModuleHeader from "@/components/ModuleHeader";
 
 const configs={
  departments:{title:"Departments",fields:[["code","Department Code","text"],["name","Department Name","text"]]},
@@ -28,7 +29,7 @@ function CoreAdminContent(){
  async function save(e){e.preventDefault();setSaving(true);setError("");try{const r=await fetch("/api/admin/core",{method:editing?"PUT":"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({module,id:editing,data:form})});const d=await r.json();if(!r.ok)throw new Error(d.error);setForm({});setEditing(null);await load()}catch(e){setError(e.message)}finally{setSaving(false)}}
  async function remove(id){if(!confirm("Delete this record?"))return;const r=await fetch("/api/admin/core",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({module,id})});const d=await r.json();if(!r.ok)setError(d.error);else load()}
  return <main className="content" style={{padding:"32px",maxWidth:"1250px"}}>
-  <div className="eyebrow">NOBLE ERP • MANAGEMENT</div><div style={{display:"flex",justifyContent:"flex-end",marginBottom:"12px"}}><button type="button" className="back" onClick={()=>{if(window.history.length>1)window.history.back();else window.location.href="/dashboard"}}>← Back to Dashboard</button></div><h1>{cfg.title}</h1><p>Create, edit, search and manage live database records.</p>
+  <ModuleHeader eyebrow={"NOBLE ERP • MANAGEMENT"} title={cfg.title} description="Create, edit, search and manage live database records from one modern workspace." />
   <form onSubmit={save} style={{margin:"24px 0",padding:"20px",border:"1px solid #ddd",borderRadius:"18px",display:"grid",gap:"14px"}}>
    <b>{editing?"Edit record":"Add new record"}</b>
    <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(190px,1fr))",gap:"14px"}}>
