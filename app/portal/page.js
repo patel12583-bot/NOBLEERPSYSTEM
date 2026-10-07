@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ModuleHeader from "@/components/ModuleHeader";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
@@ -16,7 +17,7 @@ function PortalView(){
 
   const title=labels[module]||"Portal";
   return <main className="content" style={{padding:"32px",maxWidth:"1400px"}}>
-    <div className="eyebrow">NOBLE ERP • PERSONAL PORTAL</div><h1>{title}</h1><p>Live information from your Noble ERP account.</p>
+    <ModuleHeader eyebrow="NOBLE ERP • PERSONAL PORTAL" title={title} description="Live information from your Noble ERP account, presented in a clean personal workspace." />
     {error&&<div className="error">{error}</div>}
     {!data&&!error&&<div className="panel"><p>Loading live data…</p></div>}
 
