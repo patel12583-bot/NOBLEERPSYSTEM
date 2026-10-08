@@ -38,4 +38,3 @@ export default function DocumentsPage(){
   </form>
   <div className="panel"><b>Uploaded Documents ({docs.length})</b><div style={{overflowX:"auto",marginTop:12}}><table><thead><tr><th>Student</th><th>File</th><th>Type</th><th>Uploaded</th><th>Actions</th></tr></thead><tbody>{docs.map(d=><tr key={d.id}><td>{d.student?.studentId} — {d.student?.name}</td><td>{d.name}</td><td>{d.type}</td><td>{new Date(d.createdAt).toLocaleString()}</td><td><a href={d.url} target="_blank" rel="noreferrer">View / Download</a>{" "}<button onClick={()=>remove(d.id)}>Delete</button></td></tr>)}</tbody></table></div></div>
  </main></AdminShell>}
-}
