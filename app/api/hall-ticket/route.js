@@ -13,7 +13,8 @@ async function bulkPdf(tickets){
  for(const d of tickets){
   const p=doc.addPage([595,842]);let y=800;
   const draw=(txt,x,size=10,f=font)=>{p.drawText(String(txt).slice(0,95),{x,y,size,font:f,color:rgb(0,0,0)});};
-  draw("NOBLE GROUP OF INSTITUTES",150,16,bold);y-=25;draw("EXAMINATION HALL TICKET",180,12,bold);y-=35;
+  p.drawCircle({x:62,y:775,size:24,color:rgb(1,1,1),borderColor:rgb(.05,.28,.55),borderWidth:2});p.drawCircle({x:62,y:775,size:18,color:rgb(1,.78,.05)});p.drawText("N",{x:55,y:769,size:12,font:bold,color:rgb(.72,.08,.18)});
+  draw("NOBLE GROUP OF INSTITUTE",100,16,bold);y-=18;draw("Dabhoi Karjan Road, Motaborsiya, Ta. Dabhoi, Dist. Vadodara",100,8,font);y-=22;draw("EXAMINATION HALL TICKET",190,12,bold);y-=35;
   draw("Student: "+d.student.name,40,11,bold);draw("Student ID: "+d.student.studentId,330,11,bold);y-=20;
   draw("Program: "+(d.student.program?.name||"—"),40);y-=16;draw("Semester: "+(d.student.semester?.name||"—")+"   Division: "+(d.student.division?.name||"—"),40);y-=30;
   draw("Exam Schedule",40,11,bold);y-=20;
