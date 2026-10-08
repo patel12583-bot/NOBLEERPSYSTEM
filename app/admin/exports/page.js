@@ -1,6 +1,7 @@
 "use client";
 
 import ModuleHeader from "@/components/ModuleHeader";
+import AdminShell from "@/components/AdminShell";
 
 import {useState} from "react";
 const reports=[
@@ -18,11 +19,11 @@ export default function ExportsPage(){
    a.href=url;a.download="noble-erp-"+type+"."+format;a.click();URL.revokeObjectURL(url);
   }catch(e){setError(e.message||"Export failed.")}finally{setBusy("")}
  }
- return <main className="content" style={{padding:32,maxWidth:1100}}>
+ return <AdminShell active="Reports"><main>
   <ModuleHeader eyebrow="NOBLE ERP • REPORTS" title="Exports & Reports" description="Download live ERP records as Excel workbooks or PDF reports." />
   <div>{error&&<div className="error" style={{marginTop:18}} role="alert">{error}</div>}<div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:16,marginTop:24}}>
    {reports.map(([id,name])=><div className="panel" key={id} style={{padding:22}}><b>{name}</b><p style={{opacity:.7}}>Current live records</p><button onClick={()=>download(id,"xlsx")} disabled={!!busy}>{busy===id+"xlsx"?"Preparing…":"Download XLSX"}</button>{" "}<button className="primary" onClick={()=>download(id,"pdf")} disabled={!!busy}>{busy===id+"pdf"?"Preparing…":"Download PDF"}</button></div>)}
   </div></div>
   <div className="panel" style={{marginTop:22,padding:22}}><b>Documents</b><p>Upload and manage student PDF, Word, Excel and image documents.</p><a href="/admin/documents"><button className="primary">Open Document Manager →</button></a></div>
- </main>
+ </main></AdminShell>}
 }
