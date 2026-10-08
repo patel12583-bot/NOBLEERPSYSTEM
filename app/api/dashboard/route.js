@@ -77,11 +77,11 @@ export async function GET() {
         include: { subjects: true }
       });
       const subjectIds = faculty?.subjects.map(x => x.subjectId) || [];
-      const [subjects, todayClasses, pendingLeaves] = await Promise.all([
-        prisma.subject.count({ where: { id: { in: subjectIds.length ? subjectIds : ["__none__"] } } }),
+      const [todayClasses, pendingLeaves] = await Promise.all([
         prisma.timetable.count({ where: { facultyId: faculty?.id || "__none__", dayOfWeek: today.getDay() } }),
         prisma.facultyLeave.count({ where: { facultyId: faculty?.id || "__none__", status: "PENDING" } })
       ]);
+      const subjects = subjectIds.length;
       base.stats = {
         cards: [
           { label: "MY SUBJECTS", value: subjects, detail: "Assigned subjects" },
@@ -96,21 +96,16 @@ export async function GET() {
 
     if (user.role === "STUDENT") {
       const student = await prisma.student.findUnique({ where: { userId: user.id } });
-      const records = student
-        ? await prisma.attendance.findMany({ where: { studentId: student.id }, select: { status: true } })
-        : [];
-      const present = records.filter(x => x.status === "PRESENT").length;
-      const total = records.length;
-      const studentSubjectIds = student
-        ? (await prisma.subject.findMany({ where: { semesterId: student.semesterId || "__none__" }, select: { id: true } })).map(x => x.id)
-        : [];
-      const [subjects, leaves, exams] = student
+      const [attendanceGroups, subjects, leaves, exams] = student
         ? await Promise.all([
-            Promise.resolve(studentSubjectIds.length),
+            prisma.attendance.groupBy({ by: ["status"], where: { studentId: student.id }, _count: { _all: true } }),
+            prisma.subject.count({ where: { semesterId: student.semesterId || "__none__" } }),
             prisma.leave.count({ where: { studentId: student.id, status: "PENDING" } }),
-            prisma.examSchedule.count({ where: { subjectId: { in: studentSubjectIds.length ? studentSubjectIds : ["__none__"] } } })
+            prisma.examSchedule.count({ where: { subject: { semesterId: student.semesterId || "__none__" } } })
           ])
-        : [0, 0, 0];
+        : [[], 0, 0, 0];
+      const present = attendanceGroups.find(x => x.status === "PRESENT")?._count._all || 0;
+      const total = attendanceGroups.reduce((sum, x) => sum + x._count._all, 0);
       base.stats = {
         cards: [
           { label: "ATTENDANCE", value: pct(present, total) === null ? "—" : pct(present, total) + "%", detail: total ? present + " of " + total + " classes" : "No attendance recorded" },
@@ -126,17 +121,18 @@ export async function GET() {
     if (user.role === "PARENT") {
       const parent = await prisma.parent.findUnique({ where: { userId: user.id }, include: { students: true } });
       const studentIds = parent?.students.map(x => x.id) || [];
-      const records = studentIds.length
-        ? await prisma.attendance.findMany({ where: { studentId: { in: studentIds } }, select: { status: true } })
-        : [];
-      const present = records.filter(x => x.status === "PRESENT").length;
-      const pending = studentIds.length
-        ? await prisma.leave.count({ where: { studentId: { in: studentIds }, status: "PENDING" } })
-        : 0;
+      const [attendanceGroups, pending] = studentIds.length
+        ? await Promise.all([
+            prisma.attendance.groupBy({ by: ["status"], where: { studentId: { in: studentIds } }, _count: { _all: true } }),
+            prisma.leave.count({ where: { studentId: { in: studentIds }, status: "PENDING" } })
+          ])
+        : [[], 0];
+      const present = attendanceGroups.find(x => x.status === "PRESENT")?._count._all || 0;
+      const totalAttendance = attendanceGroups.reduce((sum, x) => sum + x._count._all, 0);
       base.stats = {
         cards: [
           { label: "CHILDREN", value: studentIds.length, detail: "Linked student accounts" },
-          { label: "ATTENDANCE", value: pct(present, records.length) === null ? "—" : pct(present, records.length) + "%", detail: "Combined attendance" },
+          { label: "ATTENDANCE", value: pct(present, totalAttendance) === null ? "—" : pct(present, totalAttendance) + "%", detail: "Combined attendance" },
           { label: "PENDING LEAVE", value: pending, detail: "Leave applications" },
           { label: "PORTAL", value: "Active", detail: "Parent account" }
         ],
