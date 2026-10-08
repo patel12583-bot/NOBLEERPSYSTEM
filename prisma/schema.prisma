@@ -187,6 +187,11 @@ model Student {
   bookIssues     BookIssue[]
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
+  @@index([departmentId])
+  @@index([programId, semesterId])
+  @@index([divisionId])
+  @@index([academicYearId])
+  @@index([status])
 }
 
 model Faculty {
@@ -211,6 +216,8 @@ model Faculty {
   timetables    Timetable[]
   createdAt     DateTime            @default(now())
   updatedAt     DateTime            @updatedAt
+  @@index([departmentId])
+  @@index([status])
 }
 
 model Subject {
@@ -232,6 +239,7 @@ model Subject {
   results         Result[]
   createdAt       DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
+  @@index([departmentId, programId, semesterId])
 }
 
 model Attendance {
@@ -246,6 +254,9 @@ model Attendance {
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
   @@unique([studentId, subjectId, date, period])
+  @@index([studentId, date])
+  @@index([subjectId, date])
+  @@index([date, status])
 }
 
 model FacultyAttendance {
@@ -256,6 +267,7 @@ model FacultyAttendance {
   faculty   Faculty          @relation(fields: [facultyId], references: [id])
   createdAt DateTime         @default(now())
   @@unique([facultyId, date])
+  @@index([date, status])
 }
 
 model Leave {
@@ -268,6 +280,8 @@ model Leave {
   student   Student     @relation(fields: [studentId], references: [id])
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
+  @@index([studentId, status])
+  @@index([fromDate, toDate])
 }
 
 model FacultyLeave {
@@ -280,6 +294,8 @@ model FacultyLeave {
   faculty   Faculty     @relation(fields: [facultyId], references: [id])
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
+  @@index([facultyId, status])
+  @@index([fromDate, toDate])
 }
 
 model Document {
@@ -291,6 +307,7 @@ model Document {
   verified  Boolean @default(false)
   student   Student @relation(fields: [studentId], references: [id])
   createdAt DateTime @default(now())
+  @@index([studentId, verified])
 }
 
 model AuditLog {
@@ -304,6 +321,8 @@ model AuditLog {
   userAgent String?
   createdAt DateTime @default(now())
   user      User?    @relation(fields: [userId], references: [id])
+  @@index([userId, createdAt])
+  @@index([module, createdAt])
 }
 
 
@@ -370,6 +389,7 @@ model FeeStructure {
   program Program? @relation(fields: [programId], references: [id])
   studentFees StudentFee[]
   createdAt DateTime @default(now())
+  @@index([academicYearId, programId, active])
 }
 
 model StudentFee {
@@ -384,9 +404,9 @@ model StudentFee {
   payments Payment[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  @@index([studentId, status])
+  @@index([feeStructureId])
 }
-
-model Payment {
   id            String @id @default(cuid())
   studentFeeId  String
   receiptNo     String @unique
@@ -395,6 +415,7 @@ model Payment {
   transactionNo String?
   paidAt        DateTime @default(now())
   studentFee    StudentFee @relation(fields: [studentFeeId], references: [id])
+  @@index([studentFeeId, paidAt])
 }
 
 model Exam {
@@ -423,6 +444,8 @@ model ExamSchedule {
   subject   Subject @relation(fields: [subjectId], references: [id])
   room      Room? @relation("ExamRoom", fields: [roomId], references: [id])
   @@unique([examId, subjectId])
+  @@index([date, roomId])
+  @@index([subjectId, date])
 }
 
 model Result {
@@ -437,6 +460,8 @@ model Result {
   student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
   subject   Subject @relation(fields: [subjectId], references: [id])
   @@unique([examId, studentId, subjectId])
+  @@index([studentId, examId])
+  @@index([subjectId, examId])
 }
 
 model Book {
