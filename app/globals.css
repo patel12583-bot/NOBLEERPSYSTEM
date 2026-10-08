@@ -148,3 +148,8 @@ linear-gradient(180deg,#f7faff 0%,#f2f6fa 100%)}
 
 @media(max-width:900px){.dash aside{width:245px}.dash .content{padding-left:24px;padding-right:24px}}
 @media(max-width:600px){.dash .content{padding-left:14px!important;padding-right:14px!important}.dash .dashHeader{padding:18px;border-radius:18px}.dash .statGrid{gap:10px}.dash .statGrid>div{padding:15px}.dash .moduleGrid{gap:9px}}
+
+/* ERP dashboard resilience */
+.retryBtn{margin-left:12px;border:1px solid #cbd8e5;background:#fff;color:#17324d;border-radius:9px;padding:7px 12px;font-weight:800;cursor:pointer}
+.retryBtn:hover{border-color:#1769d5;color:#1769d5}
+.loadingCard{margin:18px 0;padding:22px;border:1px solid #dce6ef;border-radius:16px;background:rgba(255,255,255,.88);color:#536b82;font-weight:700;box-shadow:0 10px 28px rgba(18,48,79,.05)}
