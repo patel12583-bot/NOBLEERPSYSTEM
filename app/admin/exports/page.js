@@ -26,4 +26,3 @@ export default function ExportsPage(){
   </div></div>
   <div className="panel" style={{marginTop:22,padding:22}}><b>Documents</b><p>Upload and manage student PDF, Word, Excel and image documents.</p><a href="/admin/documents"><button className="primary">Open Document Manager →</button></a></div>
  </main></AdminShell>}
-}
