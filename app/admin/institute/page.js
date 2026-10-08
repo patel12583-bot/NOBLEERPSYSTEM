@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 const initial = {
   name: "Noble Group of Institutes",
-  address: "DABHOI KARIAN ROAD, MOTAHABIPURA, DABHOI, DIST. VADODARA, GUJARAT",
+  address: "Dabhoi Karjan Road, Motaborsiya, Ta. Dabhoi, Dist. Vadodara",
   phone1: "92654 63335",
   phone2: "92654 15454",
   email: "",
