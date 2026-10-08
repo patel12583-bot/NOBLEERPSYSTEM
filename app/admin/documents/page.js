@@ -1,6 +1,7 @@
 "use client";
 
 import ModuleHeader from "@/components/ModuleHeader";
+import AdminShell from "@/components/AdminShell";
 
 import {useEffect,useState} from "react";
 
@@ -26,7 +27,7 @@ export default function DocumentsPage(){
   const r=await fetch("/api/admin/documents",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})});
   const d=await r.json();if(!r.ok)setErr(d.error);else load();
  }
- return <main className="content" style={{padding:32,maxWidth:1350}}>
+ return <AdminShell active="Students"><main>
   <ModuleHeader eyebrow="NOBLE ERP • DOCUMENTS" title="Student Documents" description="Upload, view and manage official student documents from one secure workspace." />
   {err&&<div className="error" style={{margin:"16px 0"}}>{err}</div>}{msg&&<div className="panel" style={{margin:"16px 0"}}>{msg}</div>}
   <form className="panel" onSubmit={upload} style={{padding:22,margin:"20px 0"}}>
@@ -36,5 +37,5 @@ export default function DocumentsPage(){
    </div><small>Maximum 10 MB. Vercel Blob is preferred; small files can use the ERP database fallback when Blob is not configured.</small><br/><button className="primary" disabled={busy||!file}>{busy?"Uploading…":"Upload File →"}</button>
   </form>
   <div className="panel"><b>Uploaded Documents ({docs.length})</b><div style={{overflowX:"auto",marginTop:12}}><table><thead><tr><th>Student</th><th>File</th><th>Type</th><th>Uploaded</th><th>Actions</th></tr></thead><tbody>{docs.map(d=><tr key={d.id}><td>{d.student?.studentId} — {d.student?.name}</td><td>{d.name}</td><td>{d.type}</td><td>{new Date(d.createdAt).toLocaleString()}</td><td><a href={d.url} target="_blank" rel="noreferrer">View / Download</a>{" "}<button onClick={()=>remove(d.id)}>Delete</button></td></tr>)}</tbody></table></div></div>
- </main>
+ </main></AdminShell>}
 }
