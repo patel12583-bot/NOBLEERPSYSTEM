@@ -430,9 +430,8 @@ model Exam {
   schedules     ExamSchedule[]
   results       Result[]
   createdAt     DateTime @default(now())
+  @@index([academicYearId, status])
 }
-
-model ExamSchedule {
   id        String @id @default(cuid())
   examId    String
   subjectId String
