@@ -1,4 +1,5 @@
 "use client";
+import ModuleHeader from "@/components/ModuleHeader";
 import {useEffect,useMemo,useState} from "react";
 
 const empty={facultyId:"",month:new Date().toISOString().slice(0,7),basic:"",allowances:"0",deductions:"0"};
@@ -11,8 +12,8 @@ export default function HRPage(){
  const set=(k,v)=>setForm(x=>({...x,[k]:v}));
  async function process(e){e.preventDefault();setBusy(true);setErr("");try{const r=await fetch("/api/admin/hr",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(form)});const d=await r.json();if(!r.ok)throw Error(d.error);setForm(empty);await load();}catch(e){setErr(e.message)}finally{setBusy(false)}}
  async function remove(id){if(!confirm("Delete this payroll record?"))return;const r=await fetch("/api/admin/hr",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})});const d=await r.json();if(!r.ok)setErr(d.error);else load();}
- return <main className="content" style={{padding:"32px",maxWidth:"1400px"}}>
-  <div className="eyebrow">NOBLE ERP • HR & PAYROLL</div><h1>HR & Staff Management</h1><p>Staff directory, salary processing, payroll history and department-wise records.</p>
+ return <main className="content" style={{padding:"32px",maxWidth:"1400px"}}><ModuleHeader eyebrow="NOBLE ERP • HR & PAYROLL" title="HR & Staff Management" description="Staff directory, salary processing, payroll history and department-wise records." />
+  
   {err&&<div className="error" style={{margin:"16px 0"}}>{err}</div>}
   <div className="statGrid" style={{marginTop:22}}>
    <div><small>ACTIVE STAFF</small><b>{staff.length}</b><span>Faculty & staff master records</span></div>
