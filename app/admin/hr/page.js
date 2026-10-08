@@ -1,5 +1,6 @@
 "use client";
 import ModuleHeader from "@/components/ModuleHeader";
+import AdminShell from "@/components/AdminShell";
 import {useEffect,useMemo,useState} from "react";
 
 const empty={facultyId:"",month:new Date().toISOString().slice(0,7),basic:"",allowances:"0",deductions:"0"};
@@ -12,7 +13,7 @@ export default function HRPage(){
  const set=(k,v)=>setForm(x=>({...x,[k]:v}));
  async function process(e){e.preventDefault();setBusy(true);setErr("");try{const r=await fetch("/api/admin/hr",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(form)});const d=await r.json();if(!r.ok)throw Error(d.error);setForm(empty);await load();}catch(e){setErr(e.message)}finally{setBusy(false)}}
  async function remove(id){if(!confirm("Delete this payroll record?"))return;const r=await fetch("/api/admin/hr",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})});const d=await r.json();if(!r.ok)setErr(d.error);else load();}
- return <main className="content" style={{padding:"32px",maxWidth:"1400px"}}><ModuleHeader eyebrow="NOBLE ERP • HR & PAYROLL" title="HR & Staff Management" description="Staff directory, salary processing, payroll history and department-wise records." />
+ return <AdminShell active="Settings"><main className="content" style={{padding:"32px",maxWidth:"1400px"}}><ModuleHeader eyebrow="NOBLE ERP • HR & PAYROLL" title="HR & Staff Management" description="Staff directory, salary processing, payroll history and department-wise records." />
   
   {err&&<div className="error" style={{margin:"16px 0"}}>{err}</div>}
   <div className="statGrid" style={{marginTop:22}}>
@@ -40,5 +41,5 @@ export default function HRPage(){
    <div className="panelTitle"><b>Payroll History</b><button onClick={()=>window.print()}>Print / Save PDF</button></div>
    <div style={{overflowX:"auto"}}><table style={{width:"100%"}}><thead><tr>{["Month","Staff","Department","Basic","Allowances","Deductions","Net","Status","Action"].map(x=><th key={x} style={{textAlign:"left",padding:10}}>{x}</th>)}</tr></thead><tbody>{payroll.map(x=><tr key={x.auditId}><td>{x.month}</td><td>{x.facultyIdCode} — {x.name}</td><td>{x.department||"—"}</td><td>₹{Number(x.basic||0).toLocaleString("en-IN")}</td><td>₹{Number(x.allowances||0).toLocaleString("en-IN")}</td><td>₹{Number(x.deductions||0).toLocaleString("en-IN")}</td><td><b>₹{Number(x.net||0).toLocaleString("en-IN")}</b></td><td>{x.status}</td><td><button onClick={()=>remove(x.auditId)}>Delete</button></td></tr>)}</tbody></table></div>
   </div>
- </main>
+ </main></AdminShell>
 }
