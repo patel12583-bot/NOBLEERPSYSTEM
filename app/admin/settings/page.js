@@ -1,6 +1,7 @@
 "use client";
 
 import ModuleHeader from "@/components/ModuleHeader";
+import AdminShell from "@/components/AdminShell";
 
 
 import { useEffect, useState } from "react";
@@ -22,7 +23,7 @@ export default function SettingsPage(){
       .then(r=>setStatus(r.ok?"ERP services are online and the database session is responding.":"ERP service check returned an error."))
       .catch(()=>setStatus("ERP service check could not be completed."));
   },[]);
-  return <main className="content" style={{padding:"32px",maxWidth:"1250px"}}>
+  return <AdminShell active="Settings"><main className="content" style={{padding:"32px",maxWidth:"1250px"}}>
     <ModuleHeader eyebrow="NOBLE ERP • SYSTEM SETTINGS" title="System Settings" description="Central administration for institute configuration, users, academics and reporting." />
     <div className="panel" style={{margin:"20px 0",padding:"18px"}}>
       <b>System status</b><p style={{marginBottom:0}}>{status}</p>
@@ -41,5 +42,5 @@ export default function SettingsPage(){
         <button onClick={()=>router.push("/admin/library")}>Library</button>
       </div>
     </div>
-  </main>;
+  </main></AdminShell>;
 }
