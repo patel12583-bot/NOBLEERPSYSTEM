@@ -1,6 +1,7 @@
 "use client";
 
 import ModuleHeader from "@/components/ModuleHeader";
+import AdminShell from "@/components/AdminShell";
 
 
 import { useEffect, useState } from "react";
@@ -53,7 +54,7 @@ export default function InstituteSetup() {
     } finally { setSaving(false); }
   }
 
-  if (loading) return <main className="content" style={{padding:"40px"}}>Loading institute setup…</main>;
+  if (loading) return <AdminShell active="Settings"><main className="content" style={{padding:"40px"}}>Loading institute setup…</main>;
 
   return <main className="content" style={{padding:"40px",maxWidth:"1000px"}}>
     <ModuleHeader eyebrow="SUPER ADMIN • INSTITUTE" title="Institute Setup" description="Manage the official Noble Group of Institutes information used across the ERP." />
@@ -70,5 +71,5 @@ export default function InstituteSetup() {
       {error && <div className="error">{error}</div>}
       <button className="primary" disabled={saving}>{saving ? "Saving…" : "Save Institute Details →"}</button>
     </form>
-  </main>;
+  </main></AdminShell>;
 }
