@@ -1,6 +1,7 @@
 "use client";
 
 import ModuleHeader from "@/components/ModuleHeader";
+import AdminShell from "@/components/AdminShell";
 
 
 import { useEffect, useMemo, useState } from "react";
@@ -86,7 +87,7 @@ export default function StudentsPage(){
    setBulk(d);await load();
   }catch(e){setError(e.message)}finally{setBulkBusy(false);e.target.value=""}
  }
- return <main className="content" style={{padding:"32px",maxWidth:"1400px"}}>
+ return <AdminShell active="Students"><main className="content" style={{padding:"32px",maxWidth:"1400px"}}>
   <ModuleHeader eyebrow="NOBLE ERP • STUDENT MANAGEMENT" title="Student Management" description="Real student records, academic mapping and database-backed login accounts." />
   {error&&<div className="error" style={{margin:"18px 0"}}>{error}</div>}
   {credentials&&<div className="panel" style={{margin:"18px 0"}}><b>Student account created successfully.</b><p>Username: <strong>{credentials.username}</strong> &nbsp; Password: <strong>{credentials.password}</strong></p><small>Save these credentials now. The password is shown only at creation time.</small></div>}
@@ -109,5 +110,5 @@ export default function StudentsPage(){
   <div className="panel"><div className="panelTitle"><b>Students ({filtered.length})</b><input placeholder="Search students…" value={query} onChange={e=>setQuery(e.target.value)}/></div>
    {loading?<p>Loading…</p>:<div style={{overflowX:"auto"}}><table style={{width:"100%",borderCollapse:"collapse"}}><thead><tr>{["Student ID","Name","Program","Semester","Division","Department","Account","Status","Actions"].map(x=><th key={x} style={{textAlign:"left",padding:"10px"}}>{x}</th>)}</tr></thead><tbody>{filtered.map(r=><tr key={r.id}>{<><td style={{padding:"10px"}}>{r.studentId}</td><td style={{padding:"10px"}}>{r.name}</td><td style={{padding:"10px"}}>{r.program?.name||"—"}</td><td style={{padding:"10px"}}>{r.semester?.name||"—"}</td><td style={{padding:"10px"}}>{r.division?.name||"—"}</td><td style={{padding:"10px"}}>{r.department?.name||"—"}</td><td style={{padding:"10px"}}>{r.user?.status||"—"}</td><td style={{padding:"10px"}}>{r.status}</td><td style={{padding:"10px",whiteSpace:"nowrap"}}><button onClick={()=>edit(r)}>Edit</button>{" "}<button onClick={()=>window.open("/admin/students/id-card?studentId="+encodeURIComponent(r.id),"_blank")}>ID Card</button>{" "}<button onClick={()=>deactivate(r.id)}>Deactivate</button></td></>}</tr>)}</tbody></table></div>}
   </div>
- </main>
+ </main></AdminShell>
 }
