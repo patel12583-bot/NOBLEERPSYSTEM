@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSessionUser } from "@/lib/auth";
+import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 export const runtime="nodejs"; export const dynamic="force-dynamic";
 async function guard(){const u=await getSessionUser();return u&&["SUPER_ADMIN","ADMIN","HOD","FACULTY"].includes(u.role)?u:null}
 async function makeAttendancePdf(rows,summary,from,to){
