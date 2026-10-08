@@ -16,7 +16,7 @@ export default function HallTicket(){
    <p><b>Student:</b> {d.student.name} &nbsp; <b>ID:</b> {d.student.studentId}</p>
    <p><b>Program:</b> {d.student.program?.name||"—"} &nbsp; <b>Semester:</b> {d.student.semester?.name||"—"} &nbsp; <b>Division:</b> {d.student.division?.name||"—"}</p>
    <table style={{width:"100%",marginTop:20}}><thead><tr><th>Exam</th><th>Subject</th><th>Date</th><th>Time</th><th>Room</th></tr></thead><tbody>{d.schedules.map(x=><tr key={x.id}><td>{x.exam.name}</td><td>{x.subject.code} — {x.subject.name}</td><td>{new Date(x.date).toLocaleDateString("en-IN")}</td><td>{x.startTime}–{x.endTime}</td><td>{x.room?.code||"—"}</td></tr>)}</tbody></table>
-   <button className="primary" style={{marginTop:20}} onClick={()=>window.print()}>Print / Save PDF</button>
+   <button className="primary" style={{marginTop:20}} onClick={async()=>{try{const r=await fetch("/api/hall-ticket?studentId="+encodeURIComponent(studentId)+"&format=pdf");if(!r.ok){const x=await r.json();throw Error(x.error||"Unable to create PDF.")}const blob=await r.blob(),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="noble-erp-hall-ticket.pdf";a.click();URL.revokeObjectURL(url)}catch(e){setErr(e.message||"Unable to create PDF.")}}}>Download / Save PDF</button>
   </div>}
  </main>
 }
