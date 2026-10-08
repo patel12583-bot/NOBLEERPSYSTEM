@@ -36,7 +36,7 @@ export async function GET(req){
 
 export async function POST(req){
  const u=await guard(); if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});
- if(!process.env.BLOB_READ_WRITE_TOKEN)return NextResponse.json({error:"File storage is not configured. Add BLOB_READ_WRITE_TOKEN in Vercel Environment Variables."},{status:503});
+ 
  try{
   const form=await req.formData();
   const file=form.get("file"); const studentId=String(form.get("studentId")||"");
@@ -47,8 +47,16 @@ export async function POST(req){
   const student=await prisma.student.findUnique({where:{id:studentId},select:{id:true}});
   if(!student)return NextResponse.json({error:"Student not found."},{status:404});
   const safe=String(file.name).replace(/[^a-zA-Z0-9._-]/g,"_");
-  const blob=await put("noble-erp/students/"+studentId+"/"+Date.now()+"-"+safe,file,{access:"public",addRandomSuffix:false});
-  const doc=await prisma.document.create({data:{studentId,name:file.name,type:file.type,url:blob.url}});
+  let url="";
+  if(process.env.BLOB_READ_WRITE_TOKEN){
+   const blob=await put("noble-erp/students/"+studentId+"/"+Date.now()+"-"+safe,file,{access:"public",addRandomSuffix:false});
+   url=blob.url;
+  }else{
+   if(file.size>4*1024*1024)return NextResponse.json({error:"Vercel Blob is not configured. Small files up to 4 MB can be stored directly; for larger files add BLOB_READ_WRITE_TOKEN in Vercel."},{status:503});
+   const bytes=Buffer.from(await file.arrayBuffer());
+   url="data:"+file.type+";base64,"+bytes.toString("base64");
+  }
+  const doc=await prisma.document.create({data:{studentId,name:file.name,type:file.type,url}});
   return NextResponse.json({document:doc},{status:201});
  }catch(e){console.error(e);return NextResponse.json({error:e.message||"Unable to upload file."},{status:400})}
 }
