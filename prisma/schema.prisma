@@ -407,6 +407,8 @@ model StudentFee {
   @@index([studentId, status])
   @@index([feeStructureId])
 }
+
+model Payment {
   id            String @id @default(cuid())
   studentFeeId  String
   receiptNo     String @unique
@@ -432,6 +434,8 @@ model Exam {
   createdAt     DateTime @default(now())
   @@index([academicYearId, status])
 }
+
+model ExamSchedule {
   id        String @id @default(cuid())
   examId    String
   subjectId String
