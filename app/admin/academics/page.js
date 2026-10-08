@@ -1,6 +1,7 @@
 "use client";
 
 import ModuleHeader from "@/components/ModuleHeader";
+import AdminShell from "@/components/AdminShell";
 
 
 import { useEffect, useMemo, useState } from "react";
@@ -69,7 +70,7 @@ function AcademicPage(){
   const d=await r.json();if(!r.ok)setError(d.error||"Delete failed");else load(tab);
  }
  function edit(r){const x={...r};["startDate","endDate"].forEach(k=>{if(x[k])x[k]=new Date(x[k]).toISOString().slice(0,10)});setForm(x);setEditing(r.id);window.scrollTo({top:0,behavior:"smooth"});}
- return <main className="content" style={{padding:"30px",maxWidth:"1400px"}}>
+ return <AdminShell active="Academics"><main className="content" style={{padding:"30px",maxWidth:"1400px"}}>
   <ModuleHeader eyebrow="NOBLE ERP • ACADEMIC MANAGEMENT" title="Academic Management" description="Build the academic structure once and reuse it across students, timetable, attendance and examinations." />
   <div className="panel" style={{padding:"18px",margin:"20px 0",display:"flex",justifyContent:"space-between",alignItems:"center",gap:16,flexWrap:"wrap"}}>
  <div><b>Standard Academic Setup</b><p style={{margin:"6px 0 0",opacity:.72}}>Academic Years 2023-24 to 2030-31 + BCA, BRS, BSW, MSW, Diploma Engineering (Mechanical, Computer, IT, Civil) + Semester 1–6 + Divisions A/B/C.</p></div>
@@ -90,6 +91,6 @@ function AcademicPage(){
    <tbody>{rows.map(r=><tr key={r.id}>{cfg.fields.map(([k])=><td key={k} style={{padding:10,borderTop:"1px solid #eee"}}>{k==="departmentId"?label("departments",r[k]):k==="programId"?label("programs",r[k]):k==="semesterId"?label("semesters",r[k]):k==="academicYearId"?label("academicYears",r[k]):k==="active"?(r[k]?"Active":"Inactive"):String(r[k]??"")}</td>)}<td style={{padding:10,borderTop:"1px solid #eee"}}><button onClick={()=>edit(r)}>Edit</button>{" "}<button onClick={()=>remove(r.id)}>Delete</button></td></tr>)}</tbody></table></div>
   </div>
   <button className="back" style={{marginTop:18}} onClick={()=>router.push("/dashboard")}>← Back to Dashboard</button>
- </main>
+ </main></AdminShell>
 }
 export default AcademicPage;
