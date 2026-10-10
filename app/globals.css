@@ -376,3 +376,45 @@ linear-gradient(180deg,#f7faff 0%,#f2f6fa 100%)}
 @media(max-width:720px){.nobleSidebar{position:fixed;left:0;top:0;bottom:0;height:100dvh;width:280px;flex-basis:280px;transform:translateX(-102%);transition:transform .22s ease;box-shadow:18px 0 50px #061a3040}.nobleDashboard.mobileNavOpen .nobleSidebar{transform:translateX(0)}.nobleMobileShade{position:fixed;inset:0;z-index:35;border:0;background:#061a3070;display:none}.nobleDashboard.mobileNavOpen .nobleMobileShade{display:block}.nobleDashboard.navCollapsed .nobleSidebar{width:280px;flex-basis:280px;padding:24px 16px 14px}.nobleDashboard.navCollapsed .nobleBrandText,.nobleDashboard.navCollapsed .nobleRolePill span,.nobleDashboard.navCollapsed .nobleRolePill em,.nobleDashboard.navCollapsed .nobleMenuSearch,.nobleDashboard.navCollapsed .nobleNavLabel,.nobleDashboard.navCollapsed .nobleNavArrow,.nobleDashboard.navCollapsed .nobleUserText,.nobleDashboard.navCollapsed .nobleLogout .nobleNavLabel{display:initial}.nobleDashboard.navCollapsed .nobleMenuSearch{display:flex}.nobleDashboard.navCollapsed .nobleSideTop{justify-content:flex-start}.nobleDashboard.navCollapsed .nobleRolePill{justify-content:flex-start;padding:0 12px}.nobleDashboard.navCollapsed .nobleSideNav button{justify-content:flex-start;padding:0 11px}.nobleDashboard.navCollapsed .nobleSideFoot .nobleUserMini{justify-content:flex-start;padding:3px 5px 12px}.nobleDashboard.navCollapsed .nobleLogout{justify-content:flex-start;padding:0 12px}.nobleCollapse{display:none}.nobleMobileToggle{display:block}.nobleTopbar{height:58px;padding:0 16px}.nobleAcademicTag{display:none}.nobleContent{padding:16px 14px 12px}.nobleWelcome{min-height:150px;padding:22px 20px;border-radius:17px}.nobleWelcome h1{font-size:29px;max-width:90%}.nobleWelcomeArt{right:-45px;opacity:.22}.nobleWelcomeActions{display:none}.nobleWelcomeAvatar{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#1769d2;color:#fff;font-size:12px}.nobleStats{grid-template-columns:repeat(2,minmax(0,1fr));margin:14px 0 23px}.nobleStatCard{min-height:126px;padding:16px}.nobleStatCard strong{font-size:25px}.nobleStatIcon{right:12px;top:13px}.nobleSectionHead h2{font-size:23px}.nobleBottomGrid{grid-template-columns:1fr}.nobleInfoPanel{padding:16px}.nobleDashboardFooter{font-size:8px}}
 @media(max-width:430px){.nobleModuleGrid{grid-template-columns:1fr}.nobleModuleCard{min-height:72px}.nobleWelcome h1{font-size:25px;letter-spacing:-.6px}.nobleWelcomeCopy>p{font-size:11px}.nobleWelcomeMeta{gap:8px;font-size:8px}.nobleSectionHead{align-items:flex-start;flex-direction:column}.nobleStats{gap:9px}.nobleStatCard small{font-size:8px;letter-spacing:.7px}.nobleStatCard>span{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.nobleDashboard *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+
+/* Student self-service profile editor and printable identity card */
+.studentProfileForm{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px;padding:18px;border:1px solid #dce7f4;border-radius:14px;background:#fbfdff}
+.studentProfileForm label{display:grid;gap:7px;font-size:11px;font-weight:700;color:#526780}
+.studentProfileForm input,.studentProfileForm textarea{width:100%;min-width:0;border:1px solid #d6e2ef;border-radius:9px;background:#fff;padding:11px 12px;color:#183651;font-size:12px;outline:none}
+.studentProfileForm input:focus,.studentProfileForm textarea:focus{border-color:#6ea6e9;box-shadow:0 0 0 3px #1769d51a}
+.studentProfileForm .studentAddressField{grid-column:1/-1}
+.studentFormActions{grid-column:1/-1;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.studentFormActions button:not(.primary){border:1px solid #dbe5ef;border-radius:9px;background:white;color:#536a83;padding:11px 16px;font-size:11px}
+.studentFormActions button:disabled{opacity:.65;cursor:wait}
+.studentIdCard{position:relative;overflow:hidden;border:1px solid #cddced;border-radius:18px;background:linear-gradient(120deg,#fff 0%,#f8fbff 67%,#edf4ff 100%);box-shadow:0 12px 34px #17345110;padding:20px;max-width:760px}
+.studentIdCard:before{content:"";position:absolute;right:-65px;top:70px;width:230px;height:230px;border:1px solid #d9e7f8;border-radius:50%;box-shadow:0 0 0 22px #e8f1fc80,0 0 0 48px #f0f6ff80;pointer-events:none}
+.studentIdTop{position:relative;display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:2px solid #1769d2}
+.studentIdLogo{height:47px;width:47px;flex:0 0 47px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(145deg,#287ee3,#0a478d);color:#fff;font:700 29px "Playfair Display",Georgia,serif;box-shadow:0 6px 15px #1769d226}
+.studentIdTop>div:nth-child(2){display:grid;gap:4px;min-width:0}
+.studentIdTop small{font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#173c62}
+.studentIdTop strong{font-size:14px;letter-spacing:1.2px;color:#1769d2}
+.studentIdTop span{font-size:8px;letter-spacing:1.5px;color:#7a8fa8}
+.studentIdChip{margin-left:auto;width:40px;height:40px;display:grid;place-items:center;border:1px solid #c7daf2;border-radius:50%;color:#1769d2;background:#edf4ff;font:700 22px "Playfair Display",Georgia,serif}
+.studentIdBody{position:relative;display:flex;gap:18px;align-items:flex-start;padding:22px 4px 20px}
+.studentIdPhoto{width:105px;height:125px;flex:0 0 105px;display:grid;place-items:center;overflow:hidden;border:3px solid #fff;border-radius:11px;background:linear-gradient(145deg,#e6f0ff,#cfe2fb);box-shadow:0 0 0 1px #d2e0f1;color:#1769d2;font:700 45px "Playfair Display",Georgia,serif}
+.studentIdPhoto img{width:100%;height:100%;object-fit:cover}
+.studentIdDetails{position:relative;min-width:0;flex:1}
+.studentIdDetails h2{font:700 24px/1.2 "Playfair Display",Georgia,serif;color:#173451;margin:0 0 6px;overflow-wrap:anywhere}
+.studentIdNumber{display:inline-block;border-radius:5px;background:#eaf2ff;color:#1769d2;padding:5px 8px;font-size:10px;font-weight:800;letter-spacing:1px}
+.studentIdRows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 20px;margin-top:18px}
+.studentIdRows div{display:grid;gap:4px;min-width:0}
+.studentIdRows small{font-size:8px;letter-spacing:1px;color:#8193a8;font-weight:800}
+.studentIdRows b{font-size:11px;color:#2c4967;overflow-wrap:anywhere}
+.studentIdFooter{position:relative;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid #dce6f1;padding-top:12px;color:#7b8fa5;font-size:9px}
+.studentIdActions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px dashed #d6e2ef}
+.studentIdActions .primary{font-size:11px;padding:10px 14px}
+.studentIdActions>span{font-size:10px;color:#8191a4}
+@media(max-width:560px){.studentProfileForm{grid-template-columns:1fr;padding:13px}.studentProfileForm .studentAddressField,.studentFormActions{grid-column:auto}.studentIdCard{padding:15px}.studentIdBody{gap:12px;padding:17px 0}.studentIdPhoto{width:78px;height:98px;flex-basis:78px}.studentIdDetails h2{font-size:20px}.studentIdRows{gap:12px}.studentIdTop strong{font-size:11px}.studentIdTop small{font-size:9px}}
+@media print{
+ @page{size:A4;margin:12mm}
+ body *{visibility:hidden!important}
+ #student-id-card,#student-id-card *{visibility:visible!important}
+ #student-id-card{position:absolute!important;left:0!important;top:0!important;width:100%!important;max-width:100%!important;box-shadow:none!important;border:1px solid #b8cce2!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ #student-id-card .studentIdActions{display:none!important}
+}
