@@ -35,21 +35,21 @@ async function fetchData(type){
  throw new Error("Unsupported export type.");
 }
 function filename(type,format){return "noble-erp-"+type+"-"+new Date().toISOString().slice(0,10)+"."+format}
-const INSTITUTE="NOBLE INSTITUTE OF SOCIAL WORK";
+const INSTITUTE="noble group of Institution";
 const TRUST="(Managed By Shree Noble Education Trust)";
-const ADDRESS="Dabhai - Karjan Road Motahabipura, Ta. Dabhoi, Dist. Vadodara  Mo. +91 94276 97085";
+const ADDRESS="Dabhoi Karjan Road, Motaborsiya, Ta. Dabhoi, Dist. Vadodara";
 const AFFILIATION="(Affiliated By Shree Govind Guru University, Godhra)";
 const PRESIDENT="President : A. A. Madhavani";
+async function embedInstituteLogo(doc){
+ for(const [file,type] of [["noble-logo.png","png"],["noble-logo.jpg","jpg"],["noble-logo.jpeg","jpg"]]){
+  try{const bytes=await readFile(join(process.cwd(),"public",file));return type==="png"?await doc.embedPng(bytes):await doc.embedJpg(bytes)}catch{}
+ }
+ return null;
+}
 async function drawHeader(page,title,font,bold,doc){
  const blue=rgb(.04,.18,.36),pw=842;
- try{
-  const bytes=await readFile(join(process.cwd(),"public","noble-logo.jpg"));
-  const logo=await doc.embedJpg(bytes),scale=Math.min(68/logo.width,68/logo.height),w=logo.width*scale,h=logo.height*scale;
-  page.drawImage(logo,{x:30+(68-w)/2,y:501+(68-h)/2,width:w,height:h});
- }catch(e){
-  page.drawCircle({x:64,y:535,size:27,color:rgb(1,.82,.05),borderColor:blue,borderWidth:1.5});
-  page.drawText("N",{x:59,y:530,size:13,font:bold,color:rgb(.78,.03,.18)});
- }
+ const logo=await embedInstituteLogo(doc);
+ if(logo){const scale=Math.min(68/logo.width,68/logo.height),w=logo.width*scale,h=logo.height*scale;page.drawImage(logo,{x:30+(68-w)/2,y:501+(68-h)/2,width:w,height:h})}
  const lines=[[INSTITUTE,15,bold,551],[TRUST,8,bold,535],[ADDRESS,7,font,520],[AFFILIATION,8,bold,505]];
  for(const [txt,size,f,y] of lines){const safe=pdfSafe(txt),w=f.widthOfTextAtSize(safe,size);page.drawText(safe,{x:(pw-w)/2+18,y,size,font:f,color:blue})}
  page.drawLine({start:{x:30,y:490},end:{x:812,y:490},thickness:1.2,color:rgb(.12,.38,.72)});
