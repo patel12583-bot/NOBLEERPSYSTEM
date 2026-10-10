@@ -1,4 +1,4 @@
-import{NextResponse}from"next/server";import{prisma}from"@/lib/prisma";import{getSessionUser}from"@/lib/auth";import{PDFDocument,StandardFonts,rgb}from"pdf-lib";
+import{NextResponse}from"next/server";import{readFile}from"node:fs/promises";import{join}from"node:path";import{prisma}from"@/lib/prisma";import{getSessionUser}from"@/lib/auth";import{PDFDocument,StandardFonts,rgb}from"pdf-lib";
 export const runtime="nodejs";export const dynamic="force-dynamic";
 const staffRoles=["SUPER_ADMIN","ADMIN","HOD","EXAM_OFFICER"];
 const INSTITUTE="NOBLE INSTITUTE OF SOCIAL WORK";
@@ -14,46 +14,39 @@ async function ticketData(studentId){
  const schedules=await prisma.examSchedule.findMany({where:{subjectId:{in:subjects.map(x=>x.id)},exam:{status:{not:"CANCELLED"}}},include:{exam:true,subject:true,room:true},orderBy:{date:"asc"}});
  return {student:s,schedules};
 }
-function drawOfficialStyleMark(p,cx,cy){
- const blue=rgb(.02,.16,.43),red=rgb(.78,.03,.18),green=rgb(.06,.72,.18),yellow=rgb(1,.86,.02),white=rgb(1,1,1);
- p.drawCircle({x:cx,y:cy,size:39,color:white,borderColor:blue,borderWidth:2});
- p.drawCircle({x:cx,y:cy+1,size:31,color:yellow});
- p.drawCircle({x:cx,y:cy+1,size:25,color:rgb(.45,.02,.36)});
- p.drawCircle({x:cx,y:cy+1,size:20,color:yellow});
- p.drawEllipse({x:cx,y:cy-8,xScale:15,yScale:4,color:white,borderColor:blue,borderWidth:1});
- p.drawLine({start:{x:cx-15,y:cy-8},end:{x:cx+15,y:cy-8},thickness:1,color:blue});
- p.drawLine({start:{x:cx,y:cy-12},end:{x:cx,y:cy-2},thickness:1,color:blue});
- p.drawLine({start:{x:cx-7,y:cy+9},end:{x:cx,y:cy+18},thickness:2,color:red});
- p.drawLine({start:{x:cx,y:cy+18},end:{x:cx+7,y:cy+9},thickness:2,color:red});
- for(let i=0;i<5;i++){
-  p.drawLine({start:{x:cx-30+i*2,y:cy-17+i*5},end:{x:cx-39+i*2,y:cy-12+i*5},thickness:2,color:green});
-  p.drawLine({start:{x:cx+30-i*2,y:cy-17+i*5},end:{x:cx+39-i*2,y:cy-12+i*5},thickness:2,color:green});
+async function drawCenteredHeader(p,doc,font,bold,pageWidth,pageHeight,title){
+ const blue=rgb(.04,.18,.36);
+ try{
+  const logoBytes=await readFile(join(process.cwd(),"public","noble-logo.jpg"));
+  const logo=await doc.embedJpg(logoBytes);
+  const max=68,scale=Math.min(max/logo.width,max/logo.height),w=logo.width*scale,h=logo.height*scale;
+  p.drawImage(logo,{x:30,y:pageHeight-92+(68-h)/2,width:w,height:h});
+ }catch(e){
+  // Keep the PDF usable even if the logo asset is unavailable in a deployment.
+  p.drawCircle({x:64,y:pageHeight-58,size:27,color:rgb(1,.82,.05),borderColor:blue,borderWidth:1.5});
+  p.drawText("N",{x:59,y:pageHeight-63,size:13,font:bold,color:rgb(.78,.03,.18)});
  }
-}
-function drawCenteredHeader(p,font,bold,pageWidth,pageHeight,title){
- const blue=rgb(.04,.18,.36),muted=rgb(.12,.28,.45);
- drawOfficialStyleMark(p,pageWidth/2,pageHeight-62);
  const lines=[
-  [INSTITUTE,15,bold,pageHeight-31],
-  [TRUST,8,bold,pageHeight-47],
-  [ADDRESS,7,font,pageHeight-61],
-  [AFFILIATION,8,bold,pageHeight-75]
+  [INSTITUTE,15,bold,pageHeight-32],
+  [TRUST,8,bold,pageHeight-48],
+  [ADDRESS,7,font,pageHeight-63],
+  [AFFILIATION,8,bold,pageHeight-78]
  ];
  for(const [txt,size,f,y] of lines){
   const safe=safePdfText(txt),w=f.widthOfTextAtSize(safe,size);
   p.drawText(safe,{x:(pageWidth-w)/2,y,size,font:f,color:blue});
  }
- p.drawLine({start:{x:28,y:pageHeight-88},end:{x:pageWidth-28,y:pageHeight-88},thickness:1.2,color:rgb(.12,.38,.72)});
+ p.drawLine({start:{x:28,y:pageHeight-91},end:{x:pageWidth-28,y:pageHeight-91},thickness:1.2,color:rgb(.12,.38,.72)});
  const pres=safePdfText(PRESIDENT),pw=bold.widthOfTextAtSize(pres,8);
- p.drawText(pres,{x:(pageWidth-pw)/2,y:pageHeight-103,size:8,font:bold,color:blue});
- p.drawLine({start:{x:28,y:pageHeight-112},end:{x:pageWidth-28,y:pageHeight-112},thickness:1.2,color:rgb(.12,.38,.72)});
+ p.drawText(pres,{x:(pageWidth-pw)/2,y:pageHeight-106,size:8,font:bold,color:blue});
+ p.drawLine({start:{x:28,y:pageHeight-116},end:{x:pageWidth-28,y:pageHeight-116},thickness:1.2,color:rgb(.12,.38,.72)});
  const heading=safePdfText(title),hw=bold.widthOfTextAtSize(heading,12);
- p.drawText(heading,{x:(pageWidth-hw)/2,y:pageHeight-133,size:12,font:bold,color:blue});
+ p.drawText(heading,{x:(pageWidth-hw)/2,y:pageHeight-137,size:12,font:bold,color:blue});
 }
 async function bulkPdf(tickets){
  const doc=await PDFDocument.create(),font=await doc.embedFont(StandardFonts.Helvetica),bold=await doc.embedFont(StandardFonts.HelveticaBold);
  for(const d of tickets){
-  const p=doc.addPage([595,842]);drawCenteredHeader(p,font,bold,595,842,"EXAMINATION HALL TICKET");
+  const p=doc.addPage([595,842]);await drawCenteredHeader(p,doc,font,bold,595,842,"EXAMINATION HALL TICKET");
   let y=842-166;
   const draw=(txt,x,size=10,f=font)=>p.drawText(safePdfText(txt).slice(0,95),{x,y,size,font:f,color:rgb(0,0,0)});
   draw("Student: "+d.student.name,40,11,bold);draw("Student ID: "+d.student.studentId,330,11,bold);y-=24;
@@ -67,7 +60,7 @@ async function bulkPdf(tickets){
 }
 async function singlePdf(d){
  const doc=await PDFDocument.create(),font=await doc.embedFont(StandardFonts.Helvetica),bold=await doc.embedFont(StandardFonts.HelveticaBold);
- const p=doc.addPage([842,595]);drawCenteredHeader(p,font,bold,842,595,"EXAMINATION HALL TICKET");
+ const p=doc.addPage([842,595]);await drawCenteredHeader(p,doc,font,bold,842,595,"EXAMINATION HALL TICKET");
  const draw=(txt,x,y,size=9,f=font)=>p.drawText(safePdfText(txt).slice(0,95),{x,y,size,font:f,color:rgb(.05,.1,.18)});
  draw("Student: "+d.student.name,40,595-158,10,bold);draw("Student ID: "+d.student.studentId,430,595-158,10,bold);
  draw("Program: "+(d.student.program?.name||"-"),40,595-181);draw("Semester: "+(d.student.semester?.name||"-"),280,595-181);draw("Division: "+(d.student.division?.name||"-"),470,595-181);
