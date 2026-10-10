@@ -5,7 +5,8 @@ import ModuleHeader from "@/components/ModuleHeader";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
-const userRoleStudent=(profile)=>Boolean(profile&&profile.studentId);\nconst labels={profile:"My Profile",attendance:"Attendance",timetable:"Timetable",results:"Results",examination:"Examination",subjects:"My Subjects",fees:"Fees & Payments"};
+const userRoleStudent=(profile)=>Boolean(profile&&profile.studentId);
+const labels={profile:"My Profile",attendance:"Attendance",timetable:"Timetable",results:"Results",examination:"Examination",subjects:"My Subjects",fees:"Fees & Payments"};
 const days=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
 function PortalView(){
