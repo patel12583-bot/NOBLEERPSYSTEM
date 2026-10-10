@@ -6,7 +6,7 @@ const TRUST="(Managed By Shree Noble Education Trust)";
 const ADDRESS="Dabhai - Karjan Road Motahabipura, Ta. Dabhoi, Dist. Vadodara  Mo. +91 94276 97085";
 const AFFILIATION="(Affiliated By Shree Govind Guru University, Godhra)";
 const PRESIDENT="President : A. A. Madhavani";
-function safePdfText(v){return String(v??"").replace(/[—–]/g,"-").replace(/[^\\x09\\x0A\\x0D\\x20-\\xFF]/g,"?")}
+function safePdfText(v){return String(v??"").replace(/[—–]/g,"-").replace(/[^\x09\x0A\x0D\x20-\xFF]/g,"?")}
 async function ticketData(studentId){
  const s=await prisma.student.findUnique({where:{id:studentId},include:{department:true,program:true,semester:true,division:true}});
  if(!s) return null;
@@ -14,33 +14,73 @@ async function ticketData(studentId){
  const schedules=await prisma.examSchedule.findMany({where:{subjectId:{in:subjects.map(x=>x.id)},exam:{status:{not:"CANCELLED"}}},include:{exam:true,subject:true,room:true},orderBy:{date:"asc"}});
  return {student:s,schedules};
 }
+function drawOfficialStyleMark(p,cx,cy){
+ const blue=rgb(.02,.16,.43),red=rgb(.78,.03,.18),green=rgb(.06,.72,.18),yellow=rgb(1,.86,.02),white=rgb(1,1,1);
+ p.drawCircle({x:cx,y:cy,size:39,color:white,borderColor:blue,borderWidth:2});
+ p.drawCircle({x:cx,y:cy+1,size:31,color:yellow});
+ p.drawCircle({x:cx,y:cy+1,size:25,color:rgb(.45,.02,.36)});
+ p.drawCircle({x:cx,y:cy+1,size:20,color:yellow});
+ p.drawEllipse({x:cx,y:cy-8,xScale:15,yScale:4,color:white,borderColor:blue,borderWidth:1});
+ p.drawLine({start:{x:cx-15,y:cy-8},end:{x:cx+15,y:cy-8},thickness:1,color:blue});
+ p.drawLine({start:{x:cx,y:cy-12},end:{x:cx,y:cy-2},thickness:1,color:blue});
+ p.drawLine({start:{x:cx-7,y:cy+9},end:{x:cx,y:cy+18},thickness:2,color:red});
+ p.drawLine({start:{x:cx,y:cy+18},end:{x:cx+7,y:cy+9},thickness:2,color:red});
+ for(let i=0;i<5;i++){
+  p.drawLine({start:{x:cx-30+i*2,y:cy-17+i*5},end:{x:cx-39+i*2,y:cy-12+i*5},thickness:2,color:green});
+  p.drawLine({start:{x:cx+30-i*2,y:cy-17+i*5},end:{x:cx+39-i*2,y:cy-12+i*5},thickness:2,color:green});
+ }
+}
+function drawCenteredHeader(p,font,bold,pageWidth,pageHeight,title){
+ const blue=rgb(.04,.18,.36),muted=rgb(.12,.28,.45);
+ drawOfficialStyleMark(p,pageWidth/2,pageHeight-62);
+ const lines=[
+  [INSTITUTE,15,bold,pageHeight-31],
+  [TRUST,8,bold,pageHeight-47],
+  [ADDRESS,7,font,pageHeight-61],
+  [AFFILIATION,8,bold,pageHeight-75]
+ ];
+ for(const [txt,size,f,y] of lines){
+  const safe=safePdfText(txt),w=f.widthOfTextAtSize(safe,size);
+  p.drawText(safe,{x:(pageWidth-w)/2,y,size,font:f,color:blue});
+ }
+ p.drawLine({start:{x:28,y:pageHeight-88},end:{x:pageWidth-28,y:pageHeight-88},thickness:1.2,color:rgb(.12,.38,.72)});
+ const pres=safePdfText(PRESIDENT),pw=bold.widthOfTextAtSize(pres,8);
+ p.drawText(pres,{x:(pageWidth-pw)/2,y:pageHeight-103,size:8,font:bold,color:blue});
+ p.drawLine({start:{x:28,y:pageHeight-112},end:{x:pageWidth-28,y:pageHeight-112},thickness:1.2,color:rgb(.12,.38,.72)});
+ const heading=safePdfText(title),hw=bold.widthOfTextAtSize(heading,12);
+ p.drawText(heading,{x:(pageWidth-hw)/2,y:pageHeight-133,size:12,font:bold,color:blue});
+}
 async function bulkPdf(tickets){
  const doc=await PDFDocument.create(),font=await doc.embedFont(StandardFonts.Helvetica),bold=await doc.embedFont(StandardFonts.HelveticaBold);
  for(const d of tickets){
-  const p=doc.addPage([595,842]);let y=800;
-  const draw=(txt,x,size=10,f=font)=>{p.drawText(safePdfText(txt).slice(0,95),{x,y,size,font:f,color:rgb(0,0,0)});};
-  p.drawCircle({x:62,y:775,size:24,color:rgb(1,1,1),borderColor:rgb(.05,.28,.55),borderWidth:2});p.drawCircle({x:62,y:775,size:18,color:rgb(1,.78,.05)});p.drawText("N",{x:55,y:769,size:12,font:bold,color:rgb(.72,.08,.18)});
-  draw(INSTITUTE,100,15,bold);y-=17;draw(TRUST,100,8,bold);y-=14;draw(ADDRESS,100,7,font);y-=14;draw(AFFILIATION,100,8,bold);y-=14;draw(PRESIDENT,100,8,bold);y-=20;draw("EXAMINATION HALL TICKET",190,12,bold);y-=35;
-  draw("Student: "+d.student.name,40,11,bold);draw("Student ID: "+d.student.studentId,330,11,bold);y-=20;
-  draw("Program: "+(d.student.program?.name||"—"),40);y-=16;draw("Semester: "+(d.student.semester?.name||"—")+"   Division: "+(d.student.division?.name||"—"),40);y-=30;
+  const p=doc.addPage([595,842]);drawCenteredHeader(p,font,bold,595,842,"EXAMINATION HALL TICKET");
+  let y=842-166;
+  const draw=(txt,x,size=10,f=font)=>p.drawText(safePdfText(txt).slice(0,95),{x,y,size,font:f,color:rgb(0,0,0)});
+  draw("Student: "+d.student.name,40,11,bold);draw("Student ID: "+d.student.studentId,330,11,bold);y-=24;
+  draw("Program: "+(d.student.program?.name||"-"),40);y-=17;draw("Semester: "+(d.student.semester?.name||"-")+"   Division: "+(d.student.division?.name||"-"),40);y-=30;
   draw("Exam Schedule",40,11,bold);y-=20;
-  for(const s of d.schedules){if(y<80){p.drawText("Continue on next page",{x:40,y:40,size:8,font});break;}draw((s.exam?.name||"Exam")+" | "+(s.subject?.code||"")+" - "+(s.subject?.name||""),40,9);y-=14;draw(new Date(s.date).toLocaleDateString("en-IN")+" | "+s.startTime+" - "+s.endTime+" | Room: "+(s.room?.code||"—"),55,8);y-=20;}
+  if(!d.schedules.length){draw("No exam schedules have been published.",40,9);y-=18}
+  for(const s of d.schedules){if(y<65){p.drawText("Continue on next page",{x:40,y:40,size:8,font});break}draw((s.exam?.name||"Exam")+" | "+(s.subject?.code||"")+" - "+(s.subject?.name||""),40,9);y-=14;draw(new Date(s.date).toLocaleDateString("en-IN")+" | "+s.startTime+" - "+s.endTime+" | Room: "+(s.room?.code||"-"),55,8);y-=20}
   p.drawText("Generated by Noble ERP",{x:40,y:35,size:8,font});
  }
  return doc.save();
 }
 async function singlePdf(d){
  const doc=await PDFDocument.create(),font=await doc.embedFont(StandardFonts.Helvetica),bold=await doc.embedFont(StandardFonts.HelveticaBold);
- const p=doc.addPage([842,595]);
- p.drawCircle({x:56,y:536,size:22,color:rgb(1,1,1),borderColor:rgb(.05,.28,.55),borderWidth:2});p.drawCircle({x:56,y:536,size:17,color:rgb(1,.78,.05)});p.drawText("N",{x:49,y:530,size:12,font:bold,color:rgb(.72,.08,.18)});
- p.drawText(INSTITUTE,{x:82,y:554,size:15,font:bold,color:rgb(.04,.15,.28)});p.drawText(TRUST,{x:82,y:539,size:8,font:bold,color:rgb(.04,.15,.28)});p.drawText(ADDRESS,{x:82,y:525,size:6.4,font,color:rgb(.12,.28,.45)});p.drawText(AFFILIATION,{x:82,y:512,size:7.5,font:bold,color:rgb(.04,.15,.28)});p.drawLine({start:{x:28,y:500},end:{x:814,y:500},thickness:1.2,color:rgb(.12,.38,.72)});p.drawText(PRESIDENT,{x:82,y:485,size:8,font:bold,color:rgb(.04,.15,.28)});p.drawLine({start:{x:28,y:475},end:{x:814,y:475},thickness:1.2,color:rgb(.12,.38,.72)});
- p.drawText("EXAMINATION HALL TICKET",{x:300,y:452,size:13,font:bold,color:rgb(.06,.10,.15)});
- p.drawText(safePdfText("Student: "+d.student.name),{x:40,y:420,size:10,font:bold});p.drawText(safePdfText("Student ID: "+d.student.studentId),{x:430,y:420,size:10,font:bold});
- p.drawText(safePdfText("Program: "+(d.student.program?.name||"-")),{x:40,y:397,size:9,font});p.drawText(safePdfText("Semester: "+(d.student.semester?.name||"-")),{x:280,y:397,size:9,font});p.drawText(safePdfText("Division: "+(d.student.division?.name||"-")),{x:470,y:397,size:9,font});
- const heads=["EXAM","SUBJECT","DATE","TIME","ROOM"],xs=[40,185,475,590,700],ws=[140,285,105,100,95];let y=357;
- heads.forEach((h,i)=>p.drawText(safePdfText(h),{x:xs[i],y,size:7,font:bold,color:rgb(.1,.25,.42)}));y-=14;
- for(const s of d.schedules){p.drawLine({start:{x:40,y:y+7},end:{x:790,y:y+7},thickness:.5,color:rgb(.85,.88,.92)});const vals=[s.exam?.name||"Exam",(s.subject?.code||"")+" — "+(s.subject?.name||""),new Date(s.date).toLocaleDateString("en-IN"),s.startTime+"–"+s.endTime,s.room?.code||"—"];vals.forEach((v,i)=>p.drawText(safePdfText(v).slice(0,38),{x:xs[i],y,size:7.5,font}));y-=24;if(y<60)break}
- p.drawText("Generated by Noble ERP",{x:40,y:35,size:7,font,color:rgb(.45,.5,.56)});return doc.save();
+ const p=doc.addPage([842,595]);drawCenteredHeader(p,font,bold,842,595,"EXAMINATION HALL TICKET");
+ const draw=(txt,x,y,size=9,f=font)=>p.drawText(safePdfText(txt).slice(0,95),{x,y,size,font:f,color:rgb(.05,.1,.18)});
+ draw("Student: "+d.student.name,40,595-158,10,bold);draw("Student ID: "+d.student.studentId,430,595-158,10,bold);
+ draw("Program: "+(d.student.program?.name||"-"),40,595-181);draw("Semester: "+(d.student.semester?.name||"-"),280,595-181);draw("Division: "+(d.student.division?.name||"-"),470,595-181);
+ const heads=["EXAM","SUBJECT","DATE","TIME","ROOM"],xs=[40,185,475,590,700];let y=595-220;
+ heads.forEach((h,i)=>p.drawText(h,{x:xs[i],y,size:7,font:bold,color:rgb(.1,.25,.42)}));y-=14;
+ if(!d.schedules.length){draw("No exam schedules have been published.",40,y,9);y-=20}
+ for(const s of d.schedules){
+  if(y<55)break;
+  p.drawLine({start:{x:40,y:y+7},end:{x:790,y:y+7},thickness:.5,color:rgb(.85,.88,.92)});
+  const vals=[s.exam?.name||"Exam",(s.subject?.code||"")+" - "+(s.subject?.name||""),new Date(s.date).toLocaleDateString("en-IN"),s.startTime+"-"+s.endTime,s.room?.code||"-"];
+  vals.forEach((v,i)=>p.drawText(safePdfText(v).slice(0,38),{x:xs[i],y,size:7.5,font,color:rgb(.05,.1,.18)}));y-=24;
+ }
+ p.drawText("Generated by Noble ERP",{x:40,y:25,size:7,font,color:rgb(.45,.5,.56)});return doc.save();
 }
 export async function GET(req){
  const u=await getSessionUser();if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});
