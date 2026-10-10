@@ -4,6 +4,7 @@ import ModuleHeader from "@/components/ModuleHeader";
 import AdminShell from "@/components/AdminShell";
 
 import {useState} from "react";
+async function responseError(r,fallback){const t=await r.text();if(!t)return fallback;try{const j=JSON.parse(t);return j.error||fallback}catch{return t.slice(0,240)||fallback}}
 const reports=[
  ["students","Student Master"],["attendance","Attendance"],["fees","Fees & Payments"],
  ["results","Results"],["library","Library Issue/Return"],["payroll","Payroll"]
@@ -14,7 +15,7 @@ export default function ExportsPage(){
   setBusy(type+format);
   try{
    const r=await fetch("/api/export?type="+encodeURIComponent(type)+"&format="+format);
-   if(!r.ok){const d=await r.json();throw new Error(d.error||"Export failed.");}
+   if(!r.ok)throw new Error(await responseError(r,"Export failed. Server returned an empty or invalid response."));
    const blob=await r.blob(),url=URL.createObjectURL(blob),a=document.createElement("a");
    a.href=url;a.download="noble-erp-"+type+"."+format;a.click();URL.revokeObjectURL(url);
   }catch(e){setError(e.message||"Export failed.")}finally{setBusy("")}
