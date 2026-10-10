@@ -219,3 +219,22 @@ linear-gradient(180deg,#f7faff 0%,#f2f6fa 100%)}
 @media(max-width:1000px){.erpShell .erpSidebar{flex-basis:230px;width:230px}.erpShell .erpTopbar{padding:0 20px}.erpShell .erpPage{padding:23px 20px 32px}}
 @media(max-width:720px){.erpShell .erpSidebar{position:fixed;left:0;top:0;bottom:0;width:275px;max-width:85vw;height:100dvh;transform:translateX(-105%);transition:transform .22s ease;box-shadow:18px 0 60px rgba(8,28,49,.25)}.erpShell.erpMobileOpen .erpSidebar{transform:translateX(0)}.erpShell .erpMobileShade{position:fixed;inset:0;z-index:25;border:0;background:rgba(5,21,38,.42)}.erpShell.erpMobileOpen .erpMobileShade{display:block}.erpShell .erpMenuToggle{display:grid;place-items:center}.erpShell .erpTopbar{height:58px;padding:0 14px}.erpShell .erpAcademicYear{display:none}.erpShell .erpPage{padding:20px 14px 28px}.erpShell .erpFooter{padding:13px 15px;flex-wrap:wrap}.erpShell .erpBreadcrumb{font-size:10px}.erpShell .erpBreadcrumb strong{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.erpShell *{transition:none!important;scroll-behavior:auto!important}}
+
+
+/* Workspace shell finishing pass: readable controls and reversible collapse */
+.erpShell .erpPage button:not(.primary){font-size:11px;padding:9px 12px;border-radius:8px}
+.erpShell .erpPage .back{font-size:10px;padding:8px 12px}
+.erpShell.erpCollapsed .erpBrand{position:relative;justify-content:center;min-height:76px}
+.erpShell.erpCollapsed .erpCollapse{display:block;position:absolute;left:calc(50% - 13px);top:46px;z-index:3}
+.erpShell.erpCollapsed .erpNav{padding-top:2px}
+@media(max-width:720px){
+  .erpShell.erpCollapsed .erpSidebar{flex-basis:275px;width:275px;padding-left:13px;padding-right:13px}
+  .erpShell.erpCollapsed .erpBrand{justify-content:flex-start;min-height:53px}
+  .erpShell.erpCollapsed .erpBrandText,.erpShell.erpCollapsed .erpCollapse,.erpShell.erpCollapsed .erpSidebarLabel,.erpShell.erpCollapsed .erpSearch,.erpShell.erpCollapsed .erpNavHeading,.erpShell.erpCollapsed .erpNavLabel,.erpShell.erpCollapsed .erpFootText,.erpShell.erpCollapsed .erpFootVersion{display:initial}
+  .erpShell.erpCollapsed .erpBrandText{display:block}
+  .erpShell.erpCollapsed .erpCollapse{position:static}
+  .erpShell.erpCollapsed .erpNavItem{justify-content:flex-start;padding:9px 10px}
+  .erpShell.erpCollapsed .erpNavLabel{display:inline}
+  .erpShell.erpCollapsed .erpSearch{display:flex}
+  .erpShell.erpCollapsed .erpNavHeading{display:block}
+}
