@@ -1,11 +1,17 @@
 import{NextResponse}from"next/server";import{readFile}from"node:fs/promises";import{join}from"node:path";import{prisma}from"@/lib/prisma";import{getSessionUser}from"@/lib/auth";import{PDFDocument,StandardFonts,rgb}from"pdf-lib";
 export const runtime="nodejs";export const dynamic="force-dynamic";
 const staffRoles=["SUPER_ADMIN","ADMIN","HOD","EXAM_OFFICER"];
-const INSTITUTE="NOBLE INSTITUTE OF SOCIAL WORK";
+const INSTITUTE="noble group of Institution";
 const TRUST="(Managed By Shree Noble Education Trust)";
-const ADDRESS="Dabhai - Karjan Road Motahabipura, Ta. Dabhoi, Dist. Vadodara  Mo. +91 94276 97085";
+const ADDRESS="Dabhoi Karjan Road, Motaborsiya, Ta. Dabhoi, Dist. Vadodara";
 const AFFILIATION="(Affiliated By Shree Govind Guru University, Godhra)";
 const PRESIDENT="President : A. A. Madhavani";
+async function embedInstituteLogo(doc){
+ for(const [file,type] of [["noble-logo.png","png"],["noble-logo.jpg","jpg"],["noble-logo.jpeg","jpg"]]){
+  try{const bytes=await readFile(join(process.cwd(),"public",file));return type==="png"?await doc.embedPng(bytes):await doc.embedJpg(bytes)}catch{}
+ }
+ return null;
+}
 function safePdfText(v){return String(v??"").replace(/[—–]/g,"-").replace(/[^\x09\x0A\x0D\x20-\xFF]/g,"?")}
 async function ticketData(studentId){
  const s=await prisma.student.findUnique({where:{id:studentId},include:{department:true,program:true,semester:true,division:true}});
@@ -17,14 +23,10 @@ async function ticketData(studentId){
 async function drawCenteredHeader(p,doc,font,bold,pageWidth,pageHeight,title){
  const blue=rgb(.04,.18,.36);
  const logoBox={x:30,y:pageHeight-93,w:68,h:68};
- try{
-  const logoBytes=await readFile(join(process.cwd(),"public","noble-logo.jpg"));
-  const logo=await doc.embedJpg(logoBytes);
+ const logo=await embedInstituteLogo(doc);
+ if(logo){
   const scale=Math.min(logoBox.w/logo.width,logoBox.h/logo.height),w=logo.width*scale,h=logo.height*scale;
   p.drawImage(logo,{x:logoBox.x+(logoBox.w-w)/2,y:logoBox.y+(logoBox.h-h)/2,width:w,height:h});
- }catch(e){
-  p.drawCircle({x:64,y:pageHeight-58,size:27,color:rgb(1,.82,.05),borderColor:blue,borderWidth:1.5});
-  p.drawText("N",{x:59,y:pageHeight-63,size:13,font:bold,color:rgb(.78,.03,.18)});
  }
  const centerX=pageWidth/2+22;
  const lines=[[INSTITUTE,15,bold,pageHeight-31],[TRUST,8,bold,pageHeight-47],[ADDRESS,7,font,pageHeight-62],[AFFILIATION,8,bold,pageHeight-77]];
