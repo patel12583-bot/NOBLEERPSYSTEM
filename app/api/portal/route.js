@@ -100,3 +100,37 @@ export async function GET(request) {
     return NextResponse.json({ error: "Unable to load this portal module." }, { status: 500 });
   }
 }
+
+export async function PATCH(request) {
+  const user = await getSessionUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (user.role !== "STUDENT") return NextResponse.json({ error: "Only students can edit their own profile here." }, { status: 403 });
+
+  try {
+    const body = await request.json();
+    const allowed = ["name", "email", "mobile", "address", "gender"];
+    const data = {};
+    for (const key of allowed) {
+      if (Object.prototype.hasOwnProperty.call(body, key)) {
+        const value = typeof body[key] === "string" ? body[key].trim() : "";
+        if (value.length > (key === "address" ? 500 : 120)) {
+          return NextResponse.json({ error: key + " is too long." }, { status: 400 });
+        }
+        data[key] = value || null;
+      }
+    }
+    if (Object.keys(data).length === 0) return NextResponse.json({ error: "No editable fields were provided." }, { status: 400 });
+    if (data.name !== undefined && !data.name) return NextResponse.json({ error: "Name cannot be empty." }, { status: 400 });
+    if (data.email && !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(data.email)) return NextResponse.json({ error: "Enter a valid email address." }, { status: 400 });
+    const profile = await prisma.student.update({
+      where: { userId: user.id },
+      data,
+      include: { department: true, program: true, semester: true, division: true, academicYear: true },
+    });
+    await prisma.auditLog.create({ data: { userId: user.id, action: "UPDATE_OWN_PROFILE", module: "STUDENT_PROFILE", recordId: profile.id, metadata: JSON.stringify({ fields: Object.keys(data) }) } }).catch(() => {});
+    return NextResponse.json({ success: true, profile });
+  } catch (error) {
+    console.error("Student profile update error:", error);
+    return NextResponse.json({ error: "Unable to update profile. Please try again." }, { status: 500 });
+  }
+}
