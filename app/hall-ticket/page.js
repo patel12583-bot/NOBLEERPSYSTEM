@@ -1,11 +1,12 @@
 "use client";
 import{useEffect,useState}from"react";
 import ModuleHeader from "@/components/ModuleHeader";
+async function responseError(r,fallback){const t=await r.text();if(!t)return fallback;try{const j=JSON.parse(t);return j.error||fallback}catch{return t.slice(0,240)||fallback}}
 export default function HallTicket(){
  const[d,setD]=useState(null),[studentId,setStudentId]=useState(""),[err,setErr]=useState(""),[loading,setLoading]=useState(false);
- async function load(id=""){setLoading(true);setErr("");try{const r=await fetch("/api/hall-ticket"+(id?"?studentId="+encodeURIComponent(id):""));const x=await r.json();if(!r.ok)throw Error(x.error);setD(x);if(x.student)setStudentId(x.student.id)}catch(e){setErr(e.message)}finally{setLoading(false)}}
+ async function load(id=""){setLoading(true);setErr("");try{const r=await fetch("/api/hall-ticket"+(id?"?studentId="+encodeURIComponent(id):""));if(!r.ok)throw Error(await responseError(r,"Unable to load hall ticket. Please retry."));const x=await r.json();setD(x);if(x.student)setStudentId(x.student.id)}catch(e){setErr(e.message)}finally{setLoading(false)}}
  useEffect(()=>{load()},[]);
- async function bulk(){try{const r=await fetch("/api/hall-ticket?bulk=1");if(!r.ok){const x=await r.json();throw Error(x.error)}const blob=await r.blob(),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="noble-erp-hall-tickets.pdf";a.click();URL.revokeObjectURL(url)}catch(e){setErr(e.message)}}
+ async function bulk(){try{const r=await fetch("/api/hall-ticket?bulk=1");if(!r.ok)throw Error(await responseError(r,"PDF generation failed. Please retry or check server logs."))const blob=await r.blob(),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="noble-erp-hall-tickets.pdf";a.click();URL.revokeObjectURL(url)}catch(e){setErr(e.message)}}
  return <main className="content" style={{padding:32,maxWidth:1100}}>
   <ModuleHeader eyebrow="NOBLE ERP • EXAMINATION" title="Hall Ticket" description="Generate, print or save student examination hall tickets as PDF." actions={[]}/>
   {err&&<div className="error">{err}</div>}
@@ -16,7 +17,7 @@ export default function HallTicket(){
    <p><b>Student:</b> {d.student.name} &nbsp; <b>ID:</b> {d.student.studentId}</p>
    <p><b>Program:</b> {d.student.program?.name||"—"} &nbsp; <b>Semester:</b> {d.student.semester?.name||"—"} &nbsp; <b>Division:</b> {d.student.division?.name||"—"}</p>
    <table style={{width:"100%",marginTop:20}}><thead><tr><th>Exam</th><th>Subject</th><th>Date</th><th>Time</th><th>Room</th></tr></thead><tbody>{d.schedules.map(x=><tr key={x.id}><td>{x.exam.name}</td><td>{x.subject.code} — {x.subject.name}</td><td>{new Date(x.date).toLocaleDateString("en-IN")}</td><td>{x.startTime}–{x.endTime}</td><td>{x.room?.code||"—"}</td></tr>)}</tbody></table>
-   <button className="primary" style={{marginTop:20}} onClick={async()=>{try{const r=await fetch("/api/hall-ticket?studentId="+encodeURIComponent(studentId)+"&format=pdf");if(!r.ok){const x=await r.json();throw Error(x.error||"Unable to create PDF.")}const blob=await r.blob(),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="noble-erp-hall-ticket.pdf";a.click();URL.revokeObjectURL(url)}catch(e){setErr(e.message||"Unable to create PDF.")}}}>Download / Save PDF</button>
+   <button className="primary" style={{marginTop:20}} onClick={async()=>{try{const r=await fetch("/api/hall-ticket?studentId="+encodeURIComponent(studentId)+"&format=pdf");if(!r.ok)throw Error(await responseError(r,"Unable to create PDF. Please retry."))const blob=await r.blob(),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="noble-erp-hall-ticket.pdf";a.click();URL.revokeObjectURL(url)}catch(e){setErr(e.message||"Unable to create PDF.")}}}>Download / Save PDF</button>
   </div>}
  </main>
 }
