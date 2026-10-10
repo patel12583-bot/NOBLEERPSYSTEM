@@ -61,6 +61,7 @@ function drawHeader(page,title,font,bold){
  page.drawText(title,{x:30,y:445,size:12,font:bold,color:rgb(.06,.10,.15)});
  page.drawText("Report Generated: "+new Date().toLocaleString("en-IN"),{x:30,y:429,size:7.5,font,color:rgb(.25,.33,.42)});
 }
+function pdfSafe(value){return String(value??"").replace(/[—–]/g,"-").replace(/[^\\x09\\x0A\\x0D\\x20-\\xFF]/g,"?")}
 function wrapText(value,font,size,maxWidth){
  const words=String(value??"").split(/\s+/),lines=[];let line="";
  for(const word of words){const next=line?line+" "+word:word;if(font.widthOfTextAtSize(next,size)<=maxWidth)line=next;else{if(line)lines.push(line);line=word}}
