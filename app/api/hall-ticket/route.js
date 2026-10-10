@@ -1,6 +1,12 @@
 import{NextResponse}from"next/server";import{prisma}from"@/lib/prisma";import{getSessionUser}from"@/lib/auth";import{PDFDocument,StandardFonts,rgb}from"pdf-lib";
 export const runtime="nodejs";export const dynamic="force-dynamic";
 const staffRoles=["SUPER_ADMIN","ADMIN","HOD","EXAM_OFFICER"];
+const INSTITUTE="NOBLE INSTITUTE OF SOCIAL WORK";
+const TRUST="(Managed By Shree Noble Education Trust)";
+const ADDRESS="Dabhai - Karjan Road Motahabipura, Ta. Dabhoi, Dist. Vadodara  Mo. +91 94276 97085";
+const AFFILIATION="(Affiliated By Shree Govind Guru University, Godhra)";
+const PRESIDENT="President : A. A. Madhavani";
+function safePdfText(v){return String(v??"").replace(/[—–]/g,"-").replace(/[^\\x09\\x0A\\x0D\\x20-\\xFF]/g,"?")}
 async function ticketData(studentId){
  const s=await prisma.student.findUnique({where:{id:studentId},include:{department:true,program:true,semester:true,division:true}});
  if(!s) return null;
@@ -12,9 +18,9 @@ async function bulkPdf(tickets){
  const doc=await PDFDocument.create(),font=await doc.embedFont(StandardFonts.Helvetica),bold=await doc.embedFont(StandardFonts.HelveticaBold);
  for(const d of tickets){
   const p=doc.addPage([595,842]);let y=800;
-  const draw=(txt,x,size=10,f=font)=>{p.drawText(String(txt).slice(0,95),{x,y,size,font:f,color:rgb(0,0,0)});};
+  const draw=(txt,x,size=10,f=font)=>{p.drawText(safePdfText(txt).slice(0,95),{x,y,size,font:f,color:rgb(0,0,0)});};
   p.drawCircle({x:62,y:775,size:24,color:rgb(1,1,1),borderColor:rgb(.05,.28,.55),borderWidth:2});p.drawCircle({x:62,y:775,size:18,color:rgb(1,.78,.05)});p.drawText("N",{x:55,y:769,size:12,font:bold,color:rgb(.72,.08,.18)});
-  draw("NOBLE GROUP OF INSTITUTE",100,16,bold);y-=18;draw("Dabhoi Karjan Road, Motaborsiya, Ta. Dabhoi, Dist. Vadodara",100,8,font);y-=22;draw("EXAMINATION HALL TICKET",190,12,bold);y-=35;
+  draw(INSTITUTE,100,15,bold);y-=17;draw(TRUST,100,8,bold);y-=14;draw(ADDRESS,100,7,font);y-=14;draw(AFFILIATION,100,8,bold);y-=14;draw(PRESIDENT,100,8,bold);y-=20;draw("EXAMINATION HALL TICKET",190,12,bold);y-=35;
   draw("Student: "+d.student.name,40,11,bold);draw("Student ID: "+d.student.studentId,330,11,bold);y-=20;
   draw("Program: "+(d.student.program?.name||"—"),40);y-=16;draw("Semester: "+(d.student.semester?.name||"—")+"   Division: "+(d.student.division?.name||"—"),40);y-=30;
   draw("Exam Schedule",40,11,bold);y-=20;
@@ -27,13 +33,13 @@ async function singlePdf(d){
  const doc=await PDFDocument.create(),font=await doc.embedFont(StandardFonts.Helvetica),bold=await doc.embedFont(StandardFonts.HelveticaBold);
  const p=doc.addPage([842,595]);
  p.drawCircle({x:56,y:536,size:22,color:rgb(1,1,1),borderColor:rgb(.05,.28,.55),borderWidth:2});p.drawCircle({x:56,y:536,size:17,color:rgb(1,.78,.05)});p.drawText("N",{x:49,y:530,size:12,font:bold,color:rgb(.72,.08,.18)});
- p.drawText("NOBLE GROUP OF INSTITUTE",{x:82,y:545,size:17,font:bold,color:rgb(.04,.15,.28)});p.drawText("Dabhoi Karjan Road, Motaborsiya, Ta. Dabhoi, Dist. Vadodara",{x:82,y:528,size:9,font,color:rgb(.12,.28,.45)});p.drawLine({start:{x:28,y:507},end:{x:814,y:507},thickness:1.2,color:rgb(.12,.38,.72)});
- p.drawText("EXAMINATION HALL TICKET",{x:300,y:478,size:14,font:bold,color:rgb(.06,.10,.15)});
- p.drawText("Student: "+d.student.name,{x:40,y:445,size:10,font:bold});p.drawText("Student ID: "+d.student.studentId,{x:430,y:445,size:10,font:bold});
- p.drawText("Program: "+(d.student.program?.name||"—"),{x:40,y:422,size:9,font});p.drawText("Semester: "+(d.student.semester?.name||"—"),{x:280,y:422,size:9,font});p.drawText("Division: "+(d.student.division?.name||"—"),{x:470,y:422,size:9,font});
- const heads=["EXAM","SUBJECT","DATE","TIME","ROOM"],xs=[40,185,475,590,700],ws=[140,285,105,100,95];let y=382;
- heads.forEach((h,i)=>p.drawText(h,{x:xs[i],y,size:7,font:bold,color:rgb(.1,.25,.42)}));y-=14;
- for(const s of d.schedules){p.drawLine({start:{x:40,y:y+7},end:{x:790,y:y+7},thickness:.5,color:rgb(.85,.88,.92)});const vals=[s.exam?.name||"Exam",(s.subject?.code||"")+" — "+(s.subject?.name||""),new Date(s.date).toLocaleDateString("en-IN"),s.startTime+"–"+s.endTime,s.room?.code||"—"];vals.forEach((v,i)=>p.drawText(String(v).slice(0,38),{x:xs[i],y,size:7.5,font}));y-=24;if(y<60)break}
+ p.drawText(INSTITUTE,{x:82,y:554,size:15,font:bold,color:rgb(.04,.15,.28)});p.drawText(TRUST,{x:82,y:539,size:8,font:bold,color:rgb(.04,.15,.28)});p.drawText(ADDRESS,{x:82,y:525,size:6.4,font,color:rgb(.12,.28,.45)});p.drawText(AFFILIATION,{x:82,y:512,size:7.5,font:bold,color:rgb(.04,.15,.28)});p.drawLine({start:{x:28,y:500},end:{x:814,y:500},thickness:1.2,color:rgb(.12,.38,.72)});p.drawText(PRESIDENT,{x:82,y:485,size:8,font:bold,color:rgb(.04,.15,.28)});p.drawLine({start:{x:28,y:475},end:{x:814,y:475},thickness:1.2,color:rgb(.12,.38,.72)});
+ p.drawText("EXAMINATION HALL TICKET",{x:300,y:452,size:13,font:bold,color:rgb(.06,.10,.15)});
+ p.drawText(safePdfText("Student: "+d.student.name),{x:40,y:420,size:10,font:bold});p.drawText(safePdfText("Student ID: "+d.student.studentId),{x:430,y:420,size:10,font:bold});
+ p.drawText(safePdfText("Program: "+(d.student.program?.name||"-")),{x:40,y:397,size:9,font});p.drawText(safePdfText("Semester: "+(d.student.semester?.name||"-")),{x:280,y:397,size:9,font});p.drawText(safePdfText("Division: "+(d.student.division?.name||"-")),{x:470,y:397,size:9,font});
+ const heads=["EXAM","SUBJECT","DATE","TIME","ROOM"],xs=[40,185,475,590,700],ws=[140,285,105,100,95];let y=357;
+ heads.forEach((h,i)=>p.drawText(safePdfText(h),{x:xs[i],y,size:7,font:bold,color:rgb(.1,.25,.42)}));y-=14;
+ for(const s of d.schedules){p.drawLine({start:{x:40,y:y+7},end:{x:790,y:y+7},thickness:.5,color:rgb(.85,.88,.92)});const vals=[s.exam?.name||"Exam",(s.subject?.code||"")+" — "+(s.subject?.name||""),new Date(s.date).toLocaleDateString("en-IN"),s.startTime+"–"+s.endTime,s.room?.code||"—"];vals.forEach((v,i)=>p.drawText(safePdfText(v).slice(0,38),{x:xs[i],y,size:7.5,font}));y-=24;if(y<60)break}
  p.drawText("Generated by Noble ERP",{x:40,y:35,size:7,font,color:rgb(.45,.5,.56)});return doc.save();
 }
 export async function GET(req){
