@@ -605,3 +605,10 @@ button,.btn,input,select,textarea{accent-color:#176bd1}
 .shell>.heroImageOnly{display:block!important;min-height:calc(100svh - 82px)!important;height:calc(100svh - 82px)!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;background:transparent!important}
 .shell>.nav{height:82px!important}
 @media(max-width:700px){.shell{background-position:center center!important}.shell>.heroImageOnly{min-height:calc(100svh - 70px)!important;height:calc(100svh - 70px)!important}.shell>.nav{height:70px!important}}
+
+
+/* Final homepage-only layout: existing header plus full-screen campus photo */
+.homepageImageOnly{min-height:100svh!important;overflow:hidden!important;background-image:url("/WhatsApp%20Image%202026-10-11%20at%2012.35.39%20PM.jpeg")!important;background-position:center center!important;background-size:cover!important;background-repeat:no-repeat!important;background-attachment:scroll!important}
+.homepageImageOnly>.nav{position:relative;z-index:1;background:rgba(4,22,40,.24)!important;backdrop-filter:none!important}
+.homepageImageOnly>.heroImageOnly{display:block!important;height:calc(100svh - 82px)!important;min-height:calc(100svh - 82px)!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;background:transparent!important}
+@media(max-width:700px){.homepageImageOnly>.nav{height:70px!important}.homepageImageOnly>.heroImageOnly{height:calc(100svh - 70px)!important;min-height:calc(100svh - 70px)!important}}
