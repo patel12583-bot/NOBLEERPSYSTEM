@@ -522,3 +522,19 @@ linear-gradient(180deg,#f7faff 0%,#f2f6fa 100%)}
 .loginCampusFeatures small{font-size:9px;color:#d6e7ff;margin-top:3px}
 @media(max-width:850px){.loginCampusHeader{left:20px;right:20px;top:18px}.loginCampusMotto{font-size:18px}.loginCampusInstitute strong{font-size:16px}.loginCampusInstitute span{font-size:8px;letter-spacing:1.3px}.loginCampusFeatures{display:none}.loginCampusCard{margin-top:70px}}
 @media(max-width:520px){.loginShell{padding:16px;background-position:center;background-attachment:scroll}.loginCampusHeader{position:relative;inset:auto;width:100%;margin:2px 0 16px;align-items:center}.loginCampusMotto{font-size:15px}.loginCampusInstitute strong{font-size:13px}.loginCampusInstitute span{font-size:7px;letter-spacing:.8px}.loginCampusCard{margin:0;padding:24px 20px 18px}.loginCampusLogo{height:74px}.loginCampusLogo img{max-height:74px}.loginCampusCard .loginTitle h1{font-size:25px}}
+
+
+/* Noble campus background across the entire ERP */
+html{min-height:100%;background:#dce8f5}
+body{min-height:100vh;background:#dce8f5 url('/noble-campus.jpg') center center / cover fixed no-repeat;color:#12233b}
+body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(135deg,rgba(4,28,59,.36),rgba(8,54,99,.20) 45%,rgba(235,244,253,.30))}
+main,section{scroll-margin-top:20px}
+.dash{background:linear-gradient(135deg,rgba(230,239,249,.78),rgba(248,251,255,.72))!important;backdrop-filter:blur(1.5px)}
+.content{background:linear-gradient(rgba(241,247,253,.82),rgba(246,250,255,.88)),url('/noble-campus.jpg') center/cover fixed!important}
+.erpShell{background:linear-gradient(135deg,rgba(226,238,250,.74),rgba(246,250,255,.82))!important;min-height:100vh}
+.erpShell .erpMain,.erpShell .erpContent,.erpShell .mainContent{background:transparent!important}
+.erpShell .erpPage{background:transparent!important}
+.erpShell .erpPage>.panel,.erpShell .erpPage .panel,.erpShell .erpPage .card,.erpShell .erpPage .tableWrap,.erpShell .erpPage .erpPanel{background:rgba(255,255,255,.94)!important;backdrop-filter:blur(5px)}
+.loginShell{background:#dce8f5 url('/noble-campus.jpg') center/cover fixed no-repeat!important}
+.shell{background:linear-gradient(90deg,rgba(5,24,45,.76),rgba(7,32,57,.55)),url('/noble-campus.jpg') center/cover fixed!important}
+@media(max-width:700px){body,.content,.loginShell,.shell{background-attachment:scroll!important;background-position:center!important}.dash,.erpShell{background:rgba(239,246,253,.86)!important}}
