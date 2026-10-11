@@ -1,7 +1,8 @@
 {
-  "name": "Noble Group of Institution ERP",
-  "short_name": "Noble ERP",
-  "description": "Noble Group of Institution student and campus management portal",
+  "id": "/",
+  "name": "NRS",
+  "short_name": "NRS",
+  "description": "NRS - Noble Group of Institution ERP",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -13,7 +14,7 @@
       "src": "/noble-app-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ]
 }
