@@ -2,8 +2,9 @@
 import { usePathname, useRouter } from "next/navigation";
 
 function getSafeBackPath(pathname){
- if(!pathname||pathname==="/")return "/dashboard";
+ if(!pathname||pathname==="/"||pathname==="/dashboard"||pathname==="/portal")return "/dashboard";
  const parts=pathname.split("/").filter(Boolean);
+ if(parts[0]==="admin"&&parts.length<=2)return "/dashboard";
  if(parts.length<=1)return "/dashboard";
  return "/"+parts.slice(0,-1).join("/");
 }
