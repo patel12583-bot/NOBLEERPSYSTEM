@@ -35,9 +35,9 @@ async function fetchData(type){
  throw new Error("Unsupported export type.");
 }
 function filename(type,format){return "noble-erp-"+type+"-"+new Date().toISOString().slice(0,10)+"."+format}
-const INSTITUTE="noble group of Institution";
+const INSTITUTE="NOBLE GROUP OF INSTITUTION";
 const TRUST="(Managed By Shree Noble Education Trust)";
-const ADDRESS="Dabhoi Karjan Road, Motaborsiya, Ta. Dabhoi, Dist. Vadodara";
+const ADDRESS="DABHOI KARJAN ROAD, MOTAHABIPURA, TA. DABHOI, DIST. VADODARA";
 const AFFILIATION="(Affiliated By Shree Govind Guru University, Godhra)";
 const PRESIDENT="President : A. A. Madhavani";
 async function embedInstituteLogo(doc){
@@ -59,7 +59,7 @@ async function drawHeader(page,title,font,bold,doc){
  page.drawText(pdfSafe(title),{x:30,y:445,size:12,font:bold,color:rgb(.06,.10,.15)});
  page.drawText(pdfSafe("Report Generated: "+new Date().toLocaleString("en-IN")),{x:30,y:429,size:7.5,font,color:rgb(.25,.33,.42)});
 }
-function pdfSafe(value){return String(value??"").replace(/[—–]/g,"-").replace(/[^\x09\x0A\x0D\x20-\xFF]/g,"?")}
+function pdfSafe(value){return String(value??"").replace(/[—–]/g,"-").replace(/[^\x09\x0A\x0D\x20-\xFF]/g,"?").toLocaleUpperCase("en-US")}
 function wrapText(value,font,size,maxWidth){
  const words=String(value??"").split(/\s+/),lines=[];let line="";
  for(const word of words){const next=line?line+" "+word:word;if(font.widthOfTextAtSize(next,size)<=maxWidth)line=next;else{if(line)lines.push(line);line=word}}
