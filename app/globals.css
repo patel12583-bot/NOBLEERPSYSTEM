@@ -769,3 +769,10 @@ button,.btn,input,select,textarea{accent-color:#176bd1}
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }
+
+/* NRS home page install action beside Login */
+.homepageNavActions{display:flex;align-items:center;gap:10px;margin-left:auto}
+.homepageInstallButton{display:inline-flex;align-items:center;justify-content:center;gap:8px;color:#fff;text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.7px;padding:11px 15px;border:1px solid rgba(255,255,255,.65);border-radius:10px;background:linear-gradient(135deg,#0b5cff,#1686e8);cursor:pointer;white-space:nowrap}
+.homepageInstallButton:hover{filter:brightness(1.12)}
+.homepageInstallButton:disabled{opacity:.8;cursor:default}
+@media(max-width:480px){.homepageNavActions{gap:6px}.homepageInstallButton{font-size:10px;letter-spacing:0;padding:10px 8px}.homepageLoginLink{font-size:10px;padding:10px 9px;gap:4px}.brand small{font-size:8px}}
