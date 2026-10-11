@@ -48,7 +48,7 @@ export default function AdminShell({ children, active = "Dashboard" }) {
       <button className="erpMobileShade" aria-label="Close navigation" onClick={() => setMobileOpen(false)} />
       <aside className="erpSidebar">
         <div className="erpBrand">
-          <div className="erpLogo">N</div>
+          
           <div className="erpBrandText"><b>NOBLE ERP</b><small>noble group of Institution</small></div>
           <button className="erpCollapse" onClick={() => setCollapsed(v => !v)} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"} title={collapsed ? "Expand sidebar" : "Collapse sidebar"}>{collapsed ? "»" : "«"}</button>
         </div>
