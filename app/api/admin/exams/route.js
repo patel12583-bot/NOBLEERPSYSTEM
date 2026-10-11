@@ -3,7 +3,7 @@ import {prisma} from "@/lib/prisma";
 import {getSessionUser} from "@/lib/auth";
 export const runtime="nodejs"; export const dynamic="force-dynamic";
 async function guard(){const u=await getSessionUser();return u&&["SUPER_ADMIN","ADMIN","HOD","EXAM_OFFICER"].includes(u.role)?u:null}
-function overlap(a,b,c,d){return a<c&&c<b||c<a&&b<d||a===c}
+function overlap(startA,endA,startB,endB){return startA<endB&&startB<endA}
 export async function GET(req){
  const u=await guard(); if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});
  const [exams,years,subjects,rooms]=await Promise.all([
@@ -34,7 +34,7 @@ export async function PUT(req){
    const exam=await prisma.exam.findUnique({where:{id:b.examId}});
    if(!exam)return NextResponse.json({error:"Examination not found."},{status:404});
    const [existing,subject]=await Promise.all([
-    prisma.examSchedule.findMany({where:{date,OR:[{roomId:b.roomId||undefined},{subjectId:b.subjectId}]}}),
+    prisma.examSchedule.findMany({where:{date,OR:[...(b.roomId?[{roomId:b.roomId}]:[]),{subjectId:b.subjectId}]}}),
     prisma.subject.findUnique({where:{id:b.subjectId}})
    ]);
    const clash=existing.find(x=>!(x.examId===b.examId && x.subjectId===b.subjectId) && overlap(b.startTime,b.endTime,x.startTime,x.endTime));
