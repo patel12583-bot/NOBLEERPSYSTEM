@@ -488,3 +488,37 @@ linear-gradient(180deg,#f7faff 0%,#f2f6fa 100%)}
   .erpShell .erpPage .panel{padding:15px!important}
   .erpShell .erpPage table{min-width:680px}
 }
+
+
+/* Campus-photo login refresh */
+.loginShell{position:relative;isolation:isolate;min-height:100vh;display:grid;place-items:center;padding:42px 24px;background:#eaf3ff url('/noble-campus.jpg') center/cover no-repeat fixed;overflow:hidden}
+.loginCampusShade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(4,35,78,.12) 0%,rgba(255,255,255,.05) 34%,rgba(255,255,255,.1) 72%,rgba(7,52,103,.1) 100%),linear-gradient(0deg,rgba(0,42,94,.22),transparent 28%)}
+.loginCampusHeader{position:absolute;left:5vw;right:5vw;top:32px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;color:#08356d;text-shadow:0 1px 8px rgba(255,255,255,.65)}
+.loginCampusMotto{font-family:"Playfair Display",serif;font-size:clamp(18px,2.2vw,32px);font-style:italic;line-height:1.15}
+.loginCampusMotto em{font-weight:700}
+.loginCampusInstitute{text-align:right;display:grid;gap:8px}
+.loginCampusInstitute strong{font-size:clamp(16px,2.1vw,28px);font-weight:800}
+.loginCampusInstitute span{font-size:11px;letter-spacing:2.4px;font-weight:700}
+.loginCampusCard{position:relative;z-index:1;width:min(480px,100%);margin:26px auto 0;padding:28px 36px 24px;background:rgba(255,255,255,.95);border:1px solid rgba(255,255,255,.9);border-radius:17px;box-shadow:0 22px 75px rgba(7,35,70,.24);backdrop-filter:blur(12px)}
+.loginCampusLogo{height:92px;display:flex;justify-content:center;align-items:center;margin-bottom:4px}
+.loginCampusLogo img{max-height:92px;max-width:120px;object-fit:contain}
+.loginCampusCard .loginTitle{margin:8px 0 20px;text-align:center}
+.loginCampusCard .loginTitle .eyebrow{color:#1769d5;font-size:9px}
+.loginCampusCard .loginTitle h1{font-family:"DM Sans",sans-serif;font-size:29px;letter-spacing:-.8px;margin:7px 0 4px;color:#08356d}
+.loginCampusCard .loginTitle p{font-size:14px}
+.loginCampusCard form{gap:12px}
+.loginCampusCard label{font-size:10px;gap:6px}
+.loginCampusCard input,.loginCampusCard select{padding:11px 12px;border-radius:9px}
+.loginCampusCard .full{justify-content:center;margin-top:4px;padding:14px;background:linear-gradient(90deg,#075dbd,#087df0);box-shadow:0 8px 22px rgba(0,94,194,.2)}
+.loginCampusCard .authLinks{display:grid;grid-template-columns:1fr;gap:2px;text-align:center;margin-top:14px;padding-top:8px}
+.loginCampusCard .authLinks .back{margin:0;padding:7px;color:#1769d5;font-weight:700}
+.loginCampusCard .authLinks .back:last-child{color:#64748b;font-weight:500}
+.loginCopyright{text-align:center;color:#8797aa;font-size:10px;margin:12px 0 0}
+.loginCampusFeatures{position:absolute;left:4.8vw;bottom:8vh;display:grid;gap:12px;max-width:300px;padding:18px 20px;background:linear-gradient(90deg,rgba(0,47,105,.85),rgba(0,74,142,.52));border-radius:14px;color:white;box-shadow:0 12px 35px rgba(0,30,80,.15);backdrop-filter:blur(8px)}
+.loginCampusFeatures>div{display:flex;align-items:center;gap:12px}
+.loginCampusFeatures i{font-style:normal;width:35px;height:35px;flex:none;border:1px solid rgba(255,255,255,.7);border-radius:50%;display:grid;place-items:center;font-size:17px}
+.loginCampusFeatures b,.loginCampusFeatures small{display:block}
+.loginCampusFeatures b{font-size:11px}
+.loginCampusFeatures small{font-size:9px;color:#d6e7ff;margin-top:3px}
+@media(max-width:850px){.loginCampusHeader{left:20px;right:20px;top:18px}.loginCampusMotto{font-size:18px}.loginCampusInstitute strong{font-size:16px}.loginCampusInstitute span{font-size:8px;letter-spacing:1.3px}.loginCampusFeatures{display:none}.loginCampusCard{margin-top:70px}}
+@media(max-width:520px){.loginShell{padding:16px;background-position:center;background-attachment:scroll}.loginCampusHeader{position:relative;inset:auto;width:100%;margin:2px 0 16px;align-items:center}.loginCampusMotto{font-size:15px}.loginCampusInstitute strong{font-size:13px}.loginCampusInstitute span{font-size:7px;letter-spacing:.8px}.loginCampusCard{margin:0;padding:24px 20px 18px}.loginCampusLogo{height:74px}.loginCampusLogo img{max-height:74px}.loginCampusCard .loginTitle h1{font-size:25px}}
