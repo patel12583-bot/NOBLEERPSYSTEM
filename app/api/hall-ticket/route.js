@@ -60,7 +60,7 @@ async function bulkPdf(tickets){
   txt("SEMESTER",margin+205,y,7,bold,rgb(.35,.4,.48));txt(d.student.semester?.name||"-",margin+205,y-18,9,bold);
   txt("DIVISION",margin+385,y,7,bold,rgb(.35,.4,.48));txt(d.student.division?.name||"-",margin+385,y-18,9,bold);
   y-=64;
-  txt("EXAMINATION TIMETABLE",margin,y,10,bold,rgb(.05,.22,.48));y-=18;
+ y-=8;
   const widths=[88,185,78,95,89],heads=["EXAM","SUBJECT","DATE","TIME","ROOM"];
   let x=margin;
   p.drawRectangle({x:margin,y:y-5,width:boxW,height:23,color:rgb(.08,.28,.55)});
@@ -97,7 +97,7 @@ async function singlePdf(d){
  txt("SEMESTER",margin+285,y,7,bold,rgb(.35,.4,.48));txt(d.student.semester?.name||"-",margin+285,y-17,9,bold);
  txt("DIVISION",margin+535,y,7,bold,rgb(.35,.4,.48));txt(d.student.division?.name||"-",margin+535,y-17,9,bold);
  y-=61;
- txt("EXAMINATION TIMETABLE",margin,y,10,bold,rgb(.05,.22,.48));y-=18;
+ y-=8;
  const widths=[125,255,105,155,142],heads=["EXAM","SUBJECT","DATE","TIME","ROOM"];
  let x=margin;p.drawRectangle({x:margin,y:y-5,width:boxW,height:23,color:rgb(.08,.28,.55)});
  heads.forEach((h,i)=>{txt(h,x+6,y+3,7,bold,rgb(1,1,1));x+=widths[i]});y-=28;
