@@ -18,7 +18,13 @@ const ALLOWED=new Set([
 
 async function guard(){
  const u=await getSessionUser();
- return u&&["SUPER_ADMIN","ADMIN","HOD","FACULTY","HR_STAFF"].includes(u.role)?u:null;
+ if(!u||!["SUPER_ADMIN","ADMIN","HOD","FACULTY","HR_STAFF"].includes(u.role)) return null;
+ if(u.role==="HOD"||u.role==="FACULTY"){
+  const faculty=await prisma.faculty.findUnique({where:{userId:u.id},select:{departmentId:true}});
+  if(!faculty?.departmentId) return null;
+  return {...u,departmentId:faculty.departmentId};
+ }
+ return u;
 }
 
 export async function GET(req){
@@ -44,8 +50,9 @@ export async function POST(req){
   if(!studentId)return NextResponse.json({error:"Student is required."},{status:400});
   if(file.size>MAX)return NextResponse.json({error:"Maximum file size is 10 MB."},{status:400});
   if(!ALLOWED.has(file.type))return NextResponse.json({error:"Unsupported file type. Use PDF, DOC/DOCX, XLS/XLSX or JPG/PNG/WEBP."},{status:400});
-  const student=await prisma.student.findUnique({where:{id:studentId},select:{id:true}});
+  const student=await prisma.student.findUnique({where:{id:studentId},select:{id:true,departmentId:true}});
   if(!student)return NextResponse.json({error:"Student not found."},{status:404});
+  if((u.role==="HOD"||u.role==="FACULTY")&&student.departmentId!==u.departmentId)return NextResponse.json({error:"You can upload documents only for students in your department."},{status:403});
   const safe=String(file.name).replace(/[^a-zA-Z0-9._-]/g,"_");
   let url="";
   if(process.env.BLOB_READ_WRITE_TOKEN){
@@ -63,6 +70,7 @@ export async function POST(req){
 
 export async function DELETE(req){
  const u=await guard(); if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});
+ if(!["SUPER_ADMIN","ADMIN"].includes(u.role))return NextResponse.json({error:"Only an administrator can delete document records."},{status:403});
  try{
   const {id}=await req.json(); if(!id)return NextResponse.json({error:"Document ID is required."},{status:400});
   await prisma.document.delete({where:{id}});
