@@ -7,17 +7,17 @@ export default function HallTicket(){
  async function load(id=""){setLoading(true);setErr("");try{const r=await fetch("/api/hall-ticket"+(id?"?studentId="+encodeURIComponent(id):""));if(!r.ok)throw Error(await responseError(r,"Unable to load hall ticket. Please retry."));const x=await r.json();setD(x);if(x.student)setStudentId(x.student.id)}catch(e){setErr(e.message)}finally{setLoading(false)}}
  useEffect(()=>{load()},[]);
  async function bulk(){try{const r=await fetch("/api/hall-ticket?bulk=1");if(!r.ok)throw Error(await responseError(r,"PDF generation failed. Please retry or check server logs."));const blob=await r.blob(),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="noble-erp-hall-tickets.pdf";a.click();URL.revokeObjectURL(url)}catch(e){setErr(e.message)}}
- return <main className="content" style={{padding:32,maxWidth:1100}}>
+ return <main className="content" style={{padding:32,maxWidth:1100,textTransform:"uppercase"}}>
   <ModuleHeader eyebrow="NOBLE ERP • EXAMINATION" title="Hall Ticket" description="Generate, print or save student examination hall tickets as PDF." actions={[]}/>
   {err&&<div className="error">{err}</div>}
-  {d?.students&&<div className="panel" style={{marginBottom:18}}><div className="panelTitle"><b>Select Student</b><button className="primary" onClick={bulk}>Download All Hall Tickets PDF</button></div><select value={studentId} onChange={e=>{setStudentId(e.target.value);if(e.target.value)load(e.target.value)}}><option value="">Select student</option>{d.students.map(s=><option key={s.id} value={s.id}>{s.studentId} — {s.name} • {s.program?.name||"—"} • {s.semester?.name||"—"} • {s.division?.name||"—"}</option>)}</select></div>}
-  {loading&&<div className="panel">Loading hall ticket…</div>}
+  {d?.students&&<div className="panel" style={{marginBottom:18}}><div className="panelTitle"><b>SELECT STUDENT</b><button className="primary" onClick={bulk}>DOWNLOAD ALL HALL TICKETS PDF</button></div><select value={studentId} onChange={e=>{setStudentId(e.target.value);if(e.target.value)load(e.target.value)}}><option value="">Select student</option>{d.students.map(s=><option key={s.id} value={s.id}>{s.studentId} — {s.name} • {s.program?.name||"—"} • {s.semester?.name||"—"} • {s.division?.name||"—"}</option>)}</select></div>}
+  {loading&&<div className="panel">LOADING HALL TICKET…</div>}
   {d?.student&&<div className="panel" id="hall-ticket" style={{padding:30}}>
-   <div style={{textAlign:"center"}}><h2>NOBLE GROUP OF INSTITUTES</h2><h3>EXAMINATION HALL TICKET</h3></div>
+   <div style={{textAlign:"center"}}><h2>NOBLE GROUP OF INSTITUTION</h2><h3>EXAMINATION HALL TICKET</h3></div>
    <p><b>Student:</b> {d.student.name} &nbsp; <b>ID:</b> {d.student.studentId}</p>
    <p><b>Program:</b> {d.student.program?.name||"—"} &nbsp; <b>Semester:</b> {d.student.semester?.name||"—"} &nbsp; <b>Division:</b> {d.student.division?.name||"—"}</p>
    <table style={{width:"100%",marginTop:20}}><thead><tr><th>Exam</th><th>Subject</th><th>Date</th><th>Time</th><th>Room</th></tr></thead><tbody>{d.schedules.map(x=><tr key={x.id}><td>{x.exam.name}</td><td>{x.subject.code} — {x.subject.name}</td><td>{new Date(x.date).toLocaleDateString("en-IN")}</td><td>{x.startTime}–{x.endTime}</td><td>{x.room?.code||"—"}</td></tr>)}</tbody></table>
-   <button className="primary" style={{marginTop:20}} onClick={async()=>{try{const r=await fetch("/api/hall-ticket?studentId="+encodeURIComponent(studentId)+"&format=pdf");if(!r.ok)throw Error(await responseError(r,"Unable to create PDF. Please retry."));const blob=await r.blob(),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="noble-erp-hall-ticket.pdf";a.click();URL.revokeObjectURL(url)}catch(e){setErr(e.message||"Unable to create PDF.")}}}>Download / Save PDF</button>
+   <button className="primary" style={{marginTop:20}} onClick={async()=>{try{const r=await fetch("/api/hall-ticket?studentId="+encodeURIComponent(studentId)+"&format=pdf");if(!r.ok)throw Error(await responseError(r,"Unable to create PDF. Please retry."));const blob=await r.blob(),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="noble-erp-hall-ticket.pdf";a.click();URL.revokeObjectURL(url)}catch(e){setErr(e.message||"Unable to create PDF.")}}}>DOWNLOAD / SAVE PDF</button>
   </div>}
  </main>
 }
