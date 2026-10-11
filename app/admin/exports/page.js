@@ -16,8 +16,12 @@ export default function ExportsPage(){
   try{
    const r=await fetch("/api/export?type="+encodeURIComponent(type)+"&format="+format);
    if(!r.ok)throw new Error(await responseError(r,"Export failed. Server returned an empty or invalid response."));
-   const blob=await r.blob(),url=URL.createObjectURL(blob),a=document.createElement("a");
-   a.href=url;a.download="noble-erp-"+type+"."+format;a.click();URL.revokeObjectURL(url);
+   const blob=await r.blob();
+   const expected=format==="pdf"?"application/pdf":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+   if(!blob.size)throw new Error("The server returned an empty export file. Please retry.");
+   if(blob.type && !blob.type.toLowerCase().includes(expected))throw new Error("The server returned an unexpected file type ("+blob.type+"). Please retry or contact the administrator.");
+   const url=URL.createObjectURL(blob),a=document.createElement("a");
+   a.href=url;a.download="noble-erp-"+type+"."+format;document.body.appendChild(a);a.click();a.remove();window.setTimeout(()=>URL.revokeObjectURL(url),1500);
   }catch(e){setError(e.message||"Export failed.")}finally{setBusy("")}
  }
  return <AdminShell active="Reports"><main>
