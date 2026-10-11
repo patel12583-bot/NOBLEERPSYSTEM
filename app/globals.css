@@ -666,3 +666,18 @@ button,.btn,input,select,textarea{accent-color:#176bd1}
 /* Homepage campus background: fit the complete image instead of cropping it */
 .homepageImageOnly{background-size:100% 100%!important;background-position:center top!important;background-color:#163d65!important}
 @media(max-width:700px){.homepageImageOnly{background-size:100% auto!important;background-position:center top!important;background-repeat:no-repeat!important;background-color:#163d65!important}}
+
+
+/* Confirmed homepage fix: remove only the thin horizontal divider under the navbar */
+.homepageImageOnly > .nav,
+.homepageImageOnly > .nav::before,
+.homepageImageOnly > .nav::after {
+  border: 0 !important;
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  content: none !important;
+  display: flex;
+}
+.homepageImageOnly > .nav::before,
+.homepageImageOnly > .nav::after { display: none !important; }
