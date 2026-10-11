@@ -656,3 +656,8 @@ button,.btn,input,select,textarea{accent-color:#176bd1}
 /* Homepage header: keep Noble branding and login action, remove the thin divider line */
 .homepageImageOnly>.nav{border:0!important;border-bottom:0!important;box-shadow:none!important;outline:0!important}
 .homepageImageOnly>.nav::after{display:none!important;content:none!important}
+
+
+/* Seamless homepage header: remove the visible horizontal band at the header edge */
+.homepageImageOnly>.nav{background:transparent!important;background-color:transparent!important;background-image:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border:0!important;border-bottom:0!important;box-shadow:none!important}
+.homepageImageOnly>.nav::before,.homepageImageOnly>.nav::after{content:none!important;display:none!important}
