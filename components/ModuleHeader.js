@@ -22,7 +22,7 @@ export default function ModuleHeader({eyebrow="NOBLE ERP",title,description,acti
           {description && <p>{description}</p>}
         </div>
         <div className="moduleHeroActions">
-          <button type="button" className="back" onClick={()=>router.push(getSafeBackPath(pathname))>← Back</button>
+          <button type="button" className="back" onClick={()=>router.push(getSafeBackPath(pathname))}>← Back</button>
           {actions.map((a,i)=><button key={i} type="button" className={a.primary?"primary":""} onClick={a.onClick}>{a.label}</button>)}
         </div>
       </div>
