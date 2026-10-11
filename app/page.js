@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 const roles = [
@@ -16,11 +17,43 @@ const roles = [
 ];
 
 export default function Home() {
+  const [installPrompt, setInstallPrompt] = useState(null);
+  const [isInstalled, setIsInstalled] = useState(false);
+
+  useEffect(() => {
+    const onBeforeInstallPrompt = (event) => {
+      event.preventDefault();
+      setInstallPrompt(event);
+    };
+    const onInstalled = () => {
+      setIsInstalled(true);
+      setInstallPrompt(null);
+    };
+    setIsInstalled(window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true);
+    window.addEventListener("beforeinstallprompt", onBeforeInstallPrompt);
+    window.addEventListener("appinstalled", onInstalled);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", onBeforeInstallPrompt);
+      window.removeEventListener("appinstalled", onInstalled);
+    };
+  }, []);
+
+  const handleInstall = async () => {
+    if (isInstalled) return;
+    if (!installPrompt) {
+      window.alert("To install NRS, open this website in Chrome, tap the three-dot menu (⋮), then choose Install app. If Install app is unavailable, choose Add to Home screen.");
+      return;
+    }
+    installPrompt.prompt();
+    await installPrompt.userChoice;
+    setInstallPrompt(null);
+  };
+
   return (
     <main className="shell homepageImageOnly">
       <nav className="nav">
         <div className="brand"><span className="brandMark">N</span><div><b>NOBLE</b><small>GROUP OF INSTITUTES</small></div></div>
-        <Link className="homepageLoginLink" href="/login">LOGIN <span>↗</span></Link>
+        <div className="homepageNavActions"><button className="homepageInstallButton" type="button" onClick={handleInstall} disabled={isInstalled}>{isInstalled ? "APP INSTALLED ✓" : "⇩ INSTALL APP"}</button><Link className="homepageLoginLink" href="/login">LOGIN <span>↗</span></Link></div>
       </nav>
       <section className="hero heroImageOnly" aria-label="Noble campus background" />
       <section className="homepagePortalPanel" aria-label="Choose your login portal">
