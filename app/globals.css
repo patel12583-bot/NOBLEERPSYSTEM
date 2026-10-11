@@ -573,3 +573,16 @@ main,section{scroll-margin-top:20px}
 .sideNav button.selected,.sideNav button:hover{background:linear-gradient(90deg,rgba(31,111,206,.52),rgba(224,178,79,.14));border-left:2px solid #e0b24f}
 @media(max-width:900px){.loginShell{grid-template-columns:1fr;place-items:center;padding:100px 22px 28px}.loginCampusHeader{top:20px}.loginCampusFeatures{display:none}.loginCampusCard{justify-self:center}.loginCampusMotto{font-size:14px}.loginCampusInstitute strong{font-size:14px}}
 @media(max-width:600px){.loginCampusHeader{left:16px;right:16px}.loginCampusMotto{font-size:12px}.loginCampusInstitute span{font-size:8px;letter-spacing:1.2px}.loginShell{background-attachment:scroll}.dash,.content,.erpShell{background-attachment:scroll!important}}
+
+
+/* Apply the Noble campus backdrop consistently across every ERP route */
+html,body{min-height:100%;background-color:#eaf2fb}
+body{background-image:linear-gradient(rgba(239,246,255,.76),rgba(239,246,255,.82)),url("/noble-campus.jpg?v=6");background-position:center;background-size:cover;background-attachment:fixed;background-repeat:no-repeat;color:#10264a}
+body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(125deg,rgba(7,43,91,.07),rgba(255,255,255,.12) 48%,rgba(222,177,77,.06))}
+main,section,[role="main"]{scroll-margin-top:20px}
+.erpShell,.dash,.content,.shell,.loginShell,.dashboard,.page,.pageContent,.mainContent,.appMain,.layoutMain,.portalShell,.portalContent{background-color:transparent}
+.erpShell,.dash,.content{background-image:linear-gradient(135deg,rgba(228,239,252,.82),rgba(248,251,255,.88)),url("/noble-campus.jpg?v=6");background-position:center;background-size:cover;background-attachment:fixed}
+.erpShell .erpMain,.erpShell .erpContent,.erpShell .mainContent,.erpShell .erpPage,.dash main,.dash .main,.content main{background:transparent!important}
+.erpShell .erpPage>.panel,.erpShell .erpPage .panel,.erpShell .erpPage .card,.erpShell .erpPage .tableWrap,.erpShell .erpPage .erpPanel,.dash .panel,.dash .card,.content .panel,.content .card{background:rgba(255,255,255,.93);border-color:rgba(13,65,124,.12)}
+button,.btn,input,select,textarea{accent-color:#176bd1}
+@media(max-width:700px){html,body,.erpShell,.dash,.content,.shell,.loginShell{background-attachment:scroll!important;background-position:center!important}}
