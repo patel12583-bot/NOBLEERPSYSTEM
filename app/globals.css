@@ -550,3 +550,26 @@ main,section{scroll-margin-top:20px}
 .erpShell .erpMain,.erpShell .erpContent,.erpShell .mainContent,.erpShell .erpPage{background:transparent!important}
 .erpShell .erpPage>.panel,.erpShell .erpPage .panel,.erpShell .erpPage .card,.erpShell .erpPage .tableWrap,.erpShell .erpPage .erpPanel{background:rgba(255,255,255,.91)!important;backdrop-filter:blur(3px)}
 @media(max-width:700px){.shell,.loginShell,.dash,.content,.erpShell{background-attachment:scroll!important;background-position:center!important}}
+
+
+/* Noble Group campus-inspired visual system */
+:root{--navy:#082c62;--blue:#176bd1;--gold:#e0b24f;--ink:#10264a;--muted:#61738d;--line:#dbe5f1;--card:#fff}
+.loginShell{position:relative;isolation:isolate;grid-template-columns:minmax(0,1fr) minmax(360px,470px);gap:clamp(24px,5vw,84px);padding:clamp(22px,5vw,72px);background-image:linear-gradient(90deg,rgba(4,28,65,.22),rgba(7,41,83,.12)),url("/noble-campus.jpg?v=5");background-position:center;background-size:cover;background-attachment:fixed}
+.loginCampusShade{position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,rgba(4,30,68,.52),rgba(10,62,117,.18) 52%,rgba(255,255,255,.10));pointer-events:none}
+.loginCampusHeader{position:absolute;left:clamp(22px,5vw,72px);top:clamp(20px,4vw,52px);right:clamp(22px,5vw,72px);display:flex;justify-content:space-between;align-items:flex-start;gap:20px;color:white;text-shadow:0 2px 14px rgba(0,0,0,.22)}
+.loginCampusMotto{font-size:clamp(15px,2vw,23px);font-weight:800;letter-spacing:.4px;line-height:1.35}.loginCampusMotto em{font-family:"Playfair Display",serif;color:#ffe2a0;font-weight:600}
+.loginCampusInstitute{text-align:right;display:grid;gap:8px}.loginCampusInstitute strong{font-family:"Playfair Display",serif;font-size:clamp(15px,2vw,23px);letter-spacing:.8px;text-transform:uppercase}.loginCampusInstitute span{font-size:10px;letter-spacing:2.4px;color:#fff1ce;font-weight:800}
+.loginCampusFeatures{align-self:center;justify-self:start;width:min(100%,490px);display:grid;gap:13px;padding-top:72px;color:#fff}
+.loginCampusFeatures>div{display:flex;align-items:center;gap:15px;padding:15px 18px;border:1px solid rgba(255,255,255,.34);border-radius:13px;background:rgba(5,34,75,.42);box-shadow:0 12px 35px rgba(4,24,54,.12);backdrop-filter:blur(8px)}
+.loginCampusFeatures i{font-style:normal;display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:11px;background:linear-gradient(145deg,#f5d57e,#c68b25);color:#092b5e;font-size:21px;font-weight:900}
+.loginCampusFeatures b,.loginCampusFeatures small{display:block}.loginCampusFeatures b{font-size:14px;letter-spacing:.2px}.loginCampusFeatures small{margin-top:4px;color:#dbeaff;font-size:11px}
+.loginCampusCard{position:relative;z-index:1;width:min(470px,100%);justify-self:end;border-radius:20px;padding:clamp(24px,3vw,38px);border:1px solid rgba(255,255,255,.75);box-shadow:0 24px 70px rgba(3,22,53,.28);background:rgba(255,255,255,.96)}
+.loginCampusLogo{height:72px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}.loginCampusLogo img{max-width:74px;max-height:72px;object-fit:contain}
+.loginCampusCard .loginTitle{margin:14px 0 24px;text-align:center}.loginCampusCard .loginTitle .eyebrow{color:#a77a20;letter-spacing:1.8px}.loginCampusCard .loginTitle h1{font-size:clamp(29px,3vw,37px);color:#092b5e}.loginCampusCard .primary{background:linear-gradient(105deg,#0b3c82,#176bd1);border:1px solid rgba(255,255,255,.35)}.loginCampusCard .back{color:#24558d}.loginCampusCard .back:hover{color:#b17d1f}.loginCopyright{text-align:center;color:#8190a4;font-size:10px;margin:18px 0 0}
+.dash{background:linear-gradient(135deg,rgba(227,239,251,.88),rgba(248,251,255,.90)),url("/noble-campus.jpg?v=5") center/cover fixed}
+.content{background:linear-gradient(rgba(239,247,255,.87),rgba(245,249,255,.91)),url("/noble-campus.jpg?v=5") center/cover fixed}
+.erpShell{background:linear-gradient(135deg,rgba(227,239,251,.84),rgba(248,251,255,.88)),url("/noble-campus.jpg?v=5") center/cover fixed!important}
+.dash aside{background:linear-gradient(180deg,#062758,#0b3f78);border-right:1px solid rgba(224,178,79,.32)}
+.sideNav button.selected,.sideNav button:hover{background:linear-gradient(90deg,rgba(31,111,206,.52),rgba(224,178,79,.14));border-left:2px solid #e0b24f}
+@media(max-width:900px){.loginShell{grid-template-columns:1fr;place-items:center;padding:100px 22px 28px}.loginCampusHeader{top:20px}.loginCampusFeatures{display:none}.loginCampusCard{justify-self:center}.loginCampusMotto{font-size:14px}.loginCampusInstitute strong{font-size:14px}}
+@media(max-width:600px){.loginCampusHeader{left:16px;right:16px}.loginCampusMotto{font-size:12px}.loginCampusInstitute span{font-size:8px;letter-spacing:1.2px}.loginShell{background-attachment:scroll}.dash,.content,.erpShell{background-attachment:scroll!important}}
