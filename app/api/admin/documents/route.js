@@ -31,15 +31,19 @@ export async function GET(req){
  const u=await guard(); if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});
  const {searchParams}=new URL(req.url); const studentId=searchParams.get("studentId");
  try{
+  const scopedStudentWhere=(u.role==="HOD"||u.role==="FACULTY")?{departmentId:u.departmentId}:undefined;
+  if(studentId && scopedStudentWhere){
+   const scopedStudent=await prisma.student.findFirst({where:{id:studentId,...scopedStudentWhere},select:{id:true}});
+   if(!scopedStudent) return NextResponse.json({error:"You can access documents only for students in your department."},{status:403});
+  }
   const documents=await prisma.document.findMany({
-   where:studentId?{studentId}:{},
+   where:{...(studentId?{studentId}:{}),...(scopedStudentWhere?{student:{is:scopedStudentWhere}}:{})},
    include:{student:{select:{studentId:true,name:true}}},
    orderBy:{createdAt:"desc"}
   });
   return NextResponse.json({documents});
  }catch(e){return NextResponse.json({error:"Unable to load documents."},{status:400})}
 }
-
 export async function POST(req){
  const u=await guard(); if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});
  
