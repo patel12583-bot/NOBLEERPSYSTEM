@@ -47,17 +47,17 @@ async function embedInstituteLogo(doc){
  return null;
 }
 async function drawHeader(page,title,font,bold,doc){
- const blue=rgb(.04,.18,.36),pw=842;
+ const blue=rgb(.04,.18,.36),pw=595.28;
  const logo=await embedInstituteLogo(doc);
- if(logo){const scale=Math.min(68/logo.width,68/logo.height),w=logo.width*scale,h=logo.height*scale;page.drawImage(logo,{x:30+(68-w)/2,y:501+(68-h)/2,width:w,height:h})}
- const lines=[[INSTITUTE,15,bold,551],[TRUST,8,bold,535],[ADDRESS,7,font,520],[AFFILIATION,8,bold,505]];
- for(const [txt,size,f,y] of lines){const safe=pdfSafe(txt),w=f.widthOfTextAtSize(safe,size);page.drawText(safe,{x:(pw-w)/2+18,y,size,font:f,color:blue})}
- page.drawLine({start:{x:30,y:490},end:{x:812,y:490},thickness:1.2,color:rgb(.12,.38,.72)});
- const pres=pdfSafe(PRESIDENT),prw=bold.widthOfTextAtSize(pres,8);
- page.drawText(pres,{x:(pw-prw)/2,y:474,size:8,font:bold,color:blue});
- page.drawLine({start:{x:30,y:465},end:{x:812,y:465},thickness:1.2,color:rgb(.12,.38,.72)});
- page.drawText(pdfSafe(title),{x:30,y:445,size:12,font:bold,color:rgb(.06,.10,.15)});
- page.drawText(pdfSafe("Report Generated: "+new Date().toLocaleString("en-IN")),{x:30,y:429,size:7.5,font,color:rgb(.25,.33,.42)});
+ if(logo){const scale=Math.min(54/logo.width,54/logo.height),w=logo.width*scale,h=logo.height*scale;page.drawImage(logo,{x:24+(54-w)/2,y:770+(54-h)/2,width:w,height:h})}
+ const lines=[[INSTITUTE,13,bold,805],[TRUST,7,bold,790],[ADDRESS,6.2,font,777],[AFFILIATION,7,bold,764]];
+ for(const [txt,size,f,y] of lines){const safe=pdfSafe(txt),w=f.widthOfTextAtSize(safe,size);page.drawText(safe,{x:Math.max(12,(pw-w)/2+14),y,size,font:f,color:blue})}
+ page.drawLine({start:{x:22,y:753},end:{x:573,y:753},thickness:1.2,color:rgb(.12,.38,.72)});
+ const pres=pdfSafe(PRESIDENT),prw=bold.widthOfTextAtSize(pres,7);
+ page.drawText(pres,{x:(pw-prw)/2,y:741,size:7,font:bold,color:blue});
+ page.drawLine({start:{x:22,y:733},end:{x:573,y:733},thickness:1.2,color:rgb(.12,.38,.72)});
+ page.drawText(pdfSafe(title),{x:24,y:715,size:10,font:bold,color:rgb(.06,.10,.15)});
+ page.drawText(pdfSafe("Report Generated: "+new Date().toLocaleString("en-IN")),{x:24,y:702,size:6.5,font,color:rgb(.25,.33,.42)});
 }
 function pdfSafe(value){return String(value??"").replace(/[—–]/g,"-").replace(/[^\x09\x0A\x0D\x20-\xFF]/g,"?").toLocaleUpperCase("en-US")}
 function wrapText(value,font,size,maxWidth){
@@ -68,22 +68,20 @@ function wrapText(value,font,size,maxWidth){
 }
 async function makePdf(rows,title){
  const doc=await PDFDocument.create(),font=await doc.embedFont(StandardFonts.Helvetica),bold=await doc.embedFont(StandardFonts.HelveticaBold);
- const keys=Object.keys(rows[0]||{});
- const pages=[];let page=doc.addPage([842,595]);pages.push(page);let y=400;
- const rawWidths=keys.map(k=>Math.max(55,Math.min(125,bold.widthOfTextAtSize(String(k),6.5)+18)));
- const total=rawWidths.reduce((a,b)=>a+b,0),scale=total>780?780/total:1,widths=rawWidths.map(w=>w*scale);
- function tableHead(){let x=30;page.drawRectangle({x:30,y:y-4,width:Math.max(1,widths.reduce((a,b)=>a+b,0)),height:22,color:rgb(.08,.38,.72)});keys.forEach((k,i)=>{page.drawText(pdfSafe(k).slice(0,24),{x:x+4,y:y+4,size:6.5,font:bold,color:rgb(1,1,1)});x+=widths[i]});y-=27}
+ const keys=Object.keys(rows[0]||{}),pw=595.28,left=23,usable=549;
+ const rawWidths=keys.map(k=>Math.max(35,Math.min(88,bold.widthOfTextAtSize(String(k),5.7)+12)));
+ const total=rawWidths.reduce((a,b)=>a+b,0),scale=total>usable?usable/total:1,widths=rawWidths.map(w=>w*scale);
+ let page=doc.addPage([pw,841.89]),y=675;const pages=[page];
+ function tableHead(){let x=left;page.drawRectangle({x:left,y:y-4,width:widths.reduce((a,b)=>a+b,0),height:19,color:rgb(.08,.38,.72)});keys.forEach((k,i)=>{page.drawText(pdfSafe(k).slice(0,18),{x:x+3,y:y+3,size:5.7,font:bold,color:rgb(1,1,1)});x+=widths[i]});y-=22}
  await drawHeader(page,title,font,bold,doc);tableHead();
  for(const row of rows){
-  const cells=keys.map((k,i)=>wrapText(csvSafe(row[k]),font,6.5,widths[i]-8));
-  const h=Math.max(22,...cells.map(lines=>Math.min(4,lines.length)*8+7));
-  if(y-h<45){page=doc.addPage([842,595]);pages.push(page);y=400;await drawHeader(page,title,font,bold,doc);tableHead()}
-  let x=30;keys.forEach((k,i)=>{page.drawRectangle({x,y:y-h+4,width:widths[i],height:h,borderColor:rgb(.82,.86,.9),borderWidth:.5,color:rgb(1,1,1)});cells[i].slice(0,4).forEach((line,j)=>page.drawText(line.slice(0,35),{x:x+4,y:y-8-j*8,size:6.5,font,color:rgb(.15,.22,.3)}));x+=widths[i]});y-=h;
+  const cells=keys.map((k,i)=>wrapText(csvSafe(row[k]),font,5.7,widths[i]-6));
+  const h=Math.max(18,...cells.map(lines=>Math.min(4,lines.length)*7+5));
+  if(y-h<42){page=doc.addPage([pw,841.89]);pages.push(page);y=675;await drawHeader(page,title,font,bold,doc);tableHead()}
+  let x=left;keys.forEach((k,i)=>{page.drawRectangle({x,y:y-h+3,width:widths[i],height:h,borderColor:rgb(.82,.86,.9),borderWidth:.5,color:rgb(1,1,1)});cells[i].slice(0,4).forEach((line,j)=>page.drawText(line.slice(0,28),{x:x+3,y:y-7-j*7,size:5.7,font,color:rgb(.15,.22,.3)}));x+=widths[i]});y-=h;
  }
- if(!rows.length){
-  page.drawText("No records available for this report.",{x:30,y:y-10,size:10,font,color:rgb(.35,.4,.46)});
- }
- pages.forEach((p,i)=>p.drawText("Page "+(i+1)+" of "+pages.length,{x:750,y:30,size:7,font,color:rgb(.4,.45,.5)}));
+ if(!rows.length)page.drawText("NO RECORDS AVAILABLE FOR THIS REPORT.",{x:left,y:y-10,size:9,font,color:rgb(.35,.4,.46)});
+ pages.forEach((p,i)=>p.drawText("PAGE "+(i+1)+" OF "+pages.length,{x:480,y:24,size:6.5,font,color:rgb(.4,.45,.5)}));
  return doc.save();
 }
 export async function GET(req){
