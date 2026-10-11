@@ -6,17 +6,17 @@ import { getSessionUser } from "@/lib/auth";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 export const runtime="nodejs"; export const dynamic="force-dynamic";
 async function guard(){const u=await getSessionUser();return u&&["SUPER_ADMIN","ADMIN","HOD","FACULTY"].includes(u.role)?u:null}
-const INSTITUTE="NOBLE INSTITUTE OF SOCIAL WORK";
+const INSTITUTE="NOBLE GROUP OF INSTITUTION";
 const TRUST="(Managed By Shree Noble Education Trust)";
-const ADDRESS="Dabhai - Karjan Road Motahabipura, Ta. Dabhoi, Dist. Vadodara  Mo. +91 94276 97085";
+const ADDRESS="DABHOI KARJAN ROAD, MOTAHABIPURA, TA. DABHOI, DIST. VADODARA  MO. +91 94276 97085";
 const AFFILIATION="(Affiliated By Shree Govind Guru University, Godhra)";
 const PRESIDENT="President : A. A. Madhavani";
-function safePdfText(v){return String(v??"").replace(/[—–]/g,"-").replace(/[^\x09\x0A\x0D\x20-\xFF]/g,"?")}
+function safePdfText(v){return String(v??"").replace(/[—–]/g,"-").replace(/[^\x09\x0A\x0D\x20-\xFF]/g,"?").toLocaleUpperCase("en-US")}
 async function makeAttendancePdf(rows,summary,from,to){
  const doc=await PDFDocument.create(),font=await doc.embedFont(StandardFonts.Helvetica),bold=await doc.embedFont(StandardFonts.HelveticaBold);
  let page=doc.addPage([842,595]),y=390;
  const drawHeader=async()=>{const blue=rgb(.04,.18,.36);
-  try{const bytes=await readFile(join(process.cwd(),"public","noble-logo.jpg"));const logo=await doc.embedJpg(bytes),scale=Math.min(68/logo.width,68/logo.height),w=logo.width*scale,h=logo.height*scale;page.drawImage(logo,{x:30+(68-w)/2,y:501+(68-h)/2,width:w,height:h})}catch(e){page.drawCircle({x:56,y:536,size:22,color:rgb(1,.82,.05),borderColor:blue,borderWidth:1.5});page.drawText("N",{x:51,y:531,size:12,font:bold,color:rgb(.72,.08,.18)})}
+  try{const bytes=await readFile(join(process.cwd(),"public","noble-logo.jpg"));const logo=await doc.embedJpg(bytes),scale=Math.min(68/logo.width,68/logo.height),w=logo.width*scale,h=logo.height*scale;page.drawImage(logo,{x:30+(68-w)/2,y:501+(68-h)/2,width:w,height:h})}catch(e){/* Keep the header clean when the approved institute logo is not present. */}
   const lines=[[INSTITUTE,15,bold,554],[TRUST,8,bold,539],[ADDRESS,6.4,font,524],[AFFILIATION,7.5,bold,510]];
   for(const [txt,size,f,yy] of lines){const t=safePdfText(txt),w=f.widthOfTextAtSize(t,size);page.drawText(t,{x:(842-w)/2+18,y:yy,size,font:f,color:blue})}
   page.drawLine({start:{x:28,y:500},end:{x:814,y:500},thickness:1.2,color:rgb(.12,.38,.72)});
