@@ -593,3 +593,8 @@ button,.btn,input,select,textarea{accent-color:#176bd1}
 .shell{background:linear-gradient(90deg,rgba(5,24,45,.34),rgba(7,32,57,.22)),url("/WhatsApp%20Image%202026-10-11%20at%2012.35.39%20PM.jpeg") center/cover fixed!important}
 .content,.erpShell{background:linear-gradient(rgba(239,247,255,.79),rgba(245,249,255,.84)),url("/WhatsApp%20Image%202026-10-11%20at%2012.35.39%20PM.jpeg") center/cover fixed!important}
 @media(max-width:700px){.loginShell,.dash,.shell,.content,.erpShell{background-attachment:scroll!important}}
+
+
+/* Homepage: show the campus photograph cleanly without promotional hero copy */
+.heroImageOnly{min-height:calc(100vh - 82px);max-width:none;margin:0;padding:0}
+@media(max-width:700px){.heroImageOnly{min-height:calc(100svh - 70px)}}
