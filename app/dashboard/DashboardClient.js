@@ -158,7 +158,7 @@ export default function DashboardClient({ user }) {
 
         <div className="nobleContent">
           <section className="nobleWelcome">
-            <div className="nobleWelcomeCopy"><span className="nobleEyebrow">NOBLE GROUP OF INSTITUTES <i>•</i> ERP</span><h1>{greeting}, <em>{displayName}</em></h1><p>Welcome back to your {displayRole.toLowerCase()} workspace. Here’s your institute at a glance.</p><div className="nobleWelcomeMeta"><span><i /> Secure session active</span><span>Role-based workspace</span></div></div>
+            <div className="nobleWelcomeCopy"><span className="nobleEyebrow">noble group of Institution <i>•</i> ERP</span><h1>{greeting}, <em>{displayName}</em></h1><p>Welcome back to your {displayRole.toLowerCase()} workspace. Here’s your institute at a glance.</p><div className="nobleWelcomeMeta"><span><i /> Secure session active</span><span>Role-based workspace</span></div></div>
             <div className="nobleWelcomeArt" aria-hidden="true"><div className="nobleArtRing ringOne" /><div className="nobleArtRing ringTwo" /><div className="nobleArtMonogram">N</div><span className="nobleArtDot dotOne" /><span className="nobleArtDot dotTwo" /><span className="nobleArtDot dotThree" /></div>
             <div className="nobleWelcomeActions"><button className="nobleRefresh" onClick={() => window.location.reload()} title="Refresh dashboard" aria-label="Refresh dashboard">↻</button><span className="nobleWelcomeAvatar">{displayName.slice(0, 1).toUpperCase()}</span></div>
           </section>
