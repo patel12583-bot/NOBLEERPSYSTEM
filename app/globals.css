@@ -681,3 +681,19 @@ button,.btn,input,select,textarea{accent-color:#176bd1}
 }
 .homepageImageOnly > .nav::before,
 .homepageImageOnly > .nav::after { display: none !important; }
+
+
+/* Login page: move the login card closer to the visual center */
+@media (min-width: 901px) {
+  .loginCampusCard {
+    justify-self: center !important;
+    margin-right: 3vw !important;
+  }
+}
+@media (max-width: 900px) {
+  .loginCampusCard {
+    justify-self: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
