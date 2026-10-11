@@ -661,3 +661,8 @@ button,.btn,input,select,textarea{accent-color:#176bd1}
 /* Seamless homepage header: remove the visible horizontal band at the header edge */
 .homepageImageOnly>.nav{background:transparent!important;background-color:transparent!important;background-image:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border:0!important;border-bottom:0!important;box-shadow:none!important}
 .homepageImageOnly>.nav::before,.homepageImageOnly>.nav::after{content:none!important;display:none!important}
+
+
+/* Homepage campus background: fit the complete image instead of cropping it */
+.homepageImageOnly{background-size:100% 100%!important;background-position:center top!important;background-color:#163d65!important}
+@media(max-width:700px){.homepageImageOnly{background-size:100% auto!important;background-position:center top!important;background-repeat:no-repeat!important;background-color:#163d65!important}}
