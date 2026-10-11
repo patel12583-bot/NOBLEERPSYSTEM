@@ -635,3 +635,13 @@ button,.btn,input,select,textarea{accent-color:#176bd1}
 @media(max-width:900px){.homepagePortalGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.homepagePortalPanel{margin-top:clamp(80px,14vh,130px)}}
 @media(max-width:700px){.homepageImageOnly{height:auto!important;min-height:100svh!important;overflow:visible!important}.homepageImageOnly>.nav{height:70px!important}.homepageImageOnly>.heroImageOnly{inset:70px 0 0!important}.homepagePortalPanel{width:calc(100% - 24px);margin:12vh auto 22px;padding:14px}.homepagePortalGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.homepagePortalCard{padding:11px 8px;gap:7px}.homepagePortalIcon{font-size:19px}.homepagePortalText strong{font-size:11px}.homepagePortalText small{font-size:9px}.homepagePortalHeading strong{font-size:16px}}
 @media(max-width:360px){.homepagePortalGrid{grid-template-columns:1fr}}
+
+
+/* Final spacing refinement: keep the campus logo/header visible and lower portal choices */
+.homepageImageOnly>.nav{position:relative!important;z-index:5!important}
+.homepageImageOnly>.heroImageOnly{inset:82px 0 0!important;background-position:center 58%!important}
+.homepagePortalPanel{margin-top:clamp(150px,31vh,290px)!important}
+@media(max-width:700px){
+  .homepageImageOnly>.heroImageOnly{inset:70px 0 0!important;background-position:center 55%!important}
+  .homepagePortalPanel{margin-top:clamp(105px,19vh,175px)!important}
+}
