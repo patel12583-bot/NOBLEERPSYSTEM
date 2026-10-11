@@ -6,12 +6,17 @@ import AdminShell from "@/components/AdminShell";
 import {useEffect,useState} from "react";
 
 export default function DocumentsPage(){
- const [students,setStudents]=useState([]),[docs,setDocs]=useState([]),[studentId,setStudentId]=useState(""),[file,setFile]=useState(null),[busy,setBusy]=useState(false),[msg,setMsg]=useState(""),[err,setErr]=useState("");
+ const [students,setStudents]=useState([]),[docs,setDocs]=useState([]),[studentId,setStudentId]=useState(""),[file,setFile]=useState(null),[busy,setBusy]=useState(false),[msg,setMsg]=useState(""),[err,setErr]=useState(""),[query,setQuery]=useState(""),[loading,setLoading]=useState(true);
  async function load(){
-  const [s,d]=await Promise.all([fetch("/api/admin/students"),fetch("/api/admin/documents")]);
-  const sj=await s.json(),dj=await d.json();
-  if(s.ok)setStudents(sj.students||[]); else setErr(sj.error||"Unable to load students.");
-  if(d.ok)setDocs(dj.documents||[]); else setErr(dj.error||"Unable to load documents.");
+  setLoading(true);
+  try{
+   const [s,d]=await Promise.all([fetch("/api/admin/students"),fetch("/api/admin/documents")]);
+   const [sj,dj]=await Promise.all([s.json(),d.json()]);
+   if(!s.ok)throw new Error(sj.error||"Unable to load students.");
+   if(!d.ok)throw new Error(dj.error||"Unable to load documents.");
+   setStudents(sj.students||[]);setDocs(dj.documents||[]);setErr("");
+  }catch(x){setErr(x.message||"Network error while loading documents.");}
+  finally{setLoading(false);}
  }
  useEffect(()=>{load()},[]);
  async function upload(e){
@@ -24,8 +29,12 @@ export default function DocumentsPage(){
  }
  async function remove(id){
   if(!confirm("Delete this document record?"))return;
-  const r=await fetch("/api/admin/documents",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})});
-  const d=await r.json();if(!r.ok)setErr(d.error);else load();
+  setErr("");setMsg("");
+  try{
+   const r=await fetch("/api/admin/documents",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})});
+   const d=await r.json();if(!r.ok)throw new Error(d.error||"Unable to delete document.");
+   setDocs(current=>current.filter(item=>item.id!==id));setMsg("Document record deleted.");
+  }catch(x){setErr(x.message||"Network error while deleting document.");}
  }
  return <AdminShell active="Students"><main>
   <ModuleHeader eyebrow="NOBLE ERP • DOCUMENTS" title="Student Documents" description="Upload, view and manage official student documents from one secure workspace." />
@@ -36,5 +45,5 @@ export default function DocumentsPage(){
     <label>File<input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.webp" onChange={e=>setFile(e.target.files?.[0]||null)} required/></label>
    </div><small>Maximum 10 MB. Vercel Blob is preferred; small files can use the ERP database fallback when Blob is not configured.</small><br/><button className="primary" disabled={busy||!file}>{busy?"Uploading…":"Upload File →"}</button>
   </form>
-  <div className="panel"><b>Uploaded Documents ({docs.length})</b><div style={{overflowX:"auto",marginTop:12}}><table><thead><tr><th>Student</th><th>File</th><th>Type</th><th>Uploaded</th><th>Actions</th></tr></thead><tbody>{docs.map(d=><tr key={d.id}><td>{d.student?.studentId} — {d.student?.name}</td><td>{d.name}</td><td>{d.type}</td><td>{new Date(d.createdAt).toLocaleString()}</td><td><a href={d.url} target="_blank" rel="noreferrer">View / Download</a>{" "}<button onClick={()=>remove(d.id)}>Delete</button></td></tr>)}</tbody></table></div></div>
+  <div className="panel"><b>Uploaded Documents ({docs.length})</b><div style={{marginTop:12,marginBottom:12}}><input aria-label="Search documents" placeholder="Search by student ID, student name or file name…" value={query} onChange={e=>setQuery(e.target.value)} style={{width:"100%",maxWidth:520}}/></div><div style={{overflowX:"auto"}}><table><thead><tr><th>Student</th><th>File</th><th>Type</th><th>Uploaded</th><th>Actions</th></tr></thead><tbody>{loading?<tr><td colSpan={5}>Loading documents…</td></tr>:docs.filter(d=>[d.name,d.type,d.student?.studentId,d.student?.name].some(v=>String(v||"").toLowerCase().includes(query.trim().toLowerCase()))).map(d=><tr key={d.id}><td>{d.student?.studentId} — {d.student?.name}</td><td>{d.name}</td><td>{d.type}</td><td>{new Date(d.createdAt).toLocaleString()}</td><td><a href={d.url} target="_blank" rel="noreferrer">View / Download</a>{" "}<button onClick={()=>remove(d.id)}>Delete</button></td></tr>):<tr><td colSpan={5}>{query?"No documents match your search.":"No documents uploaded yet."}</td></tr>}</tbody></table></div></div>
  </main></AdminShell>}
