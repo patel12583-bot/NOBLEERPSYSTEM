@@ -74,10 +74,10 @@ async function createStudent(data,sessionUser){
     }
   });
   try{
-    const student=await prisma.student.create({data:{...clean,userId:accountUser.id}});
+    const student=await prisma.student.create({data:{...clean,userId:user.id}});
     return {student,credentials:{username:clean.studentId,password:tempPassword}};
   }catch(e){
-    await prisma.user.delete({where:{id:accountUser.id}}).catch(()=>{});
+    await prisma.user.delete({where:{id:user.id}}).catch(()=>{});
     throw e;
   }
 }
