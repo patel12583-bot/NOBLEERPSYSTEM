@@ -20,6 +20,7 @@ export default function Home() {
     <main className="shell homepageImageOnly">
       <nav className="nav">
         <div className="brand"><span className="brandMark">N</span><div><b>NOBLE</b><small>GROUP OF INSTITUTES</small></div></div>
+        <Link className="homepageLoginLink" href="/login">LOGIN <span>↗</span></Link>
       </nav>
       <section className="hero heroImageOnly" aria-label="Noble campus background" />
       <section className="homepagePortalPanel" aria-label="Choose your login portal">
