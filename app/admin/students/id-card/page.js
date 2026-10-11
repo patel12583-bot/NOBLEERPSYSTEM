@@ -19,7 +19,7 @@ export default function StudentIdCard(){
  return <main className="content idCardPage" style={{padding:32}}>
   <div className="idCardActions"><button onClick={()=>window.history.back()}>← Back</button><button className="primary" onClick={()=>window.print()}>Print / Save PDF</button></div>
   <section className="studentIdCard">
-   <div className="idCardTop"><div><div className="eyebrow">NOBLE GROUP OF INSTITUTES</div><h1>STUDENT IDENTITY CARD</h1><p>Official ERP Student Identification</p></div><div className="idBadge">STUDENT</div></div>
+   <div className="idCardTop"><div><div className="eyebrow">noble group of Institution</div><h1>STUDENT IDENTITY CARD</h1><p>Official ERP Student Identification</p></div><div className="idBadge">STUDENT</div></div>
    <div className="idCardBody">
     <div className="idPhoto">{student.photoUrl?<img src={student.photoUrl} alt={student.name}/>:<span>{student.name?.split(" ").map(x=>x[0]).slice(0,2).join("").toUpperCase()}</span>}</div>
     <div className="idDetails">
