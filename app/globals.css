@@ -612,3 +612,26 @@ button,.btn,input,select,textarea{accent-color:#176bd1}
 .homepageImageOnly>.nav{position:relative;z-index:1;background:rgba(4,22,40,.24)!important;backdrop-filter:none!important}
 .homepageImageOnly>.heroImageOnly{display:block!important;height:calc(100svh - 82px)!important;min-height:calc(100svh - 82px)!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;background:transparent!important}
 @media(max-width:700px){.homepageImageOnly>.nav{height:70px!important}.homepageImageOnly>.heroImageOnly{height:calc(100svh - 70px)!important;min-height:calc(100svh - 70px)!important}}
+
+
+/* Restore homepage portal choices while keeping the campus photo as the main background */
+.homepageImageOnly{position:relative!important;min-height:100svh!important;height:100svh!important;overflow:auto!important;background-image:url("/WhatsApp%20Image%202026-10-11%20at%2012.35.39%20PM.jpeg")!important;background-position:center center!important;background-size:cover!important;background-repeat:no-repeat!important;background-attachment:scroll!important}
+.homepageImageOnly>.nav{position:relative;z-index:3;background:rgba(4,22,40,.42)!important;backdrop-filter:blur(8px)!important}
+.homepageImageOnly>.heroImageOnly{position:absolute!important;inset:82px 0 0!important;z-index:0!important;display:block!important;height:auto!important;min-height:0!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;background:transparent!important}
+.homepageLoginLink{display:inline-flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-size:12px;font-weight:800;letter-spacing:1.5px;padding:11px 17px;border:1px solid rgba(255,255,255,.5);border-radius:10px;background:rgba(15,72,123,.58)}
+.homepageLoginLink:hover{background:rgba(25,105,190,.8)}
+.homepagePortalPanel{position:relative;z-index:2;width:min(1100px,92%);margin:clamp(100px,24vh,220px) auto 28px;padding:20px;border:1px solid rgba(255,255,255,.25);border-radius:18px;background:rgba(4,22,40,.68);backdrop-filter:blur(10px);box-shadow:0 18px 60px rgba(0,0,0,.25)}
+.homepagePortalHeading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;color:#fff;margin-bottom:14px}
+.homepagePortalHeading span{font-size:10px;letter-spacing:2px;font-weight:800;color:#c3d9f0}
+.homepagePortalHeading strong{font-size:18px}
+.homepagePortalGrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.homepagePortalCard{min-width:0;display:flex;align-items:center;gap:10px;padding:13px 11px;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:rgba(255,255,255,.96);color:#12233b;text-decoration:none;transition:transform .18s ease,background .18s ease}
+.homepagePortalCard:hover{transform:translateY(-2px);background:#eaf4ff}
+.homepagePortalIcon{font-size:22px;flex:0 0 auto}
+.homepagePortalText{display:flex;flex-direction:column;gap:3px;min-width:0}
+.homepagePortalText strong{font-size:12px;line-height:1.25;overflow-wrap:anywhere}
+.homepagePortalText small{font-size:10px;color:#65758a;line-height:1.25}
+.homepagePortalArrow{margin-left:auto;color:#1769d5;font-weight:800}
+@media(max-width:900px){.homepagePortalGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.homepagePortalPanel{margin-top:clamp(80px,14vh,130px)}}
+@media(max-width:700px){.homepageImageOnly{height:auto!important;min-height:100svh!important;overflow:visible!important}.homepageImageOnly>.nav{height:70px!important}.homepageImageOnly>.heroImageOnly{inset:70px 0 0!important}.homepagePortalPanel{width:calc(100% - 24px);margin:12vh auto 22px;padding:14px}.homepagePortalGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.homepagePortalCard{padding:11px 8px;gap:7px}.homepagePortalIcon{font-size:19px}.homepagePortalText strong{font-size:11px}.homepagePortalText small{font-size:9px}.homepagePortalHeading strong{font-size:16px}}
+@media(max-width:360px){.homepagePortalGrid{grid-template-columns:1fr}}
