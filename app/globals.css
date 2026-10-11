@@ -645,3 +645,9 @@ button,.btn,input,select,textarea{accent-color:#176bd1}
   .homepageImageOnly>.heroImageOnly{inset:70px 0 0!important;background-position:center 55%!important}
   .homepagePortalPanel{margin-top:clamp(105px,19vh,175px)!important}
 }
+
+
+/* Homepage polish: remove header login control and position the campus crest more clearly */
+.homepageImageOnly{background-position:center 58%!important}
+.homepageImageOnly>.heroImageOnly{background-position:center 58%!important}
+@media(max-width:700px){.homepageImageOnly{background-position:center 55%!important}}
