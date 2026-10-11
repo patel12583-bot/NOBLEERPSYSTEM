@@ -1,0 +1,19 @@
+{
+  "name": "Noble Group of Institution ERP",
+  "short_name": "Noble ERP",
+  "description": "Noble Group of Institution student and campus management portal",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#0b5cff",
+  "icons": [
+    {
+      "src": "/noble-app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
