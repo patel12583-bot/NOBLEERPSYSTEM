@@ -14,5 +14,5 @@ export default function GlobalBack(){
   const router=useRouter();
   const hidden=["/","/login","/register","/setup"].includes(pathname);
   if(hidden) return null;
-  return <button className="globalBack" type="button" onClick={()=>router.push(getSafeBackPath(pathname)) aria-label="Go back">← <span>Back</span></button>;
+  return <button className="globalBack" type="button" onClick={()=>router.push(getSafeBackPath(pathname))} aria-label="Go back">← <span>Back</span></button>;
 }
