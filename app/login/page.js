@@ -46,20 +46,34 @@ function LoginForm() {
     }
   }
 
-  return <main className="loginShell"><div className="loginCard">
-    <div className="loginBrand"><span className="brandMark">N</span><div><b>NOBLE</b><small>GROUP OF INSTITUTES</small></div></div>
-    <div className="loginTitle"><div className="eyebrow">SECURE PORTAL</div><h1>Welcome back.</h1><p>Sign in to your Noble ERP workspace.</p></div>
-    <form onSubmit={submit}>
-      <label>Portal role<select value={role} onChange={e => setRole(e.target.value)}>
-        {["Student","Faculty","HOD","Parent","Admin","Super Admin","Accountant","Examination Officer","Librarian","HR/Staff"].map(x => <option key={x}>{x}</option>)}
-      </select></label>
-      <label>User ID / Email<input value={id} onChange={e => setId(e.target.value)} placeholder="Enter your ID or email" autoComplete="username" /></label>
-      <label>Password<input type="password" value={pass} onChange={e => setPass(e.target.value)} placeholder="Enter password" autoComplete="current-password" /></label>
-      {error && <div className="error">{error}</div>}
-      <button className="primary full" disabled={loading}>{loading ? "Signing in…" : <>Sign in <span>→</span></>}</button>
-    </form>
-    <div className="authLinks"><button className="back" onClick={() => router.push("/register")}>Create a new account</button><button className="back" onClick={() => router.push("/")}>← Back to Noble ERP</button></div>
-  </div></main>;
+  return <main className="loginShell">
+    <div className="loginCampusShade" aria-hidden="true" />
+    <header className="loginCampusHeader">
+      <div className="loginCampusMotto">Education Builds<br/><em>A Better Future</em></div>
+      <div className="loginCampusInstitute"><strong>noble group of Institution</strong><span>LEARN&nbsp; | &nbsp;GROW&nbsp; | &nbsp;SUCCEED</span></div>
+    </header>
+    <aside className="loginCampusFeatures">
+      <div><i>♟</i><span><b>Student Management</b><small>Track · Manage · Grow</small></span></div>
+      <div><i>♟</i><span><b>Faculty &amp; Staff</b><small>Support · Develop · Empower</small></span></div>
+      <div><i>▤</i><span><b>Examination &amp; Results</b><small>Evaluate · Analyze · Excel</small></span></div>
+      <div><i>▣</i><span><b>Library &amp; Resources</b><small>Access · Learn · Achieve</small></span></div>
+    </aside>
+    <div className="loginCard loginCampusCard">
+      <div className="loginCampusLogo"><img src="/noble-logo.png" alt="Noble Group of Institutions logo" onError={e=>{e.currentTarget.style.display="none"}} /></div>
+      <div className="loginTitle"><div className="eyebrow">SECURE COLLEGE PORTAL</div><h1>Noble ERP System</h1><p>College Management System</p></div>
+      <form onSubmit={submit}>
+        <label>Portal role<select value={role} onChange={e => setRole(e.target.value)}>
+          {["Student","Faculty","HOD","Parent","Admin","Super Admin","Accountant","Examination Officer","Librarian","HR/Staff"].map(x => <option key={x}>{x}</option>)}
+        </select></label>
+        <label>User ID / Email<input value={id} onChange={e => setId(e.target.value)} placeholder="Enter your ID or email" autoComplete="username" /></label>
+        <label>Password<input type="password" value={pass} onChange={e => setPass(e.target.value)} placeholder="Enter password" autoComplete="current-password" /></label>
+        {error && <div className="error">{error}</div>}
+        <button className="primary full" disabled={loading}>{loading ? "Signing in…" : <>↪ &nbsp; Login</>}</button>
+      </form>
+      <div className="authLinks"><button className="back" onClick={() => router.push("/register")}>Create Account / Sign Up</button><button className="back" onClick={() => router.push("/")}>← Back to Noble ERP</button></div>
+      <p className="loginCopyright">© 2026 noble group of Institution. All rights reserved.</p>
+    </div>
+  </main>;
 }
 
 export default function Login() {
