@@ -1,25 +1,25 @@
 {
   "id": "/",
-  "name": "NRS",
-  "short_name": "NRS",
-  "description": "NRS - Noble Group of Institution ERP",
-  "start_url": "/",
+  "name": "Noble Group of Institution ERP",
+  "short_name": "Noble ERP",
+  "description": "Noble Group of Institution — College ERP",
+  "start_url": "/login",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#ffffff",
-  "theme_color": "#0b5cff",
+  "theme_color": "#0b2f5b",
   "icons": [
     {
-      "src": "/nrs-icon-192.svg",
+      "src": "/noble-logo.png",
       "sizes": "192x192",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/nrs-icon-512.svg",
+      "src": "/noble-logo.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]
