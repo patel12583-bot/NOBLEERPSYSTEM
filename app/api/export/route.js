@@ -49,10 +49,19 @@ async function embedInstituteLogo(doc){
 async function drawHeader(page,title,font,bold,doc){
  const blue=rgb(.04,.18,.36),pw=595.28;
  const logo=await embedInstituteLogo(doc);
- if(logo){const scale=Math.min(54/logo.width,54/logo.height),w=logo.width*scale,h=logo.height*scale;page.drawImage(logo,{x:24+(54-w)/2,y:770+(54-h)/2,width:w,height:h})}
+ if(logo){
+  const box={x:24,y:766,w:62,h:62};
+  const scale=Math.min(box.w/logo.width,box.h/logo.height),w=logo.width*scale,h=logo.height*scale;
+  page.drawImage(logo,{x:box.x+(box.w-w)/2,y:box.y+(box.h-h)/2,width:w,height:h});
+ }
  const lines=[[INSTITUTE,13,bold,805],[TRUST,7,bold,790],[ADDRESS,6.2,font,777],[AFFILIATION,7,bold,764]];
- for(const [txt,size,f,y] of lines){const safe=pdfSafe(txt),w=f.widthOfTextAtSize(safe,size);page.drawText(safe,{x:Math.max(12,(pw-w)/2+14),y,size,font:f,color:blue})}
- page.drawLine({start:{x:22,y:753},end:{x:573,y:753},thickness:1.2,color:rgb(.12,.38,.72)});
+ for(const [txt,size,f,y] of lines){
+  const safe=pdfSafe(txt),w=f.widthOfTextAtSize(safe,size);
+  const contentLeft=94,contentRight=573;
+  page.drawText(safe,{x:contentLeft+Math.max(0,(contentRight-contentLeft-w)/2),y,size,font:f,color:blue});
+ }
+ page.drawLine({start:{x:22,y:753},end:{x:573,y:753},thickness:1.4,color:rgb(.12,.38,.72)});
+ page.drawLine({start:{x:22,y:756},end:{x:573,y:756},thickness:.35,color:rgb(.78,.65,.35)});
  const pres=pdfSafe(PRESIDENT),prw=bold.widthOfTextAtSize(pres,7);
  page.drawText(pres,{x:(pw-prw)/2,y:741,size:7,font:bold,color:blue});
  page.drawLine({start:{x:22,y:733},end:{x:573,y:733},thickness:1.2,color:rgb(.12,.38,.72)});
