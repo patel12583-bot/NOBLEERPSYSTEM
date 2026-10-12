@@ -29,14 +29,21 @@ export async function PUT(req){
   if(b.action==="schedule"){
    if(!b.subjectId||!b.date||!b.startTime||!b.endTime)return NextResponse.json({error:"Subject, date and time are required."},{status:400});
    if(b.startTime>=b.endTime)return NextResponse.json({error:"End time must be after start time."},{status:400});
-   const date=new Date(b.date+"T00:00:00");
    if(!b.examId)return NextResponse.json({error:"Exam id required."},{status:400});
+   const date=new Date(b.date+"T00:00:00");
+   if(Number.isNaN(date.getTime()))return NextResponse.json({error:"A valid exam date is required."},{status:400});
    const exam=await prisma.exam.findUnique({where:{id:b.examId}});
    if(!exam)return NextResponse.json({error:"Examination not found."},{status:404});
-   const [existing,subject]=await Promise.all([
-    prisma.examSchedule.findMany({where:{date,OR:[...(b.roomId?[{roomId:b.roomId}]:[]),{subjectId:b.subjectId}]}}),
-    prisma.subject.findUnique({where:{id:b.subjectId}})
+   if(exam.status==="CANCELLED")return NextResponse.json({error:"A cancelled examination cannot be scheduled."},{status:409});
+   const [existing,subject,room]=await Promise.all([
+    prisma.examSchedule.findMany({where:{date,exam:{status:{not:"CANCELLED"}},OR:[...(b.roomId?[{roomId:b.roomId}]:[]),{subjectId:b.subjectId}]}}),
+    prisma.subject.findUnique({where:{id:b.subjectId},select:{id:true}}),
+    b.roomId?prisma.room.findUnique({where:{id:b.roomId},select:{id:true}}):Promise.resolve(true)
    ]);
+   if(!subject)return NextResponse.json({error:"Selected subject was not found."},{status:404});
+   if(b.roomId&&!room)return NextResponse.json({error:"Selected room was not found."},{status:404});
+   if(exam.startDate&&date<new Date(exam.startDate.toISOString().slice(0,10)+"T00:00:00"))return NextResponse.json({error:"Schedule date is before the examination start date."},{status:400});
+   if(exam.endDate&&date>new Date(exam.endDate.toISOString().slice(0,10)+"T23:59:59"))return NextResponse.json({error:"Schedule date is after the examination end date."},{status:400});
    const clash=existing.find(x=>!(x.examId===b.examId && x.subjectId===b.subjectId) && overlap(b.startTime,b.endTime,x.startTime,x.endTime));
    if(clash)return NextResponse.json({error:"Exam schedule clash detected for this subject or room."},{status:409});
    const row=await prisma.examSchedule.upsert({where:{examId_subjectId:{examId:b.examId,subjectId:b.subjectId}},update:{date,startTime:b.startTime,endTime:b.endTime,roomId:b.roomId||null},create:{examId:b.examId,subjectId:b.subjectId,date,startTime:b.startTime,endTime:b.endTime,roomId:b.roomId||null}});
