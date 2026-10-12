@@ -41,10 +41,15 @@ const ADDRESS="DABHOI KARJAN ROAD, MOTAHABIPURA, TA. DABHOI, DIST. VADODARA";
 const AFFILIATION="(Affiliated By Shree Govind Guru University, Godhra)";
 const PRESIDENT="President : A. A. Madhavani";
 async function embedInstituteLogo(doc){
- for(const [file,type] of [["noble-logo.png","png"],["noble-logo.jpg","jpg"],["noble-logo.jpeg","jpg"],["WhatsApp Image 2026-10-11 at 12.35.39 PM.jpeg","jpg"]]){
-  try{const bytes=await readFile(join(process.cwd(),"public",file));return type==="png"?await doc.embedPng(bytes):await doc.embedJpg(bytes)}catch{}
+ for(const file of ["noble-logo.png","noble-logo.jpg","noble-logo.jpeg","WhatsApp Image 2026-10-11 at 12.35.39 PM.jpeg"]){
+  try{
+   const bytes=await readFile(join(process.cwd(),"public",file));
+   // Do not trust the filename extension: the uploaded .png may contain JPEG bytes.
+   try{return await doc.embedPng(bytes)}catch{}
+   try{return await doc.embedJpg(bytes)}catch{}
+  }catch{}
  }
- return null;
+ throw new Error("Noble institute logo could not be loaded from public/noble-logo.png. Check the logo asset in the deployment.");
 }
 async function drawHeader(page,title,font,bold,doc){
  const blue=rgb(.04,.18,.36),pw=595.28;
