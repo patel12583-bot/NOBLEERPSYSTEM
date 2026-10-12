@@ -8,6 +8,6 @@
   "display": "standalone",
   "orientation": "any",
   "background_color": "#ffffff",
-  "theme_color": "#0b2f5b"
+  "theme_color": "#0b2f5b",
   "icons": []
 }
