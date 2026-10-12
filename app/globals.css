@@ -895,3 +895,88 @@ button:focus-visible,a:focus-visible{outline:3px solid rgba(74,153,255,.65);outl
     transition-duration:.01ms!important;
   }
 }
+
+
+/* Classic 3D depth — restrained, accessible, and GPU-light */
+:root{
+  --nrs-ink:#102a43;
+  --nrs-classic-gold:#c6a15b;
+  --nrs-depth:0 14px 34px rgba(5,28,52,.12),0 3px 8px rgba(5,28,52,.06);
+  --nrs-depth-hover:0 24px 48px rgba(5,28,52,.19),0 8px 16px rgba(5,28,52,.08);
+}
+@keyframes nrsClassicEntrance{
+  0%{opacity:0;transform:perspective(900px) rotateX(5deg) translateY(18px)}
+  100%{opacity:1;transform:perspective(900px) rotateX(0) translateY(0)}
+}
+@keyframes nrsGoldSweep{
+  0%{background-position:180% 0}
+  100%{background-position:-180% 0}
+}
+.brandMark,.loginBrand .brandMark,.sideBrand .brandMark{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 7px 0 rgba(3,22,43,.16),0 13px 25px rgba(3,22,43,.24);
+  transform:translateY(-1px);
+}
+.role,.homepagePortalCard,.moduleCard,.statCard,.statGrid>div,.panel,.loginCard,.dataTableWrap,.tableWrap{
+  transform-style:preserve-3d;
+  backface-visibility:hidden;
+}
+.role,.homepagePortalCard,.moduleCard{
+  box-shadow:var(--nrs-depth);
+  transition:transform 320ms cubic-bezier(.2,.75,.25,1),box-shadow 320ms ease,border-color 250ms ease,background-color 250ms ease;
+}
+.role:hover,.homepagePortalCard:hover,.moduleCard:hover{
+  transform:perspective(1000px) translateY(-6px) rotateX(1deg);
+  box-shadow:var(--nrs-depth-hover);
+  border-color:rgba(198,161,91,.6);
+}
+.statCard,.statGrid>div,.panel,.loginCard{
+  box-shadow:var(--nrs-depth);
+  border-color:rgba(18,42,67,.09);
+}
+.statCard:hover,.statGrid>div:hover,.panel:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--nrs-depth-hover);
+}
+.primary,.full,.homepageInstallButton{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  box-shadow:0 5px 0 #0a438e,0 10px 22px rgba(11,92,255,.20);
+}
+.primary:active,.full:active,.homepageInstallButton:active{
+  transform:translateY(2px) scale(.99);
+  box-shadow:0 2px 0 #0a438e,0 5px 12px rgba(11,92,255,.18);
+}
+.primary:after,.full:after,.homepageInstallButton:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.22) 48%,transparent 68%);
+  background-size:220% 100%;
+  background-position:180% 0;
+  transition:background-position 650ms ease;
+}
+.primary:hover:after,.full:hover:after,.homepageInstallButton:hover:after{
+  background-position:-100% 0;
+}
+.nav,.dash aside,.dash header{
+  box-shadow:0 8px 26px rgba(3,22,43,.10);
+}
+.sideNav button.selected{
+  box-shadow:inset 3px 0 0 var(--nrs-classic-gold);
+}
+.hero h1,.sectionHead h2{
+  text-shadow:0 3px 22px rgba(0,0,0,.16);
+}
+@media(prefers-reduced-motion:no-preference){
+  .loginCard,.dashHeader,.sectionIntro,.content header{
+    animation:nrsClassicEntrance 520ms cubic-bezier(.2,.75,.25,1) both;
+  }
+}
+@media(hover:none){
+  .role:hover,.homepagePortalCard:hover,.moduleCard:hover,.statCard:hover,.statGrid>div:hover,.panel:hover{
+    transform:none;
+  }
+}
