@@ -41,7 +41,7 @@ const ADDRESS="DABHOI KARJAN ROAD, MOTAHABIPURA, TA. DABHOI, DIST. VADODARA";
 const AFFILIATION="(Affiliated By Shree Govind Guru University, Godhra)";
 const PRESIDENT="President : A. A. Madhavani";
 async function embedInstituteLogo(doc){
- for(const [file,type] of [["WhatsApp Image 2026-10-11 at 12.35.39 PM.jpeg","jpg"],["noble-logo.jpg","jpg"],["noble-logo.jpeg","jpg"],["noble-logo.png","png"]]){
+ for(const [file,type] of [["noble-logo.png","png"],["noble-logo.jpg","jpg"],["noble-logo.jpeg","jpg"],["WhatsApp Image 2026-10-11 at 12.35.39 PM.jpeg","jpg"]]){
   try{const bytes=await readFile(join(process.cwd(),"public",file));return type==="png"?await doc.embedPng(bytes):await doc.embedJpg(bytes)}catch{}
  }
  return null;
