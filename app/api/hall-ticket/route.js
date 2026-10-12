@@ -6,6 +6,8 @@ const TRUST="(MANAGED BY SHREE NOBLE EDUCATION TRUST)";
 const ADDRESS="DABHOI KARJAN ROAD, MOTAHABIPURA, TA. DABHOI, DIST. VADODARA";
 const AFFILIATION="(AFFILIATED BY SHREE GOVIND GURU UNIVERSITY, GODHRA)";
 const PRESIDENT="PRESIDENT : A. A. MADHAVANI";
+const PRIVATE_HEADERS={"Cache-Control":"private, no-store, no-cache, max-age=0, must-revalidate","Pragma":"no-cache","Vary":"Cookie"};
+function privateJson(data,init={}){return NextResponse.json(data,{...init,headers:{...PRIVATE_HEADERS,...(init.headers||{})}})}
 async function embedInstituteLogo(doc){
  for(const [file,type] of [["noble-logo.png","png"],["noble-logo.jpg","jpg"],["noble-logo.jpeg","jpg"]]){
   try{const bytes=await readFile(join(process.cwd(),"public",file));return type==="png"?await doc.embedPng(bytes):await doc.embedJpg(bytes)}catch{}
@@ -85,21 +87,21 @@ async function singlePdf(d){
  return bulkPdf([d]);
 }
 export async function GET(req){
- const u=await getSessionUser();if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});
+ const u=await getSessionUser();if(!u)return privateJson({error:"Unauthorized"},{status:401});
  const q=new URL(req.url).searchParams,staff=staffRoles.includes(u.role);
- if(u.role==="STUDENT"){const s=await prisma.student.findUnique({where:{userId:u.id}});if(!s)return NextResponse.json({error:"Student profile not found."},{status:404});const d=await ticketData(s.id);if(q.get("format")==="pdf"){const out=await singlePdf(d);return new Response(out,{headers:{"Content-Type":"application/pdf","Content-Disposition":"attachment; filename=noble-erp-hall-ticket.pdf","Cache-Control":"no-store"}})}return NextResponse.json(d);}
- if(!staff)return NextResponse.json({error:"You are not allowed to view another student's hall ticket."},{status:403});
+ if(u.role==="STUDENT"){const s=await prisma.student.findUnique({where:{userId:u.id}});if(!s)return privateJson({error:"Student profile not found."},{status:404});const d=await ticketData(s.id);if(q.get("format")==="pdf"){const out=await singlePdf(d);return new Response(out,{headers:{"Content-Type":"application/pdf","Content-Disposition":"attachment; filename=noble-erp-hall-ticket.pdf","Cache-Control":"private, no-store, no-cache, max-age=0, must-revalidate","Pragma":"no-cache","Vary":"Cookie"}})}return privateJson(d);}
+ if(!staff)return privateJson({error:"You are not allowed to view another student's hall ticket."},{status:403});
  let departmentScope=null;
  if(u.role==="HOD"){
   const faculty=await prisma.faculty.findUnique({where:{userId:u.id},select:{departmentId:true}});
-  if(!faculty?.departmentId)return NextResponse.json({error:"HOD department is not configured."},{status:403});
+  if(!faculty?.departmentId)return privateJson({error:"HOD department is not configured."},{status:403});
   departmentScope=faculty.departmentId;
  }
  const studentWhere={status:"ACTIVE",...(departmentScope?{departmentId:departmentScope}:{})};
- if(q.get("bulk")==="1"){const students=await prisma.student.findMany({where:studentWhere,orderBy:{name:"asc"},select:{id:true}});const tickets=(await Promise.all(students.map(s=>ticketData(s.id)))).filter(Boolean);const out=await bulkPdf(tickets);return new Response(out,{headers:{"Content-Type":"application/pdf","Content-Disposition":"attachment; filename=noble-erp-hall-tickets.pdf","Cache-Control":"no-store"}});}
+ if(q.get("bulk")==="1"){const students=await prisma.student.findMany({where:studentWhere,orderBy:{name:"asc"},select:{id:true}});const tickets=(await Promise.all(students.map(s=>ticketData(s.id)))).filter(Boolean);const out=await bulkPdf(tickets);return new Response(out,{headers:{"Content-Type":"application/pdf","Content-Disposition":"attachment; filename=noble-erp-hall-tickets.pdf","Cache-Control":"private, no-store, no-cache, max-age=0, must-revalidate","Pragma":"no-cache","Vary":"Cookie"}});}
  const studentId=q.get("studentId");
- if(!studentId){const students=await prisma.student.findMany({where:studentWhere,orderBy:{name:"asc"},select:{id:true,studentId:true,name:true,program:{select:{name:true}},semester:{select:{name:true}},division:{select:{name:true}}}});return NextResponse.json({students});}
- const d=await ticketData(studentId);if(!d)return NextResponse.json({error:"Student not found."},{status:404});
- if(departmentScope&&d.student.departmentId!==departmentScope)return NextResponse.json({error:"You can only access hall tickets for students in your department."},{status:403});
- if(q.get("format")==="pdf"){const out=await singlePdf(d);return new Response(out,{headers:{"Content-Type":"application/pdf","Content-Disposition":"attachment; filename=noble-erp-hall-ticket.pdf","Cache-Control":"no-store"}})}return NextResponse.json(d);
+ if(!studentId){const students=await prisma.student.findMany({where:studentWhere,orderBy:{name:"asc"},select:{id:true,studentId:true,name:true,program:{select:{name:true}},semester:{select:{name:true}},division:{select:{name:true}}}});return privateJson({students});}
+ const d=await ticketData(studentId);if(!d)return privateJson({error:"Student not found."},{status:404});
+ if(departmentScope&&d.student.departmentId!==departmentScope)return privateJson({error:"You can only access hall tickets for students in your department."},{status:403});
+ if(q.get("format")==="pdf"){const out=await singlePdf(d);return new Response(out,{headers:{"Content-Type":"application/pdf","Content-Disposition":"attachment; filename=noble-erp-hall-ticket.pdf","Cache-Control":"private, no-store, no-cache, max-age=0, must-revalidate","Pragma":"no-cache","Vary":"Cookie"}})}return privateJson(d);
 }
