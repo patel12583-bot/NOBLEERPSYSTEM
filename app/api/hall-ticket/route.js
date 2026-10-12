@@ -9,7 +9,7 @@ const PRESIDENT="PRESIDENT : A. A. MADHAVANI";
 const PRIVATE_HEADERS={"Cache-Control":"private, no-store, no-cache, max-age=0, must-revalidate","Pragma":"no-cache","Vary":"Cookie"};
 function privateJson(data,init={}){return NextResponse.json(data,{...init,headers:{...PRIVATE_HEADERS,...(init.headers||{})}})}
 async function embedInstituteLogo(doc){
- for(const [file,type] of [["noble-logo.png","png"],["noble-logo.jpg","jpg"],["noble-logo.jpeg","jpg"]]){
+ for(const [file,type] of [["WhatsApp Image 2026-10-11 at 12.35.39 PM.jpeg","jpg"],["noble-logo.jpg","jpg"],["noble-logo.jpeg","jpg"],["noble-logo.png","png"]]){
   try{const bytes=await readFile(join(process.cwd(),"public",file));return type==="png"?await doc.embedPng(bytes):await doc.embedJpg(bytes)}catch{}
  }
  return null;
