@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { prisma } from "@/lib/prisma";
 import { getSessionUser } from "@/lib/auth";
 import * as XLSX from "xlsx";
@@ -40,29 +38,12 @@ const TRUST="(Managed By Shree Noble Education Trust)";
 const ADDRESS="DABHOI KARJAN ROAD, MOTAHABIPURA, TA. DABHOI, DIST. VADODARA";
 const AFFILIATION="(Affiliated By Shree Govind Guru University, Godhra)";
 const PRESIDENT="President : A. A. Madhavani";
-async function embedInstituteLogo(doc){
- for(const file of ["noble-logo.jpg","noble-logo.png","noble-logo.jpeg","WhatsApp Image 2026-10-11 at 12.35.39 PM.jpeg"]){
-  try{
-   const bytes=await readFile(join(process.cwd(),"public",file));
-   // Do not trust the filename extension: the uploaded .png may contain JPEG bytes.
-   try{return await doc.embedPng(bytes)}catch{}
-   try{return await doc.embedJpg(bytes)}catch{}
-  }catch{}
- }
- throw new Error("Noble institute logo could not be loaded from public/noble-logo.png. Check the logo asset in the deployment.");
-}
 async function drawHeader(page,title,font,bold,doc){
  const blue=rgb(.04,.18,.36),pw=595.28;
- const logo=await embedInstituteLogo(doc);
- if(logo){
-  const box={x:24,y:766,w:62,h:62};
-  const scale=Math.min(box.w/logo.width,box.h/logo.height),w=logo.width*scale,h=logo.height*scale;
-  page.drawImage(logo,{x:box.x+(box.w-w)/2,y:box.y+(box.h-h)/2,width:w,height:h});
- }
  const lines=[[INSTITUTE,13,bold,805],[TRUST,7,bold,790],[ADDRESS,6.2,font,777],[AFFILIATION,7,bold,764]];
  for(const [txt,size,f,y] of lines){
   const safe=pdfSafe(txt),w=f.widthOfTextAtSize(safe,size);
-  const contentLeft=94,contentRight=573;
+  const contentLeft=22,contentRight=573;
   page.drawText(safe,{x:contentLeft+Math.max(0,(contentRight-contentLeft-w)/2),y,size,font:f,color:blue});
  }
  page.drawLine({start:{x:22,y:753},end:{x:573,y:753},thickness:1.4,color:rgb(.12,.38,.72)});
