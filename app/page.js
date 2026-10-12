@@ -41,7 +41,15 @@ export default function Home() {
   const handleInstall = async () => {
     if (isInstalled) return;
     if (!installPrompt) {
-      window.alert("To install NRS, open this website in Chrome, tap the three-dot menu (⋮), then choose Install app. If Install app is unavailable, choose Add to Home screen.");
+      const isAndroid = /Android/i.test(window.navigator.userAgent);
+      const isIOS = /iPhone|iPad|iPod/i.test(window.navigator.userAgent);
+      if (isAndroid) {
+        window.alert("Install NRS: tap Chrome menu (⋮) → Install app. If shown, choose Add to Home screen.");
+      } else if (isIOS) {
+        window.alert("Install NRS: tap Share → Add to Home Screen → Add.");
+      } else {
+        window.alert("Install NRS: open this page in Chrome or Edge and choose Install app from the address bar or browser menu.");
+      }
       return;
     }
     installPrompt.prompt();
