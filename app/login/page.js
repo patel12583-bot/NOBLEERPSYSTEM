@@ -59,7 +59,6 @@ function LoginForm() {
       <div><i>▣</i><span><b>Library &amp; Resources</b><small>Access · Learn · Achieve</small></span></div>
     </aside>
     <div className="loginCard loginCampusCard">
-      <div className="loginCampusLogo"><img src="/noble-logo.png" alt="Noble Group of Institutions logo" onError={e=>{e.currentTarget.style.display="none"}} /></div>
       <div className="loginTitle"><div className="eyebrow">SECURE COLLEGE PORTAL</div><h1>Noble ERP System</h1><p>College Management System</p></div>
       <form onSubmit={submit}>
         <label>Portal role<select value={role} onChange={e => setRole(e.target.value)}>
