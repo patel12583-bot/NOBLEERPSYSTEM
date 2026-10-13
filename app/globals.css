@@ -1369,3 +1369,87 @@ html.pwa-standalone body > * {position:relative;z-index:1}
   html.pwa-standalone .moduleCard,
   html.pwa-standalone .statCard {animation:none!important}
 }
+
+
+/* Purple-white mobile app experience: strictly limited to installed PWA mode.
+   Browser website styles remain unchanged. */
+@media (prefers-reduced-motion: no-preference) {
+  html.pwa-standalone body {
+    background:
+      radial-gradient(ellipse at 92% 8%, rgba(177,137,255,.18), transparent 34%),
+      radial-gradient(ellipse at 5% 85%, rgba(115,198,255,.16), transparent 36%),
+      linear-gradient(155deg,#fbf9ff 0%,#f4efff 48%,#f8fbff 100%);
+  }
+  html.pwa-standalone .nav,
+  html.pwa-standalone .erpTopbar {
+    background:rgba(255,255,255,.78);
+    border-color:rgba(143,105,221,.16);
+    box-shadow:0 8px 28px rgba(103,72,166,.08);
+  }
+  html.pwa-standalone .homepagePortalCard,
+  html.pwa-standalone .role,
+  html.pwa-standalone .moduleCard,
+  html.pwa-standalone .statCard,
+  html.pwa-standalone .panel,
+  html.pwa-standalone .loginCard,
+  html.pwa-standalone .dash aside,
+  html.pwa-standalone .erpSidebar {
+    border:1px solid rgba(160,128,224,.18);
+    box-shadow:0 12px 34px rgba(98,72,157,.09),inset 0 1px 0 rgba(255,255,255,.92);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+  }
+  html.pwa-standalone button:not(:disabled),
+  html.pwa-standalone [role="button"] {
+    transition:transform .22s ease,box-shadow .22s ease,filter .22s ease;
+  }
+  html.pwa-standalone button:not(:disabled):active,
+  html.pwa-standalone [role="button"]:active {
+    transform:translateY(1px) scale(.975);
+    filter:saturate(1.12);
+  }
+}
+html.pwa-standalone {
+  --navy:#39236f;
+  --blue:#8650df;
+  --gold:#b68af7;
+  --ink:#302447;
+  --muted:#827795;
+  --line:#e8defa;
+  --card:rgba(255,255,255,.88);
+}
+html.pwa-standalone .brandMark {
+  background:linear-gradient(145deg,#b18aff 0%,#8650df 52%,#6335bb 100%);
+  box-shadow:0 9px 24px rgba(134,80,223,.28),inset 0 1px 0 rgba(255,255,255,.55);
+}
+html.pwa-standalone .status i {
+  box-shadow:0 0 0 4px rgba(165,123,245,.18),0 0 18px rgba(165,123,245,.48);
+}
+@keyframes noblePwaPageIn {
+  from {opacity:0;transform:translateY(8px)}
+  to {opacity:1;transform:translateY(0)}
+}
+@keyframes noblePwaIconPulse {
+  0%,100% {filter:drop-shadow(0 3px 7px rgba(134,80,223,.12))}
+  50% {filter:drop-shadow(0 7px 14px rgba(134,80,223,.26))}
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.pwa-standalone .erpPage,
+  html.pwa-standalone .content,
+  html.pwa-standalone main {
+    animation:noblePwaPageIn .42s cubic-bezier(.2,.7,.2,1) both;
+  }
+  html.pwa-standalone .homepagePortalIcon,
+  html.pwa-standalone .moduleIcon {
+    animation:noblePwaIconPulse 4.5s ease-in-out infinite;
+  }
+  html.pwa-standalone .homepagePortalCard:nth-child(3n),
+  html.pwa-standalone .statCard:nth-child(3n) {animation-delay:-2s}
+}
+@media (prefers-reduced-motion: reduce) {
+  html.pwa-standalone .erpPage,
+  html.pwa-standalone .content,
+  html.pwa-standalone main,
+  html.pwa-standalone .homepagePortalIcon,
+  html.pwa-standalone .moduleIcon {animation:none!important}
+}
