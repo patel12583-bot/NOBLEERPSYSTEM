@@ -1307,3 +1307,65 @@ html.pwa-standalone .iconBtn {
     background:rgba(255,255,255,.95);
   }
 }
+
+
+/* Visible app-wide motion layer, enabled only in installed standalone PWA. */
+html.pwa-standalone body {position:relative;isolation:isolate}
+html.pwa-standalone body::before,
+html.pwa-standalone body::after {
+  content:"";
+  display:block;
+  position:fixed;
+  pointer-events:none;
+  border-radius:50%;
+  z-index:0;
+  will-change:transform;
+}
+html.pwa-standalone body::before {
+  width: min(68vw,360px);
+  height:min(68vw,360px);
+  top:10%;
+  right:-18%;
+  background:radial-gradient(circle at 35% 35%,rgba(118,164,255,.34),rgba(125,109,242,.13) 45%,transparent 72%);
+  filter:blur(3px);
+}
+html.pwa-standalone body::after {
+  width:min(78vw,410px);
+  height:min(78vw,410px);
+  bottom:3%;
+  left:-24%;
+  background:radial-gradient(circle at 55% 45%,rgba(94,213,238,.24),rgba(151,134,255,.12) 48%,transparent 72%);
+  filter:blur(4px);
+}
+html.pwa-standalone body > * {position:relative;z-index:1}
+@keyframes nobleOrbDriftA {
+  0%,100% {transform:translate3d(0,0,0) scale(1)}
+  50% {transform:translate3d(-18px,24px,0) scale(1.08)}
+}
+@keyframes nobleOrbDriftB {
+  0%,100% {transform:translate3d(0,0,0) scale(1)}
+  50% {transform:translate3d(22px,-20px,0) scale(.94)}
+}
+@keyframes nobleCardFloat {
+  0%,100% {transform:translateY(0)}
+  50% {transform:translateY(-3px)}
+}
+@media(prefers-reduced-motion:no-preference) {
+  html.pwa-standalone body::before {animation:nobleOrbDriftA 13s ease-in-out infinite}
+  html.pwa-standalone body::after {animation:nobleOrbDriftB 16s ease-in-out infinite}
+  html.pwa-standalone .homepagePortalCard,
+  html.pwa-standalone .role,
+  html.pwa-standalone .moduleCard,
+  html.pwa-standalone .statCard {animation:nobleCardFloat 7s ease-in-out infinite}
+  html.pwa-standalone .homepagePortalCard:nth-child(2n),
+  html.pwa-standalone .role:nth-child(2n),
+  html.pwa-standalone .moduleCard:nth-child(2n) {animation-delay:-3.5s}
+}
+@media(prefers-reduced-motion:reduce) {
+  html.pwa-standalone body::before,
+  html.pwa-standalone body::after,
+  html.pwa-standalone .homepagePortalCard,
+  html.pwa-standalone .role,
+  html.pwa-standalone .moduleCard,
+  html.pwa-standalone .statCard {animation:none!important}
+}
