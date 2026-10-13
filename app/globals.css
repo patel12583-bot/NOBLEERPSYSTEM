@@ -1918,3 +1918,99 @@ html.pwa-standalone .authLinks .back:hover {color:#4c2b7b}
   html.pwa-standalone .loginCard form {gap:13px}
   html.pwa-standalone .authLinks {align-items:flex-start;flex-direction:column;gap:3px}
 }
+
+
+/* Noble ERP standalone mobile app: crisp, high-contrast lavender/purple campus look.
+   Deliberately scoped to installed/PWA mode so the regular website is unchanged. */
+html.pwa-standalone body {
+  background:
+    radial-gradient(ellipse at 4% 0%, rgba(191,155,255,.34) 0, rgba(191,155,255,0) 35%),
+    radial-gradient(ellipse at 100% 18%, rgba(255,196,233,.30) 0, rgba(255,196,233,0) 32%),
+    linear-gradient(160deg,#f7f2ff 0%,#fcfaff 45%,#f0e8ff 100%) !important;
+  background-attachment:fixed !important;
+}
+html.pwa-standalone body:before {
+  content:"";
+  position:fixed;
+  z-index:-1;
+  inset:0;
+  pointer-events:none;
+  opacity:.72;
+  background:
+    radial-gradient(circle at 88% 7%,rgba(255,255,255,.95) 0 2px,transparent 3px),
+    radial-gradient(circle at 11% 22%,rgba(255,255,255,.9) 0 3px,transparent 4px),
+    radial-gradient(circle at 91% 43%,rgba(166,126,241,.18) 0 5px,transparent 6px),
+    radial-gradient(circle at 6% 67%,rgba(237,170,226,.2) 0 7px,transparent 8px),
+    radial-gradient(ellipse at 50% 100%,rgba(146,103,226,.10),transparent 50%);
+}
+html.pwa-standalone .homepageImageOnly,
+html.pwa-standalone .loginShell,
+html.pwa-standalone .nobleDashboard {
+  background:transparent !important;
+}
+html.pwa-standalone .homepageImageOnly {
+  position:relative;
+  isolation:isolate;
+}
+html.pwa-standalone .homepageImageOnly:before {
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:-24%;right:-24%;top:-42px;
+  height:340px;
+  border-radius:0 0 48% 48%;
+  background:
+    radial-gradient(ellipse at 72% 24%,rgba(255,255,255,.68),transparent 33%),
+    linear-gradient(135deg,#5b2ba5 0%,#8050d2 48%,#bd91f3 100%);
+  box-shadow:0 22px 50px rgba(91,43,165,.17);
+}
+html.pwa-standalone .homepageImageOnly h1,
+html.pwa-standalone .homepageImageOnly h2 {text-wrap:balance}
+html.pwa-standalone .homepageImageOnly img {
+  image-rendering:auto;
+  max-width:100%;
+  height:auto;
+  object-fit:contain;
+}
+html.pwa-standalone .homepageImageOnly a,
+html.pwa-standalone .homepageImageOnly button,
+html.pwa-standalone .loginCard .primary,
+html.pwa-standalone .nobleDashboard button {
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+html.pwa-standalone .homepageImageOnly a:focus-visible,
+html.pwa-standalone .homepageImageOnly button:focus-visible,
+html.pwa-standalone .loginCard input:focus-visible,
+html.pwa-standalone .loginCard select:focus-visible,
+html.pwa-standalone .nobleDashboard button:focus-visible {
+  outline:3px solid rgba(126,78,205,.45);
+  outline-offset:3px;
+}
+html.pwa-standalone .nobleDashboard {
+  min-height:100dvh;
+  background:transparent !important;
+}
+html.pwa-standalone .nobleDashboard .nobleWelcome {
+  background:linear-gradient(120deg,#4c218f 0%,#7441bd 52%,#a77ae7 100%) !important;
+  box-shadow:0 16px 36px rgba(84,42,145,.22);
+}
+html.pwa-standalone .nobleDashboard .nobleStatCard,
+html.pwa-standalone .nobleDashboard .nobleModuleCard,
+html.pwa-standalone .nobleDashboard .nobleInfoPanel {
+  border:1px solid rgba(223,211,246,.9) !important;
+  box-shadow:0 8px 24px rgba(75,42,125,.055);
+  backdrop-filter:blur(10px);
+}
+@media(max-width:600px) {
+  html.pwa-standalone body {background-attachment:scroll !important}
+  html.pwa-standalone .homepageImageOnly:before {height:300px;top:-24px}
+  html.pwa-standalone .nobleDashboard .nobleWelcome {border-radius:22px}
+}
+@media(prefers-reduced-motion:reduce) {
+  html.pwa-standalone *,html.pwa-standalone *:before,html.pwa-standalone *:after {
+    scroll-behavior:auto !important;
+    animation-duration:.01ms !important;
+    transition-duration:.01ms !important;
+  }
+}
