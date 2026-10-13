@@ -1453,3 +1453,95 @@ html.pwa-standalone .status i {
   html.pwa-standalone .homepagePortalIcon,
   html.pwa-standalone .moduleIcon {animation:none!important}
 }
+
+
+/* Installed-app-only redesign: keep ordinary browser website unchanged. */
+html.pwa-standalone .loginShell {
+  position:relative;
+  isolation:isolate;
+  min-height:100dvh;
+  padding:clamp(18px,5vw,34px);
+  background:
+    radial-gradient(ellipse at 12% 12%,rgba(181,145,255,.26),transparent 36%),
+    radial-gradient(ellipse at 92% 88%,rgba(133,196,255,.2),transparent 35%),
+    linear-gradient(160deg,#fcfaff 0%,#f4edff 52%,#fff 100%);
+}
+html.pwa-standalone .loginCampusShade,
+html.pwa-standalone .loginCampusHeader,
+html.pwa-standalone .loginCampusFeatures {display:none!important}
+html.pwa-standalone .loginCampusCard,
+html.pwa-standalone .loginCard {
+  width:min(100%,440px);
+  border:1px solid rgba(166,135,228,.22);
+  border-radius:28px;
+  padding:clamp(24px,6vw,36px);
+  background:rgba(255,255,255,.88);
+  box-shadow:0 24px 70px rgba(97,66,156,.15),inset 0 1px 0 #fff;
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+}
+html.pwa-standalone .loginTitle {margin:8px 0 24px;text-align:center}
+html.pwa-standalone .loginTitle .eyebrow {color:#8c5cdb;letter-spacing:1.5px}
+html.pwa-standalone .loginTitle h1 {
+  color:#38245f;
+  font-family:"DM Sans",Inter,system-ui,sans-serif;
+  font-size:clamp(27px,7vw,34px);
+  line-height:1.15;
+  letter-spacing:-.8px;
+}
+html.pwa-standalone .loginTitle p {color:#877a9e;font-size:14px}
+html.pwa-standalone .loginCard label {color:#51436b;font-size:11px}
+html.pwa-standalone .loginCard input,
+html.pwa-standalone .loginCard select {
+  min-height:48px;
+  border:1px solid #e5daf8;
+  border-radius:13px;
+  background:rgba(255,255,255,.94);
+  color:#33234e;
+}
+html.pwa-standalone .loginCard input:focus,
+html.pwa-standalone .loginCard select:focus {
+  border-color:#a783ee;
+  box-shadow:0 0 0 4px rgba(155,112,231,.13);
+}
+html.pwa-standalone .loginCard .primary,
+html.pwa-standalone .loginCard button.full {
+  min-height:50px;
+  border:0;
+  border-radius:14px;
+  color:#fff;
+  background:linear-gradient(110deg,#a06be9,#8048d3 58%,#6c3cba);
+  box-shadow:0 10px 24px rgba(128,72,211,.25);
+}
+html.pwa-standalone .authLinks {border-color:#f0e9fa;flex-wrap:wrap}
+html.pwa-standalone .authLinks .back:first-child {color:#8251cd}
+html.pwa-standalone .loginCopyright {color:#9387a5;text-align:center;font-size:10px}
+html.pwa-standalone .dash {
+  background:
+    radial-gradient(ellipse at 90% 0%,rgba(181,145,255,.18),transparent 34%),
+    linear-gradient(145deg,#fbf9ff,#f3effc 55%,#f9fbff);
+}
+html.pwa-standalone .dash aside {
+  background:linear-gradient(180deg,#39245f,#4c2d79 62%,#633a94);
+  border-color:rgba(255,255,255,.12);
+}
+html.pwa-standalone .sideNav button.selected,
+html.pwa-standalone .sideNav button:hover {background:rgba(255,255,255,.15)}
+html.pwa-standalone .content {
+  background:transparent;
+}
+html.pwa-standalone .content h1 {color:#39245f}
+html.pwa-standalone .statGrid>div,
+html.pwa-standalone .panel,
+html.pwa-standalone .quick button {
+  border-color:#e8def8;
+  box-shadow:0 10px 28px rgba(88,58,142,.07);
+  border-radius:16px;
+}
+@media(max-width:600px) {
+  html.pwa-standalone .loginShell {padding:16px;align-items:center}
+  html.pwa-standalone .loginCampusCard,
+  html.pwa-standalone .loginCard {padding:24px 20px;border-radius:24px}
+  html.pwa-standalone .authLinks {justify-content:center}
+  html.pwa-standalone .content {padding:20px 14px}
+}
