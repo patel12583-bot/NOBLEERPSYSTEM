@@ -1,20 +1,54 @@
 {
   "id": "/",
-  "name": "Noble Group of Institute ERP",
+  "name": "noble group of Institution — Noble ERP",
   "short_name": "Noble ERP",
-  "description": "Noble Group of Institute — College ERP",
+  "description": "Noble Group of Institution official education and campus management app.",
   "start_url": "/login",
   "scope": "/",
   "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
   "orientation": "any",
-  "background_color": "#ffffff",
-  "theme_color": "#0b2f5b",
+  "background_color": "#f7f2ff",
+  "theme_color": "#6d3bb5",
+  "categories": [
+    "education",
+    "productivity"
+  ],
   "icons": [
     {
       "src": "/noble-app-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Sign in",
+      "short_name": "Login",
+      "url": "/login",
+      "icons": [
+        {
+          "src": "/noble-app-icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Home",
+      "short_name": "Home",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/noble-app-icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
     }
   ]
 }
