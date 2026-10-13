@@ -1,11 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b2f5b"/><stop offset="1" stop-color="#1769c2"/></linearGradient><linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffe98a"/><stop offset="1" stop-color="#d69a18"/></linearGradient></defs>
-<rect width="512" height="512" rx="112" fill="url(#bg)"/>
-<circle cx="256" cy="214" r="137" fill="none" stroke="url(#gold)" stroke-width="9"/>
-<path d="M256 92l27 52 58-11-11 58 52 27-52 27 11 58-58-11-27 52-27-52-58 11 11-58-52-27 52-27-11-58 58 11z" fill="none" stroke="#f8d66d" stroke-width="5" opacity=".8"/>
-<path d="M164 220 Q210 178 256 220 Q302 178 348 220 L348 286 Q302 262 256 294 Q210 262 164 286Z" fill="#fff" stroke="#f8d66d" stroke-width="7" stroke-linejoin="round"/>
-<path d="M256 220v74M174 237q41-14 82 10 41-24 82-10M174 260q41-12 82 12 41-24 82-12" fill="none" stroke="#1769c2" stroke-width="5"/>
-<path d="M135 319 Q256 365 377 319 L355 355 Q256 393 157 355Z" fill="#ed2438" stroke="#fff" stroke-width="5"/>
-<text x="256" y="425" font-family="Arial,sans-serif" font-size="61" font-weight="800" text-anchor="middle" fill="#fff">NOBLE</text>
-<text x="256" y="463" font-family="Arial,sans-serif" font-size="21" font-weight="700" letter-spacing="5" text-anchor="middle" fill="#f8d66d">ERP SYSTEM</text>
+<defs><linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0877e8"/><stop offset=".55" stop-color="#0646ad"/><stop offset="1" stop-color="#061f67"/></linearGradient><linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff34a"/><stop offset="1" stop-color="#ffb900"/></linearGradient></defs>
+<rect width="512" height="512" rx="82" fill="url(#blue)"/>
+<path d="M0 110 Q150 15 512 30 L512 0 L0 0Z" fill="#fff" opacity=".06"/>
+<path d="M116 110 L256 53 L396 110 L375 123 L137 123Z" fill="#fff"/>
+<path d="M165 119 Q256 82 347 119 L347 143 Q256 118 165 143Z" fill="#fff"/>
+<path d="M389 111 L389 151 Q403 162 389 176 Q375 162 389 151" fill="#fff"/>
+<circle cx="256" cy="230" r="118" fill="#fff" stroke="#e9f4ff" stroke-width="7"/>
+<circle cx="256" cy="230" r="98" fill="#87004f" stroke="#fff" stroke-width="5"/>
+<circle cx="256" cy="230" r="68" fill="url(#gold)"/>
+<g fill="#f8d82d"><path d="M256 156l8 28 15-25-4 31 24-19-13 29 30-9-22 22 31 2-29 13 27 15-31-4 15 27-25-17 1 31-18-26-9 30-8-30-18 26 1-31-25 17 15-27-31 4 27-15-29-13 31-2-22-22 30 9-13-29 24 19-4-31 15 25z"/></g>
+<path d="M215 214 Q230 194 248 213 Q256 221 256 236 Q256 218 270 207 Q290 194 300 213 Q286 224 279 241 L256 254 L233 241Z" fill="#87004f"/>
+<circle cx="256" cy="222" r="9" fill="#87004f"/>
+<path d="M215 260 Q237 245 256 262 Q275 245 297 260 L297 286 Q275 276 256 292 Q237 276 215 286Z" fill="#fff" stroke="#1769db" stroke-width="4"/>
+<path d="M256 262v30 M219 270q18-7 37 7 19-14 37-7 M219 280q18-6 37 8 19-14 37-8" fill="none" stroke="#1769db" stroke-width="3"/>
+<path d="M147 294 Q256 334 365 294 L345 323 Q256 352 167 323Z" fill="#ef233c" stroke="#fff" stroke-width="4"/>
+<path d="M150 192 Q123 221 151 274 M362 192 Q389 221 361 274" fill="none" stroke="#10b66b" stroke-width="12" stroke-linecap="round"/>
+<path d="M135 203l22-8-8 23 M132 229l24-1-15 17 M143 254l20 6-19 11 M377 203l-22-8 8 23 M380 229l-24-1 15 17 M369 254l-20 6 19 11" fill="none" stroke="#10b66b" stroke-width="7" stroke-linecap="round"/>
+<path d="M116 333 Q184 316 256 347 Q328 316 396 333 L424 380 Q337 356 256 390 Q175 356 88 380Z" fill="#fff" stroke="#c8eaff" stroke-width="5"/>
+<path d="M256 347v43 M106 367q76-15 150 23 74-38 150-23" fill="none" stroke="#1769db" stroke-width="5"/>
+<text x="256" y="433" font-family="Arial,sans-serif" font-size="51" font-weight="800" text-anchor="middle" fill="#fff">Noble ERP</text>
+<text x="256" y="465" font-family="Arial,sans-serif" font-size="15" font-weight="700" letter-spacing="1" text-anchor="middle" fill="#fff">COLLEGE MANAGEMENT SYSTEM</text>
 </svg>
