@@ -1150,3 +1150,160 @@ html.pwa-standalone .erpFooter {color:#6880a0;border-color:rgba(255,255,255,.62)
     background:rgba(255,255,255,.94);
   }
 }
+
+
+/* Premium education-app polish: standalone PWA only. */
+html.pwa-standalone {
+  color-scheme:light;
+  --nrs-app-ink:#172f55;
+  --nrs-app-muted:#647a9b;
+  --nrs-app-glass:rgba(255,255,255,.66);
+  --nrs-app-line:rgba(255,255,255,.82);
+  --nrs-app-shadow:0 14px 38px rgba(44,74,132,.12),inset 0 1px 0 rgba(255,255,255,.9);
+  scroll-behavior:smooth;
+}
+html.pwa-standalone body {
+  min-height:100dvh;
+  padding-bottom:env(safe-area-inset-bottom);
+  overflow-x:hidden;
+}
+html.pwa-standalone main,
+html.pwa-standalone section,
+html.pwa-standalone article {min-width:0}
+html.pwa-standalone a,
+html.pwa-standalone button,
+html.pwa-standalone input,
+html.pwa-standalone select,
+html.pwa-standalone textarea { -webkit-tap-highlight-color:transparent; }
+html.pwa-standalone button,
+html.pwa-standalone a {touch-action:manipulation}
+html.pwa-standalone button:focus-visible,
+html.pwa-standalone a:focus-visible,
+html.pwa-standalone input:focus-visible,
+html.pwa-standalone select:focus-visible,
+html.pwa-standalone textarea:focus-visible {
+  outline:3px solid rgba(75,132,232,.58);
+  outline-offset:2px;
+}
+html.pwa-standalone table {
+  border-color:rgba(126,151,192,.22);
+  border-collapse:separate;
+  border-spacing:0;
+}
+html.pwa-standalone th {
+  background:rgba(226,236,252,.82);
+  color:#24466f;
+}
+html.pwa-standalone td,
+html.pwa-standalone th {padding:10px 12px}
+html.pwa-standalone tr:nth-child(even) td {background:rgba(241,246,255,.52)}
+html.pwa-standalone input,
+html.pwa-standalone select,
+html.pwa-standalone textarea {
+  color:#17345b;
+  min-height:42px;
+  box-shadow:inset 0 1px 2px rgba(39,70,122,.035);
+}
+html.pwa-standalone input::placeholder,
+html.pwa-standalone textarea::placeholder {color:#8798b1}
+html.pwa-standalone .nav,
+html.pwa-standalone .dash header,
+html.pwa-standalone .content header {
+  padding-top:max(10px,env(safe-area-inset-top));
+}
+html.pwa-standalone .panel,
+html.pwa-standalone .loginCard,
+html.pwa-standalone .statGrid>div,
+html.pwa-standalone .statCard,
+html.pwa-standalone .homepagePortalCard,
+html.pwa-standalone .role,
+html.pwa-standalone .moduleCard {
+  border-radius:18px;
+  transition:transform 220ms ease,box-shadow 220ms ease,border-color 220ms ease;
+}
+html.pwa-standalone .homepagePortalCard:active,
+html.pwa-standalone .role:active,
+html.pwa-standalone .moduleCard:active,
+html.pwa-standalone button:active {
+  transform:scale(.985);
+}
+html.pwa-standalone .dash,
+html.pwa-standalone .content,
+html.pwa-standalone .erpMain,
+html.pwa-standalone .erpPage {padding-bottom:max(22px,env(safe-area-inset-bottom))}
+html.pwa-standalone .dash aside {padding-bottom:max(18px,env(safe-area-inset-bottom))}
+html.pwa-standalone .loginCard {box-shadow:0 22px 60px rgba(44,74,132,.15),inset 0 1px 0 rgba(255,255,255,.94)}
+html.pwa-standalone .loginCard::before {
+  content:"";
+  display:block;
+  height:4px;
+  margin:-1px 0 18px;
+  border-radius:99px;
+  background:linear-gradient(90deg,#367de4,#8a7bea,#69cbe8);
+  opacity:.9;
+}
+html.pwa-standalone .brandMark {
+  border-radius:14px;
+  box-shadow:0 8px 0 rgba(32,74,143,.08),0 14px 28px rgba(43,96,190,.22),inset 0 1px 0 rgba(255,255,255,.45);
+}
+html.pwa-standalone .homepagePortalIcon,
+html.pwa-standalone .moduleIcon,
+html.pwa-standalone .iconBtn {
+  filter:drop-shadow(0 4px 8px rgba(58,104,184,.12));
+}
+@keyframes nrsPwaFloat {
+  0%,100% {transform:translate3d(0,0,0)}
+  50% {transform:translate3d(0,-4px,0)}
+}
+@keyframes nrsPwaGlow {
+  0%,100% {opacity:.55;transform:scale(1)}
+  50% {opacity:.85;transform:scale(1.035)}
+}
+@media (prefers-reduced-motion:no-preference) {
+  html.pwa-standalone .brandMark {animation:nrsPwaFloat 5s ease-in-out infinite}
+  html.pwa-standalone .hero::after {
+    animation:nrsPwaGlow 8s ease-in-out infinite;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  html.pwa-standalone,
+  html.pwa-standalone * {
+    scroll-behavior:auto !important;
+    animation:none !important;
+    transition:none !important;
+  }
+}
+@media(max-width:600px) {
+  html.pwa-standalone body {font-size:15px}
+  html.pwa-standalone .panel,
+  html.pwa-standalone .statGrid>div,
+  html.pwa-standalone .statCard {border-radius:15px}
+  html.pwa-standalone .content,
+  html.pwa-standalone .erpMain,
+  html.pwa-standalone .erpPage {padding-left:14px;padding-right:14px}
+  html.pwa-standalone table {min-width:560px}
+  html.pwa-standalone .tableWrap,
+  html.pwa-standalone .dataTableWrap {max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+  html.pwa-standalone .dash {min-height:100dvh}
+}
+@media(max-width:360px) {
+  html.pwa-standalone .nav {padding-left:12px;padding-right:12px}
+  html.pwa-standalone .brand b {letter-spacing:1px;font-size:13px}
+  html.pwa-standalone .brand small {letter-spacing:1px}
+}
+@media(prefers-reduced-transparency:reduce) {
+  html.pwa-standalone .nav,
+  html.pwa-standalone .dash aside,
+  html.pwa-standalone .erpSidebar,
+  html.pwa-standalone .erpTopbar,
+  html.pwa-standalone .role,
+  html.pwa-standalone .homepagePortalCard,
+  html.pwa-standalone .moduleCard,
+  html.pwa-standalone .statGrid>div,
+  html.pwa-standalone .panel,
+  html.pwa-standalone .loginCard {
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    background:rgba(255,255,255,.95);
+  }
+}
