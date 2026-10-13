@@ -35,26 +35,22 @@ async function fetchData(type){
  throw new Error("Unsupported export type.");
 }
 function filename(type,format){return "noble-erp-"+type+"-"+new Date().toISOString().slice(0,10)+"."+format}
-const INSTITUTE="NOBLE GROUP OF INSTITUTION";
+const INSTITUTE="NOBLE INSTITUTE OF COMPUTER SCIENCE";
 const TRUST="(Managed By Shree Noble Education Trust)";
-const ADDRESS="DABHOI KARJAN ROAD, MOTAHABIPURA, TA. DABHOI, DIST. VADODARA";
-const AFFILIATION="(Affiliated By Shree Govind Guru University, Godhra)";
+const ADDRESS="Dabhoi-Karjan Rd, Mota Habipura, Ta-Dabhoi, Dist-Vadodara Mo. 63590 11171 / 94276 97085";
+const AFFILIATION="(Affiliated by Shree Govind Guru University, Godhra)";
 const PRESIDENT="President : A. A. Madhavani";
 async function embedInstituteLogo(doc){const bytes=await readFile(join(process.cwd(),"public","noble-logo.png"));try{return await doc.embedPng(bytes)}catch{return await doc.embedJpg(bytes)}}
 async function drawHeader(page,title,font,bold,doc){
  const blue=rgb(.04,.18,.36),pw=595.28;
  try{const logo=await embedInstituteLogo(doc);const box={x:24,y:765,w:56,h:56};const scale=Math.min(box.w/logo.width,box.h/logo.height),w=logo.width*scale,h=logo.height*scale;page.drawImage(logo,{x:box.x+(box.w-w)/2,y:box.y+(box.h-h)/2,width:w,height:h});}catch(e){console.error("Report PDF logo load failed:",e)}
- const lines=[[INSTITUTE,13,bold,805],[TRUST,7,bold,790],[ADDRESS,6.2,font,777],[AFFILIATION,7,bold,764]];
+ const lines=[[INSTITUTE,15,bold,805],[TRUST,10,font,786],[ADDRESS,7.2,font,769],[AFFILIATION,9,bold,752]];
  for(const [txt,size,f,y] of lines){
   const safe=pdfSafe(txt),w=f.widthOfTextAtSize(safe,size);
-  const contentLeft=90,contentRight=573;
+  const contentLeft=88,contentRight=573;
   page.drawText(safe,{x:contentLeft+Math.max(0,(contentRight-contentLeft-w)/2),y,size,font:f,color:blue});
  }
- page.drawLine({start:{x:22,y:753},end:{x:573,y:753},thickness:1.4,color:rgb(.12,.38,.72)});
- page.drawLine({start:{x:22,y:756},end:{x:573,y:756},thickness:.35,color:rgb(.78,.65,.35)});
- const pres=pdfSafe(PRESIDENT),prw=bold.widthOfTextAtSize(pres,7);
- page.drawText(pres,{x:(pw-prw)/2,y:741,size:7,font:bold,color:blue});
- page.drawLine({start:{x:22,y:733},end:{x:573,y:733},thickness:1.2,color:rgb(.12,.38,.72)});
+ page.drawLine({start:{x:22,y:739},end:{x:573,y:739},thickness:2,color:rgb(.08,.08,.08)});
  page.drawText(pdfSafe(title),{x:24,y:715,size:10,font:bold,color:rgb(.06,.10,.15)});
  page.drawText(pdfSafe("Report Generated: "+new Date().toLocaleString("en-IN")),{x:24,y:702,size:6.5,font,color:rgb(.25,.33,.42)});
 }
