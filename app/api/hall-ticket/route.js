@@ -18,12 +18,6 @@ async function ticketData(studentId){
 }
 async function drawCenteredHeader(p,doc,font,bold,pageWidth,pageHeight,title){
  const blue=rgb(.04,.18,.36);
- const logoBox={x:30,y:pageHeight-93,w:68,h:68};
- const logo=await embedInstituteLogo(doc);
- if(logo){
-  const scale=Math.min(logoBox.w/logo.width,logoBox.h/logo.height),w=logo.width*scale,h=logo.height*scale;
-  p.drawImage(logo,{x:logoBox.x+(logoBox.w-w)/2,y:logoBox.y+(logoBox.h-h)/2,width:w,height:h});
- }
  const centerX=pageWidth/2;
  const lines=[[INSTITUTE,15,bold,pageHeight-31],[TRUST,8,bold,pageHeight-47],[ADDRESS,7,font,pageHeight-62],[AFFILIATION,8,bold,pageHeight-77]];
  for(const [txt,size,f,y] of lines){
