@@ -35,7 +35,8 @@ async function fetchData(type){
  throw new Error("Unsupported export type.");
 }
 function filename(type,format){return "noble-erp-"+type+"-"+new Date().toISOString().slice(0,10)+"."+format}
-const INSTITUTE="NOBLE INSTITUTE OF COMPUTER SCIENCE";
+const INSTITUTE="NOBLE GROUP OF INSTITUTE";
+const PROGRAMS="(BBA / BCA / BRS / BSW / MSW / DIPLOMA)";
 const TRUST="(Managed By Shree Noble Education Trust)";
 const ADDRESS="Dabhoi-Karjan Rd, Mota Habipura, Ta-Dabhoi, Dist-Vadodara Mo. 63590 11171 / 94276 97085";
 const AFFILIATION="(Affiliated by Shree Govind Guru University, Godhra)";
@@ -44,13 +45,13 @@ async function embedInstituteLogo(doc){const bytes=await readFile(join(process.c
 async function drawHeader(page,title,font,bold,doc){
  const blue=rgb(.04,.18,.36),pw=595.28;
  try{const logo=await embedInstituteLogo(doc);const box={x:24,y:765,w:56,h:56};const scale=Math.min(box.w/logo.width,box.h/logo.height),w=logo.width*scale,h=logo.height*scale;page.drawImage(logo,{x:box.x+(box.w-w)/2,y:box.y+(box.h-h)/2,width:w,height:h});}catch(e){console.error("Report PDF logo load failed:",e)}
- const lines=[[INSTITUTE,15,bold,805],[TRUST,10,font,786],[ADDRESS,7.2,font,769],[AFFILIATION,9,bold,752]];
+ const lines=[[INSTITUTE,15,bold,805],[PROGRAMS,9,bold,789],[TRUST,10,font,773],[ADDRESS,7.2,font,757],[AFFILIATION,9,bold,741]];
  for(const [txt,size,f,y] of lines){
   const safe=pdfSafe(txt),w=f.widthOfTextAtSize(safe,size);
   const contentLeft=88,contentRight=573;
   page.drawText(safe,{x:contentLeft+Math.max(0,(contentRight-contentLeft-w)/2),y,size,font:f,color:blue});
  }
- page.drawLine({start:{x:22,y:739},end:{x:573,y:739},thickness:2,color:rgb(.08,.08,.08)});
+ page.drawLine({start:{x:22,y:728},end:{x:573,y:728},thickness:2,color:rgb(.08,.08,.08)});
  page.drawText(pdfSafe(title),{x:24,y:715,size:10,font:bold,color:rgb(.06,.10,.15)});
  page.drawText(pdfSafe("Report Generated: "+new Date().toLocaleString("en-IN")),{x:24,y:702,size:6.5,font,color:rgb(.25,.33,.42)});
 }
