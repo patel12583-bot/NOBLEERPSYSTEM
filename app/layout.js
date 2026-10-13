@@ -1,6 +1,7 @@
 import "./globals.css";
 import GlobalBack from "@/components/GlobalBack";
 import PWARegister from "@/components/PWARegister";
+import PWAAppMode from "@/components/PWAAppMode";
 
 export const metadata={
   title:"Noble ERP System",
@@ -10,5 +11,5 @@ export const metadata={
 };
 
 export default function RootLayout({children}){
-  return <html lang="en"><body>{children}<GlobalBack/><PWARegister/></body></html>;
+  return <html lang="en"><body>{children}<GlobalBack/><PWARegister/><PWAAppMode/></body></html>;
 }
