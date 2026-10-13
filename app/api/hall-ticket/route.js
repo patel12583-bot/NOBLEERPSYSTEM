@@ -1,4 +1,4 @@
-import{NextResponse}from"next/server";import{prisma}from"@/lib/prisma";import{getSessionUser}from"@/lib/auth";import{PDFDocument,StandardFonts,rgb}from"pdf-lib";
+import{NextResponse}from"next/server";import{prisma}from"@/lib/prisma";import{getSessionUser}from"@/lib/auth";import{PDFDocument,StandardFonts,rgb}from"pdf-lib";import{readFile}from"node:fs/promises";import{join}from"node:path";
 export const runtime="nodejs";export const dynamic="force-dynamic";
 const staffRoles=["SUPER_ADMIN","ADMIN","HOD","EXAM_OFFICER"];
 const INSTITUTE="NOBLE GROUP OF INSTITUTION";
@@ -16,10 +16,12 @@ async function ticketData(studentId){
  const schedules=await prisma.examSchedule.findMany({where:{subjectId:{in:subjects.map(x=>x.id)},exam:{status:{not:"CANCELLED"}}},include:{exam:true,subject:true,room:true},orderBy:{date:"asc"}});
  return {student:s,schedules};
 }
+async function embedInstituteLogo(doc){const bytes=await readFile(join(process.cwd(),"public","noble-logo.png"));try{return await doc.embedPng(bytes)}catch{return await doc.embedJpg(bytes)}}
 async function drawCenteredHeader(p,doc,font,bold,pageWidth,pageHeight,title){
  const blue=rgb(.04,.18,.36);
  const centerX=pageWidth/2;
- const lines=[[INSTITUTE,15,bold,pageHeight-31],[TRUST,8,bold,pageHeight-47],[ADDRESS,7,font,pageHeight-62],[AFFILIATION,8,bold,pageHeight-77]];
+ try{const logo=await embedInstituteLogo(doc);const box={x:28,y:pageHeight-91,w:62,h:62};const scale=Math.min(box.w/logo.width,box.h/logo.height),w=logo.width*scale,h=logo.height*scale;p.drawImage(logo,{x:box.x+(box.w-w)/2,y:box.y+(box.h-h)/2,width:w,height:h});}catch(e){console.error("Hall ticket logo load failed:",e)}
+ const lines=[[INSTITUTE,13,bold,pageHeight-31],[TRUST,7,bold,pageHeight-47],[ADDRESS,6,font,pageHeight-62],[AFFILIATION,7,bold,pageHeight-77]];
  for(const [txt,size,f,y] of lines){
   const safe=safePdfText(txt),w=f.widthOfTextAtSize(safe,size);
   p.drawText(safe,{x:centerX-w/2,y,size,font:f,color:blue});
