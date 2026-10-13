@@ -7,7 +7,14 @@ export const metadata={
   title:"Noble ERP System",
   description:"University management and attendance platform for Noble Group of Institutes",
   manifest:"/manifest.webmanifest",
-  themeColor:"#0b5cff"
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#6d3bb5",
+  colorScheme: "light"
 };
 
 export default function RootLayout({children}){
