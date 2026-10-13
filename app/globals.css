@@ -1545,3 +1545,116 @@ html.pwa-standalone .quick button {
   html.pwa-standalone .authLinks {justify-content:center}
   html.pwa-standalone .content {padding:20px 14px}
 }
+
+
+/* Easy Learn-inspired education-app layout, installed PWA only.
+   The normal browser website intentionally receives none of these rules. */
+html.pwa-standalone .homepageImageOnly {
+  min-height:100dvh;
+  height:auto;
+  overflow-x:hidden;
+  background:
+    radial-gradient(ellipse at 88% 5%,rgba(181,145,255,.28),transparent 36%),
+    radial-gradient(ellipse at 4% 78%,rgba(129,194,255,.2),transparent 34%),
+    linear-gradient(155deg,#fbf8ff 0%,#f2eaff 48%,#fff 100%);
+  color:#34224e;
+}
+html.pwa-standalone .homepageImageOnly>.nav {
+  height:72px!important;
+  padding:0 20px;
+  background:rgba(255,255,255,.72)!important;
+  border:0!important;
+  box-shadow:0 8px 24px rgba(86,54,139,.07);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+html.pwa-standalone .homepageImageOnly .brandMark {
+  background:linear-gradient(145deg,#b58aff,#844cdb);
+  border-radius:14px;
+  box-shadow:0 8px 20px rgba(132,76,219,.24);
+}
+html.pwa-standalone .homepageImageOnly .brand b {color:#3b2760}
+html.pwa-standalone .homepageImageOnly .brand small {color:#8b7aab}
+html.pwa-standalone .homepageImageOnly .homepageInstallButton,
+html.pwa-standalone .homepageImageOnly .homepageLoginLink {
+  border-radius:13px;
+  background:linear-gradient(110deg,#a06be9,#8048d3);
+  border:0;
+  color:#fff;
+  box-shadow:0 8px 18px rgba(128,72,211,.2);
+}
+html.pwa-standalone .homepageImageOnly .heroImageOnly {
+  display:none!important;
+}
+html.pwa-standalone .homepagePortalPanel {
+  width:min(100% - 24px,720px);
+  margin:18px auto 26px!important;
+  padding:20px 16px calc(24px + env(safe-area-inset-bottom));
+  border:1px solid rgba(163,129,223,.2);
+  border-radius:26px;
+  background:rgba(255,255,255,.72);
+  color:#34224e;
+  box-shadow:0 18px 48px rgba(93,61,145,.1),inset 0 1px 0 rgba(255,255,255,.95);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+}
+html.pwa-standalone .homepagePortalHeading {
+  align-items:flex-start;
+  flex-direction:column;
+  gap:6px;
+  color:#38245f;
+  margin:0 2px 16px;
+}
+html.pwa-standalone .homepagePortalHeading span {
+  color:#9664dc;
+  font-size:10px;
+  letter-spacing:1.8px;
+}
+html.pwa-standalone .homepagePortalHeading strong {
+  font-size:23px;
+  letter-spacing:-.5px;
+}
+html.pwa-standalone .homepagePortalGrid {
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:11px;
+}
+html.pwa-standalone .homepagePortalCard {
+  position:relative;
+  min-height:104px;
+  align-items:flex-start;
+  flex-direction:column;
+  gap:10px;
+  padding:15px 13px;
+  border:1px solid #e9defb;
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(248,243,255,.92));
+  color:#3b285b;
+  box-shadow:0 8px 22px rgba(94,65,145,.06);
+}
+html.pwa-standalone .homepagePortalIcon {
+  display:grid;
+  place-items:center;
+  width:38px;
+  height:38px;
+  border-radius:13px;
+  background:linear-gradient(145deg,#f0e5ff,#e4d4ff);
+  font-size:21px;
+}
+html.pwa-standalone .homepagePortalText strong {font-size:13px;color:#3b285b}
+html.pwa-standalone .homepagePortalText small {font-size:10px;color:#897a9e}
+html.pwa-standalone .homepagePortalArrow {
+  position:absolute;
+  top:13px;
+  right:13px;
+  color:#9664dc;
+}
+@media(max-width:390px) {
+  html.pwa-standalone .homepageImageOnly>.nav {padding:0 12px}
+  html.pwa-standalone .homepagePortalPanel {padding:16px 12px calc(22px + env(safe-area-inset-bottom))}
+  html.pwa-standalone .homepagePortalGrid {gap:8px}
+  html.pwa-standalone .homepagePortalCard {padding:12px 10px;min-height:98px}
+}
+@media(prefers-reduced-motion:no-preference) {
+  html.pwa-standalone .homepagePortalCard {transition:transform .22s ease,box-shadow .22s ease}
+  html.pwa-standalone .homepagePortalCard:active {transform:scale(.975)}
+}
