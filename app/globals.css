@@ -1658,3 +1658,169 @@ html.pwa-standalone .homepagePortalArrow {
   html.pwa-standalone .homepagePortalCard {transition:transform .22s ease,box-shadow .22s ease}
   html.pwa-standalone .homepagePortalCard:active {transform:scale(.975)}
 }
+
+
+/* Noble ERP installed-app workspace polish — scoped to standalone PWA only. */
+html.pwa-standalone .nobleDashboard {
+  --pwa-purple:#8050d6;
+  --pwa-purple-deep:#43256f;
+  --pwa-lilac:#efe6ff;
+  --pwa-ink:#34234e;
+  --pwa-muted:#88799f;
+  --pwa-line:#e9e0f6;
+  background:
+    radial-gradient(ellipse at 95% 0%,rgba(188,158,255,.22),transparent 32%),
+    linear-gradient(145deg,#fbf9ff 0%,#f5f0ff 56%,#f9fbff 100%);
+  color:var(--pwa-ink);
+}
+html.pwa-standalone .nobleSidebar {
+  background:linear-gradient(180deg,#3c2368 0%,#4d2b7d 58%,#624095 100%);
+  border-right:1px solid rgba(255,255,255,.12);
+  box-shadow:10px 0 36px rgba(70,40,112,.09);
+}
+html.pwa-standalone .nobleBrandMark {
+  border-radius:15px;
+  background:linear-gradient(145deg,#c5a5ff,#8d5be1 58%,#6d3ab7);
+  box-shadow:0 8px 22px rgba(20,10,38,.24),inset 0 1px 0 rgba(255,255,255,.5);
+}
+html.pwa-standalone .nobleRolePill {
+  border-color:rgba(255,255,255,.13);
+  background:rgba(255,255,255,.09);
+  border-radius:14px;
+}
+html.pwa-standalone .nobleMenuSearch {
+  border-radius:13px;
+  border-color:rgba(255,255,255,.15);
+  background:rgba(255,255,255,.08);
+}
+html.pwa-standalone .nobleSideNav button {
+  border-radius:13px;
+  margin:3px 0;
+  transition:background .2s ease,transform .2s ease;
+}
+html.pwa-standalone .nobleSideNav button.selected {
+  background:linear-gradient(100deg,rgba(197,165,255,.25),rgba(255,255,255,.1));
+  box-shadow:inset 3px 0 #d7c0ff;
+}
+html.pwa-standalone .nobleSideNav button:active {transform:scale(.98)}
+html.pwa-standalone .nobleTopbar {
+  background:rgba(255,255,255,.78);
+  border-bottom:1px solid rgba(161,130,212,.14);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+html.pwa-standalone .nobleAcademicTag {
+  color:#7e57bd;
+  background:#f0e7ff;
+  border:1px solid #e5d6ff;
+  border-radius:999px;
+}
+html.pwa-standalone .nobleContent {padding-top:clamp(18px,3vw,32px)}
+html.pwa-standalone .nobleWelcome {
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.42);
+  border-radius:26px;
+  background:linear-gradient(115deg,#4a2b78 0%,#7650b5 54%,#a17de0 100%);
+  box-shadow:0 18px 42px rgba(84,51,135,.18);
+}
+html.pwa-standalone .nobleWelcome:after {
+  content:"";
+  position:absolute;
+  width:230px;height:230px;
+  right:-70px;bottom:-140px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:50%;
+  box-shadow:0 0 0 25px rgba(255,255,255,.035),0 0 0 52px rgba(255,255,255,.03);
+  pointer-events:none;
+}
+html.pwa-standalone .nobleWelcomeCopy h1 {letter-spacing:-.8px}
+html.pwa-standalone .nobleWelcomeCopy h1 em {color:#e5d5ff}
+html.pwa-standalone .nobleWelcomeMeta span {
+  border-radius:999px;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.14);
+  padding:7px 10px;
+}
+html.pwa-standalone .nobleWelcomeArt {opacity:.82}
+html.pwa-standalone .nobleStatCard,
+html.pwa-standalone .nobleModuleCard,
+html.pwa-standalone .nobleInfoPanel {
+  border:1px solid var(--pwa-line);
+  border-radius:20px;
+  background:rgba(255,255,255,.86);
+  box-shadow:0 10px 28px rgba(86,58,130,.065),inset 0 1px 0 #fff;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+html.pwa-standalone .nobleStatCard {transition:transform .2s ease,box-shadow .2s ease}
+html.pwa-standalone .nobleStatCard:active,
+html.pwa-standalone .nobleModuleCard:active {transform:translateY(1px) scale(.985)}
+html.pwa-standalone .nobleStatIcon {
+  border-radius:13px;
+  background:linear-gradient(145deg,#f1e8ff,#e3d2ff);
+  color:#7b4acb;
+}
+html.pwa-standalone .nobleStatCard strong {color:#3d2861}
+html.pwa-standalone .nobleEyebrow {color:#9062d3}
+html.pwa-standalone .nobleSectionHead h2,
+html.pwa-standalone .noblePanelHead h3 {color:#3e2863}
+html.pwa-standalone .nobleModuleCard {
+  position:relative;
+  overflow:hidden;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+html.pwa-standalone .nobleModuleIcon,
+html.pwa-standalone .nobleQuickIcon {
+  border-radius:13px;
+  background:linear-gradient(145deg,#f3eaff,#e7d9ff);
+  color:#7c4ac9;
+}
+html.pwa-standalone .nobleModuleCard:hover {
+  transform:translateY(-2px);
+  box-shadow:0 15px 32px rgba(86,58,130,.12);
+}
+html.pwa-standalone .nobleModuleText b,
+html.pwa-standalone .nobleQuickList b {color:#3e2b5d}
+html.pwa-standalone .noblePanelCount {
+  border-radius:999px;
+  background:#f3edff;
+  color:#8050c5;
+}
+html.pwa-standalone .nobleQuickList button {
+  border-radius:13px;
+  border-color:#eee6fa;
+}
+html.pwa-standalone .nobleNotice {border-color:#f0e8fa}
+html.pwa-standalone .nobleDashboardFooter {color:#9588a8}
+html.pwa-standalone .nobleError {
+  border-radius:14px;
+  border-color:#f3c8d2;
+}
+@media(max-width:700px) {
+  html.pwa-standalone .nobleTopbar {min-height:62px;padding:0 14px}
+  html.pwa-standalone .nobleAcademicTag {display:none}
+  html.pwa-standalone .nobleContent {padding:16px 13px calc(28px + env(safe-area-inset-bottom))}
+  html.pwa-standalone .nobleWelcome {border-radius:22px;padding:22px 18px}
+  html.pwa-standalone .nobleWelcomeArt {transform:scale(.78);transform-origin:right center;right:-8px}
+  html.pwa-standalone .nobleWelcomeActions {top:12px;right:12px}
+  html.pwa-standalone .nobleStats {grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  html.pwa-standalone .nobleStatCard {min-width:0;padding:14px;border-radius:17px}
+  html.pwa-standalone .nobleStatCard strong {font-size:22px}
+  html.pwa-standalone .nobleModuleGrid {grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  html.pwa-standalone .nobleModuleCard {min-width:0;padding:13px;border-radius:16px;gap:9px}
+  html.pwa-standalone .nobleModuleText b {font-size:12px}
+  html.pwa-standalone .nobleBottomGrid {grid-template-columns:1fr;gap:12px}
+  html.pwa-standalone .nobleInfoPanel {padding:16px;border-radius:18px}
+  html.pwa-standalone .nobleDashboardFooter {gap:6px;flex-direction:column;align-items:flex-start}
+}
+@media(max-width:390px) {
+  html.pwa-standalone .nobleModuleGrid {grid-template-columns:1fr}
+  html.pwa-standalone .nobleModuleCard {min-height:58px;flex-direction:row;align-items:center}
+  html.pwa-standalone .nobleWelcomeCopy h1 {font-size:25px}
+}
+@media(prefers-reduced-motion:reduce) {
+  html.pwa-standalone .nobleModuleCard,
+  html.pwa-standalone .nobleStatCard,
+  html.pwa-standalone .nobleSideNav button {transition:none!important}
+}
