@@ -1,10 +1,10 @@
 import{NextResponse}from"next/server";import{prisma}from"@/lib/prisma";import{getSessionUser}from"@/lib/auth";import{PDFDocument,StandardFonts,rgb}from"pdf-lib";import{readFile}from"node:fs/promises";import{join}from"node:path";
 export const runtime="nodejs";export const dynamic="force-dynamic";
 const staffRoles=["SUPER_ADMIN","ADMIN","HOD","EXAM_OFFICER"];
-const INSTITUTE="NOBLE GROUP OF INSTITUTION";
-const TRUST="(MANAGED BY SHREE NOBLE EDUCATION TRUST)";
-const ADDRESS="DABHOI KARJAN ROAD, MOTAHABIPURA, TA. DABHOI, DIST. VADODARA";
-const AFFILIATION="(AFFILIATED BY SHREE GOVIND GURU UNIVERSITY, GODHRA)";
+const INSTITUTE="NOBLE INSTITUTE OF COMPUTER SCIENCE";
+const TRUST="(Managed By Shree Noble Education Trust)";
+const ADDRESS="Dabhoi-Karjan Rd, Mota Habipura, Ta-Dabhoi, Dist-Vadodara Mo. 63590 11171 / 94276 97085";
+const AFFILIATION="(Affiliated by Shree Govind Guru University, Godhra)";
 const PRESIDENT="PRESIDENT : A. A. MADHAVANI";
 const PRIVATE_HEADERS={"Cache-Control":"private, no-store, no-cache, max-age=0, must-revalidate","Pragma":"no-cache","Vary":"Cookie"};
 function privateJson(data,init={}){return NextResponse.json(data,{...init,headers:{...PRIVATE_HEADERS,...(init.headers||{})}})}
@@ -21,15 +21,13 @@ async function drawCenteredHeader(p,doc,font,bold,pageWidth,pageHeight,title){
  const blue=rgb(.04,.18,.36);
  const centerX=pageWidth/2;
  try{const logo=await embedInstituteLogo(doc);const box={x:28,y:pageHeight-91,w:62,h:62};const scale=Math.min(box.w/logo.width,box.h/logo.height),w=logo.width*scale,h=logo.height*scale;p.drawImage(logo,{x:box.x+(box.w-w)/2,y:box.y+(box.h-h)/2,width:w,height:h});}catch(e){console.error("Hall ticket logo load failed:",e)}
- const lines=[[INSTITUTE,13,bold,pageHeight-31],[TRUST,7,bold,pageHeight-47],[ADDRESS,6,font,pageHeight-62],[AFFILIATION,7,bold,pageHeight-77]];
+ const lines=[[INSTITUTE,15,bold,pageHeight-38],[TRUST,10,font,pageHeight-57],[ADDRESS,8,font,pageHeight-75],[AFFILIATION,10,bold,pageHeight-94]];
  for(const [txt,size,f,y] of lines){
   const safe=safePdfText(txt),w=f.widthOfTextAtSize(safe,size);
-  p.drawText(safe,{x:centerX-w/2,y,size,font:f,color:blue});
+  const left=100,right=pageWidth-28;
+  p.drawText(safe,{x:left+Math.max(0,(right-left-w)/2),y,size,font:f,color:blue});
  }
- p.drawLine({start:{x:28,y:pageHeight-91},end:{x:pageWidth-28,y:pageHeight-91},thickness:1.2,color:rgb(.12,.38,.72)});
- const pres=safePdfText(PRESIDENT),pw=bold.widthOfTextAtSize(pres,8);
- p.drawText(pres,{x:(pageWidth-pw)/2,y:pageHeight-106,size:8,font:bold,color:blue});
- p.drawLine({start:{x:28,y:pageHeight-116},end:{x:pageWidth-28,y:pageHeight-116},thickness:1.2,color:rgb(.12,.38,.72)});
+ p.drawLine({start:{x:28,y:pageHeight-108},end:{x:pageWidth-28,y:pageHeight-108},thickness:2,color:rgb(.08,.08,.08)});
  const heading=safePdfText(title),hw=bold.widthOfTextAtSize(heading,12);
  p.drawText(heading,{x:(pageWidth-hw)/2,y:pageHeight-137,size:12,font:bold,color:blue});
 }
