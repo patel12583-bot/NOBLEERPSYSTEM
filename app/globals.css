@@ -2253,3 +2253,96 @@ html.pwa-standalone .nobleStudentBottomNav button.active {color:#6333a5;backgrou
   html.pwa-standalone .nobleDashboard.role-student {padding-bottom:92px;}
   html.pwa-standalone .nobleDashboard.role-student .nobleSidebar {padding-bottom:100px;}
 }
+
+
+/* Premium motion polish for installed Noble Student PWA only.
+   Keep movement brief, GPU-friendly, and disabled for reduced-motion preferences. */
+@keyframes nobleAppRiseIn {
+  from { opacity:0; transform:translate3d(0,12px,0); }
+  to { opacity:1; transform:translate3d(0,0,0); }
+}
+@keyframes nobleAppSoftGlow {
+  0%,100% { opacity:.28; transform:scale(.96); }
+  50% { opacity:.48; transform:scale(1.04); }
+}
+@keyframes nobleAppLogoIn {
+  0% { opacity:0; transform:translate3d(0,8px,0) scale(.96); }
+  70% { opacity:1; transform:translate3d(0,-1px,0) scale(1.01); }
+  100% { opacity:1; transform:translate3d(0,0,0) scale(1); }
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleWelcome {
+  animation:nobleAppRiseIn .48s cubic-bezier(.2,.75,.25,1) both;
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleStatCard,
+html.pwa-standalone .nobleDashboard.role-student .nobleInfoPanel,
+html.pwa-standalone .nobleDashboard.role-student .noblePanel,
+html.pwa-standalone .nobleDashboard.role-student .nobleBottomGrid article,
+html.pwa-standalone .nobleDashboard.role-student .nobleQuickList button {
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleStatCard:active,
+html.pwa-standalone .nobleDashboard.role-student .nobleInfoPanel:active,
+html.pwa-standalone .nobleDashboard.role-student .noblePanel:active,
+html.pwa-standalone .nobleDashboard.role-student .nobleBottomGrid article:active,
+html.pwa-standalone .nobleDashboard.role-student .nobleQuickList button:active {
+  transform:scale(.985);
+  box-shadow:0 5px 16px rgba(76,43,117,.12);
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleWelcome:before {
+  content:"";
+  position:absolute;
+  width:180px;height:180px;right:-52px;bottom:-118px;
+  border-radius:50%;
+  background:rgba(255,255,255,.15);
+  filter:blur(2px);
+  pointer-events:none;
+  animation:nobleAppSoftGlow 5.5s ease-in-out infinite;
+}
+html.pwa-standalone .nobleStudentBottomNav button {
+  transition:color .18s ease, background .18s ease, transform .18s ease;
+}
+html.pwa-standalone .nobleStudentBottomNav button:active {
+  transform:scale(.94);
+}
+html.pwa-standalone .nobleStudentBottomNav button.active {
+  box-shadow:inset 0 0 0 1px rgba(111,61,184,.08);
+}
+html.pwa-standalone .loginCampusCard {
+  animation:nobleAppRiseIn .42s cubic-bezier(.2,.75,.25,1) both;
+}
+html.pwa-standalone .loginCard .primary {
+  transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+html.pwa-standalone .loginCard .primary:active {
+  transform:scale(.985);
+  filter:brightness(.97);
+}
+html.pwa-standalone .homepageImageOnly .brandMark {
+  animation:nobleAppLogoIn .55s ease-out both;
+}
+@media(hover:hover) and (pointer:fine) {
+  html.pwa-standalone .nobleDashboard.role-student .nobleStatCard:hover,
+  html.pwa-standalone .nobleDashboard.role-student .nobleInfoPanel:hover,
+  html.pwa-standalone .nobleDashboard.role-student .noblePanel:hover,
+  html.pwa-standalone .nobleDashboard.role-student .nobleBottomGrid article:hover {
+    transform:translateY(-2px);
+    box-shadow:0 14px 30px rgba(76,43,117,.11);
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html.pwa-standalone .nobleDashboard.role-student .nobleWelcome,
+  html.pwa-standalone .loginCampusCard,
+  html.pwa-standalone .homepageImageOnly .brandMark,
+  html.pwa-standalone .nobleDashboard.role-student .nobleWelcome:before {
+    animation:none !important;
+  }
+  html.pwa-standalone .nobleDashboard.role-student .nobleStatCard,
+  html.pwa-standalone .nobleDashboard.role-student .nobleInfoPanel,
+  html.pwa-standalone .nobleDashboard.role-student .noblePanel,
+  html.pwa-standalone .nobleDashboard.role-student .nobleBottomGrid article,
+  html.pwa-standalone .nobleDashboard.role-student .nobleQuickList button,
+  html.pwa-standalone .nobleStudentBottomNav button,
+  html.pwa-standalone .loginCard .primary {
+    transition:none !important;
+  }
+}
