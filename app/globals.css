@@ -2230,3 +2230,26 @@ html.pwa-standalone .nobleDashboard.role-student .nobleTopAvatar {
     scroll-behavior:auto !important;
   }
 }
+
+
+/* Standalone Student app bottom navigation; hidden in every browser website session. */
+.nobleStudentBottomNav { display:none; }
+html.pwa-standalone .nobleStudentBottomNav {
+  position:fixed;z-index:1000;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));
+  display:flex;align-items:center;justify-content:space-around;gap:2px;
+  padding:9px 5px 8px;border:1px solid rgba(226,211,247,.95);border-radius:22px;
+  background:rgba(255,255,255,.94);backdrop-filter:blur(22px);
+  box-shadow:0 12px 36px rgba(59,30,96,.18);
+}
+html.pwa-standalone .nobleStudentBottomNav button {
+  display:flex;flex:1;min-width:0;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  padding:5px 2px;border:0;border-radius:14px;background:transparent;color:#7b6b91;
+  font:inherit;cursor:pointer;touch-action:manipulation;
+}
+html.pwa-standalone .nobleStudentBottomNav button span {font-size:21px;line-height:1.1;}
+html.pwa-standalone .nobleStudentBottomNav button small {font-size:10px;font-weight:650;white-space:nowrap;}
+html.pwa-standalone .nobleStudentBottomNav button.active {color:#6333a5;background:#f0e6ff;}
+@media(max-width:700px) {
+  html.pwa-standalone .nobleDashboard.role-student {padding-bottom:92px;}
+  html.pwa-standalone .nobleDashboard.role-student .nobleSidebar {padding-bottom:100px;}
+}
