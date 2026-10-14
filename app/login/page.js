@@ -59,9 +59,8 @@ function LoginForm() {
 
   return <main className="loginShell">
     <div className="loginCampusShade" aria-hidden="true" />
-    <header className="loginCampusHeader">
-      <div className="loginCampusMotto">Education Builds<br/><em>A Better Future</em></div>
-      <div className="loginCampusInstitute"><strong>noble group of Institution</strong><span>LEARN&nbsp; | &nbsp;GROW&nbsp; | &nbsp;SUCCEED</span></div>
+    <header className="loginCampusHeader nobleAuthLogoHeader">
+      <img className="nobleAuthLogo" src="/noble-institutes-logo.svg" alt="Noble Group of Institutes" />
     </header>
     <aside className="loginCampusFeatures">
       <div><i>♟</i><span><b>Student Management</b><small>Track · Manage · Grow</small></span></div>
