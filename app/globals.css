@@ -2943,3 +2943,73 @@ html.pwa-standalone .loginShell:has(.loginBrand) > .loginCard > .back {
   html.pwa-standalone .loginShell:has(.loginBrand) form { gap:7px; }
   html.pwa-standalone .loginShell:has(.loginBrand) form label input { min-height:42px; }
 }
+
+
+/* Distinctive illustrated-feel background and centered NOBLE wordmark for installed app auth screens only. */
+html.pwa-standalone .loginShell {
+  background:
+    radial-gradient(ellipse at 50% 28%, rgba(125,103,255,.36) 0, transparent 28%),
+    radial-gradient(ellipse at 8% 14%, rgba(0,200,255,.7) 0, transparent 28%),
+    radial-gradient(ellipse at 93% 34%, rgba(190,90,255,.68) 0, transparent 30%),
+    radial-gradient(ellipse at 20% 92%, rgba(0,126,255,.72) 0, transparent 30%),
+    linear-gradient(145deg,#08135e 0%,#2521a5 36%,#5140ec 65%,#a7b7ff 100%);
+}
+html.pwa-standalone .loginShell:after {
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  pointer-events:none;
+  opacity:.75;
+  background:
+    radial-gradient(ellipse at 13% 26%, rgba(255,255,255,.88) 0 2px, transparent 3px),
+    radial-gradient(ellipse at 83% 17%, rgba(255,255,255,.72) 0 2px, transparent 3px),
+    radial-gradient(ellipse at 88% 69%, rgba(164,220,255,.8) 0 3px, transparent 4px),
+    radial-gradient(ellipse at 11% 72%, rgba(255,255,255,.6) 0 2px, transparent 3px),
+    radial-gradient(ellipse at 75% 87%, rgba(180,195,255,.65) 0 3px, transparent 4px),
+    linear-gradient(135deg, transparent 0 37%, rgba(255,255,255,.055) 37.2% 37.6%, transparent 37.8% 100%);
+}
+html.pwa-standalone .loginShell .loginCampusHeader {
+  position:relative;
+  z-index:1;
+  margin-bottom:22px;
+  padding:0 0 8px;
+}
+html.pwa-standalone .loginShell .loginCampusInstitute strong {
+  width:100%;
+  text-align:center;
+  font-family:ui-rounded, "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+  font-size:clamp(42px,12vw,62px);
+  font-weight:950;
+  letter-spacing:.13em;
+  color:#fff;
+  -webkit-text-stroke:.45px rgba(255,255,255,.75);
+  text-shadow:0 2px 0 #a7baff,0 5px 0 rgba(43,37,155,.8),0 12px 26px rgba(4,9,76,.48);
+}
+html.pwa-standalone .loginShell .loginCampusInstitute span {
+  font-size:10px;
+  letter-spacing:.28em;
+  text-align:center;
+}
+html.pwa-standalone .loginShell .loginCampusCard .loginTitle h1 {
+  font-family:ui-rounded, "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+  letter-spacing:.01em;
+}
+html.pwa-standalone .loginShell .loginCampusCard .authLinks .back {
+  box-shadow:0 7px 18px rgba(45,37,170,.10),inset 0 1px 0 rgba(255,255,255,.65);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+html.pwa-standalone .loginShell .loginCampusCard .authLinks .back:active {
+  transform:scale(.98);
+}
+html.pwa-standalone .loginShell .loginCampusCard .primary.full {
+  transition:transform .18s ease,filter .18s ease,box-shadow .18s ease;
+}
+html.pwa-standalone .loginShell .loginCampusCard .primary.full:active {
+  transform:scale(.985);
+  filter:brightness(1.05);
+}
+@media(prefers-reduced-motion:reduce) {
+  html.pwa-standalone .loginShell .loginCampusCard .authLinks .back,
+  html.pwa-standalone .loginShell .loginCampusCard .primary.full { transition:none; }
+}
