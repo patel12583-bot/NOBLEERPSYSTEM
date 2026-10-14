@@ -2379,3 +2379,35 @@ html.pwa-standalone .loginCampusCard .authLinks { flex-wrap:wrap; }
   html.pwa-standalone .homepageImageOnly .homepagePortalPanel { margin-top:18px; }
   html.pwa-standalone .homepageImageOnly .pwaStudentEntry { padding-top:8px; }
 }
+
+
+/* Official institute logo presentation for standalone app branding. */
+html.pwa-standalone .homepageImageOnly .brandMark {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding:3px;
+}
+html.pwa-standalone .homepageImageOnly .brandMark img {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:inherit;
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleBrandMark.nobleOfficialLogo {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding:3px;
+  background:#fff;
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleBrandMark.nobleOfficialLogo img {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:inherit;
+}
