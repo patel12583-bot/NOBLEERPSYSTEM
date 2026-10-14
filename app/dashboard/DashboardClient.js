@@ -169,6 +169,34 @@ export default function DashboardClient({ user }) {
             <div className="nobleWelcomeActions"><button className="nobleRefresh" onClick={() => window.location.reload()} title="Refresh dashboard" aria-label="Refresh dashboard">↻</button><span className="nobleWelcomeAvatar">{displayName.slice(0, 1).toUpperCase()}</span></div>
           </section>
 
+          {standaloneApp && role === "STUDENT" && <section className="nobleStudentAppHome" aria-label="Student app home">
+            <header className="nobleStudentAppHeader">
+              <div className="nobleStudentAppBrand"><span className="nobleStudentAppMenu">☰</span><div className="nobleStudentAppWordmark"><b>NOBLE</b><small>GROUP OF INSTITUTIONS</small></div></div>
+              <button className="nobleStudentBell" onClick={() => router.push("/portal?module=notifications")} aria-label="Notifications">♧<i /></button>
+            </header>
+            <section className="nobleStudentIdentity">
+              <span className="nobleStudentAvatar">{displayName.slice(0,1).toUpperCase()}</span>
+              <div><b>{displayName}</b><small>Student Portal</small></div>
+              <span className="nobleStudentStatus">Active</span>
+            </section>
+            <div className="nobleStudentTiles">
+              {[
+                ["Academic Calendar","▦","/portal?module=timetable","blue"],
+                ["Time Table","◷","/portal?module=timetable","purple"],
+                ["Attendance","✓","/portal?module=attendance","teal"],
+                ["Transport","♧","/portal?module=transport","coral"],
+                ["Exam Schedule","▤","/portal?module=examination","violet"],
+                ["Results","▧","/portal?module=results","red"],
+                ["Fees","₹","/portal?module=fees","orange"],
+                ["Feedback","☏","/portal?module=feedback","slate"],
+                ["Notifications","♧","/portal?module=notifications","sky"],
+                ["Hostel Leave / Gate Pass","⌂","/leave","plum"],
+                ["Grievance Registration","▤","/portal?module=grievance","pink"],
+                ["Mess Pass","♧","/portal?module=mess","mint"],
+              ].map(([label,icon,target,tone]) => <button key={label} className={`nobleStudentTile tone-${tone}`} onClick={() => router.push(target)}><span className="nobleStudentTileIcon">{icon}</span><b>{label}</b></button>)}
+            </div>
+            <footer className="nobleStudentAppVersion">NOBLE ERP • Student App</footer>
+          </section>}
           {error && <div className="nobleError" role="alert"><span>{error}</span><button onClick={() => window.location.reload()}>Retry</button></div>}
           {loading && !data && <div className="nobleLoading"><span className="nobleSpinner" /> Loading your live ERP workspace…</div>}
 
