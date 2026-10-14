@@ -76,6 +76,12 @@ export default function DashboardClient({ user }) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [standaloneApp, setStandaloneApp] = useState(false);
+
+  useEffect(() => {
+    const isStandalone = window.matchMedia?.("(display-mode: standalone)").matches || window.navigator.standalone === true;
+    setStandaloneApp(Boolean(isStandalone));
+  }, []);
   const role = user.role;
   const displayRole = roleNames[role] || role;
   const items = menus[role] || menus.STUDENT;
@@ -187,6 +193,13 @@ export default function DashboardClient({ user }) {
           <footer className="nobleDashboardFooter"><span>© {new Date().getFullYear()} noble group of Institution</span><span>University Management System <i>•</i> Secure role-based access</span></footer>
         </div>
       </section>
+      {standaloneApp && role === "STUDENT" && <nav className="nobleStudentBottomNav" aria-label="Student app navigation">
+        <button className={pathname === "/dashboard" ? "active" : ""} onClick={() => router.push("/dashboard")}><span>⌂</span><small>Home</small></button>
+        <button onClick={() => router.push("/portal?module=timetable")}><span>▦</span><small>Academics</small></button>
+        <button onClick={() => router.push("/portal?module=attendance")}><span>✓</span><small>Attendance</small></button>
+        <button onClick={() => router.push("/portal?module=notifications")}><span>♧</span><small>Notices</small></button>
+        <button onClick={() => router.push("/portal?module=profile")}><span>♙</span><small>Profile</small></button>
+      </nav>}
     </main>
   );
 }
