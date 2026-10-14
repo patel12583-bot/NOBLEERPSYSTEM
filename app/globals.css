@@ -2346,3 +2346,36 @@ html.pwa-standalone .homepageImageOnly .brandMark {
     transition:none !important;
   }
 }
+
+
+/* Installed Student App: direct Login/Create Account entry only.
+   These selectors intentionally do not affect the normal browser website. */
+.pwaStudentEntry { display:none; }
+html.pwa-standalone .homepageImageOnly .homepageInstallButton,
+html.pwa-standalone .homepageImageOnly .homepageLoginLink { display:none; }
+html.pwa-standalone .homepageImageOnly .homepagePortalHeading { display:none; }
+html.pwa-standalone .homepageImageOnly .homepagePortalGrid { display:none; }
+html.pwa-standalone .homepageImageOnly .pwaStudentEntry {
+  display:grid;grid-template-columns:1fr;gap:14px;padding:18px 4px 10px;
+}
+html.pwa-standalone .homepageImageOnly .pwaStudentEntry a {
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  min-height:58px;padding:16px 20px;border-radius:18px;text-decoration:none;
+  font-weight:800;font-size:15px;letter-spacing:.1px;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+html.pwa-standalone .homepageImageOnly .pwaStudentLogin {
+  color:#fff;background:linear-gradient(120deg,#6635a8,#8b5bd1);
+  box-shadow:0 12px 26px rgba(91,48,145,.25);
+}
+html.pwa-standalone .homepageImageOnly .pwaStudentRegister {
+  color:#63349b;background:rgba(255,255,255,.88);
+  border:1px solid #e5d7f6;box-shadow:0 8px 20px rgba(69,43,104,.08);
+}
+html.pwa-standalone .homepageImageOnly .pwaStudentEntry a:active { transform:scale(.985); }
+html.pwa-standalone .loginCampusCard form label:first-child { display:none; }
+html.pwa-standalone .loginCampusCard .authLinks { flex-wrap:wrap; }
+@media(max-width:700px) {
+  html.pwa-standalone .homepageImageOnly .homepagePortalPanel { margin-top:18px; }
+  html.pwa-standalone .homepageImageOnly .pwaStudentEntry { padding-top:8px; }
+}
