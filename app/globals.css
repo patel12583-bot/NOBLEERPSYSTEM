@@ -2411,3 +2411,30 @@ html.pwa-standalone .nobleDashboard.role-student .nobleBrandMark.nobleOfficialLo
   object-fit:contain;
   border-radius:inherit;
 }
+
+
+/* Student standalone app: center the exact institute logo/wordmark.
+   This is deliberately limited to installed PWA mode; browser website is untouched. */
+@media(max-width:700px) {
+  html.pwa-standalone .homepageImageOnly .nav {
+    position:relative;
+    justify-content:center;
+  }
+  html.pwa-standalone .homepageImageOnly .nav .brand {
+    margin-inline:auto;
+    justify-content:center;
+    text-align:left;
+  }
+  html.pwa-standalone .homepageImageOnly .homepageNavActions {
+    display:none !important;
+  }
+  html.pwa-standalone .homepageImageOnly .brandMark {
+    flex:0 0 64px;
+    width:64px;
+    height:64px;
+  }
+  html.pwa-standalone .homepageImageOnly .brandMark img {
+    object-fit:contain;
+    object-position:center;
+  }
+}
