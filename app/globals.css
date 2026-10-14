@@ -2808,3 +2808,69 @@ html.pwa-standalone .loginCampusCard .error{font-size:13px;color:#9b1748;backgro
  html.pwa-standalone .loginCampusCard form label input{height:50px}
  html.pwa-standalone .loginCampusCard .primary.full{min-height:52px}
 }
+
+
+/* Student mobile app home: reference-inspired tile dashboard, installed PWA only. */
+html.pwa-standalone .nobleDashboard.role-student .nobleTopbar,
+html.pwa-standalone .nobleDashboard.role-student .nobleWelcome,
+html.pwa-standalone .nobleDashboard.role-student .nobleStats,
+html.pwa-standalone .nobleDashboard.role-student .nobleCommand,
+html.pwa-standalone .nobleDashboard.role-student .nobleBottomGrid,
+html.pwa-standalone .nobleDashboard.role-student .nobleDashboardFooter {
+  display:none !important;
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleMain { background:#f0edff; }
+html.pwa-standalone .nobleDashboard.role-student .nobleContent {
+  max-width:620px; margin:0 auto; padding:12px 14px 100px;
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleStudentAppHome { display:block; }
+.nobleStudentAppHome { display:none; color:#1e1b35; }
+.nobleStudentAppHeader {
+  min-height:58px; padding:10px 13px; border-radius:17px;
+  display:flex; align-items:center; justify-content:space-between;
+  background:rgba(255,255,255,.94); box-shadow:0 5px 18px rgba(51,34,112,.10);
+}
+.nobleStudentAppBrand { display:flex; align-items:center; gap:12px; }
+.nobleStudentAppMenu { font-size:23px; color:#43318c; }
+.nobleStudentAppWordmark { display:flex; flex-direction:column; line-height:1; color:#29205d; }
+.nobleStudentAppWordmark b { font-size:21px; letter-spacing:1px; font-weight:900; }
+.nobleStudentAppWordmark small { font-size:7px; letter-spacing:.8px; margin-top:4px; font-weight:700; }
+.nobleStudentBell { position:relative; border:0; border-radius:12px; background:#f4efff; color:#4d32a5; width:38px;height:38px;font-size:22px; }
+.nobleStudentBell i { position:absolute; right:8px;top:7px;width:7px;height:7px;border-radius:50%;background:#ff7e87; }
+.nobleStudentIdentity {
+  display:flex; align-items:center; gap:11px; margin:13px 0 15px; padding:12px 14px;
+  border-radius:18px; color:white; background:linear-gradient(115deg,#302071,#6740bd 70%,#8a6be0);
+  box-shadow:0 8px 20px rgba(67,43,148,.19);
+}
+.nobleStudentAvatar { width:43px;height:43px;border:2px solid rgba(255,255,255,.8);border-radius:50%;display:grid;place-items:center;background:#eee8ff;color:#44318e;font-weight:800; }
+.nobleStudentIdentity div { display:flex; flex-direction:column; gap:4px; min-width:0; }
+.nobleStudentIdentity div b { font-size:13px; overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+.nobleStudentIdentity div small { font-size:11px; opacity:.84; }
+.nobleStudentStatus { margin-left:auto; border-radius:20px;padding:5px 9px;background:#c9f7e4;color:#167552;font-size:10px;font-weight:800; }
+.nobleStudentTiles { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px; }
+.nobleStudentTile {
+  min-height:104px; padding:13px 6px 11px; border:1px solid rgba(255,255,255,.95);border-radius:16px;
+  background:linear-gradient(150deg,#fff,#f9f7ff); box-shadow:0 5px 13px rgba(57,42,119,.09);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
+  color:#27243c; transition:transform .18s ease,box-shadow .18s ease;
+}
+.nobleStudentTile:active { transform:scale(.96);box-shadow:0 2px 6px rgba(57,42,119,.12); }
+.nobleStudentTileIcon { width:39px;height:39px;display:grid;place-items:center;border-radius:12px;background:#edf0ff;color:#4568d7;font-size:23px;font-weight:700; }
+.nobleStudentTile b { max-width:100%;font-size:10px;line-height:1.25;text-align:center;font-weight:700; }
+.tone-purple .nobleStudentTileIcon,.tone-violet .nobleStudentTileIcon { background:#f0e8ff;color:#8a4bc3; }
+.tone-teal .nobleStudentTileIcon,.tone-mint .nobleStudentTileIcon { background:#e3faf3;color:#239c8a; }
+.tone-coral .nobleStudentTileIcon,.tone-red .nobleStudentTileIcon { background:#fff0f1;color:#e45d6d; }
+.tone-orange .nobleStudentTileIcon { background:#fff4df;color:#d99024; }
+.tone-slate .nobleStudentTileIcon { background:#edf3f6;color:#5d7d90; }
+.tone-sky .nobleStudentTileIcon { background:#e7f5ff;color:#4d9bd5; }
+.tone-plum .nobleStudentTileIcon { background:#f4eaff;color:#9155b2; }
+.tone-pink .nobleStudentTileIcon { background:#ffedf5;color:#cf6095; }
+.nobleStudentAppVersion { padding:18px 0 3px;text-align:center;font-size:9px;color:#77718e; }
+@media(max-width:380px) {
+  html.pwa-standalone .nobleDashboard.role-student .nobleContent { padding-left:10px;padding-right:10px; }
+  .nobleStudentTiles { gap:7px; }
+  .nobleStudentTile { min-height:96px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .nobleStudentTile { transition:none; }
+}
