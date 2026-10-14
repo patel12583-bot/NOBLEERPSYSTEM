@@ -69,6 +69,7 @@ export default function Home() {
           <span>YOUR PORTAL</span>
           <strong>Choose your login</strong>
         </div>
+        <div className="pwaStudentEntry"><Link className="pwaStudentLogin" href="/login?role=Student">Login to Student App <span>↗</span></Link><Link className="pwaStudentRegister" href="/register">Create Student Account <span>＋</span></Link></div>
         <div className="homepagePortalGrid">
           {roles.map((role) => (
             <Link className="homepagePortalCard" href={"/login?role=" + encodeURIComponent(role.name)} key={role.name}>
