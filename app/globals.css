@@ -3041,3 +3041,30 @@ html.pwa-standalone .loginShell .loginCampusCard .authLinks .back:first-child {
   font-size:16px;
   font-weight:850;
 }
+
+
+/* Match the website's NOBLE wordmark style only in the installed mobile app.
+   The shared login JSX and browser website remain untouched. */
+html.pwa-standalone .loginShell .loginCampusInstitute strong {
+  font-family:inherit;
+  font-size:clamp(52px,15vw,78px);
+  font-weight:900;
+  letter-spacing:.035em;
+  line-height:1.05;
+  text-transform:uppercase;
+}
+html.pwa-standalone .loginShell .loginCampusInstitute strong {
+  font-size:0;
+  -webkit-text-stroke:0;
+}
+html.pwa-standalone .loginShell .loginCampusInstitute strong::after {
+  content:"NOBLE";
+  display:block;
+  font-family:inherit;
+  font-size:clamp(52px,15vw,78px);
+  font-weight:900;
+  letter-spacing:.035em;
+  line-height:1.05;
+  color:#fff;
+  text-shadow:0 3px 0 #b5caff,0 7px 0 rgba(38,27,137,.8),0 15px 30px rgba(3,8,62,.6);
+}
