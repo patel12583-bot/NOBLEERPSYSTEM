@@ -137,7 +137,7 @@ export default function DashboardClient({ user }) {
       <button className="nobleMobileShade" aria-label="Close menu" onClick={() => setMobileOpen(false)} />
       <aside className="nobleSidebar">
         <div className="nobleSideTop">
-          <div className="nobleBrandMark">N</div>
+          <div className="nobleBrandMark nobleOfficialLogo"><img src="/noble-group-logo.jpg" alt="Noble Group of Institutions logo" /></div>
           <div className="nobleBrandText"><b>NOBLE ERP</b><small>noble group of Institution</small></div>
           <button className="nobleCollapse" onClick={() => setCollapsed(v => !v)} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}>{collapsed ? "→" : "←"}</button>
         </div>
