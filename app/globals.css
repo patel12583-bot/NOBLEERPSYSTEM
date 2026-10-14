@@ -2874,3 +2874,72 @@ html.pwa-standalone .nobleDashboard.role-student .nobleStudentAppHome { display:
 @media(prefers-reduced-motion:reduce) {
   .nobleStudentTile { transition:none; }
 }
+
+
+/* Ensure the installed app login and account-creation pages always get the full-screen gradient. */
+html.pwa-standalone body:has(.loginShell),
+body.pwa-standalone:has(.loginShell) { background:#3324d7 !important; }
+html.pwa-standalone .loginShell {
+  width:100%;
+  min-height:100vh;
+  min-height:100svh;
+  box-sizing:border-box;
+}
+html.pwa-standalone .loginShell .loginCampusHeader { flex-shrink:0; }
+html.pwa-standalone .loginShell .loginCard {
+  box-sizing:border-box;
+  position:relative;
+  z-index:1;
+}
+html.pwa-standalone .loginShell .loginCard form label {
+  font-size:12px;
+}
+html.pwa-standalone .loginShell .loginCard form label input {
+  margin-top:6px;
+}
+html.pwa-standalone .loginShell .loginCard .back {
+  cursor:pointer;
+}
+html.pwa-standalone .loginShell .loginCard button:disabled {
+  opacity:.68;
+  cursor:wait;
+}
+/* The registration route uses the same background and glass card, while keeping all existing fields and API behavior. */
+html.pwa-standalone .loginShell:has(.loginBrand) {
+  justify-content:center;
+}
+html.pwa-standalone .loginShell:has(.loginBrand) .loginCard {
+  width:min(100%,440px);
+  padding:25px 22px 22px;
+  border-radius:30px;
+  border:1px solid rgba(255,255,255,.78);
+  background:linear-gradient(135deg,rgba(255,255,255,.58),rgba(232,238,255,.32));
+  box-shadow:0 22px 65px rgba(25,22,150,.25),inset 0 1px 0 rgba(255,255,255,.85);
+  -webkit-backdrop-filter:blur(24px);
+  backdrop-filter:blur(24px);
+}
+html.pwa-standalone .loginShell:has(.loginBrand) .loginBrand { display:none; }
+html.pwa-standalone .loginShell:has(.loginBrand) .loginTitle { text-align:center; margin-bottom:18px; }
+html.pwa-standalone .loginShell:has(.loginBrand) .loginTitle h1 { color:#fff; font-size:27px; margin:0 0 8px; }
+html.pwa-standalone .loginShell:has(.loginBrand) .loginTitle p { display:block; color:rgba(255,255,255,.9); font-size:13px; }
+html.pwa-standalone .loginShell:has(.loginBrand) form { display:flex; flex-direction:column; gap:10px; }
+html.pwa-standalone .loginShell:has(.loginBrand) form label { display:block; color:#4238a5; font-size:12px; }
+html.pwa-standalone .loginShell:has(.loginBrand) form label input {
+  display:block; width:100%; min-height:48px; margin-top:5px; padding:0 14px;
+  border-radius:15px; border:1px solid rgba(255,255,255,.95);
+  background:rgba(248,249,255,.82); color:#28206f; font-size:15px;
+}
+html.pwa-standalone .loginShell:has(.loginBrand) .primary.full {
+  width:100%; min-height:54px; border:0; border-radius:999px; margin-top:8px;
+  background:linear-gradient(100deg,#c42cff,#4937ff 52%,#00a9ff); color:#fff;
+}
+html.pwa-standalone .loginShell:has(.loginBrand) > .loginCard > .back {
+  width:100%; min-height:48px; margin-top:12px; border:1px solid #7764ff;
+  border-radius:999px; color:#3021c9; background:rgba(255,255,255,.35); font-weight:800;
+}
+@media(max-height:760px) {
+  html.pwa-standalone .loginShell:has(.loginBrand) { justify-content:flex-start; padding-top:12px; }
+  html.pwa-standalone .loginShell:has(.loginBrand) .loginCard { padding:17px 18px; }
+  html.pwa-standalone .loginShell:has(.loginBrand) form { gap:7px; }
+  html.pwa-standalone .loginShell:has(.loginBrand) form label input { min-height:42px; }
+}
