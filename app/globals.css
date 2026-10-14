@@ -2110,3 +2110,123 @@ html.pwa-standalone .loginCard select:focus {
     background:linear-gradient(135deg,#51248f 0%,#7441bd 56%,#aa82e8 100%) !important;
   }
 }
+
+
+/* Student-app experience: installed PWA only. Browser website styles remain untouched. */
+html.pwa-standalone .nobleDashboard.role-student {
+  --student-purple:#6f3db8;
+  --student-purple-dark:#472078;
+  --student-lilac:#f1e9ff;
+  --student-ink:#241b35;
+  background:linear-gradient(160deg,#faf7ff 0%,#f5f0ff 46%,#ffffff 100%) !important;
+  color:var(--student-ink);
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleSidebar {
+  background:linear-gradient(180deg,#51258f 0%,#6738aa 52%,#43206f 100%) !important;
+  border-right:0;
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleBrandMark {
+  background:linear-gradient(145deg,#fff,#e5d4ff);
+  color:#6333a5;
+  border-radius:15px;
+  box-shadow:0 8px 22px rgba(20,8,42,.22);
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleRolePill {
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.10);
+  border-radius:14px;
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleSideNav button {
+  border-radius:13px;
+  margin:3px 8px;
+  transition:background .2s ease,transform .2s ease;
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleSideNav button.selected,
+html.pwa-standalone .nobleDashboard.role-student .nobleSideNav button:active {
+  background:rgba(255,255,255,.18);
+  box-shadow:inset 3px 0 #e5d4ff;
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleMain {
+  background:transparent;
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleTopbar {
+  background:rgba(255,255,255,.78);
+  border-bottom:1px solid #eee5fb;
+  backdrop-filter:blur(18px);
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleAcademicTag {
+  color:#7043ad;
+  background:#f1e8ff;
+  border:1px solid #e4d5fa;
+  border-radius:999px;
+  padding:8px 12px;
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleWelcome {
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.48);
+  border-radius:25px;
+  background:linear-gradient(125deg,#51258f 0%,#7544bc 58%,#a47ce1 100%) !important;
+  box-shadow:0 20px 48px rgba(83,43,137,.20);
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleWelcome:after {
+  content:"";
+  position:absolute;
+  width:230px;height:230px;right:-75px;top:-105px;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:50%;
+  box-shadow:0 0 0 24px rgba(255,255,255,.055),0 0 0 50px rgba(255,255,255,.035);
+  pointer-events:none;
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleInfoPanel,
+html.pwa-standalone .nobleDashboard.role-student .nobleStatCard,
+html.pwa-standalone .nobleDashboard.role-student .noblePanel,
+html.pwa-standalone .nobleDashboard.role-student .nobleBottomGrid article {
+  background:rgba(255,255,255,.92);
+  border:1px solid #ece2fa;
+  border-radius:20px;
+  box-shadow:0 10px 28px rgba(76,43,117,.07);
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleQuickList button {
+  border-radius:14px;
+  background:#fbf8ff;
+  border:1px solid #eee5fa;
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleQuickIcon {
+  border-radius:12px;
+  background:linear-gradient(145deg,#f0e4ff,#e1d0ff);
+  color:#6432a8;
+}
+html.pwa-standalone .nobleDashboard.role-student .nobleTopAvatar {
+  background:linear-gradient(145deg,#7948bd,#51258f);
+  color:white;
+  box-shadow:0 6px 15px rgba(81,37,143,.2);
+}
+@media(max-width:700px) {
+  html.pwa-standalone .nobleDashboard.role-student .nobleContent {
+    padding:14px;
+  }
+  html.pwa-standalone .nobleDashboard.role-student .nobleWelcome {
+    border-radius:22px;
+    min-height:190px;
+  }
+  html.pwa-standalone .nobleDashboard.role-student .nobleWelcomeArt {
+    opacity:.72;
+    transform:scale(.82);
+    transform-origin:right center;
+  }
+  html.pwa-standalone .nobleDashboard.role-student .nobleBottomGrid {
+    gap:14px;
+  }
+  html.pwa-standalone .nobleDashboard.role-student .nobleInfoPanel,
+  html.pwa-standalone .nobleDashboard.role-student .nobleBottomGrid article {
+    border-radius:18px;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  html.pwa-standalone .nobleDashboard.role-student * {
+    animation:none !important;
+    transition:none !important;
+    scroll-behavior:auto !important;
+  }
+}
