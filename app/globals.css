@@ -2719,3 +2719,92 @@ html.pwa-standalone .loginShell .loginCopyright {
 @media(prefers-reduced-motion:reduce) {
   html.pwa-standalone .loginShell .loginCampusCard { animation:none !important; }
 }
+
+
+/* Student-only premium login UI: installed app only; browser website styles remain untouched. */
+html.pwa-standalone .loginShell{
+  position:relative; isolation:isolate; min-height:100svh; overflow:hidden;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:clamp(18px,4vh,42px) 18px;
+  color:#fff;
+  background:
+    radial-gradient(ellipse at 8% 7%,rgba(0,95,255,.9),transparent 34%),
+    radial-gradient(ellipse at 95% 14%,rgba(171,105,255,.95),transparent 38%),
+    radial-gradient(ellipse at 15% 80%,rgba(44,196,255,.72),transparent 35%),
+    linear-gradient(145deg,#071a91 0%,#4730e8 42%,#a4baff 72%,#f0dfff 100%);
+}
+html.pwa-standalone .loginShell:before{
+  content:""; position:absolute; z-index:-1; inset:0;
+  background:linear-gradient(180deg,rgba(12,30,150,.05) 0%,rgba(18,32,135,.08) 45%,rgba(246,233,255,.22) 100%);
+}
+html.pwa-standalone .loginCampusShade,
+html.pwa-standalone .loginCampusFeatures{display:none!important}
+html.pwa-standalone .loginCampusHeader{
+  width:min(100%,440px); text-align:center; margin:0 auto 24px; padding:12px 0 18px;
+  background:transparent; border:0; box-shadow:none; backdrop-filter:none;
+}
+html.pwa-standalone .loginCampusMotto{display:none!important}
+html.pwa-standalone .loginCampusInstitute{display:flex; flex-direction:column; align-items:center; gap:7px}
+html.pwa-standalone .loginCampusInstitute strong{
+  color:#fff; font-size:clamp(40px,11vw,60px); font-weight:800; letter-spacing:.11em;
+  line-height:1.05; text-transform:uppercase;
+  text-shadow:0 3px 0 #a8caff,0 8px 20px rgba(0,0,80,.45);
+}
+html.pwa-standalone .loginCampusInstitute span{
+  color:rgba(255,255,255,.95); font-size:12px; font-weight:700; letter-spacing:.22em;
+}
+html.pwa-standalone .loginCard.loginCampusCard{
+  width:min(100%,440px); padding:25px 22px 22px; border-radius:30px;
+  border:1px solid rgba(255,255,255,.78);
+  background:linear-gradient(135deg,rgba(255,255,255,.48),rgba(232,238,255,.25));
+  box-shadow:0 22px 65px rgba(25,22,150,.25),inset 0 1px 0 rgba(255,255,255,.85);
+  -webkit-backdrop-filter:blur(24px); backdrop-filter:blur(24px); color:#3024b9;
+}
+html.pwa-standalone .loginTitle .eyebrow{display:none}
+html.pwa-standalone .loginTitle h1{
+  color:#fff; font-size:clamp(23px,6vw,29px); text-align:center; margin:0 0 24px;
+  text-shadow:0 2px 14px rgba(32,33,145,.22); letter-spacing:-.02em;
+}
+html.pwa-standalone .loginTitle p,
+html.pwa-standalone .loginCopyright{display:none}
+html.pwa-standalone .loginCampusCard form{display:flex; flex-direction:column; gap:14px}
+html.pwa-standalone .loginCampusCard form label{
+  display:block; color:#4f4fc0; font-size:0; margin:0; font-weight:600;
+}
+html.pwa-standalone .loginCampusCard form label select{display:none}
+html.pwa-standalone .loginCampusCard form label input{
+  display:block; width:100%; height:58px; margin-top:0; padding:0 19px;
+  border-radius:999px; border:1px solid rgba(255,255,255,.9);
+  background:rgba(244,248,255,.66); color:#25228f; outline:none;
+  box-shadow:inset 0 1px 5px rgba(255,255,255,.55),0 8px 18px rgba(48,53,171,.08);
+  font-size:16px;
+}
+html.pwa-standalone .loginCampusCard form label input::placeholder{color:#707fc4;opacity:1}
+html.pwa-standalone .loginCampusCard form label input:focus{
+  border-color:#6852ff; box-shadow:0 0 0 3px rgba(102,83,255,.15);
+}
+html.pwa-standalone .loginCampusCard .primary.full{
+  width:100%; min-height:60px; border:0; border-radius:999px; margin-top:7px;
+  color:#fff; font-size:20px; font-weight:800;
+  background:linear-gradient(100deg,#c42cff 0%,#4937ff 48%,#00a9ff 100%);
+  box-shadow:0 9px 20px rgba(76,55,255,.32),inset 0 1px 0 rgba(255,255,255,.45);
+}
+html.pwa-standalone .loginCampusCard .authLinks{
+  display:flex; flex-direction:column; align-items:stretch; gap:10px; margin-top:18px;
+}
+html.pwa-standalone .loginCampusCard .authLinks .back{
+  width:100%; min-height:52px; border:1.5px solid #7764ff; border-radius:999px;
+  background:rgba(255,255,255,.22); color:#3021c9; font-weight:800; font-size:15px;
+}
+html.pwa-standalone .loginCampusCard .authLinks .back:first-child:before{content:"＋  ";font-size:20px}
+html.pwa-standalone .loginCampusCard .authLinks .back:last-child{display:none}
+html.pwa-standalone .loginCampusCard .error{font-size:13px;color:#9b1748;background:rgba(255,235,244,.85);padding:10px 12px;border-radius:12px}
+@media(max-height:760px){
+ html.pwa-standalone .loginShell{justify-content:flex-start;padding-top:16px}
+ html.pwa-standalone .loginCampusHeader{margin-bottom:10px;padding:4px 0 8px}
+ html.pwa-standalone .loginCampusInstitute strong{font-size:38px}
+ html.pwa-standalone .loginCard.loginCampusCard{padding:18px 18px}
+ html.pwa-standalone .loginCampusCard form{gap:10px}
+ html.pwa-standalone .loginCampusCard form label input{height:50px}
+ html.pwa-standalone .loginCampusCard .primary.full{min-height:52px}
+}
