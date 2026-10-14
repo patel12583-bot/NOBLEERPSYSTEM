@@ -2438,3 +2438,110 @@ html.pwa-standalone .nobleDashboard.role-student .nobleBrandMark.nobleOfficialLo
     object-position:center;
   }
 }
+
+
+/* NOBLE premium Student App landing — standalone PWA only.
+   Browser website styling, layout, and navigation remain unchanged. */
+html.pwa-standalone .homepageImageOnly {
+  min-height:100svh;
+  color:#211348;
+  background:
+    radial-gradient(ellipse at 6% 92%,rgba(93,205,255,.30),transparent 26%),
+    radial-gradient(ellipse at 100% 88%,rgba(185,111,255,.27),transparent 30%),
+    linear-gradient(160deg,#4b16bf 0%,#7850e2 23%,#e7ddff 43%,#faf8ff 72%,#eee6ff 100%);
+  background-attachment:scroll;
+  padding-bottom:calc(20px + env(safe-area-inset-bottom));
+}
+html.pwa-standalone .homepageImageOnly .nav {
+  height:auto;
+  min-height:190px;
+  padding:26px 20px 28px;
+  border:0;
+  background:linear-gradient(160deg,rgba(35,10,109,.22),rgba(99,50,184,.08));
+  backdrop-filter:none;
+  justify-content:center;
+  text-align:center;
+}
+html.pwa-standalone .homepageImageOnly .nav .brand {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin:0 auto;
+  text-align:center;
+}
+html.pwa-standalone .homepageImageOnly .nav .brandMark { display:none !important; }
+html.pwa-standalone .homepageImageOnly .nav .brand > div { display:flex;flex-direction:column;align-items:center;gap:8px; }
+html.pwa-standalone .homepageImageOnly .nav .brand b {
+  display:block;
+  color:#fff;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:clamp(48px,14vw,76px);
+  font-weight:950;
+  letter-spacing:clamp(5px,2vw,10px);
+  line-height:1;
+  text-shadow:0 3px 0 #b6a1ff,0 8px 22px rgba(33,10,103,.35);
+}
+html.pwa-standalone .homepageImageOnly .nav .brand b:before {
+  content:"🎓";
+  display:block;
+  font-size:clamp(48px,13vw,68px);
+  letter-spacing:0;
+  line-height:1.1;
+  margin-bottom:8px;
+  filter:drop-shadow(0 8px 12px rgba(28,9,91,.25));
+}
+html.pwa-standalone .homepageImageOnly .nav .brand small {
+  display:block;
+  color:#f2eaff;
+  font-size:11px;
+  font-weight:750;
+  letter-spacing:3px;
+  margin:0;
+}
+html.pwa-standalone .homepageImageOnly .heroImageOnly { display:none; }
+html.pwa-standalone .homepageImageOnly .homepagePortalPanel {
+  width:calc(100% - 32px);
+  max-width:540px;
+  margin:14px auto 0;
+  padding:18px;
+  border:1px solid rgba(255,255,255,.88);
+  border-radius:28px;
+  background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(241,234,255,.64));
+  box-shadow:0 24px 60px rgba(65,35,135,.19),inset 0 1px 0 rgba(255,255,255,.95);
+  backdrop-filter:blur(24px);
+}
+html.pwa-standalone .homepageImageOnly .pwaStudentEntry {
+  gap:14px;
+  padding:0;
+}
+html.pwa-standalone .homepageImageOnly .pwaStudentEntry a {
+  min-height:68px;
+  padding:18px 20px;
+  border-radius:20px;
+  font-size:clamp(14px,4vw,17px);
+  letter-spacing:0;
+}
+html.pwa-standalone .homepageImageOnly .pwaStudentLogin {
+  background:linear-gradient(110deg,#6422e8 0%,#4b36ee 48%,#2d9af8 100%);
+  box-shadow:0 13px 25px rgba(87,45,204,.28),inset 0 1px 0 rgba(255,255,255,.28);
+}
+html.pwa-standalone .homepageImageOnly .pwaStudentRegister {
+  color:#4c25a0;
+  background:rgba(255,255,255,.78);
+  border:1px solid rgba(151,105,255,.7);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+}
+html.pwa-standalone .homepageImageOnly .pwaStudentEntry a:focus-visible {
+  outline:3px solid #36a5ff;
+  outline-offset:3px;
+}
+@media(max-width:700px) {
+  html.pwa-standalone .homepageImageOnly .nav { min-height:215px;padding:22px 16px 25px; }
+  html.pwa-standalone .homepageImageOnly .nav .brand b { font-size:clamp(48px,15vw,68px); }
+  html.pwa-standalone .homepageImageOnly .homepagePortalPanel { margin-top:8px;padding:17px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html.pwa-standalone .homepageImageOnly .pwaStudentEntry a { transition:none !important; }
+}
