@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 function LoginForm() {
   const params = useSearchParams();
@@ -11,6 +11,17 @@ function LoginForm() {
   const [pass, setPass] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const standalone = window.matchMedia?.("(display-mode: standalone)")?.matches || window.navigator.standalone === true;
+    if (!standalone) return;
+    setRole("Student");
+    let active = true;
+    fetch("/api/dashboard", { cache: "no-store" }).then((res) => {
+      if (active && res.ok) { router.replace("/dashboard"); router.refresh(); }
+    }).catch(() => {});
+    return () => { active = false; };
+  }, [router]);
 
   async function submit(e) {
     e.preventDefault();
