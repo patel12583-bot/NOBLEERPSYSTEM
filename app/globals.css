@@ -3068,3 +3068,44 @@ html.pwa-standalone .loginShell .loginCampusInstitute strong::after {
   color:#fff;
   text-shadow:0 3px 0 #b5caff,0 7px 0 rgba(38,27,137,.8),0 15px 30px rgba(3,8,62,.6);
 }
+
+
+/* Centered, crisp Noble identity on both login and create-account screens. */
+.loginShell .nobleAuthLogoHeader {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  margin:0 auto 18px;
+  padding:0 18px;
+  text-align:center;
+}
+.loginShell .nobleAuthLogo {
+  display:block;
+  width:min(340px, 82vw);
+  height:auto;
+  max-height:150px;
+  object-fit:contain;
+  margin:0 auto;
+}
+.loginShell .nobleRegisterBrand {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:100%;
+  margin:0 auto 22px;
+  padding:0;
+}
+.loginShell .nobleRegisterBrand .nobleAuthLogo {
+  width:min(320px, 78vw);
+  max-height:138px;
+}
+html.pwa-standalone .loginShell .nobleAuthLogo {
+  width:min(360px, 86vw);
+  max-height:158px;
+}
+@media (max-width:480px) {
+  .loginShell .nobleAuthLogoHeader { margin-bottom:12px; }
+  .loginShell .nobleAuthLogo { width:min(310px, 84vw); max-height:132px; }
+  .loginShell .nobleRegisterBrand .nobleAuthLogo { width:min(300px, 82vw); max-height:126px; }
+}
