@@ -3109,3 +3109,72 @@ html.pwa-standalone .loginShell .nobleAuthLogo {
   .loginShell .nobleAuthLogo { width:min(310px, 84vw); max-height:132px; }
   .loginShell .nobleRegisterBrand .nobleAuthLogo { width:min(300px, 82vw); max-height:126px; }
 }
+
+
+/* Auth polish: accessible touch targets, responsive logo sizing, and reduced-motion support. */
+.loginShell .noblePasswordField {
+  display:flex;
+  align-items:stretch;
+  gap:8px;
+  width:100%;
+}
+.loginShell .noblePasswordField input {
+  flex:1;
+  min-width:0;
+}
+.loginShell .noblePasswordToggle {
+  flex:0 0 auto;
+  min-width:58px;
+  padding:0 12px;
+  border:1px solid rgba(120,139,176,.38);
+  border-radius:12px;
+  color:#34446d;
+  background:rgba(255,255,255,.9);
+  font-size:13px;
+  font-weight:800;
+}
+.loginShell .noblePasswordToggle:focus-visible,
+.loginShell button:focus-visible,
+.loginShell input:focus-visible,
+.loginShell select:focus-visible {
+  outline:3px solid #78c9ff;
+  outline-offset:2px;
+}
+.loginShell button:disabled {
+  cursor:wait;
+  opacity:.72;
+}
+@media (max-width:600px) {
+  .loginShell {
+    min-height:100svh;
+    padding:calc(18px + env(safe-area-inset-top)) 14px calc(18px + env(safe-area-inset-bottom));
+  }
+  .loginShell .loginCard {
+    width:100%;
+    max-width:440px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .loginShell .nobleAuthLogoHeader {
+    padding-left:8px;
+    padding-right:8px;
+  }
+  .loginShell .nobleAuthLogo {
+    max-width:84vw;
+  }
+  .loginShell input,
+  .loginShell select,
+  .loginShell .primary,
+  .loginShell .back {
+    min-height:44px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior:auto !important; }
+  *, *::before, *::after {
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}
