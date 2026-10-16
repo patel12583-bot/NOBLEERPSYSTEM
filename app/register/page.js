@@ -29,8 +29,8 @@ export default function Register(){
       <label>Full name<input name="name" value={form.name} onChange={change} placeholder="Enter your full name" autoComplete="name" required/></label>
       <label>Email address<input name="email" type="email" value={form.email} onChange={change} placeholder="name@example.com" autoComplete="email" required/></label>
       <label>Mobile number<input name="mobile" value={form.mobile} onChange={change} placeholder="Enter mobile number" autoComplete="tel"/></label>
-      <label>Password<input name="password" type="password" value={form.password} onChange={change} placeholder="Minimum 6 characters" autoComplete="new-password" required/></label>
-      <label>Confirm password<input name="confirm" type="password" value={form.confirm} onChange={change} placeholder="Re-enter password" autoComplete="new-password" required/></label>
+      <label>Password<input name="password" type="password" minLength={6} value={form.password} onChange={change} placeholder="Minimum 6 characters" autoComplete="new-password" required/></label>
+      <label>Confirm password<input name="confirm" type="password" minLength={6} value={form.confirm} onChange={change} placeholder="Re-enter password" autoComplete="new-password" required/></label>
       {error&&<div className="error">{error}</div>}
       <button className="primary full" disabled={loading}>{loading?"Creating account…":<>Create account <span>→</span></>}</button>
     </form>}
