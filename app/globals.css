@@ -3218,3 +3218,14 @@ html.pwa-standalone .homepageImageOnly .nav .brandMark img { display:block !impo
   .homepageImageOnly .nav .brandMark { flex-basis:52px; width:52px; height:52px; }
   html.pwa-standalone .homepageImageOnly .nav .brandMark { flex-basis:68px; width:68px; height:68px; }
 }
+
+
+/* Homepage header: make only the header background fully transparent.
+   Keep the logo, install button, and login link fully visible. */
+.homepageImageOnly .nav {
+  background: transparent !important;
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom-color: transparent !important;
+}
