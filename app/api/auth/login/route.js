@@ -20,6 +20,7 @@ export async function POST(request) {
     let user = await prisma.user.findFirst({
       where: {
         OR: [
+          { username: identifier },
           { username: normalizedIdentifier },
           { email: normalizedIdentifier }
         ]
