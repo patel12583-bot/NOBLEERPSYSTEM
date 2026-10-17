@@ -61,7 +61,7 @@ export default function Home() {
     <main className="shell homepageImageOnly">
       <nav className="nav">
         <div className="brand"><span className="brandMark" aria-hidden="true">N</span><div><b>NOBLE</b><small>GROUP OF INSTITUTES</small></div></div>
-        <div className="homepageNavActions"><button className="homepageInstallButton" type="button" onClick={handleInstall} disabled={isInstalled}>{isInstalled ? "APP INSTALLED ✓" : "⇩ INSTALL APP"}</button><Link className="homepageLoginLink" href="/login">LOGIN <span>↗</span></Link></div>
+        <div className="homepageNavActions"><button className="homepageInstallButton" type="button" onClick={handleInstall} disabled={isInstalled}>{isInstalled ? "NRS INSTALLED ✓" : "⇩ INSTALL NRS"}</button><Link className="homepageLoginLink" href="/login">LOGIN <span>↗</span></Link></div>
       </nav>
       <section className="hero heroImageOnly" aria-label="Noble campus background" />
       <section className="homepagePortalPanel" aria-label="Choose your login portal">
