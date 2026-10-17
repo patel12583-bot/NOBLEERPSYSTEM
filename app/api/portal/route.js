@@ -123,10 +123,32 @@ export async function PATCH(request) {
     if (data.name !== undefined && !data.name) return NextResponse.json({ error: "Name cannot be empty." }, { status: 400 });
     if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return NextResponse.json({ error: "Enter a valid email address." }, { status: 400 });
     if (data.email) data.email = data.email.toLowerCase();
-    const profile = await prisma.student.update({
-      where: { userId: user.id },
-      data,
-      include: { department: true, program: true, semester: true, division: true, academicYear: true },
+    if (data.email) {
+      const existingEmail = await prisma.user.findFirst({
+        where: { email: data.email, id: { not: user.id } },
+        select: { id: true },
+      });
+      if (existingEmail) {
+        return NextResponse.json(
+          { error: "This email address is already used by another account." },
+          { status: 409 }
+        );
+      }
+    }
+
+    const profile = await prisma.$transaction(async (tx) => {
+      const updatedProfile = await tx.student.update({
+        where: { userId: user.id },
+        data,
+        include: { department: true, program: true, semester: true, division: true, academicYear: true },
+      });
+      if (Object.prototype.hasOwnProperty.call(data, "email")) {
+        await tx.user.update({
+          where: { id: user.id },
+          data: { email: data.email },
+        });
+      }
+      return updatedProfile;
     });
     await prisma.auditLog.create({ data: { userId: user.id, action: "UPDATE_OWN_PROFILE", module: "STUDENT_PROFILE", recordId: profile.id, metadata: JSON.stringify({ fields: Object.keys(data) }) } }).catch(() => {});
     return NextResponse.json({ success: true, profile });
