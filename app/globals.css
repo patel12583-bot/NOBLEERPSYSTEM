@@ -3229,3 +3229,34 @@ html.pwa-standalone .homepageImageOnly .nav .brandMark img { display:block !impo
   -webkit-backdrop-filter: none !important;
   border-bottom-color: transparent !important;
 }
+
+
+/* Fix homepage header band: remove the frosted/blurred strip so the campus
+   background stays sharp behind the brand and install/login controls. */
+.homepageImageOnly .nav,
+html.pwa-standalone .homepageImageOnly .nav {
+  background: transparent !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+  box-shadow: none !important;
+  isolation: isolate;
+}
+.homepageImageOnly .nav::before,
+.homepageImageOnly .nav::after {
+  content: none !important;
+  display: none !important;
+  backdrop-filter: none !important;
+  filter: none !important;
+}
+.homepageImageOnly .nav .brand,
+.homepageImageOnly .nav .brandMark,
+.homepageImageOnly .nav .brandMark img,
+.homepageImageOnly .nav .homepageNavActions,
+.homepageImageOnly .nav .homepageInstallButton,
+.homepageImageOnly .nav .homepageLoginLink {
+  opacity: 1 !important;
+  filter: none !important;
+}
