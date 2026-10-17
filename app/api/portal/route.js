@@ -72,7 +72,7 @@ export async function GET(request) {
         return NextResponse.json({ module, rows });
       }
       if (module === "attendance") {
-        const rows = await prisma.attendance.findMany({ where: { subjectId: { in: faculty.subjects.map(x => x.subjectId) } }, include: { student: true, subject: true }, orderBy: { date: "desc" }, take: 200 });
+        const rows = await prisma.attendance.findMany({ where: { subjectId: { in: faculty.subjects.map(x => x.subjectId) } }, include: { student: { select: { id: true, studentId: true, name: true, departmentId: true, programId: true, semesterId: true, divisionId: true } }, subject: true }, orderBy: { date: "desc" }, take: 200 });
         return NextResponse.json({ module, rows });
       }
     }
@@ -81,7 +81,7 @@ export async function GET(request) {
       const parent = await prisma.parent.findUnique({ where: { userId: user.id }, include: { students: true } });
       const ids = parent?.students.map(x => x.id) || [];
       if (module === "attendance") {
-        const rows = await prisma.attendance.findMany({ where: { studentId: { in: ids.length ? ids : ["__none__"] } }, include: { student: true, subject: true }, orderBy: { date: "desc" }, take: 200 });
+        const rows = await prisma.attendance.findMany({ where: { studentId: { in: ids.length ? ids : ["__none__"] } }, include: { student: { select: { id: true, studentId: true, name: true, departmentId: true, programId: true, semesterId: true, divisionId: true } }, subject: true }, orderBy: { date: "desc" }, take: 200 });
         return NextResponse.json({ module, rows });
       }
       if (module === "results") {
