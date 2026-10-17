@@ -20,7 +20,6 @@ export default function Register(){
     finally{setLoading(false);}
   }
   return <main className="loginShell"><div className="loginCard">
-    <div className="loginBrand nobleRegisterBrand"><img className="nobleAuthLogo" src="/noble-institutes-logo.svg" alt="Noble Group of Institutes" /></div>
     <div className="loginTitle"><div className="eyebrow">NEW STUDENT ACCOUNT</div><h1>Create account.</h1><p>Register for access to the Noble ERP student portal.</p></div>
     {success ? <div>
       <div className="successBox"><strong>Account created successfully.</strong><p>Your Student ID is <b>{success.studentId}</b>. You can sign in using your email or Student ID.</p></div>
