@@ -3178,3 +3178,21 @@ html.pwa-standalone .loginShell .nobleAuthLogo {
     scroll-behavior:auto !important;
   }
 }
+
+
+/* Remove institute logo artwork from all web and installed-app screens. */
+.brandMark img,
+.nobleBrandMark img,
+.nobleAuthLogo,
+.loginBrand img,
+html.pwa-standalone .loginShell .loginCampusInstitute:before,
+html.pwa-standalone .homepageImageOnly .brandMark img,
+html.pwa-standalone .nobleDashboard .nobleOfficialLogo img {
+  display:none !important;
+  background-image:none !important;
+  content:none !important;
+}
+html.pwa-standalone .homepageImageOnly .brandMark,
+html.pwa-standalone .nobleDashboard .nobleBrandMark {
+  background-image:none !important;
+}
