@@ -21,7 +21,7 @@ export async function GET() {
       role: user.role,
       stats: {},
       notices: await prisma.notice.findMany({
-        where: { published: true },
+        where: { published: true, audience: { in: ["ALL", "EVERYONE", "PUBLIC", user.role, user.role.replaceAll("_", " "), user.role.toLowerCase()] } },
         orderBy: { publishedAt: "desc" },
         take: 5,
         select: { id: true, title: true, audience: true, publishedAt: true }
