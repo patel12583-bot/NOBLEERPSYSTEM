@@ -121,7 +121,8 @@ export async function PATCH(request) {
     }
     if (Object.keys(data).length === 0) return NextResponse.json({ error: "No editable fields were provided." }, { status: 400 });
     if (data.name !== undefined && !data.name) return NextResponse.json({ error: "Name cannot be empty." }, { status: 400 });
-    if (data.email && !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(data.email)) return NextResponse.json({ error: "Enter a valid email address." }, { status: 400 });
+    if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return NextResponse.json({ error: "Enter a valid email address." }, { status: 400 });
+    if (data.email) data.email = data.email.toLowerCase();
     const profile = await prisma.student.update({
       where: { userId: user.id },
       data,
