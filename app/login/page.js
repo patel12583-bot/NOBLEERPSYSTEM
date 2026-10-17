@@ -60,9 +60,6 @@ function LoginForm() {
 
   return <main className="loginShell">
     <div className="loginCampusShade" aria-hidden="true" />
-    <header className="loginCampusHeader nobleAuthLogoHeader">
-      <img className="nobleAuthLogo" src="/noble-institutes-logo.svg" alt="Noble Group of Institutes" />
-    </header>
     <aside className="loginCampusFeatures">
       <div><i>♟</i><span><b>Student Management</b><small>Track · Manage · Grow</small></span></div>
       <div><i>♟</i><span><b>Faculty &amp; Staff</b><small>Support · Develop · Empower</small></span></div>
