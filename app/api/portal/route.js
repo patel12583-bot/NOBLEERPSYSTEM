@@ -16,7 +16,7 @@ export async function GET(request) {
         user.role === "STUDENT" ? await prisma.student.findUnique({ where: { userId: user.id }, include: { department: true, program: true, semester: true, division: true, academicYear: true } }) :
         user.role === "FACULTY" || user.role === "HOD" ? await prisma.faculty.findUnique({ where: { userId: user.id }, include: { department: true, subjects: { include: { subject: true } } } }) :
         user.role === "PARENT" ? await prisma.parent.findUnique({ where: { userId: user.id }, include: { students: { include: { program: true, semester: true, department: true } } } }) :
-        user;
+        { id: user.id, username: user.username, email: user.email, role: user.role, status: user.status, createdAt: user.createdAt };
       return NextResponse.json({ module, profile });
     }
 
