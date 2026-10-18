@@ -45,9 +45,10 @@ async function validateAcademicMapping(data){
 
 function cleanStudent(data){
   const out={};
-  const fields=["studentId","enrollmentNo","admissionNo","name","email","mobile","gender","address","photoUrl","departmentId","programId","semesterId","divisionId","academicYearId","status"];
+  const fields=["studentId","enrollmentNo","admissionNo","name","firstName","lastName","email","mobile","gender","address","city","state","pincode","photoUrl","departmentId","programId","semesterId","divisionId","academicYearId","status"];
   for(const k of fields) if(data[k]!==undefined && data[k]!=="" ) out[k]=data[k];
   if(data.dob) out.dob=new Date(data.dob);
+  if(data.admissionDate) out.admissionDate=new Date(data.admissionDate);
   return out;
 }
 
@@ -63,7 +64,8 @@ async function createStudent(data,sessionUser){
   if(!clean.studentId) clean.studentId="NGI"+Date.now().toString().slice(-7);
   const exists=await prisma.student.findUnique({where:{studentId:clean.studentId}});
   if(exists) throw new Error("Student ID already exists: "+clean.studentId);
-  const tempPassword=password();
+  const tempPassword=data.password ? String(data.password) : password();
+  if(tempPassword.length < 8) throw new Error("Password must be at least 8 characters.");
   const user=await prisma.user.create({
     data:{
       username:clean.studentId,
@@ -137,8 +139,14 @@ export async function PUT(request){
     assertScope(user,data.departmentId||current.departmentId);
     await validateAcademicMapping({...current,...data});
     const student=await prisma.student.update({where:{id:body.id},data});
-    if(body.data?.email!==undefined && current.userId){
-      await prisma.user.update({where:{id:current.userId},data:{email:body.data.email||null}});
+    if(current.userId && (body.data?.email!==undefined || body.data?.password)){
+      const userData={};
+      if(body.data.email!==undefined) userData.email=body.data.email||null;
+      if(body.data.password){
+        if(String(body.data.password).length<8) throw new Error("Password must be at least 8 characters.");
+        userData.passwordHash=await bcrypt.hash(String(body.data.password),12);
+      }
+      await prisma.user.update({where:{id:current.userId},data:userData});
     }
     return NextResponse.json({student});
   }catch(e){
