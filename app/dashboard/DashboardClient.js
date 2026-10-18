@@ -39,7 +39,7 @@ const adminLinks = {
   Subjects: "/admin/subjects", Exams: "/admin/examination", Notices: "/admin/notices", Events: "/admin/events", Gallery: "/admin/gallery", "Study Materials": "/admin/documents", Assignments: "/admin/documents", Approvals: "/leave", "Academic Management": "/admin/academics",
   Timetable: "/admin/timetable", Workload: "/admin/faculty", Attendance: "/admin/attendance",
   Documents: "/admin/documents", Exports: "/admin/exports",
-  "Attendance Reports": "/admin/attendance/reports", Reports: "/admin/attendance/reports",
+  "Attendance Reports": "/admin/attendance/reports", Reports: "/admin/reports",
   Institutes: "/admin/institute", Settings: "/admin/settings", Leave: "/leave",
   Examination: "/admin/examination", "Hall Ticket": "/hall-ticket", Fees: "/admin/fees",
   Payments: "/admin/fees", Results: "/admin/results", Examinations: "/admin/examination",
