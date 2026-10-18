@@ -48,7 +48,7 @@ const adminLinks = {
   Payroll: "/admin/hr", Admins: "/admin/users",
 };
 const roleLinks = {
-  STUDENT: { "My Profile": "/portal?module=profile", Attendance: "/portal?module=attendance", Results: "/portal?module=results", Fees: "/portal?module=fees", Timetable: "/portal?module=timetable", Assignments: "/student/assignments", "Study Materials": "/student/study-materials", Notices: "/portal?module=notices", Events: "/events", "Change Password": "/change-password" },
+  STUDENT: { "My Profile": "/portal?module=profile", Attendance: "/portal?module=attendance", Results: "/portal?module=results", Fees: "/portal?module=fees", Timetable: "/portal?module=timetable", Assignments: "/student/assignments", "Study Materials": "/student/study-materials", Notices: "/student/notices", Events: "/events", "Change Password": "/change-password" },
   FACULTY: { "My Profile": "/portal?module=profile", Subjects: "/portal?module=subjects", Timetable: "/portal?module=timetable", Attendance: "/admin/attendance", Workload: "/admin/faculty", Leave: "/leave", Examination: "/portal?module=examination" },
   HOD: { Department: "/admin/core?module=departments", Faculty: "/admin/faculty", Subjects: "/admin/subjects", Approvals: "/leave", "Attendance Reports": "/admin/attendance/reports", Examination: "/admin/examination", Timetable: "/admin/timetable", Attendance: "/admin/attendance" },
   PARENT: { "Student Profile": "/portal?module=profile", Attendance: "/portal?module=attendance", Results: "/portal?module=results", Fees: "/portal?module=fees", Leave: "/leave", Examination: "/portal?module=examination" },
