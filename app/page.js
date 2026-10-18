@@ -66,12 +66,12 @@ export default function Home() {
     // Public homepage only displays published, currently valid notices returned by the ERP.
     fetch("/api/public/notices")
       .then((response) => response.ok ? response.json() : Promise.reject(new Error("Notices unavailable")))
-      .then((data) => setNotices(Array.isArray(data.notices) ? data.notices.slice(0, 3) : []))
-      .catch(() => setNotices([]));
-    fetch("/api/public/events")
-      .then((response) => response.ok ? response.json() : Promise.reject(new Error("Events unavailable")))
-      .then((data) => setEvents(Array.isArray(data.events) ? data.events.slice(0, 3) : []))
-      .catch(() => setEvents([]));
+      .then((data) => {
+        const published = Array.isArray(data.notices) ? data.notices : [];
+        setNotices(published.filter((notice) => !["EVENT", "EVENTS"].includes(String(notice.category || "").toUpperCase())).slice(0, 3));
+        setEvents(published.filter((notice) => ["EVENT", "EVENTS"].includes(String(notice.category || "").toUpperCase())).slice(0, 3));
+      })
+      .catch(() => { setNotices([]); setEvents([]); });
 
     return () => {
       window.removeEventListener("beforeinstallprompt", onBeforeInstallPrompt);
@@ -160,7 +160,7 @@ export default function Home() {
 
       <section className="collegeSection collegeSoft" id="placement"><div className="collegeSectionLabel">06 / CAREER READINESS</div><div className="collegePlacement"><div><span className="collegeEyebrow">PREPARE FOR WHAT'S NEXT</span><h2>Skills for the<br /><em>world beyond campus.</em></h2></div><div><p>Build communication, problem-solving and practical skills as you prepare for further study and career opportunities. Contact the institute for current placement support, recruiter information and verified outcomes.</p><a className="collegeTextLink" href="#contact">Ask about placement support ↗</a></div></div></section>
 
-      <section className="collegeSection" id="events"><div className="collegeSectionLabel">07 / CAMPUS CALENDAR</div><div className="collegeSectionHeading"><div><h2>Upcoming <em>events.</em></h2><p>Official event details appear here when published by the institute.</p></div></div>{events.length ? <div className="collegeUpdatesGrid">{events.map((event, i) => <article key={event.id || i}><small>{event.date ? new Date(event.date).toLocaleDateString("en-IN") : "CAMPUS EVENT"}</small><h3>{event.title}</h3><p>{event.description || "See the event details for more information."}</p></article>)}</div> : <div className="collegeEmptyUpdate"><span>✦</span><div><strong>Stay connected with campus life</strong><p>For the latest event dates and announcements, contact the institute or check official notices through the ERP portal.</p></div><Link href="/login">Open ERP portal ↗</Link></div>}</section>
+      <section className="collegeSection" id="events"><div className="collegeSectionLabel">07 / CAMPUS CALENDAR</div><div className="collegeSectionHeading"><div><h2>Upcoming <em>events.</em></h2><p>Official event details appear here when published by the institute.</p></div></div>{events.length ? <div className="collegeUpdatesGrid">{events.map((event, i) => <article key={event.id || i}><small>{event.publishedAt ? "POSTED " + new Date(event.publishedAt).toLocaleDateString("en-IN") : "CAMPUS EVENT"}</small><h3>{event.title}</h3><p>{event.description || "See the event details for more information."}</p></article>)}</div> : <div className="collegeEmptyUpdate"><span>✦</span><div><strong>Stay connected with campus life</strong><p>For the latest event dates and announcements, contact the institute or check official notices through the ERP portal.</p></div><Link href="/login">Open ERP portal ↗</Link></div>}</section>
 
       <section className="collegeSection collegeSoft" id="news"><div className="collegeSectionLabel">08 / INSTITUTE UPDATES</div><div className="collegeSectionHeading"><div><h2>News & <em>announcements.</em></h2><p>Follow verified institute communications and important updates.</p></div></div><div className="collegeNewsBanner"><span>NEWS DESK</span><div><h3>Keep up with Noble.</h3><p>New announcements will be shared through the institute's official communication channels.</p></div><Link href="/login">Check portal updates ↗</Link></div></section>
 
