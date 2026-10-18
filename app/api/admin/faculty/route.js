@@ -49,7 +49,7 @@ export async function POST(req){
   assertDepartment(u,d.departmentId);
   if(!d.facultyId)d.facultyId="FAC"+Date.now().toString().slice(-7);
   if(await prisma.faculty.findUnique({where:{facultyId:d.facultyId}}))throw new Error("Faculty ID already exists.");
-  if(await prisma.faculty.findUnique({where:{employeeId:d.employeeId}}))throw new Error("Employee ID already exists.");
+  if(await prisma.faculty.findFirst({where:{employeeId:d.employeeId}}))throw new Error("Employee ID already exists.");
   const password=b.data?.password?String(b.data.password):pass(); if(password.length<8)throw new Error("Password must be at least 8 characters.");
   const user=await prisma.user.create({data:{username:d.facultyId,email:d.email||null,passwordHash:await bcrypt.hash(password,12),role:"FACULTY",status:"ACTIVE"}});
   try{ const faculty=await prisma.faculty.create({data:{...d,userId:user.id}}); return NextResponse.json({faculty,credentials:{username:d.facultyId,password}},{status:201}); }
@@ -64,7 +64,7 @@ export async function PUT(req){
   if(u.role==="HOD"&&current.departmentId!==u.departmentId)return NextResponse.json({error:"You can manage only faculty in your department."},{status:403});
   const d=clean(b.data||{}); delete d.facultyId;
   if(d.departmentId)assertDepartment(u,d.departmentId);
-  if(d.employeeId&&d.employeeId!==current.employeeId&&await prisma.faculty.findUnique({where:{employeeId:d.employeeId}}))return NextResponse.json({error:"Employee ID already exists."},{status:400});
+  if(d.employeeId&&d.employeeId!==current.employeeId&&await prisma.faculty.findFirst({where:{employeeId:d.employeeId}}))return NextResponse.json({error:"Employee ID already exists."},{status:400});
   if(b.data?.password&&String(b.data.password).length<8)return NextResponse.json({error:"Password must be at least 8 characters."},{status:400});
   const faculty=await prisma.faculty.update({where:{id:b.id},data:d});
   if(current.userId&&(b.data?.email!==undefined||b.data?.password)){
