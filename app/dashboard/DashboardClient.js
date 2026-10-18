@@ -36,7 +36,7 @@ const adminLinks = {
   Departments: "/admin/core?module=departments", Courses: "/admin/academics", Department: "/admin/core?module=departments",
   Programs: "/admin/core?module=programs", Academics: "/admin/academics",
   Semesters: "/admin/core?module=semesters", Divisions: "/admin/core?module=divisions",
-  Subjects: "/admin/subjects", Exams: "/admin/examination", Notices: "/admin/notices", Events: "/admin/notices", Gallery: "/admin/notices", "Study Materials": "/admin/documents", Assignments: "/admin/documents", Approvals: "/leave", "Academic Management": "/admin/academics",
+  Subjects: "/admin/subjects", Exams: "/admin/examination", Notices: "/admin/notices", Events: "/admin/events", Gallery: "/admin/notices", "Study Materials": "/admin/documents", Assignments: "/admin/documents", Approvals: "/leave", "Academic Management": "/admin/academics",
   Timetable: "/admin/timetable", Workload: "/admin/faculty", Attendance: "/admin/attendance",
   Documents: "/admin/documents", Exports: "/admin/exports",
   "Attendance Reports": "/admin/attendance/reports", Reports: "/admin/attendance/reports",
@@ -217,6 +217,13 @@ export default function DashboardClient({ user }) {
           <section className="nobleBottomGrid">
             <article className="nobleInfoPanel"><div className="noblePanelHead"><div><span className="nobleEyebrow">GET THINGS DONE</span><h3>Quick actions</h3></div><span className="noblePanelCount">{data?.stats?.pendingActions ?? 0} pending</span></div><div className="nobleQuickList">{items.slice(1, 5).map(label => <button key={label} onClick={() => go(label)}><span className="nobleQuickIcon">{icons[label] || "•"}</span><b>{label}</b><span className="nobleQuickArrow">→</span></button>)}</div></article>
             <article className="nobleInfoPanel"><div className="noblePanelHead"><div><span className="nobleEyebrow">INSTITUTE BULLETIN</span><h3>Recent notices</h3></div><span className="noblePanelCount">Latest updates</span></div>{data?.notices?.length ? <div className="nobleNoticeList">{data.notices.slice(0, 5).map(notice => <div className="nobleNotice" key={notice.id}><span className="nobleNoticeDot">•</span><div><b>{notice.title}</b><p>{notice.content || "Published by administration"}{notice.category ? " · " + notice.category : ""}</p>{notice.publishedAt && <small>{new Date(notice.publishedAt).toLocaleDateString("en-IN")}</small>}{notice.attachmentUrl && <p><a href={notice.attachmentUrl} target="_blank" rel="noreferrer">View attachment ↗</a></p>}</div></div>)}</div> : <div className="nobleEmptyNotice"><span>✦</span><b>No published notices yet</b><p>New institute announcements will appear here when published.</p></div>}</article>
+          </section>
+          <section className="nobleBottomGrid" style={{ marginTop: 20 }}>
+            <article className="nobleInfoPanel">
+              <div className="noblePanelHead"><div><span className="nobleEyebrow">CAMPUS LIFE</span><h3>Upcoming events</h3></div><span className="noblePanelCount">Latest updates</span></div>
+              {data?.events?.length ? <div className="nobleNoticeList">{data.events.slice(0, 5).map(event => <div className="nobleNotice" key={event.id}><span className="nobleNoticeDot">✦</span><div><b>{event.title}</b><p>{event.description || event.category || "College event"}{event.venue ? " · " + event.venue : ""}</p><small>{new Date(event.eventDate).toLocaleDateString("en-IN")}{event.eventTime ? " · " + event.eventTime : ""}</small>{event.imageUrl && <p><a href={event.imageUrl} target="_blank" rel="noreferrer">View event image ↗</a></p>}</div></div>)}</div> : <div className="nobleEmptyNotice"><span>✦</span><b>No upcoming events published</b><p>Published campus events will appear here.</p></div>}
+              <a href="/events" style={{ display: "inline-block", marginTop: 12, color: "#2563eb", fontWeight: 700 }}>View public events ↗</a>
+            </article>
           </section>
           <footer className="nobleDashboardFooter"><span>© {new Date().getFullYear()} noble group of Institution</span><span>University Management System <i>•</i> Secure role-based access</span></footer>
         </div>
