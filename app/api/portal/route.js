@@ -67,6 +67,20 @@ export async function GET(request) {
       if (!faculty) return NextResponse.json({ error: "Faculty profile not found." }, { status: 404 });
 
       if (module === "subjects") return NextResponse.json({ module, rows: faculty.subjects.map(x => x.subject) });
+      if (module === "students") {
+        const cohorts = faculty.subjects.map(x => ({ ...(x.subject.programId ? { programId: x.subject.programId } : {}), ...(x.subject.semesterId ? { semesterId: x.subject.semesterId } : {}) })).filter(x => Object.keys(x).length > 0);
+        const rows = cohorts.length ? await prisma.student.findMany({ where: { status: "ACTIVE", OR: cohorts }, select: { id: true, studentId: true, name: true, email: true, departmentId: true, programId: true, semesterId: true, divisionId: true }, orderBy: { name: "asc" } }) : [];
+        return NextResponse.json({ module, rows });
+      }
+      if (module === "results") {
+        const subjectIds = faculty.subjects.map(x => x.subjectId);
+        const rows = subjectIds.length ? await prisma.result.findMany({ where: { subjectId: { in: subjectIds } }, include: { student: { select: { id: true, studentId: true, name: true, programId: true, semesterId: true } }, subject: true, exam: true }, orderBy: { id: "desc" } }) : [];
+        return NextResponse.json({ module, rows });
+      }
+      if (module === "notices") {
+        const rows = await prisma.notice.findMany({ where: { published: true, audience: { in: ["ALL", "EVERYONE", "PUBLIC", "FACULTY", "Faculty", "faculty"] }, AND: [{ OR: [{ expiryDate: null }, { expiryDate: { gte: new Date() } }] }, { OR: [{ scheduledAt: null }, { scheduledAt: { lte: new Date() } }] }] }, orderBy: { publishedAt: "desc" }, take: 50 });
+        return NextResponse.json({ module, rows });
+      }
       if (module === "timetable") {
         const rows = await prisma.timetable.findMany({ where: { facultyId: faculty.id }, include: { subject: true, division: { include: { program: true, semester: true } }, room: true }, orderBy: [{ dayOfWeek: "asc" }, { startTime: "asc" }] });
         return NextResponse.json({ module, rows });
