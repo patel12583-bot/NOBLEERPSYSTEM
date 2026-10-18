@@ -45,7 +45,7 @@ async function validateAcademicMapping(data){
 
 function cleanStudent(data){
   const out={};
-  const fields=["studentId","enrollmentNo","admissionNo","name","firstName","lastName","email","mobile","gender","address","city","state","pincode","photoUrl","departmentId","programId","semesterId","divisionId","academicYearId","status"];
+  const fields=["studentId","enrollmentNo","admissionNo","name","firstName","lastName","aadhaarName","email","mobile","gender","address","city","state","pincode","photoUrl","departmentId","programId","semesterId","divisionId","academicYearId","status"];
   for(const k of fields) if(data[k]!==undefined && data[k]!=="" ) out[k]=data[k];
   if(data.dob) out.dob=new Date(data.dob);
   if(data.admissionDate) out.admissionDate=new Date(data.admissionDate);
@@ -62,6 +62,11 @@ async function createStudent(data,sessionUser){
   assertScope(sessionUser,clean.departmentId);
   await validateAcademicMapping(clean);
   if(!clean.name) throw new Error("Student name is required.");
+  if(!clean.aadhaarName) throw new Error("Full name as printed on Aadhaar card is required.");
+  const normalizeName = value => String(value || "").normalize("NFKC").trim().replace(/\s+/g, " ").toLocaleLowerCase("en-IN");
+  if(normalizeName(clean.name) !== normalizeName(clean.aadhaarName)) {
+    throw new Error("Student full name must match the name printed on the Aadhaar card.");
+  }
   if(!clean.studentId) clean.studentId="NGI"+Date.now().toString().slice(-7);
   const exists=await prisma.student.findUnique({where:{studentId:clean.studentId}});
   if(exists) throw new Error("Student ID already exists: "+clean.studentId);
@@ -137,14 +142,26 @@ export async function PUT(request){
     if(user.role==="HOD" && current.departmentId!==user.departmentId) return NextResponse.json({error:"You can manage only students in your department."},{status:403});
     const data=cleanStudent(body.data||{});
     delete data.studentId;
+    if (data.name || data.firstName || data.lastName || data.aadhaarName) {
+      const candidateName = data.name || [data.firstName ?? current.firstName, data.lastName ?? current.lastName].filter(Boolean).join(" ").trim() || current.name;
+      const aadhaarName = data.aadhaarName || current.aadhaarName;
+      if (aadhaarName) {
+        const normalizeName = value => String(value || "").normalize("NFKC").trim().replace(/\s+/g, " ").toLocaleLowerCase("en-IN");
+        if (normalizeName(candidateName) !== normalizeName(aadhaarName)) {
+          return NextResponse.json({error:"Student full name must match the name printed on the Aadhaar card."},{status:400});
+        }
+      }
+    }
     assertScope(user,data.departmentId||current.departmentId);
     await validateAcademicMapping({...current,...data});
+    if (body.data?.password && String(body.data.password).length < 8) {
+      return NextResponse.json({error:"Password must be at least 8 characters."},{status:400});
+    }
     const student=await prisma.student.update({where:{id:body.id},data});
     if(current.userId && (body.data?.email!==undefined || body.data?.password)){
       const userData={};
       if(body.data.email!==undefined) userData.email=body.data.email||null;
       if(body.data.password){
-        if(String(body.data.password).length<8) throw new Error("Password must be at least 8 characters.");
         userData.passwordHash=await bcrypt.hash(String(body.data.password),12);
       }
       await prisma.user.update({where:{id:current.userId},data:userData});
