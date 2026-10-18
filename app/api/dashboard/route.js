@@ -131,7 +131,7 @@ export async function GET() {
         prisma.attendance.groupBy({ by: ["status"], where: { studentId: student.id }, _count: { _all: true } }),
         prisma.studentFee.aggregate({ where: { studentId: student.id }, _sum: { amountDue: true, amountPaid: true } }),
         student.semesterId ? prisma.examSchedule.findFirst({ where: { date: { gte: new Date() }, subject: { semesterId: student.semesterId } }, include: { exam: true, subject: true }, orderBy: { date: "asc" } }) : null,
-        student.semesterId ? prisma.assignment.count({ where: { semesterId: student.semesterId, subject: { OR: [{ programId: null }, { programId: student.programId }] } } }) : 0
+        student.semesterId ? prisma.assignment.count({ where: { semesterId: student.semesterId, subject: { OR: [{ programId: null }, { programId: student.programId }] }, submissions: { none: { studentId: student.id } } } }) : 0
       ]);
       const present = groups.find(x => x.status === "PRESENT")?._count._all || 0;
       const late = groups.find(x => x.status === "LATE")?._count._all || 0;
@@ -143,7 +143,7 @@ export async function GET() {
         { label: "CURRENT SEMESTER", value: student.semester?.name || "Not assigned", detail: student.program?.name || "Current programme" },
         { label: "PENDING FEES", value: "₹" + balance.toLocaleString("en-IN", { maximumFractionDigits: 2 }), detail: balance > 0 ? "Outstanding fee balance" : "No outstanding fee balance" },
         { label: "UPCOMING EXAM", value: exam ? new Date(exam.date).toLocaleDateString("en-IN") : "—", detail: exam ? exam.exam.name + " • " + exam.subject.name : "No upcoming exam" },
-        { label: "ASSIGNMENTS", value: assignments, detail: "Assignments for your semester" },
+        { label: "ASSIGNMENTS", value: assignments, detail: "Assignments not yet submitted" },
         { label: "LATEST NOTICES", value: base.notices.length, detail: "Published notices for students" }
       ], pendingActions: balance > 0 ? 1 : 0 };
       return NextResponse.json(base);
