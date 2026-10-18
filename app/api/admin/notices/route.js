@@ -35,7 +35,7 @@ function parseNotice(body) {
   const published = status !== "DRAFT";
   return {
     title, content, category, audience,
-    scheduledAt: status === "SCHEDULED" || (published && publishDate > new Date()) ? publishDate : null,
+    scheduledAt: status === "DRAFT" ? publishDate : (status === "SCHEDULED" || publishDate > new Date() ? publishDate : null),
     published,
     publishedAt: published && publishDate <= new Date() ? publishDate : null,
     expiryDate,
