@@ -3260,3 +3260,49 @@ html.pwa-standalone .homepageImageOnly .nav {
   opacity: 1 !important;
   filter: none !important;
 }
+
+
+/* Keep the official Noble crest visible in the installed app homepage header.
+   This overrides the earlier decorative logo hide rule without changing browser mode. */
+html.pwa-standalone .homepageImageOnly .nav .brandMark {
+  display:flex !important;
+  flex:0 0 68px;
+  width:68px;
+  height:68px;
+  padding:4px;
+  background:#fff;
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:16px;
+  box-shadow:0 12px 28px rgba(38,17,92,.22);
+}
+html.pwa-standalone .homepageImageOnly .nav .brandMark img {
+  display:block !important;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+html.pwa-standalone .homepageImageOnly .nav .brand {
+  flex-direction:row;
+  gap:12px;
+}
+html.pwa-standalone .homepageImageOnly .nav .brand > div {
+  align-items:flex-start;
+}
+html.pwa-standalone .homepageImageOnly .nav .brand b:before {
+  content:none !important;
+  display:none !important;
+}
+@media(max-width:700px) {
+  html.pwa-standalone .homepageImageOnly .nav .brandMark {
+    flex-basis:60px;
+    width:60px;
+    height:60px;
+  }
+  html.pwa-standalone .homepageImageOnly .nav .brand {
+    flex-direction:row;
+  }
+  html.pwa-standalone .homepageImageOnly .nav .brand > div {
+    align-items:flex-start;
+  }
+}
