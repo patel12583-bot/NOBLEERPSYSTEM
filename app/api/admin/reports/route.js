@@ -88,8 +88,12 @@ export async function GET(request) {
     return NextResponse.json({ error: "Unsupported report type." }, { status: 400 });
   }
 
+  const [departments, programs] = await Promise.all([
+    prisma.department.findMany({ where: scopedDepartment ? { id: scopedDepartment } : {}, select: { id: true, name: true }, orderBy: { name: "asc" } }),
+    prisma.program.findMany({ where: scopedDepartment ? { departmentId: scopedDepartment } : {}, select: { id: true, name: true }, orderBy: { name: "asc" } }),
+  ]);
   return NextResponse.json({
-    title, columns, rows,
+    title, columns, rows, departments, programs,
     summary: { records: rows.length, generatedAt: new Date().toISOString() },
     filters: { from: q.get("from") || "", to: q.get("to") || "", departmentId: scopedDepartment || "", programId, status },
   }, { headers: { "Cache-Control": "no-store" } });
