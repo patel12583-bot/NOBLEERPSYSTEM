@@ -12,12 +12,14 @@ export async function GET() {
   if (!user || user.role !== "FACULTY") return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const faculty = await prisma.faculty.findUnique({ where: { userId: user.id } });
   if (!faculty) return NextResponse.json({ error: "Faculty profile is not linked to this account." }, { status: 404 });
+  const facultySubjects = await prisma.facultySubject.findMany({ where: { facultyId: faculty.id }, include: { subject: true } });
+  const semesters = await prisma.semester.findMany({ orderBy: { number: "asc" } });
   const assignments = await prisma.assignment.findMany({
     where: { facultyId: faculty.id },
     include: { subject: true, semester: true, submissions: { include: { student: true }, orderBy: { submittedAt: "desc" } } },
     orderBy: { dueDate: "asc" }
   });
-  return NextResponse.json({ assignments });
+  return NextResponse.json({ assignments, subjects: facultySubjects.map((item) => item.subject), semesters });
 }
 
 export async function POST(request) {
