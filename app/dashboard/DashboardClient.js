@@ -9,7 +9,7 @@ const roleNames = {
   EXAM_OFFICER: "Examination Officer", LIBRARIAN: "Librarian", HR_STAFF: "HR / Staff",
 };
 const menus = {
-  STUDENT: ["Dashboard", "My Profile", "Attendance", "Timetable", "Results", "Leave", "Examination", "Hall Ticket"],
+  STUDENT: ["Dashboard", "My Profile", "Attendance", "Results", "Fees", "Timetable", "Assignments", "Study Materials", "Notices", "Events", "Change Password"],
   FACULTY: ["Dashboard", "My Profile", "Subjects", "Timetable", "Attendance", "Workload", "Leave", "Examination"],
   HOD: ["Dashboard", "Department", "Faculty", "Subjects", "Approvals", "Attendance Reports", "Examination", "Timetable"],
   PARENT: ["Dashboard", "Student Profile", "Attendance", "Results", "Fees", "Leave", "Examination"],
