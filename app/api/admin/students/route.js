@@ -58,6 +58,7 @@ function password(){
 
 async function createStudent(data,sessionUser){
   const clean=cleanStudent(data);
+  if(!clean.name) clean.name=[clean.firstName,clean.lastName].filter(Boolean).join(" ").trim();
   assertScope(sessionUser,clean.departmentId);
   await validateAcademicMapping(clean);
   if(!clean.name) throw new Error("Student name is required.");
