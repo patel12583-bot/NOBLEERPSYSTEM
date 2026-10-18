@@ -5,7 +5,7 @@ import { getSessionUser } from "@/lib/auth";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 const ADMIN_ROLES = ["ADMIN", "SUPER_ADMIN"];
-const MAX_IMAGE_LENGTH = 1_300_000;
+const MAX_IMAGE_LENGTH = 1_300_000;\nconst MAX_BATCH_LENGTH = 4_000_000;
 function fail(message, status = 400) { return NextResponse.json({ error: message }, { status }); }
 function validImage(value) {
   const url = String(value || "").trim();
@@ -37,7 +37,7 @@ export async function POST(request) {
       if (!albumId || !images.length || images.length > 20) return fail("Choose an album and upload 1–20 images at a time.");
       const album = await prisma.galleryAlbum.findUnique({ where: { id: albumId }, select: { id: true } });
       if (!album) return fail("Album not found.", 404);
-      const data = images.map(item => ({ albumId, url: validImage(typeof item === "string" ? item : item.url), caption: typeof item === "string" ? null : String(item.caption || "").trim().slice(0, 250) || null }));
+      const data = images.map(item => ({ albumId, url: validImage(typeof item === "string" ? item : item.url), caption: typeof item === "string" ? null : String(item.caption || "").trim().slice(0, 250) || null }));\n      if (data.reduce((total, item) => total + item.url.length, 0) > MAX_BATCH_LENGTH) return fail("The selected images are too large for one upload. Upload fewer images at a time.");
       const created = await prisma.galleryImage.createMany({ data });
       const first = data[0]?.url;
       if (first) await prisma.galleryAlbum.update({ where: { id: albumId }, data: { coverUrl: first } }).catch(() => {});
