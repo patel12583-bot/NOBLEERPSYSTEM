@@ -118,26 +118,34 @@ export async function GET() {
     }
 
     if (user.role === "STUDENT") {
-      const student = await prisma.student.findUnique({ where: { userId: user.id } });
-      const [attendanceGroups, subjects, leaves, exams] = student
-        ? await Promise.all([
-            prisma.attendance.groupBy({ by: ["status"], where: { studentId: student.id }, _count: { _all: true } }),
-            prisma.subject.count({ where: { semesterId: student.semesterId || "__none__" } }),
-            prisma.leave.count({ where: { studentId: student.id, status: "PENDING" } }),
-            prisma.examSchedule.count({ where: { subject: { semesterId: student.semesterId || "__none__" } } })
-          ])
-        : [[], 0, 0, 0];
-      const present = attendanceGroups.find(x => x.status === "PRESENT")?._count._all || 0;
-      const total = attendanceGroups.reduce((sum, x) => sum + x._count._all, 0);
-      base.stats = {
-        cards: [
-          { label: "ATTENDANCE", value: pct(present, total) === null ? "—" : pct(present, total) + "%", detail: total ? present + " of " + total + " classes" : "No attendance recorded" },
-          { label: "ACTIVE SUBJECTS", value: subjects, detail: "Current semester" },
-          { label: "PENDING LEAVE", value: leaves, detail: "Leave applications" },
-          { label: "EXAM SCHEDULES", value: exams, detail: "Published schedules" }
-        ],
-        pendingActions: leaves
-      };
+      const student = await prisma.student.findUnique({ where: { userId: user.id }, include: { semester: true, program: true } });
+      if (!student) return NextResponse.json({ ...base, stats: { cards: [
+        { label: "ATTENDANCE %", value: "—", detail: "Student profile not linked" },
+        { label: "CURRENT SEMESTER", value: "—", detail: "Contact administration" },
+        { label: "PENDING FEES", value: "—", detail: "Student profile unavailable" },
+        { label: "UPCOMING EXAM", value: "—", detail: "Student profile unavailable" },
+        { label: "ASSIGNMENTS", value: "—", detail: "Student profile unavailable" },
+        { label: "LATEST NOTICES", value: base.notices.length, detail: "Published notices" }
+      ] } });
+      const [groups, fees, exam, assignments] = await Promise.all([
+        prisma.attendance.groupBy({ by: ["status"], where: { studentId: student.id }, _count: { _all: true } }),
+        prisma.studentFee.aggregate({ where: { studentId: student.id }, _sum: { amountDue: true, amountPaid: true } }),
+        student.semesterId ? prisma.examSchedule.findFirst({ where: { date: { gte: new Date() }, subject: { semesterId: student.semesterId } }, include: { exam: true, subject: true }, orderBy: { date: "asc" } }) : null,
+        student.semesterId ? prisma.assignment.count({ where: { semesterId: student.semesterId, subject: { OR: [{ programId: null }, { programId: student.programId }] } } }) : 0
+      ]);
+      const present = groups.find(x => x.status === "PRESENT")?._count._all || 0;
+      const late = groups.find(x => x.status === "LATE")?._count._all || 0;
+      const total = groups.reduce((sum, x) => sum + x._count._all, 0);
+      const balance = Math.max(0, Number(fees._sum.amountDue || 0) - Number(fees._sum.amountPaid || 0));
+      base.student = { name: student.name, studentId: student.studentId, currentSemester: student.semester?.name || "Not assigned", course: student.program?.name || "Not assigned" };
+      base.stats = { cards: [
+        { label: "ATTENDANCE %", value: total ? Math.round((present + late * 0.5) / total * 100) + "%" : "—", detail: total ? present + " present of " + total + " marked classes" : "No attendance recorded" },
+        { label: "CURRENT SEMESTER", value: student.semester?.name || "Not assigned", detail: student.program?.name || "Current programme" },
+        { label: "PENDING FEES", value: "₹" + balance.toLocaleString("en-IN", { maximumFractionDigits: 2 }), detail: balance > 0 ? "Outstanding fee balance" : "No outstanding fee balance" },
+        { label: "UPCOMING EXAM", value: exam ? new Date(exam.date).toLocaleDateString("en-IN") : "—", detail: exam ? exam.exam.name + " • " + exam.subject.name : "No upcoming exam" },
+        { label: "ASSIGNMENTS", value: assignments, detail: "Assignments for your semester" },
+        { label: "LATEST NOTICES", value: base.notices.length, detail: "Published notices for students" }
+      ], pendingActions: balance > 0 ? 1 : 0 };
       return NextResponse.json(base);
     }
 
