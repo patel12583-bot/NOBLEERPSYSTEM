@@ -6,7 +6,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const allowed = {
-  departments: { model: "department", fields: ["code","name"] },
+  departments: { model: "department", fields: ["code","name","hodId","description","status"] },
   programs: { model: "program", fields: ["code","name","durationYears","departmentId"] },
   academicYears: { model: "academicYear", fields: ["name","startDate","endDate","active"] },
   semesters: { model: "semester", fields: ["number","name","academicYearId"] },
@@ -34,6 +34,9 @@ function clean(data, fields) {
   if (out.available !== undefined) out.available = Number(out.available);
   if (out.active !== undefined) out.active = Boolean(out.active);
   if (out.published !== undefined) out.published = Boolean(out.published);
+  if (out.hodId === "") out.hodId = null;
+  if (out.description === "") out.description = null;
+  if (out.status !== undefined && !["ACTIVE", "INACTIVE"].includes(out.status)) throw new Error("Department status must be ACTIVE or INACTIVE.");
   if (out.startDate) out.startDate = new Date(out.startDate);
   if (out.endDate) out.endDate = new Date(out.endDate);
   return out;
@@ -45,8 +48,9 @@ export async function GET(request) {
   const key = new URL(request.url).searchParams.get("module");
   const cfg = allowed[key];
   if (!cfg) return NextResponse.json({error:"Invalid module"},{status:400});
-  const rows = await prisma[cfg.model].findMany({ orderBy: { createdAt: "desc" } });
-  return NextResponse.json({ rows });
+  const rows = await prisma[cfg.model].findMany({ orderBy: { createdAt: "desc" }, ...(key === "departments" ? { include: { hod: { select: { id: true, name: true, facultyId: true } } } } : {}) });
+  const faculty = key === "departments" ? await prisma.faculty.findMany({ where: { status: "ACTIVE" }, select: { id: true, name: true, facultyId: true, departmentId: true }, orderBy: { name: "asc" } }) : [];
+  return NextResponse.json({ rows, faculty });
 }
 
 export async function POST(request) {
