@@ -206,7 +206,7 @@ export default function DashboardClient({ user }) {
               { label: "DATABASE", value: "Live", detail: "Connected dashboard session" },
               { label: "ACCESS", value: "Active", detail: `${displayRole} permissions` },
               { label: "SYSTEM STATUS", value: "Ready", detail: "Core workspace available" },
-            ]).slice(0, role === "ADMIN" || role === "SUPER_ADMIN" ? 8 : 4).map((card, index) => <article className="nobleStatCard" key={card.label || index}><div className={`nobleStatIcon statIcon${index + 1}`}>{["↗", "♙", "▦", "✓"][index]}</div><small>{card.label}</small><strong>{card.value}</strong><span>{card.detail}</span><i className="nobleStatOrb" /></article>)}
+            ]).slice(0, role === "ADMIN" || role === "SUPER_ADMIN" ? 8 : role === "STUDENT" ? 6 : 4).map((card, index) => <article className="nobleStatCard" key={card.label || index}><div className={`nobleStatIcon statIcon${index + 1}`}>{["↗", "♙", "▦", "✓"][index]}</div><small>{card.label}</small><strong>{card.value}</strong><span>{card.detail}</span><i className="nobleStatOrb" /></article>)}
           </section>
 
           <section className="nobleCommand">
