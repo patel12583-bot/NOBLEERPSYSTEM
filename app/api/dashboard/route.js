@@ -32,6 +32,12 @@ export async function GET() {
         orderBy: { publishedAt: "desc" },
         take: 5,
         select: { id: true, title: true, content: true, category: true, audience: true, publishedAt: true, attachmentUrl: true }
+      }),
+      events: await prisma.collegeEvent.findMany({
+        where: { status: "PUBLISHED", eventDate: { gte: new Date(new Date().getTime() - 24 * 60 * 60 * 1000) } },
+        orderBy: { eventDate: "asc" },
+        take: 5,
+        select: { id: true, title: true, description: true, category: true, eventDate: true, eventTime: true, venue: true, imageUrl: true, status: true }
       })
     };
 
