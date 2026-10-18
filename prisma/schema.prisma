@@ -616,3 +616,26 @@ model CollegeEvent {
   @@index([status, eventDate])
   @@index([category, eventDate])
 }
+
+
+model GalleryAlbum {
+  id          String         @id @default(cuid())
+  title       String
+  description String?
+  coverUrl    String?
+  published   Boolean        @default(false)
+  images      GalleryImage[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  @@index([published, createdAt])
+}
+
+model GalleryImage {
+  id        String      @id @default(cuid())
+  albumId   String
+  url       String
+  caption   String?
+  createdAt DateTime    @default(now())
+  album     GalleryAlbum @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  @@index([albumId, createdAt])
+}
