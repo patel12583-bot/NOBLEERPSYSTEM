@@ -36,7 +36,7 @@ const adminLinks = {
   Departments: "/admin/core?module=departments", Courses: "/admin/academics", Department: "/admin/core?module=departments",
   Programs: "/admin/core?module=programs", Academics: "/admin/academics",
   Semesters: "/admin/core?module=semesters", Divisions: "/admin/core?module=divisions",
-  Subjects: "/admin/subjects", Exams: "/admin/examination", Notices: "/admin/notices", Events: "/admin/events", Gallery: "/admin/notices", "Study Materials": "/admin/documents", Assignments: "/admin/documents", Approvals: "/leave", "Academic Management": "/admin/academics",
+  Subjects: "/admin/subjects", Exams: "/admin/examination", Notices: "/admin/notices", Events: "/admin/events", Gallery: "/admin/gallery", "Study Materials": "/admin/documents", Assignments: "/admin/documents", Approvals: "/leave", "Academic Management": "/admin/academics",
   Timetable: "/admin/timetable", Workload: "/admin/faculty", Attendance: "/admin/attendance",
   Documents: "/admin/documents", Exports: "/admin/exports",
   "Attendance Reports": "/admin/attendance/reports", Reports: "/admin/attendance/reports",
