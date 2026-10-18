@@ -61,6 +61,14 @@ export async function POST(request) {
       email: result.user.email,
     });
   } catch (error) {
+    // Unique indexes are the final guard against two simultaneous registrations
+    // using the same email/username. Report that conflict clearly instead of 500.
+    if (error?.code === "P2002") {
+      return NextResponse.json(
+        { error: "An account with this email already exists." },
+        { status: 409 }
+      );
+    }
     console.error("REGISTER_ERROR", error);
     return NextResponse.json(
       { error: "Unable to create account right now." },
