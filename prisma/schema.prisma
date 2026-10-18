@@ -209,6 +209,7 @@ model Student {
 model Faculty {
   id            String              @id @default(cuid())
   facultyId     String              @unique
+  employeeId    String?             @unique
   name          String
   gender String?
   dob DateTime?
