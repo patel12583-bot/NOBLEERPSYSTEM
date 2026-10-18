@@ -9,7 +9,7 @@ const roleNames = {
   EXAM_OFFICER: "Examination Officer", LIBRARIAN: "Librarian", HR_STAFF: "HR / Staff",
 };
 const menus = {
-  STUDENT: ["Dashboard", "My Profile", "Attendance", "Results", "Fees", "Timetable", "Assignments", "Study Materials", "Notices", "Events", "Change Password"],
+  STUDENT: ["Dashboard", "My Profile", "Attendance", "Results", "Fees", "Timetable", "Assignments", "Study Materials", "Notices", "Events", "Change Password", "Logout"],
   FACULTY: ["Dashboard", "My Profile", "Subjects", "Timetable", "Attendance", "Workload", "Leave", "Examination"],
   HOD: ["Dashboard", "Department", "Faculty", "Subjects", "Approvals", "Attendance Reports", "Examination", "Timetable"],
   PARENT: ["Dashboard", "Student Profile", "Attendance", "Results", "Fees", "Leave", "Examination"],
@@ -29,7 +29,7 @@ const icons = {
   Fees: "₹", Payments: "↔", Results: "★", Books: "▤", "Issue/Return": "↕",
   Fines: "₹", Courses: "▤", Exams: "◉", Assignments: "✎", "Study Materials": "▧", Notices: "◉", Events: "◷", Gallery: "▧", Staff: "♙", Payroll: "▰", Profile: "♙", "My Profile": "♙",
   "Student Profile": "♙", Workload: "▥", Approvals: "✓", "Attendance Reports": "▥",
-  Schedules: "◷", "Change Password": "⚿",
+  Schedules: "◷", "Change Password": "⚿", Logout: "↪",
 };
 const adminLinks = {
   Students: "/admin/students", Faculty: "/admin/faculty", HOD: "/admin/hod",
@@ -48,7 +48,7 @@ const adminLinks = {
   Payroll: "/admin/hr", Admins: "/admin/users",
 };
 const roleLinks = {
-  STUDENT: { "My Profile": "/portal?module=profile", Attendance: "/portal?module=attendance", Results: "/portal?module=results", Fees: "/portal?module=fees", Timetable: "/portal?module=timetable", Assignments: "/student/assignments", "Study Materials": "/student/study-materials", Notices: "/student/notices", Events: "/events", "Change Password": "/change-password" },
+  STUDENT: { "My Profile": "/portal?module=profile", Attendance: "/portal?module=attendance", Results: "/portal?module=results", Fees: "/portal?module=fees", Timetable: "/portal?module=timetable", Assignments: "/student/assignments", "Study Materials": "/student/study-materials", Notices: "/student/notices", Events: "/events", "Change Password": "/change-password", Logout: "/login" },
   FACULTY: { "My Profile": "/portal?module=profile", Subjects: "/portal?module=subjects", Timetable: "/portal?module=timetable", Attendance: "/admin/attendance", Workload: "/admin/faculty", Leave: "/leave", Examination: "/portal?module=examination" },
   HOD: { Department: "/admin/core?module=departments", Faculty: "/admin/faculty", Subjects: "/admin/subjects", Approvals: "/leave", "Attendance Reports": "/admin/attendance/reports", Examination: "/admin/examination", Timetable: "/admin/timetable", Attendance: "/admin/attendance" },
   PARENT: { "Student Profile": "/portal?module=profile", Attendance: "/portal?module=attendance", Results: "/portal?module=results", Fees: "/portal?module=fees", Leave: "/leave", Examination: "/portal?module=examination" },
