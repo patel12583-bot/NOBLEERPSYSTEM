@@ -29,7 +29,7 @@ const icons = {
   Fees: "₹", Payments: "↔", Results: "★", Books: "▤", "Issue/Return": "↕",
   Fines: "₹", Courses: "▤", Exams: "◉", Assignments: "✎", "Study Materials": "▧", Notices: "◉", Events: "◷", Gallery: "▧", Staff: "♙", Payroll: "▰", Profile: "♙", "My Profile": "♙",
   "Student Profile": "♙", Workload: "▥", Approvals: "✓", "Attendance Reports": "▥",
-  Schedules: "◷",
+  Schedules: "◷", "Change Password": "⚿",
 };
 const adminLinks = {
   Students: "/admin/students", Faculty: "/admin/faculty", HOD: "/admin/hod",
@@ -48,7 +48,7 @@ const adminLinks = {
   Payroll: "/admin/hr", Admins: "/admin/users",
 };
 const roleLinks = {
-  STUDENT: { "My Profile": "/portal?module=profile", Attendance: "/portal?module=attendance", Timetable: "/portal?module=timetable", Results: "/portal?module=results", Leave: "/leave", Examination: "/portal?module=examination", "Hall Ticket": "/hall-ticket" },
+  STUDENT: { "My Profile": "/portal?module=profile", Attendance: "/portal?module=attendance", Results: "/portal?module=results", Fees: "/portal?module=fees", Timetable: "/portal?module=timetable", Assignments: "/student/assignments", "Study Materials": "/student/study-materials", Notices: "/portal?module=notices", Events: "/events", "Change Password": "/change-password" },
   FACULTY: { "My Profile": "/portal?module=profile", Subjects: "/portal?module=subjects", Timetable: "/portal?module=timetable", Attendance: "/admin/attendance", Workload: "/admin/faculty", Leave: "/leave", Examination: "/portal?module=examination" },
   HOD: { Department: "/admin/core?module=departments", Faculty: "/admin/faculty", Subjects: "/admin/subjects", Approvals: "/leave", "Attendance Reports": "/admin/attendance/reports", Examination: "/admin/examination", Timetable: "/admin/timetable", Attendance: "/admin/attendance" },
   PARENT: { "Student Profile": "/portal?module=profile", Attendance: "/portal?module=attendance", Results: "/portal?module=results", Fees: "/portal?module=fees", Leave: "/leave", Examination: "/portal?module=examination" },
@@ -152,7 +152,7 @@ export default function DashboardClient({ user }) {
         </nav>
         <div className="nobleSideFoot">
           <div className="nobleUserMini"><span className="nobleUserAvatar">{displayName.slice(0, 1).toUpperCase()}</span><span className="nobleUserText"><b>{displayName}</b><small>{displayRole}</small></span></div>
-          <button className="nobleLogout" onClick={logout} disabled={busy}><span>↪</span><span className="nobleNavLabel">{busy ? "Signing out…" : "Sign out"}</span></button>
+          <button className="nobleLogout" onClick={logout} disabled={busy}><span>↪</span><span className="nobleNavLabel">{busy ? "Signing out…" : role === "STUDENT" ? "Logout" : "Sign out"}</span></button>
         </div>
       </aside>
 
