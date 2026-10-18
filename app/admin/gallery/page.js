@@ -45,7 +45,8 @@ export default function AdminGalleryPage() {
   }
   async function uploadImages(e) {
     e.preventDefault(); if (!uploadAlbum || !files.length) { setError("Choose an album and at least one image."); return; }
-    if (files.length > 20) { setError("Upload up to 20 images at a time."); return; }\n    if (files.reduce((total, file) => total + file.size, 0) > 3 * 1024 * 1024) { setError("Selected images total more than 3 MB. Please upload fewer images at a time."); return; }
+    if (files.length > 20) { setError("Upload up to 20 images at a time."); return; }
+    if (files.reduce((total, file) => total + file.size, 0) > 3 * 1024 * 1024) { setError("Selected images total more than 3 MB. Please upload fewer images at a time."); return; }
     setBusy(true); setError(""); setMessage("");
     try {
       const images = await Promise.all(files.map(file => new Promise((resolve, reject) => {
