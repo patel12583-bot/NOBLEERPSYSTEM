@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import ModuleHeader from "@/components/ModuleHeader";
 
 const configs={
- departments:{title:"Departments",fields:[["code","Department Code","text"],["name","Department Name","text"]]},
+ departments:{title:"Departments",fields:[["code","Department Code","text"],["name","Department Name","text"],["hodId","HOD Faculty ID","text"],["description","Description","text"],["status","Status","text"]]},
  programs:{title:"Programs",fields:[["code","Program Code","text"],["name","Program Name","text"],["durationYears","Duration (Years)","number"],["departmentId","Department ID","text"]]},
  academicYears:{title:"Academic Years",fields:[["name","Academic Year","text"],["startDate","Start Date","date"],["endDate","End Date","date"],["active","Active","checkbox"]]},
  semesters:{title:"Semesters",fields:[["number","Semester Number","number"],["name","Semester Name","text"],["academicYearId","Academic Year ID","text"]]},
@@ -20,8 +20,8 @@ function CoreAdminContent(){
  const params=useSearchParams();
  const module=params.get("module")||"departments";
  const cfg=configs[module]||configs.departments;
- const [rows,setRows]=useState([]),[form,setForm]=useState({}),[editing,setEditing]=useState(null),[loading,setLoading]=useState(true),[saving,setSaving]=useState(false),[error,setError]=useState(""),[query,setQuery]=useState("");
- async function load(){setLoading(true);const r=await fetch("/api/admin/core?module="+module);const d=await r.json();if(r.ok)setRows(d.rows||[]);else setError(d.error||"Unable to load.");setLoading(false)}
+ const [rows,setRows]=useState([]),[form,setForm]=useState({}),[editing,setEditing]=useState(null),[loading,setLoading]=useState(true),[saving,setSaving]=useState(false),[error,setError]=useState(""),[query,setQuery]=useState(""),[faculty,setFaculty]=useState([]);
+ async function load(){setLoading(true);const r=await fetch("/api/admin/core?module="+module);const d=await r.json();if(r.ok){setRows(d.rows||[]);if(module==="departments")setFaculty(d.faculty||[])}else setError(d.error||"Unable to load.");setLoading(false)}
  useEffect(()=>{setForm({});setEditing(null);load()},[module]);
  const filtered=useMemo(()=>rows.filter(row=>JSON.stringify(row).toLowerCase().includes(query.toLowerCase())),[rows,query]);
  function edit(row){setEditing(row.id);setForm({...row})}
@@ -33,7 +33,7 @@ function CoreAdminContent(){
   <form onSubmit={save} style={{margin:"24px 0",padding:"20px",border:"1px solid #ddd",borderRadius:"18px",display:"grid",gap:"14px"}}>
    <b>{editing?"Edit record":"Add new record"}</b>
    <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(190px,1fr))",gap:"14px"}}>
-    {cfg.fields.map(([key,label,type])=><label key={key}>{label}{type==="checkbox"?<input type="checkbox" checked={Boolean(form[key])} onChange={e=>change(key,e.target.checked)}/>:<input type={type} value={form[key]??""} onChange={e=>change(key,e.target.value)} required={!["capacity","credits","type","isbn","author","category","available"].includes(key)}/>}</label>)}
+    {cfg.fields.map(([key,label,type])=><label key={key} style={{display:"grid",gap:6}}>{label}{module==="departments"&&key==="hodId"?<select value={form[key]??""} onChange={e=>change(key,e.target.value)}><option value="">No HOD assigned</option>{faculty.map(f=><option key={f.id} value={f.id}>{f.name} — {f.facultyId}</option>)}</select>:module==="departments"&&key==="status"?<select value={form[key]??"ACTIVE"} onChange={e=>change(key,e.target.value)}><option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option></select>:type==="checkbox"?<input type="checkbox" checked={Boolean(form[key])} onChange={e=>change(key,e.target.checked)}/>:<input type={type} value={form[key]??""} onChange={e=>change(key,e.target.value)} required={!["capacity","credits","type","isbn","author","category","available","hodId","description"].includes(key)}/>}</label>)}
    </div>
    {error&&<div className="error">{error}</div>}
    <div><button className="primary" disabled={saving}>{saving?"Saving…":editing?"Update Record →":"Add Record →"}</button>{editing&&<button type="button" className="back" onClick={()=>{setEditing(null);setForm({})}}>Cancel</button>}</div>
