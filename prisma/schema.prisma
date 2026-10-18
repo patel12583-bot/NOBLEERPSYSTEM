@@ -112,6 +112,7 @@ model Program {
   department   Department @relation(fields: [departmentId], references: [id])
   students     Student[]
   subjects     Subject[]
+  studyMaterials StudyMaterial[]
   divisions    Division[]
   feeStructures FeeStructure[]
   createdAt    DateTime   @default(now())
