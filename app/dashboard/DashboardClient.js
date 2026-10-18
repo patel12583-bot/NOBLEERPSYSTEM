@@ -126,6 +126,7 @@ export default function DashboardClient({ user }) {
 
   function go(label) {
     setError("");
+    if (label === "Logout") { logout(); setMobileOpen(false); return; }
     if (label === "Dashboard") { router.push("/dashboard"); setMobileOpen(false); return; }
     const target = coreLinks[label] || portalLinks[label];
     if (target) { router.push(target); setMobileOpen(false); }
