@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 const allowed = {
   departments: { model: "department", fields: ["code","name","hodId","description","status"] },
-  programs: { model: "program", fields: ["code","name","durationYears","departmentId"] },
+  programs: { model: "program", fields: ["code","name","durationYears","totalSemesters","fees","description","status","departmentId"] },
   academicYears: { model: "academicYear", fields: ["name","startDate","endDate","active"] },
   semesters: { model: "semester", fields: ["number","name","academicYearId"] },
   divisions: { model: "division", fields: ["name","capacity","programId","semesterId"] },
@@ -27,6 +27,11 @@ function clean(data, fields) {
   const out = {};
   for (const key of fields) if (data[key] !== undefined) out[key] = data[key];
   if (out.durationYears !== undefined) out.durationYears = Number(out.durationYears);
+  if (out.totalSemesters !== undefined) out.totalSemesters = Number(out.totalSemesters);
+  if (out.fees !== undefined) out.fees = out.fees === "" || out.fees === null ? null : Number(out.fees);
+  if (out.departmentId === "") out.departmentId = undefined;
+  if (out.description === "") out.description = null;
+  if (out.status !== undefined && !["ACTIVE", "INACTIVE"].includes(out.status)) throw new Error("Course status must be ACTIVE or INACTIVE.");
   if (out.number !== undefined) out.number = Number(out.number);
   if (out.capacity !== undefined) out.capacity = out.capacity === "" ? null : Number(out.capacity);
   if (out.credits !== undefined) out.credits = out.credits === "" ? null : Number(out.credits);
@@ -48,9 +53,10 @@ export async function GET(request) {
   const key = new URL(request.url).searchParams.get("module");
   const cfg = allowed[key];
   if (!cfg) return NextResponse.json({error:"Invalid module"},{status:400});
-  const rows = await prisma[cfg.model].findMany({ orderBy: { createdAt: "desc" }, ...(key === "departments" ? { include: { hod: { select: { id: true, name: true, facultyId: true } } } } : {}) });
+  const rows = await prisma[cfg.model].findMany({ orderBy: { createdAt: "desc" }, ...(key === "departments" ? { include: { hod: { select: { id: true, name: true, facultyId: true } } } } : key === "programs" ? { include: { department: { select: { id: true, name: true, code: true } } } } : {}) });
   const faculty = key === "departments" ? await prisma.faculty.findMany({ where: { status: "ACTIVE" }, select: { id: true, name: true, facultyId: true, departmentId: true }, orderBy: { name: "asc" } }) : [];
-  return NextResponse.json({ rows, faculty });
+  const departments = key === "programs" ? await prisma.department.findMany({ where: { status: "ACTIVE" }, select: { id: true, name: true, code: true }, orderBy: { name: "asc" } }) : [];
+  return NextResponse.json({ rows, faculty, departments });
 }
 
 export async function POST(request) {
