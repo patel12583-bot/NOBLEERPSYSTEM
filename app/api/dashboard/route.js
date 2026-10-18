@@ -36,23 +36,33 @@ export async function GET() {
     };
 
     if (["SUPER_ADMIN", "ADMIN"].includes(user.role)) {
-      const [students, faculty, departments, subjects, pendingLeaves, exams] = await Promise.all([
+      const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+      const [students, faculty, departments, courses, subjects, pendingLeaves, pendingFees, attendanceToday, upcomingExams, publishedNotices] = await Promise.all([
         prisma.student.count({ where: { status: "ACTIVE" } }),
         prisma.faculty.count({ where: { status: "ACTIVE" } }),
         prisma.department.count(),
+        prisma.program.count(),
         prisma.subject.count(),
         prisma.leave.count({ where: { status: "PENDING" } }),
-        prisma.exam.count({ where: { status: { not: "COMPLETED" } } })
+        prisma.studentFee.count({ where: { status: "PENDING" } }),
+        prisma.attendance.count({ where: { date: { gte: today, lt: tomorrow } } }),
+        prisma.examSchedule.count({ where: { date: { gte: new Date() } } }),
+        prisma.notice.count({ where: { published: true, AND: [{ OR: [{ expiryDate: null }, { expiryDate: { gte: new Date() } }] }, { OR: [{ scheduledAt: null }, { scheduledAt: { lte: new Date() } }] }] } })
       ]);
       base.stats = {
         cards: [
-          { label: "ACTIVE STUDENTS", value: students, detail: "Currently enrolled" },
-          { label: "ACTIVE FACULTY", value: faculty, detail: "Teaching staff" },
-          { label: "DEPARTMENTS", value: departments, detail: "Academic departments" },
-          { label: "ACTIVE SUBJECTS", value: subjects, detail: "Configured subjects" }
+          { label: "TOTAL STUDENTS", value: students, detail: "Active enrolled students" },
+          { label: "TOTAL FACULTY", value: faculty, detail: "Active teaching staff" },
+          { label: "TOTAL DEPARTMENTS", value: departments, detail: "Academic departments" },
+          { label: "TOTAL COURSES", value: courses, detail: "Configured programs" },
+          { label: "PENDING FEES", value: pendingFees, detail: "Student fee records awaiting payment" },
+          { label: "TODAY'S ATTENDANCE", value: attendanceToday, detail: "Attendance records for today" },
+          { label: "UPCOMING EXAMS", value: upcomingExams, detail: "Future exam schedule entries" },
+          { label: "LATEST NOTICES", value: publishedNotices, detail: "Currently published notices" }
         ],
-        pendingActions: pendingLeaves,
-        examCount: exams
+        pendingActions: pendingLeaves + pendingFees,
+        examCount: upcomingExams,
+        subjectCount: subjects
       };
       return NextResponse.json(base);
     }
