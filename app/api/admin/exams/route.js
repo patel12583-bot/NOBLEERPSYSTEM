@@ -9,7 +9,7 @@ export async function GET(req){
  const [exams,years,subjects,rooms]=await Promise.all([
   prisma.exam.findMany({orderBy:{createdAt:"desc"},include:{academicYear:true,schedules:{orderBy:{date:"asc"},include:{subject:true,room:true}}}}),
   prisma.academicYear.findMany({orderBy:{name:"desc"}}),
-  prisma.subject.findMany({orderBy:{name:"asc"}}),
+  prisma.subject.findMany({orderBy:{name:"asc"},include:{program:true,semester:true,department:true}}),
   prisma.room.findMany({orderBy:{code:"asc"}})
  ]);
  return NextResponse.json({exams,years,subjects,rooms});
