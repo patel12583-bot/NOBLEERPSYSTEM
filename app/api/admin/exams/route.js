@@ -50,7 +50,7 @@ export async function PUT(req){
    return NextResponse.json({schedule:row});
   }
   if(!b.id)return NextResponse.json({error:"Exam id required."},{status:400});
-  const row=await prisma.exam.update({where:{id:b.id},data:{name:b.name,examType:b.examType,academicYearId:b.academicYearId||null,startDate:b.startDate?new Date(b.startDate):null,endDate:b.endDate?new Date(b.endDate):null,status:b.status||"DRAFT"}});
+  const row=await prisma.exam.update({where:{id:b.id},data:{name:b.name,examType:b.examType,academicYearId:b.academicYearId||null,startDate:b.startDate?new Date(b.startDate):null,endDate:b.endDate?new Date(b.endDate):null,status:b.status||"DRAFT",totalMarks:b.totalMarks===""||b.totalMarks==null?100:Number(b.totalMarks),passingMarks:b.passingMarks===""||b.passingMarks==null?40:Number(b.passingMarks)}});
   return NextResponse.json({exam:row});
  }catch(e){return NextResponse.json({error:"Unable to update exam or schedule."},{status:400})}
 }
