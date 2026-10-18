@@ -148,6 +148,78 @@ export async function GET() {
       return NextResponse.json(base);
     }
 
+    if (user.role === "ACCOUNTANT") {
+      const [pendingFees, overdueFees, paymentsToday] = await Promise.all([
+        prisma.studentFee.count({ where: { status: "PENDING" } }),
+        prisma.studentFee.count({ where: { status: "PENDING", feeStructure: { dueDate: { lt: new Date() } } } }),
+        prisma.payment.count({ where: { paidAt: { gte: today, lt: new Date(today.getTime() + 24 * 60 * 60 * 1000) } } })
+      ]);
+      base.stats = {
+        cards: [
+          { label: "PENDING FEE ACCOUNTS", value: pendingFees, detail: "Student fee records awaiting payment" },
+          { label: "OVERDUE FEE ACCOUNTS", value: overdueFees, detail: "Past-due fee records" },
+          { label: "PAYMENTS TODAY", value: paymentsToday, detail: "Receipts recorded today" },
+          { label: "FINANCE PORTAL", value: "Active", detail: "Accountant workspace" }
+        ],
+        pendingActions: pendingFees
+      };
+      return NextResponse.json(base);
+    }
+
+    if (user.role === "EXAM_OFFICER") {
+      const [draftExams, activeExams, upcomingSchedules] = await Promise.all([
+        prisma.exam.count({ where: { status: "DRAFT" } }),
+        prisma.exam.count({ where: { status: { not: "COMPLETED" } } }),
+        prisma.examSchedule.count({ where: { date: { gte: new Date() } } })
+      ]);
+      base.stats = {
+        cards: [
+          { label: "DRAFT EXAMS", value: draftExams, detail: "Exams awaiting publication" },
+          { label: "ACTIVE EXAMS", value: activeExams, detail: "Not marked completed" },
+          { label: "UPCOMING SCHEDULES", value: upcomingSchedules, detail: "Future exam timetable entries" },
+          { label: "EXAM PORTAL", value: "Active", detail: "Examination workspace" }
+        ],
+        pendingActions: draftExams
+      };
+      return NextResponse.json(base);
+    }
+
+    if (user.role === "LIBRARIAN") {
+      const [books, activeIssues, overdueIssues] = await Promise.all([
+        prisma.book.count(),
+        prisma.bookIssue.count({ where: { returnDate: null } }),
+        prisma.bookIssue.count({ where: { returnDate: null, dueDate: { lt: new Date() } } })
+      ]);
+      base.stats = {
+        cards: [
+          { label: "BOOK TITLES", value: books, detail: "Catalogued titles" },
+          { label: "ACTIVE ISSUES", value: activeIssues, detail: "Books not yet returned" },
+          { label: "OVERDUE ISSUES", value: overdueIssues, detail: "Unreturned books past due date" },
+          { label: "LIBRARY PORTAL", value: "Active", detail: "Library workspace" }
+        ],
+        pendingActions: overdueIssues
+      };
+      return NextResponse.json(base);
+    }
+
+    if (user.role === "HR_STAFF") {
+      const [activeFaculty, pendingFacultyLeaves, facultyAttendanceToday] = await Promise.all([
+        prisma.faculty.count({ where: { status: "ACTIVE" } }),
+        prisma.facultyLeave.count({ where: { status: "PENDING" } }),
+        prisma.facultyAttendance.count({ where: { date: { gte: today, lt: new Date(today.getTime() + 24 * 60 * 60 * 1000) } } })
+      ]);
+      base.stats = {
+        cards: [
+          { label: "ACTIVE FACULTY", value: activeFaculty, detail: "Faculty records marked active" },
+          { label: "PENDING LEAVES", value: pendingFacultyLeaves, detail: "Faculty leave requests awaiting review" },
+          { label: "ATTENDANCE TODAY", value: facultyAttendanceToday, detail: "Faculty attendance records" },
+          { label: "HR PORTAL", value: "Active", detail: "Human resources workspace" }
+        ],
+        pendingActions: pendingFacultyLeaves
+      };
+      return NextResponse.json(base);
+    }
+
     base.stats = {
       cards: [
         { label: "ACCOUNT", value: "Active", detail: user.role.replaceAll("_", " ") },
