@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import AdminShell from "@/components/AdminShell";
 import ModuleHeader from "@/components/ModuleHeader";
@@ -29,7 +29,7 @@ function ProfileContent() {
         <div style={{ flex: 1 }}><h2 style={{ margin: "0 0 6px" }}>{student.name}</h2><div>{student.studentId} · {student.status}</div><div>{student.program?.name || "Course not assigned"} · {student.semester?.name || "Semester not assigned"}</div></div>
         <button className="back" onClick={() => window.location.href = "/admin/students"}>← Student List</button>
       </section>
-      {section("Personal Information", <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 14 }}>{[["First Name",student.firstName],["Last Name",student.lastName],["Enrollment Number",student.enrollmentNo],["Admission Number",student.admissionNo],["Date of Birth",date(student.dob)],["Gender",student.gender],["Mobile",student.mobile],["Email",student.email],["Address",student.address],["City",student.city],["State",student.state],["Pincode",student.pincode],["Admission Date",date(student.admissionDate)]].map(([k,v])=><div key={k}><small style={{opacity:.7}}>{k}</small><div>{v || "—"}</div></div>)}</div>)}
+      {section("Personal Information", <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 14 }}>{[["First Name",student.firstName],["Last Name",student.lastName],["Name as on Aadhaar",student.aadhaarName],["Enrollment Number",student.enrollmentNo],["Admission Number",student.admissionNo],["Date of Birth",date(student.dob)],["Gender",student.gender],["Mobile",student.mobile],["Email",student.email],["Address",student.address],["City",student.city],["State",student.state],["Pincode",student.pincode],["Admission Date",date(student.admissionDate)]].map(([k,v])=><div key={k}><small style={{opacity:.7}}>{k}</small><div>{v || "—"}</div></div>)}</div>)}
       {section("Course Information", <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 14 }}>{[["Department",student.department?.name],["Course",student.program?.name],["Semester",student.semester?.name],["Division",student.division?.name],["Academic Year",student.academicYear?.name]].map(([k,v])=><div key={k}><small style={{opacity:.7}}>{k}</small><div>{v || "—"}</div></div>)}</div>)}
       {section("Attendance", student.attendance?.length ? <div style={{overflowX:"auto"}}><table style={{width:"100%"}}><thead><tr><th align="left">Date</th><th align="left">Subject</th><th align="left">Period</th><th align="left">Status</th></tr></thead><tbody>{student.attendance.map(a=><tr key={a.id}><td>{date(a.date)}</td><td>{a.subject?.name}</td><td>{a.period}</td><td>{a.status}</td></tr>)}</tbody></table></div> : <p>No attendance records found.</p>)}
       {section("Results", student.results?.length ? <div style={{overflowX:"auto"}}><table style={{width:"100%"}}><thead><tr><th align="left">Exam</th><th align="left">Subject</th><th align="left">Marks</th><th align="left">Grade</th><th align="left">Status</th></tr></thead><tbody>{student.results.map(r=><tr key={r.id}><td>{r.exam?.name}</td><td>{r.subject?.name}</td><td>{r.marks ?? "—"}</td><td>{r.grade || "—"}</td><td>{r.status}</td></tr>)}</tbody></table></div> : <p>No result records found.</p>)}
@@ -39,4 +39,4 @@ function ProfileContent() {
     </>}
   </main></AdminShell>;
 }
-export default function StudentProfilePage() { return <ProfileContent />; }
+export default function StudentProfilePage() { return <Suspense fallback={<main className="content" style={{padding:30}}>Loading student profile…</main>}><ProfileContent /></Suspense>; }
