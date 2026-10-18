@@ -97,7 +97,7 @@ export async function GET() {
     if (user.role === "FACULTY") {
       const faculty = await prisma.faculty.findUnique({
         where: { userId: user.id },
-        include: { subjects: true }
+        include: { subjects: { include: { subject: true } } }
       });
       const subjectIds = faculty?.subjects.map(x => x.subjectId) || [];
       const [todayClasses, pendingAssignments] = await Promise.all([
@@ -105,10 +105,12 @@ export async function GET() {
         prisma.assignment.count({ where: { facultyId: faculty?.id || "__none__", submissions: { some: {} } } })
       ]);
       const subjects = subjectIds.length;
+      const cohorts = (faculty?.subjects || []).map(x => ({ ...(x.subject.programId ? { programId: x.subject.programId } : {}), ...(x.subject.semesterId ? { semesterId: x.subject.semesterId } : {}) })).filter(x => Object.keys(x).length > 0);
+      const totalStudents = cohorts.length ? await prisma.student.count({ where: { status: "ACTIVE", OR: cohorts } }) : 0;
       base.stats = {
         cards: [
           { label: "ASSIGNED SUBJECTS", value: subjects, detail: "Subjects linked to your faculty account" },
-          { label: "TOTAL STUDENTS", value: 0, detail: "Students in your assigned subject cohorts" },
+          { label: "TOTAL STUDENTS", value: totalStudents, detail: "Students in your assigned subject cohorts" },
           { label: "TODAY'S CLASSES", value: todayClasses, detail: "Your scheduled classes today" },
           { label: "PENDING ASSIGNMENTS", value: pendingAssignments, detail: "Assignments with submissions to review" }
         ],
