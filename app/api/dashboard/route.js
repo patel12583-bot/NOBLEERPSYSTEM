@@ -100,19 +100,19 @@ export async function GET() {
         include: { subjects: true }
       });
       const subjectIds = faculty?.subjects.map(x => x.subjectId) || [];
-      const [todayClasses, pendingLeaves] = await Promise.all([
+      const [todayClasses, pendingAssignments] = await Promise.all([
         prisma.timetable.count({ where: { facultyId: faculty?.id || "__none__", dayOfWeek: today.getDay() } }),
-        prisma.facultyLeave.count({ where: { facultyId: faculty?.id || "__none__", status: "PENDING" } })
+        prisma.assignment.count({ where: { facultyId: faculty?.id || "__none__", submissions: { some: {} } } })
       ]);
       const subjects = subjectIds.length;
       base.stats = {
         cards: [
-          { label: "MY SUBJECTS", value: subjects, detail: "Assigned subjects" },
-          { label: "TODAY'S CLASSES", value: todayClasses, detail: "Timetable slots" },
-          { label: "LEAVE REQUESTS", value: pendingLeaves, detail: "My pending requests" },
-          { label: "STATUS", value: "Active", detail: "Faculty account" }
+          { label: "ASSIGNED SUBJECTS", value: subjects, detail: "Subjects linked to your faculty account" },
+          { label: "TOTAL STUDENTS", value: 0, detail: "Students in your assigned subject cohorts" },
+          { label: "TODAY'S CLASSES", value: todayClasses, detail: "Your scheduled classes today" },
+          { label: "PENDING ASSIGNMENTS", value: pendingAssignments, detail: "Assignments with submissions to review" }
         ],
-        pendingActions: pendingLeaves
+        pendingActions: pendingAssignments
       };
       return NextResponse.json(base);
     }
