@@ -3306,3 +3306,128 @@ html.pwa-standalone .homepageImageOnly .nav .brand b:before {
     align-items:flex-start;
   }
 }
+
+
+/* Public Noble Group of Institutes website */
+.collegeSite{background:#fbfaf7;color:#13263b;min-height:100vh;overflow:hidden;--college-navy:#0a2946;--college-blue:#1769d5;--college-gold:#c99a3e;--college-muted:#69798b}
+.collegeTopline{min-height:31px;padding:7px 5.5vw;display:flex;justify-content:space-between;gap:12px;background:#08213a;color:#c4d4e5;font-size:9px;letter-spacing:1.5px;font-weight:700}
+.collegeHeader{min-height:90px;padding:14px 5.5vw;display:flex;align-items:center;justify-content:space-between;gap:20px;background:#fff}
+.collegeBrand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--college-navy);min-width:0}
+.collegeBrand img{width:58px;height:58px;object-fit:contain}
+.collegeBrand strong{display:block;font-size:14px;letter-spacing:1.3px;line-height:1.35}
+.collegeBrand small{display:block;color:#718197;font-size:9px;letter-spacing:1px;margin-top:5px}
+.collegeHeaderActions{display:flex;align-items:center;gap:10px}
+.collegeInstall,.collegeLogin{border:1px solid #d8e2ed;border-radius:5px;padding:12px 15px;font-size:10px;font-weight:800;letter-spacing:.8px;text-decoration:none;white-space:nowrap}
+.collegeInstall{background:#fff;color:#194e83}.collegeLogin{background:#0c2b49;color:#fff;border-color:#0c2b49}
+.collegeNav{padding:0 5.5vw;display:flex;align-items:center;gap:0;background:#f4f6f8;border-top:1px solid #edf0f3;border-bottom:1px solid #e4e9ef;overflow-x:auto;scrollbar-width:thin}
+.collegeNav a{display:block;padding:15px 12px;color:#3d5065;font-size:10px;font-weight:700;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent}
+.collegeNav a:hover,.collegeNav a:focus{color:#1769d5;border-bottom-color:#c99a3e}
+.collegeHero{min-height:560px;position:relative;display:flex;align-items:center;background:#09233f url("/WhatsApp%20Image%202026-10-11%20at%2012.35.39%20PM.jpeg") center/cover no-repeat;color:#fff}
+.collegeHeroShade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,21,39,.91) 0%,rgba(4,25,46,.72) 48%,rgba(4,25,46,.15) 100%)}
+.collegeHeroContent{position:relative;z-index:1;width:min(1180px,100%);padding:90px 6vw 100px;margin:auto}
+.collegeEyebrow{display:inline-block;font-size:10px;font-weight:800;letter-spacing:2.2px;color:#76b7ff}
+.collegeHero h1,.collegeAdmission h2,.collegeContact h2{font-family:"Playfair Display",serif;font-size:clamp(47px,6.2vw,82px);line-height:1.04;letter-spacing:-2.5px;margin:22px 0}
+.collegeHero h1 em,.collegeSection h2 em,.collegeFaculty h2 em,.collegeAdmission h2 em,.collegeContact h2 em{font-weight:600;color:#d3a74e}
+.collegeHeroContent>p{max-width:520px;color:#e0e9f1;font-size:15px;line-height:1.9}
+.collegeHeroActions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.collegePrimary,.collegeOutline,.collegeOutlineLight{display:inline-flex;align-items:center;justify-content:center;gap:22px;padding:14px 18px;border-radius:4px;text-decoration:none;font-size:11px;font-weight:800}
+.collegePrimary{background:#1769d5;color:#fff;border:1px solid #1769d5}
+.collegePrimary:hover{background:#0e55b5}
+.collegeOutline{color:#fff;border:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.06)}
+.collegeHeroNote{margin-top:42px;padding-top:16px;border-top:1px solid rgba(255,255,255,.25);max-width:350px;color:#d4e2f0;font-size:10px;letter-spacing:1.6px;font-weight:800}
+.collegeHeroBadge{position:absolute;right:5.5vw;bottom:28px;z-index:1;display:flex;align-items:center;gap:12px;padding:15px 20px;background:rgba(6,31,55,.78);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(10px)}
+.collegeHeroBadge>span{font-family:"Playfair Display",serif;color:#d5aa58;font-size:28px}
+.collegeHeroBadge strong,.collegeHeroBadge small{display:block}.collegeHeroBadge strong{font-size:11px}.collegeHeroBadge small{margin-top:4px;font-size:9px;color:#c3d2e1}
+.collegeStats{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-bottom:1px solid #e6ebef;padding:0 5.5vw}
+.collegeStats>div{padding:25px 18px;border-right:1px solid #e8edf2;display:flex;align-items:center;gap:12px}
+.collegeStats>div:first-child{border-left:1px solid #e8edf2}
+.collegeStats strong{font-family:"Playfair Display",serif;color:#1769d5;font-size:27px;white-space:nowrap}
+.collegeStats span{color:#64758a;font-size:10px;line-height:1.5}
+.collegeSection{padding:88px 6vw;max-width:1440px;margin:0 auto;scroll-margin-top:20px}
+.collegeSectionLabel{font-size:9px;font-weight:800;letter-spacing:2px;color:#1769d5;margin-bottom:24px}
+.collegeAboutGrid,.collegePlacement{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.collegeSection h2,.collegeFaculty h2,.collegePlacement h2{font-family:"Playfair Display",serif;font-size:clamp(34px,4.2vw,54px);line-height:1.13;letter-spacing:-1.4px;margin:0;color:#102b46}
+.collegeAboutGrid p,.collegePlacement p{font-size:13px;line-height:2;color:#64758a;margin:0 0 20px}
+.collegeTextLink{display:inline-block;color:#1769d5;font-size:11px;font-weight:800;text-decoration:none;border-bottom:1px solid #b8cfee;padding-bottom:7px}
+.collegeVision{display:grid;grid-template-columns:1fr 1fr}
+.collegeVisionCard{padding:60px 8vw;background:#f0f4f7}
+.collegeVisionCard>span{color:#1769d5;font-size:9px;font-weight:800;letter-spacing:2px}
+.collegeVisionCard h2{font-family:"Playfair Display",serif;font-size:35px;line-height:1.2;color:#102b46;margin:20px 0 12px}
+.collegeVisionCard p{max-width:440px;color:#687a8d;font-size:12px;line-height:1.9}
+.collegeVisionDark{background:#0a2946}.collegeVisionDark>span{color:#e2b75e}.collegeVisionDark h2{color:#fff}.collegeVisionDark p{color:#c0cfdd}
+.collegePrincipal{display:grid;grid-template-columns:160px 1fr;gap:40px;align-items:start;max-width:1000px;margin:auto}
+.collegePrincipalMark{width:140px;height:160px;display:grid;place-items:center;background:linear-gradient(145deg,#173e60,#0a2946);color:#d6ad5c;font-family:"Playfair Display",serif;font-size:68px;box-shadow:12px 12px 0 #e8edf2}
+.collegePrincipal h2{font-size:34px;margin:15px 0}
+.collegePrincipal p{font-size:12px;line-height:2;color:#64758a}
+.collegePrincipal small{color:#1769d5;font-size:11px;font-weight:800}
+.collegeSmallNote{font-size:10px!important;color:#8b97a5!important;font-style:italic}
+.collegeSoft{max-width:none;background:#f1f4f6}
+.collegeSoft>*{max-width:1200px;margin-left:auto;margin-right:auto}
+.collegeSectionHeading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}
+.collegeSectionHeading>div>p{font-size:12px;color:#718197;line-height:1.8;margin:10px 0 0}
+.collegeDepartmentGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.collegeDepartmentCard{min-height:175px;padding:22px;display:flex;align-items:start;gap:18px;background:#fff;border:1px solid #e1e8ee;color:#13263b;text-decoration:none;transition:transform .2s,border-color .2s}
+.collegeDepartmentCard:hover{transform:translateY(-3px);border-color:#8bb9e9}
+.collegeDepartmentCard>span{color:#c99a3e;font-family:"Playfair Display",serif;font-size:22px}
+.collegeDepartmentCard>div{flex:1}.collegeDepartmentCard small,.collegeCourseCard small{font-size:8px;color:#1769d5;letter-spacing:1.2px;font-weight:800}
+.collegeDepartmentCard h3{font-family:"Playfair Display",serif;font-size:20px;margin:10px 0}
+.collegeDepartmentCard p{font-size:10px;line-height:1.7;color:#718197;margin:0}
+.collegeDepartmentCard>b{color:#1769d5}
+.collegeCourseGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.collegeCourseCard{display:flex;align-items:center;gap:18px;padding:20px;background:#fff;border:1px solid #e0e7ed}
+.collegeCourseCard>span{font-family:"Playfair Display",serif;font-size:21px;color:#1769d5;width:92px;flex:none}
+.collegeCourseCard>div{flex:1}.collegeCourseCard h3{font-size:13px;line-height:1.6;margin:7px 0;color:#17314b}
+.collegeCourseCard>a{font-size:10px;font-weight:800;color:#1769d5;text-decoration:none;white-space:nowrap}
+.collegeFaculty{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:40px;padding:80px 10vw;background:#0a2946;color:#fff}
+.collegeFaculty h2{color:#fff;margin:18px 0}.collegeFaculty p{max-width:460px;color:#c5d4e1;font-size:12px;line-height:1.9;margin-bottom:24px}
+.collegeFacultyVisual{min-height:300px;background:linear-gradient(140deg,#1a4e78,#0c2d4c);border:1px solid rgba(255,255,255,.15);display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:20px 20px 0 rgba(255,255,255,.05);transform:rotate(1deg)}
+.collegeFacultyVisual span{font-size:9px;letter-spacing:4px;color:#d7ae5d;margin-bottom:20px}
+.collegeFacultyVisual b{font-family:"Playfair Display",serif;font-size:clamp(30px,4vw,52px);letter-spacing:3px;color:#fff;line-height:1.15}
+.collegeAdmission{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:70px 10vw;background:#c99a3e;color:#fff}
+.collegeAdmission .collegeEyebrow{color:#fff6dc}.collegeAdmission h2{font-size:clamp(36px,4.5vw,55px);margin:16px 0}.collegeAdmission h2 em{color:#09233f}
+.collegeAdmission p{max-width:550px;color:#fff9e9;font-size:12px;line-height:1.8}
+.collegeAdmissionActions{display:grid;gap:10px;min-width:205px}.collegeAdmissionActions .collegePrimary{background:#092b49;border-color:#092b49}
+.collegeOutlineLight{color:#fff;border:1px solid rgba(255,255,255,.65)}
+.collegeFacilityGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.collegeFacilityGrid article{padding:24px 20px;border:1px solid #e0e7ed;background:#fff}
+.collegeFacilityGrid article>span{font-size:28px}.collegeFacilityGrid h3{font-family:"Playfair Display",serif;font-size:18px;color:#132e49;margin:20px 0 8px}
+.collegeFacilityGrid p{font-size:11px;color:#718197;line-height:1.8}
+.collegeUpdatesGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.collegeUpdatesGrid article{padding:22px;background:#fff;border:1px solid #e0e7ed}
+.collegeUpdatesGrid small{font-size:9px;color:#1769d5;font-weight:800;letter-spacing:1px}
+.collegeUpdatesGrid h3{font-family:"Playfair Display",serif;font-size:19px;margin:14px 0 8px}
+.collegeUpdatesGrid p{font-size:11px;color:#718197;line-height:1.8}
+.collegeEmptyUpdate{display:flex;align-items:center;gap:18px;padding:22px;background:#fff;border:1px solid #e0e7ed}
+.collegeEmptyUpdate>span{width:42px;height:42px;display:grid;place-items:center;background:#eef5fc;color:#1769d5;font-size:20px;flex:none}
+.collegeEmptyUpdate>div{flex:1}.collegeEmptyUpdate strong{font-size:12px}.collegeEmptyUpdate p{font-size:10px;color:#718197;line-height:1.7;margin:6px 0 0}
+.collegeEmptyUpdate>a,.collegeNewsBanner>a{font-size:10px;color:#1769d5;font-weight:800;text-decoration:none;white-space:nowrap}
+.collegeNewsBanner{display:flex;align-items:center;gap:25px;padding:26px;background:#fff;border:1px solid #e0e7ed}
+.collegeNewsBanner>span{font-size:9px;font-weight:800;letter-spacing:1.5px;color:#1769d5;border-right:1px solid #dce4eb;padding-right:25px}
+.collegeNewsBanner>div{flex:1}.collegeNewsBanner h3{font-family:"Playfair Display",serif;font-size:22px;margin:0 0 6px}.collegeNewsBanner p{font-size:11px;color:#718197;margin:0;line-height:1.7}
+.collegeNoticeList{border-top:1px solid #e1e8ee}.collegeNoticeList article{display:flex;align-items:center;gap:20px;padding:20px 10px;border-bottom:1px solid #e1e8ee}
+.collegeNoticeList article>span{font-family:"Playfair Display",serif;font-size:22px;color:#c99a3e}.collegeNoticeList article>div{flex:1}
+.collegeNoticeList small{font-size:8px;color:#1769d5;font-weight:800;letter-spacing:1px}.collegeNoticeList h3{font-size:13px;margin:7px 0 0}.collegeNoticeList b{color:#1769d5}
+.collegeGalleryImage{height:340px;position:relative;background:#0a2946 url("/WhatsApp%20Image%202026-10-11%20at%2012.35.39%20PM.jpeg") center/cover no-repeat}
+.collegeGalleryImage:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,25,44,.68),transparent 65%)}
+.collegeGalleryImage span{position:absolute;bottom:25px;left:28px;z-index:1;color:#fff;font-size:10px;letter-spacing:2px;font-weight:800}
+.collegeDownloadGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.collegeDownloadGrid>a{display:flex;align-items:center;gap:14px;padding:20px;background:#fff;border:1px solid #e0e7ed;color:#13263b;text-decoration:none}
+.collegeDownloadGrid>a>span{font-size:22px;color:#1769d5}.collegeDownloadGrid>a>div{flex:1}.collegeDownloadGrid strong,.collegeDownloadGrid small{display:block}.collegeDownloadGrid strong{font-size:11px}.collegeDownloadGrid small{font-size:9px;color:#718197;line-height:1.7;margin-top:5px}.collegeDownloadGrid b{color:#1769d5}
+.collegeContact{display:grid;grid-template-columns:1fr 1fr;gap:70px;padding:80px 10vw;background:#0a2946;color:#fff;scroll-margin-top:20px}
+.collegeContact h2{font-size:clamp(38px,4.5vw,60px)}.collegeContact>div>p{max-width:430px;color:#c3d3e2;font-size:12px;line-height:1.9}
+.collegeContactDetails{display:grid;gap:18px}.collegeContactDetails>div{padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.14)}
+.collegeContactDetails small,.collegeContactDetails strong{display:block}.collegeContactDetails small{color:#8fb8df;font-size:8px;letter-spacing:1.5px;font-weight:800;margin-bottom:7px}.collegeContactDetails strong{font-size:12px;line-height:1.7;color:#f2f6fa;font-weight:600}
+.collegeContact .collegePrimary{justify-self:start}
+.collegePortalSection{padding:80px 6vw;background:#f1f4f6}
+.collegePortalSection>.collegeSectionLabel,.collegePortalSection>.collegeSectionHeading,.collegePortalGrid,.collegeStudentActions{max-width:1200px;margin-left:auto;margin-right:auto}
+.collegePortalGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.collegePortalCard{display:flex;align-items:center;gap:10px;padding:15px;background:#fff;border:1px solid #e0e7ed;text-decoration:none;color:#13263b;min-width:0}
+.collegePortalCard>span{font-size:21px}.collegePortalCard>div{flex:1;min-width:0}.collegePortalCard strong,.collegePortalCard small{display:block;overflow-wrap:anywhere}.collegePortalCard strong{font-size:10px}.collegePortalCard small{font-size:8px;color:#718197;margin-top:4px}.collegePortalCard>b{font-size:11px;color:#1769d5}
+.collegeStudentActions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.collegeStudentActions a,.collegeStudentActions button{border:1px solid #d2dce7;background:#fff;color:#1769d5;text-decoration:none;font-size:10px;font-weight:800;padding:12px 15px;border-radius:4px}
+.collegeFooter{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:25px 5.5vw;background:#061d33;color:#c4d2df}
+.collegeFooter .collegeBrand{color:#fff}.collegeFooter .collegeBrand img{width:42px;height:42px}.collegeFooter .collegeBrand strong{font-size:10px}.collegeFooter .collegeBrand small{font-size:8px;color:#9eb3c8}
+.collegeFooter p{font-size:9px;color:#93a8bc}.collegeFooter>div{display:flex;gap:12px;flex-wrap:wrap}.collegeFooter>div a{font-size:9px;color:#c4d2df;text-decoration:none}
+@media(max-width:1000px){.collegeNav{padding:0 15px}.collegeNav a{padding:14px 10px}.collegeStats{padding:0 2vw}.collegeStats>div{padding:20px 10px}.collegeSection{padding:68px 5vw}.collegeDepartmentGrid{grid-template-columns:repeat(2,1fr)}.collegePortalGrid{grid-template-columns:repeat(3,1fr)}.collegeFacilityGrid{grid-template-columns:repeat(2,1fr)}.collegeFooter{flex-wrap:wrap}}
+@media(max-width:650px){.collegeTopline{font-size:8px;letter-spacing:.7px;padding:8px 14px}.collegeTopline span:last-child{display:none}.collegeHeader{padding:12px 14px;min-height:76px}.collegeBrand{gap:8px}.collegeBrand img{width:43px;height:43px}.collegeBrand strong{font-size:10px;letter-spacing:.4px}.collegeBrand small{font-size:7px}.collegeHeaderActions{gap:5px}.collegeInstall,.collegeLogin{padding:10px 8px;font-size:8px;letter-spacing:0}.collegeNav{padding:0 8px}.collegeNav a{padding:13px 9px;font-size:9px}.collegeHero{min-height:520px;background-position:58% center}.collegeHeroShade{background:linear-gradient(90deg,rgba(4,21,39,.91),rgba(4,25,46,.58))}.collegeHeroContent{padding:70px 22px 90px}.collegeHero h1{font-size:49px;letter-spacing:-1.8px}.collegeHeroContent>p{font-size:13px}.collegeHeroBadge{right:14px;bottom:12px;padding:10px 12px}.collegeStats{grid-template-columns:repeat(2,1fr);padding:0}.collegeStats>div{padding:17px 13px;border-bottom:1px solid #e8edf2}.collegeStats strong{font-size:23px}.collegeStats span{font-size:9px}.collegeSection{padding:55px 20px}.collegeAboutGrid,.collegePlacement,.collegeContact{grid-template-columns:1fr;gap:25px}.collegeSection h2,.collegeFaculty h2{font-size:37px}.collegeVision{grid-template-columns:1fr}.collegeVisionCard{padding:45px 25px}.collegeVisionCard h2{font-size:31px}.collegePrincipal{grid-template-columns:1fr;gap:28px}.collegePrincipalMark{width:100px;height:110px;font-size:48px}.collegePrincipal h2{font-size:28px}.collegeSectionHeading{display:block}.collegeSectionHeading>.collegeTextLink{margin-top:18px}.collegeDepartmentGrid,.collegeCourseGrid,.collegeFacilityGrid,.collegeUpdatesGrid,.collegeDownloadGrid{grid-template-columns:1fr}.collegeDepartmentCard{min-height:140px}.collegeCourseCard{gap:10px;padding:15px}.collegeCourseCard>span{width:67px;font-size:17px}.collegeCourseCard h3{font-size:11px}.collegeFaculty{grid-template-columns:1fr;padding:55px 22px}.collegeFacultyVisual{min-height:220px}.collegeAdmission{display:block;padding:50px 22px}.collegeAdmissionActions{margin-top:24px}.collegeEmptyUpdate,.collegeNewsBanner{align-items:flex-start;flex-wrap:wrap;padding:17px}.collegeEmptyUpdate>div,.collegeNewsBanner>div{min-width:calc(100% - 65px)}.collegeEmptyUpdate>a,.collegeNewsBanner>a{margin-left:60px}.collegeNewsBanner>span{border-right:0;padding-right:0}.collegeGalleryImage{height:230px}.collegeContact{padding:55px 22px}.collegePortalSection{padding:55px 20px}.collegePortalGrid{grid-template-columns:repeat(2,1fr)}.collegePortalCard{padding:12px 9px;gap:7px}.collegePortalCard>span{font-size:18px}.collegePortalCard strong{font-size:9px}.collegePortalCard small{font-size:7px}.collegeStudentActions{display:grid;grid-template-columns:1fr}.collegeStudentActions a,.collegeStudentActions button{text-align:left}.collegeFooter{display:grid;gap:12px;padding:25px 20px}.collegeFooter>div{gap:10px}}
+@media(prefers-reduced-motion:reduce){.collegeSite *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
