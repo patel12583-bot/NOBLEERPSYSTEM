@@ -21,7 +21,14 @@ export async function GET() {
       role: user.role,
       stats: {},
       notices: await prisma.notice.findMany({
-        where: { published: true, audience: { in: ["ALL", "EVERYONE", "PUBLIC", user.role, user.role.replaceAll("_", " "), user.role.toLowerCase()] } },
+        where: {
+          published: true,
+          audience: { in: ["ALL", "EVERYONE", "PUBLIC", user.role, user.role.replaceAll("_", " "), user.role.toLowerCase()] },
+          AND: [
+            { OR: [{ expiryDate: null }, { expiryDate: { gte: new Date() } }] },
+            { OR: [{ scheduledAt: null }, { scheduledAt: { lte: new Date() } }] }
+          ]
+        },
         orderBy: { publishedAt: "desc" },
         take: 5,
         select: { id: true, title: true, audience: true, publishedAt: true }
