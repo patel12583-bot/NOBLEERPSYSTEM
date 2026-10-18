@@ -6,10 +6,10 @@ import AdminShell from "@/components/AdminShell";
 
 import { useEffect, useMemo, useState } from "react";
 
-const empty={studentId:"",enrollmentNo:"",admissionNo:"",name:"",email:"",mobile:"",dob:"",gender:"",address:"",departmentId:"",programId:"",semesterId:"",divisionId:"",academicYearId:"",status:"ACTIVE"};
+const empty={studentId:"",enrollmentNo:"",admissionNo:"",firstName:"",lastName:"",name:"",email:"",mobile:"",dob:"",gender:"",address:"",city:"",state:"",pincode:"",departmentId:"",programId:"",semesterId:"",divisionId:"",academicYearId:"",admissionDate:"",photoUrl:"",password:"",status:"ACTIVE"};
 
 export default function StudentsPage(){
- const [rows,setRows]=useState([]),[form,setForm]=useState(empty),[editing,setEditing]=useState(null),[options,setOptions]=useState({departments:[],programs:[],semesters:[],divisions:[],academicYears:[]}),[query,setQuery]=useState(""),[loading,setLoading]=useState(true),[saving,setSaving]=useState(false),[error,setError]=useState(""),[credentials,setCredentials]=useState(null),[bulk,setBulk]=useState(null),[bulkBusy,setBulkBusy]=useState(false);
+ const [rows,setRows]=useState([]),[form,setForm]=useState(empty),[editing,setEditing]=useState(null),[options,setOptions]=useState({departments:[],programs:[],semesters:[],divisions:[],academicYears:[]}),[query,setQuery]=useState(""),[statusFilter,setStatusFilter]=useState("ALL"),[departmentFilter,setDepartmentFilter]=useState("ALL"),[loading,setLoading]=useState(true),[saving,setSaving]=useState(false),[error,setError]=useState(""),[credentials,setCredentials]=useState(null),[bulk,setBulk]=useState(null),[bulkBusy,setBulkBusy]=useState(false);
  const programs=useMemo(()=>options.programs.filter(x=>!form.departmentId||x.departmentId===form.departmentId),[options.programs,form.departmentId]);
  const semesters=useMemo(()=>options.semesters.filter(x=>!form.academicYearId||x.academicYearId===form.academicYearId),[options.semesters,form.academicYearId]);
  const divisions=useMemo(()=>options.divisions.filter(x=>(!form.programId||x.programId===form.programId)&&(!form.semesterId||x.semesterId===form.semesterId)),[options.divisions,form.programId,form.semesterId]);
@@ -26,7 +26,7 @@ export default function StudentsPage(){
  }
  useEffect(()=>{load()},[]);
 
- const filtered=useMemo(()=>rows.filter(r=>JSON.stringify(r).toLowerCase().includes(query.toLowerCase())),[rows,query]);
+ const filtered=useMemo(()=>rows.filter(r=>JSON.stringify(r).toLowerCase().includes(query.toLowerCase())&&(statusFilter==="ALL"||r.status===statusFilter)&&(departmentFilter==="ALL"||r.departmentId===departmentFilter)),[rows,query,statusFilter,departmentFilter]);
  const set=(k,v)=>{
   setForm(x=>{
     const next={...x,[k]:v};
@@ -41,7 +41,7 @@ export default function StudentsPage(){
  async function save(e){
   e.preventDefault(); setSaving(true); setError(""); setCredentials(null);
   try{
-   const r=await fetch("/api/admin/students",{method:editing?"PUT":"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(editing?{id:editing,data:form}:{data:form})});
+   const r=await fetch("/api/admin/students",{method:editing?"PUT":"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(editing?{id:editing,data:{...form,name:[form.firstName,form.lastName].filter(Boolean).join(" ").trim()}}:{data:{...form,name:[form.firstName,form.lastName].filter(Boolean).join(" ").trim()}})});
    const d=await r.json(); if(!r.ok) throw new Error(d.error);
    if(d.credentials) setCredentials(d.credentials);
    setForm(empty);setEditing(null);await load();
@@ -95,7 +95,7 @@ export default function StudentsPage(){
   <form onSubmit={save} style={{margin:"24px 0",padding:"22px",border:"1px solid #ddd",borderRadius:"18px",display:"grid",gap:"14px"}}>
    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}><b>{editing?"Edit Student":"Add Student"}</b>{editing&&<button type="button" onClick={()=>{setEditing(null);setForm(empty)}}>Cancel</button>}</div>
    <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))",gap:"14px"}}>
-    {[["studentId","Student ID","text"],["enrollmentNo","Enrollment No.","text"],["admissionNo","Admission No.","text"],["name","Full Name","text"],["email","Email","email"],["mobile","Mobile","text"],["dob","Date of Birth","date"],["gender","Gender","text"]].map(([k,l,t])=><label key={k}>{l}<input value={form[k]} type={t} onChange={e=>set(k,e.target.value)} required={k==="name"}/></label>)}
+    {[["studentId","Student ID","text"],["enrollmentNo","Enrollment Number","text"],["admissionNo","Admission Number","text"],["firstName","First Name","text"],["lastName","Last Name","text"],["email","Email","email"],["mobile","Mobile","tel"],["dob","Date of Birth","date"],["gender","Gender","text"],["city","City","text"],["state","State","text"],["pincode","Pincode","text"],["admissionDate","Admission Date","date"],["photoUrl","Profile Photo URL","url"],["password","Password (optional; min 8 characters)","password"]].map(([k,l,t])=><label key={k}>{l}<input value={form[k]} type={t} onChange={e=>set(k,e.target.value)} required={k==="name"}/></label>)}
     <label>Department<select value={form.departmentId} onChange={e=>set("departmentId",e.target.value)}><option value="">Select</option>{options.departments.map(x=><option key={x.id} value={x.id}>{x.code} — {x.name}</option>)}</select></label>
     <label>Program<select value={form.programId} onChange={e=>set("programId",e.target.value)} disabled={!form.departmentId}><option value="">{form.departmentId?"Select":"Select department first"}</option>{programs.map(x=><option key={x.id} value={x.id}>{x.code} — {x.name}</option>)}</select></label>
     <label>Academic Year<select value={form.academicYearId} onChange={e=>set("academicYearId",e.target.value)}><option value="">Select</option>{options.academicYears.map(x=><option key={x.id} value={x.id}>{x.name}</option>)}</select></label>
