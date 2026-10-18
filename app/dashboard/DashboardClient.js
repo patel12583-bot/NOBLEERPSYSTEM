@@ -13,8 +13,8 @@ const menus = {
   FACULTY: ["Dashboard", "My Profile", "Subjects", "Timetable", "Attendance", "Workload", "Leave", "Examination"],
   HOD: ["Dashboard", "Department", "Faculty", "Subjects", "Approvals", "Attendance Reports", "Examination", "Timetable"],
   PARENT: ["Dashboard", "Student Profile", "Attendance", "Results", "Fees", "Leave", "Examination"],
-  ADMIN: ["Dashboard", "Students", "Faculty", "HOD", "Academic Management", "Subjects", "Timetable", "Attendance", "Documents", "Reports", "Exports", "Leave", "Examination", "Hall Ticket"],
-  SUPER_ADMIN: ["Dashboard", "Institutes", "Admins", "Students", "Faculty", "Academics", "Attendance", "Documents", "Examination", "Reports", "Exports", "Settings"],
+  ADMIN: ["Dashboard", "Students", "Faculty", "Departments", "Courses", "Subjects", "Attendance", "Exams", "Results", "Fees", "Timetable", "Assignments", "Study Materials", "Notices", "Events", "Gallery", "Reports", "Settings", "HOD", "Academic Management", "Documents", "Exports", "Leave", "Examination", "Hall Ticket"],
+  SUPER_ADMIN: ["Dashboard", "Institutes", "Admins", "Students", "Faculty", "Departments", "Courses", "Subjects", "Attendance", "Exams", "Results", "Fees", "Timetable", "Assignments", "Study Materials", "Notices", "Events", "Gallery", "Reports", "Settings", "Academics", "Documents", "Exports", "Examination"],
   ACCOUNTANT: ["Dashboard", "Students", "Fees", "Payments", "Reports"],
   EXAM_OFFICER: ["Dashboard", "Examinations", "Schedules", "Hall Tickets", "Results", "Reports"],
   LIBRARIAN: ["Dashboard", "Students", "Books", "Issue/Return", "Fines", "Reports"],
@@ -27,16 +27,16 @@ const icons = {
   Attendance: "✓", Documents: "▧", Reports: "▥", Exports: "⇩", Settings: "⚙",
   Leave: "◒", Examination: "◉", Examinations: "◉", "Hall Ticket": "▣", "Hall Tickets": "▣",
   Fees: "₹", Payments: "↔", Results: "★", Books: "▤", "Issue/Return": "↕",
-  Fines: "₹", Staff: "♙", Payroll: "▰", Profile: "♙", "My Profile": "♙",
+  Fines: "₹", Courses: "▤", Exams: "◉", Assignments: "✎", "Study Materials": "▧", Notices: "◉", Events: "◷", Gallery: "▧", Staff: "♙", Payroll: "▰", Profile: "♙", "My Profile": "♙",
   "Student Profile": "♙", Workload: "▥", Approvals: "✓", "Attendance Reports": "▥",
   Schedules: "◷",
 };
 const adminLinks = {
   Students: "/admin/students", Faculty: "/admin/faculty", HOD: "/admin/hod",
-  Departments: "/admin/core?module=departments", Department: "/admin/core?module=departments",
+  Departments: "/admin/core?module=departments", Courses: "/admin/academics", Department: "/admin/core?module=departments",
   Programs: "/admin/core?module=programs", Academics: "/admin/academics",
   Semesters: "/admin/core?module=semesters", Divisions: "/admin/core?module=divisions",
-  Subjects: "/admin/subjects", Approvals: "/leave", "Academic Management": "/admin/academics",
+  Subjects: "/admin/subjects", Exams: "/admin/examination", Notices: "/admin/core?module=notices", Events: "/admin/core?module=notices", Gallery: "/admin/core?module=notices", "Study Materials": "/admin/documents", Assignments: "/admin/documents", Approvals: "/leave", "Academic Management": "/admin/academics",
   Timetable: "/admin/timetable", Workload: "/admin/faculty", Attendance: "/admin/attendance",
   Documents: "/admin/documents", Exports: "/admin/exports",
   "Attendance Reports": "/admin/attendance/reports", Reports: "/admin/attendance/reports",
@@ -206,7 +206,7 @@ export default function DashboardClient({ user }) {
               { label: "DATABASE", value: "Live", detail: "Connected dashboard session" },
               { label: "ACCESS", value: "Active", detail: `${displayRole} permissions` },
               { label: "SYSTEM STATUS", value: "Ready", detail: "Core workspace available" },
-            ]).slice(0, 4).map((card, index) => <article className="nobleStatCard" key={card.label || index}><div className={`nobleStatIcon statIcon${index + 1}`}>{["↗", "♙", "▦", "✓"][index]}</div><small>{card.label}</small><strong>{card.value}</strong><span>{card.detail}</span><i className="nobleStatOrb" /></article>)}
+            ]).slice(0, role === "ADMIN" || role === "SUPER_ADMIN" ? 8 : 4).map((card, index) => <article className="nobleStatCard" key={card.label || index}><div className={`nobleStatIcon statIcon${index + 1}`}>{["↗", "♙", "▦", "✓"][index]}</div><small>{card.label}</small><strong>{card.value}</strong><span>{card.detail}</span><i className="nobleStatOrb" /></article>)}
           </section>
 
           <section className="nobleCommand">
