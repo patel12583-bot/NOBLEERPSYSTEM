@@ -18,7 +18,7 @@ export async function POST(req){
  const u=await guard(); if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});
  try{
   const b=await req.json(); if(!b.name||!b.examType)return NextResponse.json({error:"Exam name and type are required."},{status:400});
-  const row=await prisma.exam.create({data:{name:String(b.name).trim(),examType:String(b.examType),academicYearId:b.academicYearId||null,startDate:b.startDate?new Date(b.startDate):null,endDate:b.endDate?new Date(b.endDate):null,status:b.status||"DRAFT"}});
+  const row=await prisma.exam.create({data:{name:String(b.name).trim(),examType:String(b.examType),academicYearId:b.academicYearId||null,startDate:b.startDate?new Date(b.startDate):null,endDate:b.endDate?new Date(b.endDate):null,status:b.status||"DRAFT",totalMarks:b.totalMarks===""||b.totalMarks==null?100:Number(b.totalMarks),passingMarks:b.passingMarks===""||b.passingMarks==null?40:Number(b.passingMarks)}});
   return NextResponse.json({exam:row},{status:201});
  }catch(e){return NextResponse.json({error:"Unable to create exam."},{status:400})}
 }
