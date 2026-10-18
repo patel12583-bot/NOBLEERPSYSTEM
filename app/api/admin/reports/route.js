@@ -41,7 +41,7 @@ export async function GET(request) {
   if (type === "students") {
     title = "Student Report";
     columns = ["Student ID", "Name", "Email", "Mobile", "Department", "Course", "Semester", "Division", "Status", "Admission Date"];
-    const items = await prisma.student.findMany({ where: studentWhere, include: { department: true, program: true, semester: true, division: true }, orderBy: { name: "asc" } });
+    const items = await prisma.student.findMany({ where: { ...studentWhere, ...(from || to ? { admissionDate: inRange("admissionDate", from, to) } : {}) }, include: { department: true, program: true, semester: true, division: true }, orderBy: { name: "asc" } });
     rows = items.map(s => [s.studentId, s.name, s.email || "", s.mobile || "", s.department?.name || "", s.program?.name || "", s.semester?.name || "", s.division?.name || "", s.status, asDate(s.admissionDate)]);
   } else if (type === "faculty") {
     title = "Faculty Report";
@@ -66,12 +66,12 @@ export async function GET(request) {
   } else if (type === "results") {
     title = "Result Report";
     columns = ["Student ID", "Student", "Department", "Course", "Exam", "Subject", "Marks", "Percentage", "Grade", "Result Status"];
-    const items = await prisma.result.findMany({ where: { ...(from || to ? { exam: { startDate: inRange("startDate", from, to) } } : {}), ...(scopedDepartment ? { student: { departmentId: scopedDepartment } } : {}) }, include: { student: { include: { department: true, program: true } }, exam: true, subject: true }, orderBy: { student: { name: "asc" } } });
+    const items = await prisma.result.findMany({ where: { ...(status ? { status } : {}), ...(from || to ? { exam: { startDate: inRange("startDate", from, to) } } : {}), ...(scopedDepartment ? { student: { departmentId: scopedDepartment } } : {}) }, include: { student: { include: { department: true, program: true } }, exam: true, subject: true }, orderBy: { student: { name: "asc" } } });
     rows = items.filter(r => !programId || r.student.programId === programId).map(r => [r.student.studentId, r.student.name, r.student.department?.name || "", r.student.program?.name || "", r.exam.name, r.subject.name, r.marks ?? "", r.percentage ?? "", r.grade || "", r.status]);
   } else if (type === "fees" || type === "pendingFees") {
     title = type === "pendingFees" ? "Pending Fees Report" : "Fees Report";
     columns = ["Student ID", "Student", "Department", "Course", "Fee", "Amount Due", "Amount Paid", "Balance", "Status", "Due Date"];
-    const items = await prisma.studentFee.findMany({ where: { ...(from || to ? { createdAt: inRange("createdAt", from, to) } : {}), ...(scopedDepartment || programId ? { student: { ...(scopedDepartment ? { departmentId: scopedDepartment } : {}), ...(programId ? { programId } : {}) } } : {}) }, include: { student: { include: { department: true, program: true } }, feeStructure: true }, orderBy: { createdAt: "desc" } });
+    const items = await prisma.studentFee.findMany({ where: { ...(status ? { status } : {}), ...(from || to ? { createdAt: inRange("createdAt", from, to) } : {}), ...(scopedDepartment || programId ? { student: { ...(scopedDepartment ? { departmentId: scopedDepartment } : {}), ...(programId ? { programId } : {}) } } : {}) }, include: { student: { include: { department: true, program: true } }, feeStructure: true }, orderBy: { createdAt: "desc" } });
     rows = items.map(f => { const due = money(f.amountDue), paid = money(f.amountPaid); return [f.student.studentId, f.student.name, f.student.department?.name || "", f.student.program?.name || "", f.feeStructure.name, due, paid, Math.max(0, due - paid), f.status, asDate(f.feeStructure.dueDate)]; });
     if (type === "pendingFees") rows = rows.filter(r => Number(r[7]) > 0);
   } else if (type === "departments") {
