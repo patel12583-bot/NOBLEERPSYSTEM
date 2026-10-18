@@ -139,6 +139,7 @@ model Semester {
   academicYear   AcademicYear? @relation(fields: [academicYearId], references: [id])
   students       Student[]
   subjects       Subject[]
+  studyMaterials StudyMaterial[]
   assignments     Assignment[]
   divisions      Division[]
   createdAt      DateTime      @default(now())
@@ -235,6 +236,7 @@ model Faculty {
   subjects      FacultySubject[]
   timetables    Timetable[]
   assignments   Assignment[]
+  studyMaterials StudyMaterial[]
   createdAt     DateTime            @default(now())
   updatedAt     DateTime            @updatedAt
   @@index([departmentId])
@@ -259,6 +261,7 @@ model Subject {
   timetables      Timetable[]
   examSchedules   ExamSchedule[]
   assignments     Assignment[]
+  studyMaterials StudyMaterial[]
   results         Result[]
   createdAt       DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -573,4 +576,25 @@ model AssignmentSubmission {
   student      Student    @relation(fields: [studentId], references: [id], onDelete: Cascade)
   @@unique([assignmentId, studentId])
   @@index([studentId, submittedAt])
+}
+
+
+model StudyMaterial {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  fileName    String
+  fileType    String
+  fileUrl     String
+  facultyId   String?
+  subjectId   String
+  programId   String
+  semesterId  String
+  uploadedAt  DateTime @default(now())
+  faculty     Faculty? @relation(fields: [facultyId], references: [id], onDelete: SetNull)
+  subject     Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  program     Program  @relation(fields: [programId], references: [id], onDelete: Cascade)
+  semester    Semester @relation(fields: [semesterId], references: [id], onDelete: Cascade)
+  @@index([programId, semesterId, uploadedAt])
+  @@index([subjectId])
 }
