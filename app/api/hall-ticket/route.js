@@ -22,22 +22,22 @@ async function drawCenteredHeader(p,doc,font,bold,pageWidth,pageHeight,title){
  const blue=rgb(.04,.18,.36);
  const centerX=pageWidth/2;
  try{const logo=await embedInstituteLogo(doc);const box={x:28,y:pageHeight-91,w:62,h:62};const scale=Math.min(box.w/logo.width,box.h/logo.height),w=logo.width*scale,h=logo.height*scale;p.drawImage(logo,{x:box.x+(box.w-w)/2,y:box.y+(box.h-h)/2,width:w,height:h});}catch(e){console.error("Hall ticket logo load failed:",e)}
- const lines=[[INSTITUTE,15,bold,pageHeight-31],[PROGRAMS,9,bold,pageHeight-46],[TRUST,10,font,pageHeight-62],[ADDRESS,8,font,pageHeight-79],[AFFILIATION,10,bold,pageHeight-96]];
+ const lines=[[INSTITUTE,15,bold,pageHeight-31],[PROGRAMS,9,bold,pageHeight-46],[TRUST,10,font,pageHeight-62],[ADDRESS,8,font,pageHeight-79],[AFFILIATION,10,bold,pageHeight-96],[PRESIDENT,9,bold,pageHeight-111]];
  for(const [txt,size,f,y] of lines){
   const safe=safePdfText(txt),w=f.widthOfTextAtSize(safe,size);
   const left=100,right=pageWidth-28;
   p.drawText(safe,{x:left+Math.max(0,(right-left-w)/2),y,size,font:f,color:blue});
  }
- p.drawLine({start:{x:28,y:pageHeight-111},end:{x:pageWidth-28,y:pageHeight-111},thickness:2,color:rgb(.08,.08,.08)});
+ p.drawLine({start:{x:28,y:pageHeight-126},end:{x:pageWidth-28,y:pageHeight-126},thickness:2,color:rgb(.08,.08,.08)});
  const heading=safePdfText(title),hw=bold.widthOfTextAtSize(heading,12);
- p.drawText(heading,{x:(pageWidth-hw)/2,y:pageHeight-137,size:12,font:bold,color:blue});
+ p.drawText(heading,{x:(pageWidth-hw)/2,y:pageHeight-149,size:12,font:bold,color:blue});
 }
 async function bulkPdf(tickets){
  const doc=await PDFDocument.create(),font=await doc.embedFont(StandardFonts.Helvetica),bold=await doc.embedFont(StandardFonts.HelveticaBold);
  for(const d of tickets){
   const p=doc.addPage([595,842]);await drawCenteredHeader(p,doc,font,bold,595,842,"EXAMINATION HALL TICKET");
   const margin=30,boxW=535;
-  let y=842-158;
+  let y=842-173;
   const rect=(x,top,w,h,fill=rgb(1,1,1))=>p.drawRectangle({x,y:top-h,width:w,height:h,borderColor:rgb(.72,.79,.88),borderWidth:.8,color:fill});
   const txt=(s,x,yy,size=9,f=font,color=rgb(.08,.15,.25))=>p.drawText(safePdfText(s).slice(0,110),{x,y:yy,size,font:f,color});
   // Student information panel
