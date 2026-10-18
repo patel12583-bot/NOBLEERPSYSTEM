@@ -39,7 +39,7 @@ function CoreAdminContent(){
    <div><button className="primary" disabled={saving}>{saving?"Saving…":editing?"Update Record →":"Add Record →"}</button>{editing&&<button type="button" className="back" onClick={()=>{setEditing(null);setForm({})}}>Cancel</button>}</div>
   </form>
   <div className="panel"><div className="panelTitle"><b>Records</b><input placeholder="Search…" value={query} onChange={e=>setQuery(e.target.value)} /></div>
-   {loading?<p>Loading…</p>:<div style={{overflowX:"auto"}}><table style={{width:"100%",borderCollapse:"collapse"}}><thead><tr>{cfg.fields.map(x=><th key={x[0]} style={{textAlign:"left",padding:"10px"}}>{x[1]}</th>)}<th>Actions</th></tr></thead><tbody>{filtered.map(row=><tr key={row.id}>{cfg.fields.map(([key])=><td key={key} style={{padding:"10px",borderTop:"1px solid #eee"}}>{String(row[key]??"")}</td>)}<td style={{padding:"10px",borderTop:"1px solid #eee"}}><button onClick={()=>edit(row)}>Edit</button>{" "}<button onClick={()=>remove(row.id)}>Delete</button></td></tr>)}</tbody></table></div>}
+   {loading?<p>Loading…</p>:<div style={{overflowX:"auto"}}><table style={{width:"100%",borderCollapse:"collapse"}}><thead><tr>{cfg.fields.map(x=><th key={x[0]} style={{textAlign:"left",padding:"10px"}}>{x[1]}</th>)}<th>Actions</th></tr></thead><tbody>{filtered.map(row=><tr key={row.id}>{cfg.fields.map(([key])=><td key={key} style={{padding:"10px",borderTop:"1px solid #eee"}}>{key==="hodId"?(row.hod?.name||"Unassigned"):String(row[key]??"")}</td>)}<td style={{padding:"10px",borderTop:"1px solid #eee"}}><button onClick={()=>edit(row)}>Edit</button>{" "}<button onClick={()=>remove(row.id)}>Delete</button></td></tr>)}</tbody></table></div>}
   </div>
  </main>
 }
