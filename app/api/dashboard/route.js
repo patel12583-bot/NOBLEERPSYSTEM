@@ -31,7 +31,7 @@ export async function GET() {
         },
         orderBy: { publishedAt: "desc" },
         take: 5,
-        select: { id: true, title: true, audience: true, publishedAt: true }
+        select: { id: true, title: true, content: true, category: true, audience: true, publishedAt: true, attachmentUrl: true }
       })
     };
 
