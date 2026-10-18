@@ -165,6 +165,7 @@ model Student {
   firstName String?
   lastName String?
   name           String
+  aadhaarName    String?
   city String?
   state String?
   pincode String?
