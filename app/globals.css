@@ -3546,3 +3546,17 @@ html.pwa-standalone .homepageImageOnly .nav .brand b:before {
     transition-duration: .01ms !important;
   }
 }
+
+/* Live scrolling announcement strip for the public college homepage */
+.collegeLiveTicker{display:flex;align-items:center;gap:18px;min-height:48px;padding:0 5.2%;background:#fff;border-bottom:1px solid #e6ebf4;box-shadow:0 5px 18px rgba(18,42,80,.045);position:relative;z-index:5;overflow:hidden}
+.collegeLiveTickerLabel{display:flex;align-items:center;gap:9px;flex-shrink:0;color:#17345b;font-size:10px;letter-spacing:1.25px;font-weight:900;white-space:nowrap}
+.collegeLiveTickerLabel i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#f04452;box-shadow:0 0 0 4px rgba(240,68,82,.12);animation:collegeTickerPulse 1.5s ease-in-out infinite}
+.collegeLiveTickerViewport{min-width:0;flex:1;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 2%,#000 98%,transparent)}
+.collegeLiveTickerTrack{display:flex;align-items:center;width:max-content;animation:collegeTickerScroll 42s linear infinite}
+.collegeLiveTickerTrack span{display:inline-flex;align-items:center;padding:0 38px;color:#44536c;font-size:12px;font-weight:600;white-space:nowrap}
+.collegeLiveTicker>a{flex-shrink:0;padding:9px 14px;border-radius:8px;background:#155fd0;color:#fff;text-decoration:none;font-size:11px;font-weight:800;white-space:nowrap}
+.collegeLiveTicker:hover .collegeLiveTickerTrack,.collegeLiveTicker:focus-within .collegeLiveTickerTrack{animation-play-state:paused}
+@keyframes collegeTickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes collegeTickerPulse{0%,100%{opacity:1;box-shadow:0 0 0 4px rgba(240,68,82,.12)}50%{opacity:.65;box-shadow:0 0 0 7px rgba(240,68,82,.04)}}
+@media(max-width:700px){.collegeLiveTicker{gap:10px;padding:0 14px;min-height:46px}.collegeLiveTickerLabel{font-size:8px;letter-spacing:.7px;gap:7px}.collegeLiveTickerTrack span{font-size:11px;padding:0 24px}.collegeLiveTicker>a{font-size:10px;padding:8px 10px}}
+@media(prefers-reduced-motion:reduce){.collegeLiveTickerTrack,.collegeLiveTickerLabel i{animation:none!important}.collegeLiveTickerTrack{width:auto;white-space:normal}.collegeLiveTickerTrack span[aria-hidden="true"]{display:none}}
