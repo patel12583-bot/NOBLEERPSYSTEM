@@ -2,6 +2,7 @@ import "./globals.css";
 import "./ui-ux.css";
 import "./noble-visual-refresh.css";
 import "./college-theme.css";
+import "./noble-university-theme.css";
 import GlobalBack from "@/components/GlobalBack";
 import PWARegister from "@/components/PWARegister";
 import PWAAppMode from "@/components/PWAAppMode";
