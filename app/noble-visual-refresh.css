@@ -1,0 +1,20 @@
+/* NOBLE ERP visual refresh — campus image and polished login */
+.loginShell{min-height:100svh;padding:clamp(18px,4vw,56px);display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,460px);align-items:center;gap:clamp(24px,5vw,72px);background-color:#dbeafe;background-image:url("/WhatsApp%20Image%202026-10-11%20at%2012.35.39%20PM.jpeg");background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:scroll}
+.loginCampusShade{z-index:0;background:linear-gradient(90deg,rgba(3,25,65,.20),rgba(7,42,91,.05) 45%,rgba(4,28,64,.18)),linear-gradient(0deg,rgba(3,25,65,.26),transparent 46%)}
+.loginCampusFeatures{position:relative;inset:auto;z-index:1;align-self:end;justify-self:start;width:min(100%,440px);max-width:440px;margin:0 0 2vh;padding:24px;gap:16px;border:1px solid rgba(255,255,255,.35);border-radius:20px;background:linear-gradient(135deg,rgba(5,32,78,.88),rgba(12,83,153,.70));box-shadow:0 22px 60px rgba(3,24,57,.24)}
+.loginCampusFeatures>div{gap:14px}.loginCampusFeatures i{width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.24)}.loginCampusFeatures b{font-size:12px;letter-spacing:.15px}.loginCampusFeatures small{font-size:10px}
+.loginCampusCard{width:100%;max-width:460px;margin:0;padding:clamp(24px,3vw,38px);border:1px solid rgba(255,255,255,.76);border-radius:24px;background:rgba(255,255,255,.95);box-shadow:0 28px 90px rgba(5,32,72,.28);backdrop-filter:blur(18px)}
+.loginCampusCard .loginTitle h1{font-size:clamp(25px,2.3vw,32px)}.loginCampusCard .loginTitle p{color:#60738d}
+.loginCampusCard input,.loginCampusCard select{min-height:46px;border:1px solid #d4deeb;border-radius:11px;transition:border-color .18s ease,box-shadow .18s ease}
+.loginCampusCard input:focus,.loginCampusCard select:focus{border-color:#2878df;box-shadow:0 0 0 4px rgba(40,120,223,.12)}
+.loginCampusCard .full{min-height:49px;border-radius:12px;font-weight:800;letter-spacing:.2px;transition:transform .18s ease,box-shadow .18s ease}
+.loginCampusCard .full:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(0,94,194,.28)}
+.loginCampusCard .authLinks .back{min-height:34px}.loginCopyright{color:#718198}
+@media(max-width:850px){.loginShell{grid-template-columns:1fr;justify-items:center;gap:18px;padding:22px;background-position:center}.loginCampusFeatures{order:2;justify-self:center;width:min(100%,460px);margin:0;padding:16px 18px;gap:10px}.loginCampusCard{order:1;margin:0}}
+@media(max-width:520px){.loginShell{padding:14px;gap:12px}.loginCampusFeatures{display:none}.loginCampusCard{padding:24px 20px 18px;border-radius:19px}.loginCampusCard .loginTitle h1{font-size:25px}}
+html:not(.pwa-standalone) .nobleDashboard{position:relative;z-index:1;min-height:100vh;background:rgba(244,248,253,.94)}
+html:not(.pwa-standalone) .nobleDashboard .nobleMain{background:linear-gradient(145deg,rgba(246,249,253,.98),rgba(235,243,252,.96))}
+html:not(.pwa-standalone) .nobleDashboard .nobleWelcome{box-shadow:0 18px 46px rgba(13,54,103,.13)}
+html:not(.pwa-standalone) .nobleDashboard .nobleStatCard,html:not(.pwa-standalone) .nobleDashboard .nobleInfoPanel,html:not(.pwa-standalone) .nobleDashboard .nobleModuleCard{box-shadow:0 8px 24px rgba(17,53,93,.055)}
+html:not(.pwa-standalone) .nobleDashboard .nobleModuleCard:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(17,53,93,.12)}
+html:not(.pwa-standalone) .nobleDashboard button:focus-visible,html:not(.pwa-standalone) .nobleDashboard a:focus-visible{outline:3px solid rgba(42,125,226,.6);outline-offset:3px}
