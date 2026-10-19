@@ -5,7 +5,7 @@ import AdminShell from "@/components/AdminShell";
 
 import {useEffect,useMemo,useState} from "react";
 const empty={facultyId:"",employeeId:"",name:"",gender:"",dob:"",mobile:"",email:"",address:"",designation:"",qualification:"",joiningDate:"",photoUrl:"",password:"",facultyRole:"",departmentId:"",status:"ACTIVE"};
-export default function FacultyPage(){const[rows,setRows]=useState([]),[deps,setDeps]=useState([]),[subs,setSubs]=useState([]),[form,setForm]=useState(empty),[edit,setEdit]=useState(null),[q,setQ]=useState(""),[cred,setCred]=useState(null),[err,setErr]=useState(""),[busy,setBusy]=useState(false);
+export default function FacultyPage(){const[rows,setRows]=useState([]),[deps,setDeps]=useState([]),[subs,setSubs]=useState([]),[form,setForm]=useState(empty),[edit,setEdit]=useState(null),[q,setQ]=useState(""),[cred,setCred]=useState(null),[err,setErr]=useState(""),[busy,setBusy]=useState(false),[view,setView]=useState(null);
 async function load(){const r=await fetch("/api/admin/faculty");const d=await r.json();if(!r.ok)return setErr(d.error);setRows(d.faculty||[]);setDeps(d.departments||[]);setSubs(d.subjects||[])}useEffect(()=>{load()},[]);
 const filtered=useMemo(()=>rows.filter(x=>JSON.stringify(x).toLowerCase().includes(q.toLowerCase())),[rows,q]);const set=(k,v)=>setForm(x=>({...x,[k]:v}));
 async function save(e){e.preventDefault();setBusy(true);setErr("");try{const r=await fetch("/api/admin/faculty",{method:edit?"PUT":"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(edit?{id:edit,data:form}:{data:form})});const d=await r.json();if(!r.ok)throw Error(d.error);if(d.credentials)setCred(d.credentials);setForm(empty);setEdit(null);load()}catch(e){setErr(e.message)}finally{setBusy(false)}}
