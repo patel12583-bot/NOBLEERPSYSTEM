@@ -97,6 +97,16 @@ export default function Home() {
   return (
     <main className="collegeSite" id="home">
       <div className="collegeTopline"><span>SHREE NOBLE EDUCATION TRUST</span><span>Learning • Opportunity • Community</span></div>
+      <div className="collegeLiveTicker" role="region" aria-label="Latest institute updates">
+        <span className="collegeLiveTickerLabel"><i aria-hidden="true" /> LIVE UPDATES</span>
+        <div className="collegeLiveTickerViewport">
+          <div className="collegeLiveTickerTrack">
+            <span>🎓 Admissions enquiry open — contact Noble Group of Institutes for current course availability.</span><span>📢 Check the NRS portal for published notices and academic updates.</span><span>📍 Plan a campus visit — open our exact location in Google Maps.</span><span>☎ For admission details, call 63590 11171.</span>
+            <span aria-hidden="true">🎓 Admissions enquiry open — contact Noble Group of Institutes for current course availability.</span><span aria-hidden="true">📢 Check the NRS portal for published notices and academic updates.</span><span aria-hidden="true">📍 Plan a campus visit — open our exact location in Google Maps.</span><span aria-hidden="true">☎ For admission details, call 63590 11171.</span>
+          </div>
+        </div>
+        <a href="#contact">Enquire now ↗</a>
+      </div>
       <header className="collegeHeader">
         <a className="collegeBrand" href="#home">
           <img src="/noble-logo.png" alt="Noble Group of Institutes logo" />
