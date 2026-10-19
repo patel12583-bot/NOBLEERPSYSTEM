@@ -64,3 +64,85 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* Premium motion layer — installed NRS app only.
+   PWAAppMode adds this scope only in standalone/iOS home-screen mode. */
+@keyframes nrsAppEnter {
+  from { opacity: 0; transform: translate3d(0, 14px, 0) scale(.985); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes nrsFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(1deg); }
+}
+@keyframes nrsGlow {
+  0%, 100% { box-shadow: 0 10px 28px rgba(78, 93, 190, .10); }
+  50% { box-shadow: 0 15px 34px rgba(78, 93, 190, .19); }
+}
+@keyframes nrsShimmer {
+  0% { background-position: 180% 0; }
+  100% { background-position: -180% 0; }
+}
+html.pwa-standalone body {
+  background-color: #f5f3ff;
+  overscroll-behavior-y: contain;
+}
+html.pwa-standalone body :is(.loginCard, .content, .dash aside, .panel, .statGrid > div, .statCard, .moduleCard, .role, .loginShell) {
+  animation: nrsAppEnter .55s cubic-bezier(.2,.75,.25,1) both;
+}
+html.pwa-standalone body :is(.statGrid > div, .statCard, .moduleCard, .panel, .role) {
+  transition: transform .24s cubic-bezier(.2,.75,.25,1), box-shadow .24s ease, border-color .24s ease;
+}
+html.pwa-standalone body :is(.statGrid > div, .statCard, .moduleCard, .panel):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 35px rgba(70, 82, 170, .13);
+}
+html.pwa-standalone body :is(.primary, .full, .loginCard button[type="submit"]) {
+  background-image: linear-gradient(110deg, #6546d9 0%, #3478ed 45%, #25b7d8 100%);
+  background-size: 200% 100%;
+  box-shadow: 0 10px 24px rgba(83, 92, 207, .23);
+  transition: transform .2s ease, box-shadow .2s ease, background-position .4s ease;
+}
+html.pwa-standalone body :is(.primary, .full, .loginCard button[type="submit"]):hover {
+  background-position: 100% 0;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(83, 92, 207, .3);
+}
+html.pwa-standalone body :is(.avatar, .brandMark, .moduleIcon) {
+  box-shadow: 0 8px 22px rgba(85, 82, 190, .18);
+}
+html.pwa-standalone body :is(.brandMark, .moduleIcon) {
+  animation: nrsFloat 5s ease-in-out infinite;
+}
+html.pwa-standalone body :is(.loginCard, .statGrid > div, .statCard, .panel, .moduleCard) {
+  border-color: rgba(142, 143, 222, .25);
+  box-shadow: 0 12px 32px rgba(49, 63, 125, .07);
+}
+html.pwa-standalone body :is(.content, .loginShell) {
+  background-color: #f6f4ff;
+  background-image: radial-gradient(ellipse at 12% 0%, rgba(136, 111, 242, .12), transparent 38%), radial-gradient(ellipse at 100% 20%, rgba(52, 175, 224, .10), transparent 35%);
+}
+html.pwa-standalone body :is(.sideNav button.selected, .sideNav button:hover) {
+  background: linear-gradient(110deg, rgba(107, 75, 218, .45), rgba(33, 133, 213, .32));
+  box-shadow: inset 3px 0 #8f8aff;
+}
+html.pwa-standalone body :is(.moduleCard, .role, .quick button, .sideNav button, .iconBtn) {
+  -webkit-tap-highlight-color: transparent;
+}
+html.pwa-standalone body :is(.moduleCard, .role, .quick button, .iconBtn):active {
+  transform: scale(.975);
+}
+html.pwa-standalone body :is(.statGrid > div, .statCard, .moduleCard, .panel, .role):nth-child(2) { animation-delay: .06s; }
+html.pwa-standalone body :is(.statGrid > div, .statCard, .moduleCard, .panel, .role):nth-child(3) { animation-delay: .12s; }
+html.pwa-standalone body :is(.statGrid > div, .statCard, .moduleCard, .panel, .role):nth-child(4) { animation-delay: .18s; }
+@media (max-width: 600px) {
+  html.pwa-standalone body .content { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+  html.pwa-standalone body .loginCard { border-radius: 24px; backdrop-filter: blur(18px); }
+  html.pwa-standalone body .statGrid > div { border-radius: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.pwa-standalone body :is(.loginCard, .content, .dash aside, .panel, .statGrid > div, .statCard, .moduleCard, .role, .loginShell, .brandMark, .moduleIcon) {
+    animation: none !important;
+  }
+}
+
