@@ -1,0 +1,66 @@
+/* NOBLE ERP UI/UX refinement — responsive academic workspace */
+:root {
+  --nrs-primary: #1769d5;
+  --nrs-primary-dark: #0b4d9c;
+  --nrs-ink: #17324d;
+  --nrs-muted: #718399;
+  --nrs-border: #dfe8f1;
+  --nrs-surface: #ffffff;
+  --nrs-page: #f4f8fc;
+}
+html { -webkit-text-size-adjust: 100%; }
+body { color: var(--nrs-ink); }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+:where(button, a, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid rgba(23, 105, 213, .35);
+  outline-offset: 2px;
+}
+:where(input, select, textarea) { max-width: 100%; }
+:where(table) { width: 100%; border-collapse: collapse; }
+:where(th, td) { overflow-wrap: anywhere; }
+:where(.nobleDashboard, .dash, .content, .nobleMain) { min-width: 0; }
+:where(.nobleContent, .nobleCommand, .nobleBottomGrid, .nobleStats, .nobleModuleGrid) { min-width: 0; }
+:where(.nobleStatCard, .nobleModuleCard, .nobleInfoPanel, .panel, .statCard) {
+  transition: box-shadow .18s ease, border-color .18s ease, transform .18s ease;
+}
+:where(.nobleStatCard, .nobleModuleCard, .nobleInfoPanel, .panel):hover {
+  border-color: #c8d9ec;
+}
+:where(.nobleSideNav button, .nobleModuleCard, .nobleQuickList button, .nobleRefresh, .nobleMobileToggle) {
+  touch-action: manipulation;
+}
+:where(.nobleMain, .content) :where(input, select, textarea) {
+  min-height: 40px;
+  border-radius: 9px;
+}
+:where(.nobleMain, .content) textarea { min-height: 96px; resize: vertical; }
+:where(.nobleMain, .content) :where(table) { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+:where(.nobleMain, .content) :where(th, td) { white-space: normal; }
+@media (max-width: 1100px) {
+  .nobleStats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nobleModuleGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .nobleTopbar { gap: 10px; }
+  .nobleAcademicTag { display: none; }
+  .nobleWelcome { gap: 12px; }
+  .nobleWelcomeArt { opacity: .45; }
+  .nobleContent { padding-left: 16px; padding-right: 16px; }
+  .nobleStats { gap: 10px; }
+  .nobleStatCard { min-width: 0; padding: 14px; }
+  .nobleStatCard strong { overflow-wrap: anywhere; }
+  .nobleBottomGrid { grid-template-columns: minmax(0, 1fr); }
+  .nobleCommand { overflow: hidden; }
+}
+@media (max-width: 480px) {
+  .nobleStats, .nobleModuleGrid { grid-template-columns: minmax(0, 1fr); }
+  .nobleWelcomeCopy h1 { font-size: clamp(24px, 7vw, 34px); overflow-wrap: anywhere; }
+  .nobleTopRight { gap: 6px; }
+  .nobleUserMini { min-width: 0; }
+  .nobleUserText { min-width: 0; }
+  .nobleModuleCard { width: 100%; }
+  .nobleSideNav button { min-height: 42px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
