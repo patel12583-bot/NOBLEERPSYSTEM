@@ -3440,3 +3440,109 @@ html.pwa-standalone .homepageImageOnly .nav .brand b:before {
 .collegeContactMap .collegeMapOpen{display:inline-flex;margin-top:14px}
 @media(max-width:700px){.collegeContactMap iframe{height:270px}.collegeContactMap{margin-top:18px}}
 
+
+
+/* Admissions-focused motion system for the public college website */
+.collegeSite { --college-motion-ease: cubic-bezier(.2,.75,.25,1); }
+.collegeSite a,
+.collegeSite button,
+.collegeSite [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .24s var(--college-motion-ease), box-shadow .24s ease, color .2s ease, background-color .2s ease, border-color .2s ease, filter .2s ease;
+}
+.collegeSite a:focus-visible,
+.collegeSite button:focus-visible {
+  outline: 3px solid #63d8ff;
+  outline-offset: 4px;
+}
+.collegeSite a:hover,
+.collegeSite button:not(:disabled):hover {
+  transform: translateY(-3px);
+}
+.collegeSite a:active,
+.collegeSite button:not(:disabled):active {
+  transform: translateY(1px) scale(.98);
+}
+.collegeSite .collegePrimary,
+.collegeSite .collegeLogin,
+.collegeSite .collegeInstall,
+.collegeSite .collegeStudentActions button {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(29, 91, 203, .2);
+}
+.collegeSite .collegePrimary::after,
+.collegeSite .collegeLogin::after,
+.collegeSite .collegeInstall::after,
+.collegeSite .collegeStudentActions button::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -130%;
+  width: 70%;
+  transform: skewX(-22deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.32), transparent);
+  transition: left .65s ease;
+  pointer-events: none;
+}
+.collegeSite .collegePrimary:hover::after,
+.collegeSite .collegeLogin:hover::after,
+.collegeSite .collegeInstall:hover::after,
+.collegeSite .collegeStudentActions button:hover::after { left: 150%; }
+.collegeSite .collegePrimary:hover,
+.collegeSite .collegeLogin:hover,
+.collegeSite .collegeInstall:hover,
+.collegeSite .collegeStudentActions button:hover {
+  box-shadow: 0 14px 30px rgba(39, 91, 206, .3);
+  filter: saturate(1.12);
+}
+.collegeSite .collegeDepartmentCard,
+.collegeSite .collegeCourseCard,
+.collegeSite .collegeFacilityGrid article,
+.collegeSite .collegeUpdatesGrid article,
+.collegeSite .collegePortalCard,
+.collegeSite .collegeDownloadGrid > a,
+.collegeSite .collegeNoticeList article,
+.collegeSite .collegeVisionCard {
+  transition: transform .3s var(--college-motion-ease), box-shadow .3s ease, border-color .3s ease, background-color .3s ease;
+}
+.collegeSite .collegeDepartmentCard:hover,
+.collegeSite .collegeCourseCard:hover,
+.collegeSite .collegeFacilityGrid article:hover,
+.collegeSite .collegeUpdatesGrid article:hover,
+.collegeSite .collegePortalCard:hover,
+.collegeSite .collegeDownloadGrid > a:hover,
+.collegeSite .collegeNoticeList article:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 38px rgba(20, 48, 90, .13);
+  border-color: rgba(70, 111, 221, .42);
+}
+.collegeSite .collegeVisionCard:hover { transform: translateY(-5px) scale(1.01); }
+.collegeSite .collegeDepartmentCard > b,
+.collegeSite .collegePortalCard > b,
+.collegeSite .collegeNoticeList article > b { transition: transform .25s ease; }
+.collegeSite .collegeDepartmentCard:hover > b,
+.collegeSite .collegePortalCard:hover > b,
+.collegeSite .collegeNoticeList article:hover > b { transform: translate(3px,-3px); }
+.collegeSite .collegeGalleryImage { transition: background-size .5s ease, filter .35s ease; }
+.collegeSite .collegeGalleryImage:hover { filter: saturate(1.12) contrast(1.03); }
+.collegeSite .collegeHeroContent { animation: nobleHeroEnter .8s var(--college-motion-ease) both; }
+.collegeSite .collegeHeroBadge { animation: nobleBadgeFloat 5s ease-in-out infinite; }
+.collegeSite .collegeHeroNote { animation: nobleHeroEnter .9s .15s var(--college-motion-ease) both; }
+.collegeSite .collegeSectionLabel { transition: color .25s ease; }
+.collegeSite .collegeSection:hover > .collegeSectionLabel { color: #3976dc; }
+@keyframes nobleHeroEnter {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes nobleBadgeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .collegeSite *, .collegeSite *::before, .collegeSite *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
