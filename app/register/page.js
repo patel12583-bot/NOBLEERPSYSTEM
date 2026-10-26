@@ -19,7 +19,7 @@ export default function Register(){
     }catch{setError("Unable to connect to the server. Please try again.");}
     finally{setLoading(false);}
   }
-  return <main className="loginShell"><div className="loginCard">
+  return <main className="loginShell nobleAuthShell nobleAuthRegister"><div className="loginCard nobleAuthCard">
     <div className="loginTitle"><div className="eyebrow">NEW STUDENT ACCOUNT</div><h1>Create account.</h1><p>Register for access to the Noble ERP student portal.</p></div>
     {success ? <div>
       <div className="successBox"><strong>Account created successfully.</strong><p>Your Student ID is <b>{success.studentId}</b>. You can sign in using your email or Student ID.</p></div>

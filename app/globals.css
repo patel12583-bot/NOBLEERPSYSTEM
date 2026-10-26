@@ -3311,3 +3311,49 @@ html:not(.pwa-standalone) .nobleDashboard.navCollapsed .nobleLogout {justify-con
   html:not(.pwa-standalone) .nobleDashboard *:before,
   html:not(.pwa-standalone) .nobleDashboard *:after {animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+
+/* Noble ERP premium purple authentication refresh */
+.nobleAuthShell.loginShell{
+  position:relative;isolation:isolate;overflow:hidden;min-height:100svh;
+  display:flex;align-items:center;justify-content:center;padding:clamp(18px,4vw,52px);
+  background:radial-gradient(ellipse at 12% 12%,rgba(196,156,255,.46),transparent 34%),
+    radial-gradient(ellipse at 90% 88%,rgba(137,103,220,.26),transparent 36%),
+    linear-gradient(135deg,#f3eafa 0%,#f8eff2 45%,#eee7ff 100%);
+}
+.nobleAuthShell:before,.nobleAuthShell:after{content:"";position:absolute;z-index:-1;border-radius:50%;filter:blur(2px);pointer-events:none}
+.nobleAuthShell:before{width:320px;height:320px;left:-120px;bottom:-90px;background:linear-gradient(135deg,#e3c4ff88,#fff0)}
+.nobleAuthShell:after{width:260px;height:260px;right:-80px;top:-90px;background:linear-gradient(135deg,#d5c0ff88,#fff0)}
+.nobleAuthShell .loginCard,.nobleAuthShell .nobleAuthCard{
+  width:min(100%,470px);position:relative;border:1px solid rgba(255,255,255,.88);
+  border-radius:28px;padding:clamp(25px,4vw,42px);background:rgba(255,253,255,.88);
+  box-shadow:0 26px 75px rgba(95,63,145,.16),inset 0 1px 0 #fff;backdrop-filter:blur(24px);
+}
+.nobleAuthShell .loginTitle{margin:12px 0 27px;text-align:center}
+.nobleAuthShell .loginTitle .eyebrow{color:#9470ce;font-size:10px;letter-spacing:2px}
+.nobleAuthShell .loginTitle h1{font-family:"DM Sans",Inter,system-ui,sans-serif;font-size:clamp(29px,5vw,37px);font-weight:800;letter-spacing:-1.2px;color:#34244f;margin:10px 0}
+.nobleAuthShell .loginTitle p{font-size:13px;line-height:1.6;color:#887b9d}
+.nobleAuthShell .loginCard label{font-size:11px;letter-spacing:.15px;text-transform:none;color:#514565;font-weight:700}
+.nobleAuthShell .loginCard input,.nobleAuthShell .loginCard select{
+  border:1px solid #e8dfef;border-radius:13px;padding:14px 15px;background:#fffafd;color:#392d4c;
+  transition:border-color .18s,box-shadow .18s,transform .18s
+}
+.nobleAuthShell .loginCard input:focus,.nobleAuthShell .loginCard select:focus{
+  border-color:#a88ae0;box-shadow:0 0 0 4px rgba(165,132,222,.15)
+}
+.nobleAuthShell .primary.full{justify-content:center;min-height:51px;border-radius:14px;margin-top:5px;
+  background:linear-gradient(100deg,#a27be2,#8864d2);box-shadow:0 10px 23px rgba(132,95,204,.25);
+  transition:transform .18s,box-shadow .18s}
+.nobleAuthShell .primary.full:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(132,95,204,.3)}
+.nobleAuthShell .back,.nobleAuthShell .authLinks .back{color:#8665c1;font-weight:700}
+.nobleAuthShell .authLinks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px}
+.nobleAuthShell .loginCopyright{margin:24px 0 0;text-align:center;color:#a397b2;font-size:10px}
+.nobleAuthShell .noblePasswordField{display:flex;position:relative;align-items:center}
+.nobleAuthShell .noblePasswordField input{padding-right:68px}
+.nobleAuthShell .noblePasswordToggle{position:absolute;right:9px;top:50%;transform:translateY(-50%);border:0;border-radius:8px;background:#f4edff;color:#8563bd;padding:7px 9px;font-size:10px;font-weight:800}
+.nobleAuthShell .error{border:1px solid #f2d0d6;background:#fff3f5;color:#a22f48}
+.nobleAuthShell .successBox{border:1px solid #dfd2f6;background:#faf6ff;border-radius:15px;padding:17px;color:#51406b;margin-bottom:18px}
+.nobleAuthShell .successBox p{line-height:1.7}
+.nobleAuthRegister .loginTitle{margin-top:4px}
+@media(max-width:600px){.nobleAuthShell.loginShell{padding:15px}.nobleAuthShell .loginCard{border-radius:22px;padding:25px 21px}.nobleAuthShell .loginTitle{margin-bottom:22px}}
+@media(prefers-reduced-motion:reduce){.nobleAuthShell *{transition:none!important}}
