@@ -58,16 +58,23 @@ function LoginForm() {
     }
   }
 
-  return <main className="loginShell">
-    <div className="loginCampusShade" aria-hidden="true" />
-    <aside className="loginCampusFeatures">
-      <div><i>♟</i><span><b>Student Management</b><small>Track · Manage · Grow</small></span></div>
-      <div><i>♟</i><span><b>Faculty &amp; Staff</b><small>Support · Develop · Empower</small></span></div>
-      <div><i>▤</i><span><b>Examination &amp; Results</b><small>Evaluate · Analyze · Excel</small></span></div>
-      <div><i>▣</i><span><b>Library &amp; Resources</b><small>Access · Learn · Achieve</small></span></div>
-    </aside>
-    <div className="loginCard loginCampusCard">
-      <div className="loginTitle"><div className="eyebrow">SECURE COLLEGE PORTAL</div><h1>Noble ERP System</h1><p>College Management System</p></div>
+  return <main className="loginShell nobleAuthShell nobleEducationAuth">
+    <section className="nobleAuthWelcome" aria-label="Noble education portal">
+      <img className="nobleAuthBrand" src="/noble-institutes-logo.svg" alt="Noble Group of Institutes" />
+      <div className="nobleAuthWelcomeCopy"><span className="nobleAuthEyebrow">LEARN · GROW · ACHIEVE</span><h2>Welcome Back to Noble! <span>✦</span></h2><p>Your learning journey continues here. Sign in to access your academic world.</p></div>
+      <div className="nobleEducationIllustration" aria-hidden="true">
+        <div className="nobleEduWindow"><i></i><i></i><i></i><i></i><b>✦</b></div>
+        <div className="nobleEduBooks"><span></span><span></span><span></span><span></span></div>
+        <div className="nobleEduDesk"></div>
+        <div className="nobleEduPlant"><i></i><i></i><i></i><b></b></div>
+        <div className="nobleEduCap"><span>✦</span></div>
+        <div className="nobleEduBook"><b>N</b><span>NOBLE</span></div>
+      </div>
+      <div className="nobleAuthBenefits"><span>✦ Student Portal</span><span>✦ Academics &amp; Results</span><span>✦ Campus Resources</span></div>
+    </section>
+    <div className="loginCard nobleAuthCard">
+      <div className="nobleAuthMusicReplacement" aria-hidden="true"><svg viewBox="0 0 64 64" role="img"><path d="M10 25 32 8 54 25V51H10Z" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinejoin="round"/><path d="M23 51V34H41V51M17 28H47" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round"/><path d="M32 4 35 11 43 12 37 17 39 25 32 21 25 25 27 17 21 12 29 11Z" fill="#ffe9a7" stroke="currentColor" strokeWidth="1.5"/></svg></div>
+      <div className="loginTitle"><div className="eyebrow">NOBLE GROUP OF INSTITUTES</div><h1>Welcome Back!</h1><p>Please login to continue</p></div>
       <form onSubmit={submit}>
         <label>Portal role<select value={role} onChange={e => setRole(e.target.value)}>
           {["Student","Faculty","HOD","Parent","Admin","Super Admin","Accountant","Examination Officer","Librarian","HR/Staff"].map(x => <option key={x}>{x}</option>)}
@@ -82,8 +89,8 @@ function LoginForm() {
         {error && <div className="error">{error}</div>}
         <button className="primary full" disabled={loading}>{loading ? "Signing in…" : <>↪ &nbsp; Login</>}</button>
       </form>
-      <div className="authLinks"><button className="back" onClick={() => router.push("/register")}>Create Account / Sign Up</button><button className="back" onClick={() => router.push("/")}>← Back to Noble ERP</button></div>
-      <p className="loginCopyright">© 2026 noble group of Institution. All rights reserved.</p>
+      <div className="authLinks"><button className="back" onClick={() => router.push("/register")}>Don’t have an account? <b>Sign Up</b></button><button className="back" onClick={() => router.push("/")}>← Back to Noble ERP</button></div>
+      <p className="loginCopyright">© 2026 Noble Group of Institutes. All rights reserved.</p>
     </div>
   </main>;
 }

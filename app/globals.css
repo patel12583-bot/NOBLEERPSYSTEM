@@ -3311,3 +3311,61 @@ html:not(.pwa-standalone) .nobleDashboard.navCollapsed .nobleLogout {justify-con
   html:not(.pwa-standalone) .nobleDashboard *:before,
   html:not(.pwa-standalone) .nobleDashboard *:after {animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+
+/* Education-themed Noble auth layout inspired by the supplied login/sign-up references */
+.nobleEducationAuth.loginShell{min-height:100svh;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(380px,.88fr);align-items:stretch;gap:0;padding:clamp(16px,4vw,56px);background:linear-gradient(135deg,#eee3f6 0%,#f8eef0 50%,#eee6fb 100%);color:#35294f;overflow:hidden;position:relative}
+.nobleEducationAuth:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 12% 12%,#fff9 0,transparent 34%),radial-gradient(ellipse at 90% 88%,#d5b9f755 0,transparent 38%);pointer-events:none}
+.nobleEducationAuth .nobleAuthWelcome{position:relative;min-height:680px;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(22px,4vw,50px);border-radius:30px 0 0 30px;background:linear-gradient(145deg,#fff4ed 0%,#f9e8e5 58%,#f2dff1 100%);overflow:hidden}
+.nobleEducationAuth .nobleAuthBrand{width:min(230px,56%);height:auto;object-fit:contain;object-position:left center;max-height:90px}
+.nobleEducationAuth .nobleAuthWelcomeCopy{position:relative;z-index:2;max-width:520px;margin-top:28px}
+.nobleEducationAuth .nobleAuthEyebrow{font-size:10px;font-weight:900;letter-spacing:2.2px;color:#9b77d1}
+.nobleEducationAuth .nobleAuthWelcomeCopy h2{font-size:clamp(29px,3.5vw,43px);line-height:1.12;letter-spacing:-1.4px;margin:13px 0;color:#3a2b58}
+.nobleEducationAuth .nobleAuthWelcomeCopy h2 span{color:#a783e0}
+.nobleEducationAuth .nobleAuthWelcomeCopy p{font-size:clamp(13px,1.2vw,16px);line-height:1.8;color:#796a8d;max-width:400px;margin:0}
+.nobleEducationAuth .nobleEducationIllustration{position:relative;min-height:280px;flex:1;margin:12px -8px 0;overflow:hidden}
+.nobleEducationAuth .nobleEduWindow{position:absolute;right:10%;top:8%;width:28%;height:58%;border:10px solid #e6b982;border-bottom-width:16px;border-radius:100px 100px 12px 12px;background:linear-gradient(#bfe5ff 0 48%,#e3f5ff 49% 53%,#91c88e 54%);box-shadow:0 10px 20px #b8907c33;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.nobleEducationAuth .nobleEduWindow i{border:3px solid #e6b982}
+.nobleEducationAuth .nobleEduWindow b{position:absolute;right:13%;top:15%;color:#fff;font-size:20px;text-shadow:0 2px 5px #7b9cc5}
+.nobleEducationAuth .nobleEduDesk{position:absolute;left:0;right:0;bottom:7%;height:17%;border-radius:22px 22px 9px 9px;background:linear-gradient(180deg,#f4c78e,#d99d63);box-shadow:0 15px 22px #91674426}
+.nobleEducationAuth .nobleEduBooks{position:absolute;left:18%;bottom:22%;height:26%;display:flex;align-items:end;gap:5px;z-index:2}
+.nobleEducationAuth .nobleEduBooks span{display:block;width:25px;border-radius:5px 5px 2px 2px;box-shadow:inset 4px 0 #fff6}
+.nobleEducationAuth .nobleEduBooks span:nth-child(1){height:72%;background:#b5a0e8}.nobleEducationAuth .nobleEduBooks span:nth-child(2){height:92%;background:#e8a8b7}.nobleEducationAuth .nobleEduBooks span:nth-child(3){height:80%;background:#f0d7a6}.nobleEducationAuth .nobleEduBooks span:nth-child(4){height:100%;background:#9f8bd2}
+.nobleEducationAuth .nobleEduPlant{position:absolute;left:4%;bottom:23%;width:60px;height:105px;z-index:2}
+.nobleEducationAuth .nobleEduPlant:before{content:"";position:absolute;bottom:0;left:12px;width:39px;height:35px;border-radius:5px 5px 16px 16px;background:linear-gradient(90deg,#e9b9a7,#fff0d8)}
+.nobleEducationAuth .nobleEduPlant i{position:absolute;bottom:34px;left:20px;width:22px;height:47px;border-radius:100% 0 100% 0;background:linear-gradient(135deg,#9fd27d,#5d9d65);transform-origin:bottom}
+.nobleEducationAuth .nobleEduPlant i:nth-child(1){transform:rotate(-43deg);left:4px}.nobleEducationAuth .nobleEduPlant i:nth-child(2){transform:rotate(27deg);left:29px;bottom:42px}.nobleEducationAuth .nobleEduPlant i:nth-child(3){transform:rotate(-7deg);left:20px;bottom:56px}
+.nobleEducationAuth .nobleEduCap{position:absolute;z-index:3;left:43%;bottom:25%;width:95px;height:43px;background:#a783df;clip-path:polygon(50% 0,100% 36%,50% 73%,0 36%);filter:drop-shadow(0 8px 7px #7250a444)}
+.nobleEducationAuth .nobleEduCap:after{content:"";position:absolute;left:36%;top:49%;width:28%;height:38%;background:#8b68cb;border-radius:0 0 8px 8px}
+.nobleEducationAuth .nobleEduCap span{position:absolute;left:46%;top:14%;color:#fff2b9;font-size:12px}
+.nobleEducationAuth .nobleEduBook{position:absolute;z-index:3;left:40%;bottom:13%;width:130px;height:65px;border-radius:8px 8px 5px 5px;background:linear-gradient(145deg,#fff,#e5d8f6);border:3px solid #c6a9df;box-shadow:0 10px 13px #80608b22;display:flex;align-items:center;justify-content:center;gap:8px;color:#7960b6}
+.nobleEducationAuth .nobleEduBook b{font-size:27px}.nobleEducationAuth .nobleEduBook span{font-size:10px;font-weight:900;letter-spacing:1px}
+.nobleEducationAuth .nobleAuthBenefits{position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:9px;margin-top:8px}
+.nobleEducationAuth .nobleAuthBenefits span{padding:9px 12px;border-radius:999px;background:#fff9;border:1px solid #fff;color:#76618e;font-size:10px;font-weight:700}
+.nobleEducationAuth .nobleAuthCard{align-self:center;justify-self:center;width:min(100%,520px);margin:0;background:rgba(255,253,255,.94);border:1px solid #fff;border-radius:0 30px 30px 0;padding:clamp(26px,3vw,45px);box-shadow:0 24px 65px #735b8c1b;backdrop-filter:blur(18px)}
+.nobleEducationAuth .nobleAuthMusicReplacement{display:grid;place-items:center;width:86px;height:86px;margin:0 auto 20px;border-radius:26px;background:linear-gradient(145deg,#c49aef,#9c77d8);color:#fff;box-shadow:0 12px 25px #9671c74d,inset 0 2px 4px #fff8}
+.nobleEducationAuth .nobleAuthMusicReplacement svg{width:55px;height:55px}
+.nobleEducationAuth .loginTitle{margin:0 0 26px;text-align:center}
+.nobleEducationAuth .loginTitle .eyebrow{font-size:9px;color:#9d7acc;letter-spacing:1.5px}
+.nobleEducationAuth .loginTitle h1{font-family:"DM Sans",Inter,system-ui,sans-serif;font-size:clamp(27px,3vw,36px);font-weight:800;letter-spacing:-1.1px;color:#392b56;margin:9px 0}
+.nobleEducationAuth .loginTitle p{font-size:13px;color:#8c7b9f;line-height:1.6}
+.nobleEducationAuth .loginCard label{font-size:11px;letter-spacing:0;text-transform:none;color:#504261;font-weight:750}
+.nobleEducationAuth .loginCard input,.nobleEducationAuth .loginCard select{border:1px solid #e8dfed;border-radius:13px;padding:14px 15px;background:#fffafd;color:#3a2c4d;min-height:48px;transition:border-color .2s,box-shadow .2s}
+.nobleEducationAuth .loginCard input:focus,.nobleEducationAuth .loginCard select:focus{border-color:#a989df;box-shadow:0 0 0 4px #a989df22}
+.nobleEducationAuth .loginCard form{gap:15px}
+.nobleEducationAuth .primary.full{min-height:52px;justify-content:center;border-radius:14px;background:linear-gradient(100deg,#aa83e4,#8e68d4);box-shadow:0 10px 24px #9c77d844;transition:transform .2s,box-shadow .2s}
+.nobleEducationAuth .primary.full:hover{transform:translateY(-1px);box-shadow:0 14px 28px #9c77d855}
+.nobleEducationAuth .back{color:#8767bd;font-size:12px;font-weight:650}
+.nobleEducationAuth .back b{color:#7550b4}
+.nobleEducationAuth .authLinks{display:flex;flex-direction:column;align-items:center;gap:2px;margin-top:12px}
+.nobleEducationAuth .loginCopyright{font-size:10px;text-align:center;color:#a89bb4;margin:20px 0 0}
+.nobleEducationAuth .noblePasswordField{position:relative;display:flex;align-items:center}
+.nobleEducationAuth .noblePasswordToggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;border-radius:8px;background:#f3ebff;color:#8764c1;padding:7px 9px;font-size:10px;font-weight:800}
+.nobleEducationAuth .noblePasswordField input{padding-right:62px}
+.nobleRegisterLayout .nobleAuthCard{max-height:calc(100svh - 32px);overflow:auto}
+.nobleRegisterLayout .nobleAuthCard .loginTitle{margin-bottom:20px}
+.nobleRegisterLayout .nobleAuthMusicReplacement{display:none}
+.nobleRegisterLayout .nobleAuthWelcomeCopy{margin-top:10px}
+@media(max-width:900px){.nobleEducationAuth.loginShell{grid-template-columns:1fr;padding:16px}.nobleEducationAuth .nobleAuthWelcome{min-height:360px;border-radius:25px 25px 0 0;padding:24px}.nobleEducationAuth .nobleEducationIllustration{min-height:150px}.nobleEducationAuth .nobleEduWindow{height:70%;width:25%}.nobleEducationAuth .nobleAuthCard{width:100%;max-width:600px;border-radius:0 0 25px 25px}.nobleRegisterLayout .nobleAuthCard{max-height:none}.nobleEducationAuth .nobleAuthBrand{width:190px}}
+@media(max-width:520px){.nobleEducationAuth.loginShell{padding:10px}.nobleEducationAuth .nobleAuthWelcome{min-height:320px;padding:20px;border-radius:20px 20px 0 0}.nobleEducationAuth .nobleAuthWelcomeCopy h2{font-size:29px}.nobleEducationAuth .nobleAuthWelcomeCopy p{font-size:12px}.nobleEducationAuth .nobleEducationIllustration{min-height:120px}.nobleEducationAuth .nobleAuthBenefits span{font-size:9px;padding:7px 9px}.nobleEducationAuth .nobleAuthCard{padding:24px 20px;border-radius:0 0 20px 20px}.nobleEducationAuth .nobleAuthMusicReplacement{width:70px;height:70px;border-radius:22px}.nobleEducationAuth .loginTitle h1{font-size:28px}}
+@media(prefers-reduced-motion:reduce){.nobleEducationAuth *{transition:none!important}}
