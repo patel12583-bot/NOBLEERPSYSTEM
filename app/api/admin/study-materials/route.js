@@ -30,12 +30,60 @@ function validFile(name, dataUrl) {
 }
 export async function GET() {
   const user = await getSessionUser();
-  if (!user || !["ADMIN", "SUPER_ADMIN", "HOD", "FACULTY"].includes(user.role)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user || !["ADMIN", "SUPER_ADMIN", "HOD", "FACULTY"].includes(user.role)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  let subjectWhere = { status: "ACTIVE" };
+  let programWhere = { status: "ACTIVE" };
+  let semesterWhere = {};
+  let materialWhere = {};
+
+  // Faculty can only browse materials for subjects assigned to them (and their own uploads).
+  if (user.role === "FACULTY") {
+    const faculty = await prisma.faculty.findUnique({ where: { userId: user.id }, select: { id: true } });
+    if (!faculty) {
+      return NextResponse.json({ error: "Faculty profile is not linked to this account." }, { status: 404 });
+    }
+    const assigned = await prisma.facultySubject.findMany({
+      where: { facultyId: faculty.id },
+      select: { subjectId: true }
+    });
+    const subjectIds = [...new Set(assigned.map((item) => item.subjectId))];
+    subjectWhere = { status: "ACTIVE", id: { in: subjectIds } };
+    materialWhere = {
+      OR: [
+        { facultyId: faculty.id },
+        { subjectId: { in: subjectIds } }
+      ]
+    };
+  }
+
+  // HOD access is limited to the HOD's own department.
+  if (user.role === "HOD") {
+    const faculty = await prisma.faculty.findUnique({
+      where: { userId: user.id },
+      select: { departmentId: true }
+    });
+    if (!faculty?.departmentId) {
+      return NextResponse.json({ error: "HOD account is not linked to a department." }, { status: 403 });
+    }
+    const departmentId = faculty.departmentId;
+    subjectWhere = { status: "ACTIVE", departmentId };
+    programWhere = { status: "ACTIVE", departmentId };
+    semesterWhere = { subjects: { some: { departmentId } } };
+    materialWhere = { subject: { departmentId } };
+  }
+
   const [subjects, programs, semesters, materials] = await Promise.all([
-    prisma.subject.findMany({ where: { status: "ACTIVE" }, orderBy: { name: "asc" } }),
-    prisma.program.findMany({ where: { status: "ACTIVE" }, orderBy: { name: "asc" } }),
-    prisma.semester.findMany({ orderBy: { number: "asc" } }),
-    prisma.studyMaterial.findMany({ include: { subject: true, program: true, semester: true, faculty: true }, orderBy: { uploadedAt: "desc" } })
+    prisma.subject.findMany({ where: subjectWhere, orderBy: { name: "asc" } }),
+    prisma.program.findMany({ where: programWhere, orderBy: { name: "asc" } }),
+    prisma.semester.findMany({ where: semesterWhere, orderBy: { number: "asc" } }),
+    prisma.studyMaterial.findMany({
+      where: materialWhere,
+      include: { subject: true, program: true, semester: true, faculty: true },
+      orderBy: { uploadedAt: "desc" }
+    })
   ]);
   return NextResponse.json({ subjects, programs, semesters, materials });
 }
