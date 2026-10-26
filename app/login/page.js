@@ -58,7 +58,7 @@ function LoginForm() {
     }
   }
 
-  return <main className="loginShell">
+  return <main className="loginShell nobleAuthShell nobleAuthLogin">
     <div className="loginCampusShade" aria-hidden="true" />
     <aside className="loginCampusFeatures">
       <div><i>♟</i><span><b>Student Management</b><small>Track · Manage · Grow</small></span></div>
