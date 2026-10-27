@@ -1,0 +1,160 @@
+/* NOBLE FINAL PREMIUM EXPERIENCE
+   Warm ivory, champagne, soft stone and floating 3D-inspired geometry from the approved reference.
+   Visual layer only: preserve routes, APIs, forms, role access and business logic. */
+:root{
+ --noble-ink:#34332f;--noble-muted:#77766f;--noble-page:#eeece4;--noble-paper:#fffdf8;
+ --noble-line:#e2ded3;--noble-forest:#555d4d;--noble-gold:#c9a77c;--noble-shadow:0 24px 70px rgba(71,64,50,.10);
+ --noble-radius:18px;--navy:#343b35;--blue:#737966;--gold:#c9a77c;--ink:#34332f;--muted:#77766f;--line:#e2ded3;--card:#fffdf8
+}
+html{scroll-behavior:smooth;background:#eeece4}
+body{background:#eeece4;color:#34332f;font-family:"DM Sans",Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a,button,input,select,textarea{transition:color .22s ease,background-color .22s ease,border-color .22s ease,box-shadow .22s ease,transform .22s ease}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #b8a48780;outline-offset:3px}
+::selection{background:#d9c6a8;color:#332f28}
+/* Public website */
+.collegeSite{background:#efede6!important;color:#383831!important;--navy:#383a33;--blue:#737966;--gold:#c6a77f}
+.collegeTopline{background:#d9d5ca!important;color:#57564f!important;letter-spacing:1.2px}
+.collegeLiveTicker{background:#f7f5ef!important;color:#69685f!important;border-color:#e6e1d6!important}
+.collegeLiveTickerLabel,.collegeLiveTicker>a{color:#6c745f!important}
+.collegeLiveTickerLabel i{background:#9caa8b!important;box-shadow:0 0 0 4px #9caa8b22}
+.collegeHeader{background:#f7f5eff0!important;border-color:#e4dfd3!important;box-shadow:0 8px 28px #5953440b!important}
+.collegeBrand strong{color:#373a33!important;letter-spacing:1px}
+.collegeBrand small{color:#888579!important}
+.collegeInstall{background:#f0eee7!important;border-color:#ded8ca!important;color:#52584a!important}
+.collegeLogin{background:#565e4e!important;color:#fffdf8!important;box-shadow:0 8px 22px #4d594324!important}
+.collegeNav{background:#f7f5ef!important;border-color:#e5e0d5!important}
+.collegeNav a{color:#6e6d64!important}
+.collegeNav a:hover,.collegeNav a:focus-visible{color:#353b31!important;border-color:#c8a982!important}
+/* Sculptural abstract hero — no extra image dependency */
+.collegeHero{position:relative;isolation:isolate;overflow:hidden;min-height:clamp(570px,67vw,790px)!important;display:flex;align-items:center;justify-content:center;text-align:center;padding:clamp(42px,7vw,94px) 24px!important;background:
+ radial-gradient(ellipse at 6% 85%,#d5cfc1 0,transparent 22%),
+ radial-gradient(ellipse at 96% 20%,#d5d0c2 0,transparent 25%),
+ radial-gradient(ellipse at 55% 112%,#d4c8b4 0,transparent 34%),
+ linear-gradient(140deg,#e3e0d6,#f4f1e8 45%,#dcd9ce)!important;color:#393a34!important}
+.collegeHero:before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(#fff8 1px,transparent 1px),linear-gradient(90deg,#fff8 1px,transparent 1px);background-size:74px 74px;opacity:.28;mask-image:linear-gradient(180deg,transparent,#000 20%,#000 80%,transparent)}
+.collegeHero:after{content:"";position:absolute;z-index:-1;left:50%;top:50%;width:min(62vw,760px);height:min(42vw,430px);transform:translate(-50%,-44%) rotate(-8deg);border-radius:34px;background:linear-gradient(135deg,#fffdf5e8,#d8d4c9c9 52%,#f9f7f0e8);border:1px solid #ffffffb8;box-shadow:0 40px 80px #756d5a22,inset 0 1px #fff;clip-path:polygon(7% 10%,88% 0,100% 83%,14% 100%,0 48%);pointer-events:none}
+.collegeHeroShade{z-index:-1;inset:0;background:radial-gradient(ellipse at 16% 30%,#fff9,transparent 22%),radial-gradient(ellipse at 85% 70%,#fff8,transparent 19%)}
+.collegeHeroContent{width:min(650px,100%);padding:clamp(28px,5vw,56px);border:1px solid #ffffffc9;border-radius:24px;background:linear-gradient(135deg,#fffdf2c9,#f8f5ecc4);box-shadow:0 22px 65px #6d66531a,inset 0 1px #fff;backdrop-filter:blur(20px);text-align:center}
+.collegeEyebrow{color:#7c806e!important;letter-spacing:2.5px!important;font-size:10px!important}
+.collegeHero h1{font-family:"DM Sans",Inter,system-ui,sans-serif!important;font-size:clamp(43px,6.4vw,76px)!important;line-height:1.03!important;letter-spacing:-3px!important;font-weight:700!important;color:#3e4038!important;margin:18px 0!important}
+.collegeHero h1 em{color:#777e68!important;font-family:"DM Sans",Inter,system-ui,sans-serif!important;font-weight:500!important}
+.collegeHeroContent>p{color:#77766d!important;font-size:clamp(14px,1.4vw,17px)!important;line-height:1.8!important;margin:0 auto;max-width:480px}
+.collegeHeroActions{justify-content:center!important;margin-top:24px!important}
+.collegePrimary{background:linear-gradient(135deg,#f7e5c7,#d6b48b)!important;color:#39382f!important;border:1px solid #fff5e3!important;border-radius:999px!important;box-shadow:0 8px 25px #c9a77c38!important}
+.collegeOutline{background:#ffffff8a!important;color:#5e6055!important;border:1px solid #dcd5c7!important;border-radius:999px!important}
+.collegeHeroNote{color:#888578!important;letter-spacing:2px!important}
+.collegeHeroBadge{right:clamp(20px,8vw,120px)!important;bottom:clamp(22px,5vw,54px)!important;background:#f8f5ebbd!important;border:1px solid #fff!important;border-radius:18px!important;color:#55564e!important;box-shadow:0 18px 44px #6b604a20!important;backdrop-filter:blur(18px)}
+.collegeHeroBadge>span{color:#a38c6c!important}
+.collegeHeroBadge small{color:#858175!important}
+.collegeStats{max-width:1120px!important;margin:0 auto!important;background:#faf8f2!important;border:1px solid #e3ded2!important;border-radius:18px!important;box-shadow:0 18px 45px #615a4910!important}
+.collegeStats strong{color:#737966!important}
+.collegeStats span{color:#858176!important}
+.collegeSection{background:#f7f5ef!important}
+.collegeSoft{background:#ece9df!important}
+.collegeSectionLabel{color:#8b816e!important;letter-spacing:2px!important}
+.collegeSection h2,.collegeFaculty h2,.collegeContact h2,.collegePlacement h2{color:#3d4038!important;font-family:"DM Sans",Inter,system-ui,sans-serif!important;letter-spacing:-1.4px!important}
+.collegeSection h2 em,.collegePlacement h2 em,.collegeContact h2 em{color:#a58d6d!important}
+.collegeAboutGrid p,.collegeSectionHeading p,.collegePlacement p,.collegeContact p,.collegeFaculty p{color:#77766d!important}
+.collegeTextLink{color:#737966!important}
+.collegeVisionCard{background:linear-gradient(140deg,#faf8f0,#e6e2d7)!important;border:1px solid #fff!important;box-shadow:0 12px 32px #665e4d0a!important;border-radius:20px!important}
+.collegeVisionCard>span{color:#92846d!important}
+.collegeVisionCard h2{color:#3e4038!important}
+.collegeVisionCard p{color:#77766d!important}
+.collegeVisionDark{background:linear-gradient(145deg,#606958,#41483d)!important;border-color:#727866!important}
+.collegeVisionDark>span,.collegeVisionDark h2{color:#fffdf5!important}
+.collegeVisionDark p{color:#e3e0d5!important}
+.collegePrincipalMark{background:linear-gradient(145deg,#7d816d,#4c5446)!important;color:#f5e6c9!important;box-shadow:0 14px 32px #4c54462c!important}
+.collegePrincipal h2{color:#3e4038!important}
+.collegePrincipal p{color:#77766d!important}
+.collegePrincipal small{color:#777e68!important}
+.collegeDepartmentCard,.collegeCourseCard,.collegeFacilityGrid article,.collegeUpdatesGrid article,.collegeDownloadGrid>a,.collegePortalCard,.collegeContactDetails{background:#fffdf7!important;border-color:#e4dfd3!important;border-radius:17px!important;box-shadow:0 10px 28px #5d57490b!important}
+.collegeDepartmentCard:hover,.collegeCourseCard:hover,.collegeFacilityGrid article:hover,.collegeUpdatesGrid article:hover,.collegeDownloadGrid>a:hover,.collegePortalCard:hover{transform:translateY(-4px);box-shadow:0 18px 38px #5d57491a!important;border-color:#cfc2aa!important}
+.collegeDepartmentCard{color:#45463e!important}
+.collegeDepartmentCard>span,.collegeDepartmentCard>b{color:#a58d6d!important}
+.collegeDepartmentCard small,.collegeCourseCard small{color:#8a806c!important}
+.collegeDepartmentCard p{color:#858176!important}
+.collegeCourseCard>span{background:#ece9df!important;color:#666d59!important;border-radius:13px!important}
+.collegeCourseCard a{color:#737966!important}
+.collegeFaculty{background:linear-gradient(130deg,#e0ddd2,#f7f4eb)!important;color:#41433b!important}
+.collegeFaculty h2{color:#3d4038!important}
+.collegeFaculty h2 em{color:#a58d6d!important}
+.collegeFaculty .collegeEyebrow{color:#89806e!important}
+.collegeFaculty p{color:#77766d!important}
+.collegeFacultyVisual{border-color:#ffffffb8!important;border-radius:24px!important;background:radial-gradient(circle at 50% 25%,#ffffffc9,transparent 48%),linear-gradient(145deg,#e6e2d8,#d2cec1)!important;box-shadow:0 18px 45px #5d574914!important}
+.collegeAdmission{background:linear-gradient(115deg,#e8e4d8,#f8f5ed)!important}
+.collegeAdmission h2{color:#3d4038!important}
+.collegeAdmission .collegePrimary{background:linear-gradient(135deg,#f4dfbd,#d0af83)!important}
+.collegeAdmission .collegeOutlineLight{border-color:#d8d1c3!important;color:#55584c!important;background:#fff9!important;border-radius:999px!important}
+.collegeEmptyUpdate,.collegeNewsBanner{background:#f1eee5!important;border-color:#e2ddd1!important;border-radius:17px!important}
+.collegeEmptyUpdate>a,.collegeNewsBanner>a{color:#747b66!important}
+.collegeNoticeList article{border-color:#e4dfd3!important}
+.collegeNoticeList article h3{color:#45463e!important}
+.collegeGalleryImage{border-radius:20px!important;box-shadow:0 20px 50px #5d57491a!important}
+.collegeContact{background:#eeece4!important}
+.collegeContactDetails{box-shadow:0 15px 38px #5d574912!important}
+.collegeContactMap{border-radius:18px!important;box-shadow:0 18px 45px #5d574912!important}
+.collegePortalSection{background:#f7f5ef!important}
+.collegePortalCard>span{background:#ece9df!important;border-radius:13px!important}
+.collegeFooter{background:#454b40!important;color:#f6f3e9!important}
+.collegeFooter a{color:#e4d4b8!important}
+/* Auth pages */
+.loginShell:not(.nobleBlueLogin){background:radial-gradient(ellipse at 14% 15%,#fffdf5,transparent 34%),radial-gradient(ellipse at 90% 84%,#d8d2c4,transparent 30%),linear-gradient(135deg,#e4e1d7,#f5f2e9)!important}
+.loginCard{background:#fffdf8f2!important;border:1px solid #ffffff!important;border-radius:22px!important;box-shadow:0 28px 80px #60594720!important;backdrop-filter:blur(20px)}
+.loginTitle h1{color:#3e4038!important}
+.loginTitle p{color:#858176!important}
+.loginCard label{color:#65645b!important}
+.loginCard input,.loginCard select{background:#fffefa!important;border-color:#e1ddd2!important;border-radius:11px!important;color:#393a34!important}
+.loginCard input:focus,.loginCard select:focus{border-color:#a99a7e!important;box-shadow:0 0 0 3px #c9a77c26!important}
+.loginCard .primary,.loginCard button[type=submit]{background:#59604f!important;border-color:#59604f!important;color:#fffdf7!important;border-radius:999px!important}
+.loginCard .back{color:#7c806e!important}
+/* Keep the reference login class consistent if used by this branch */
+.loginShell.nobleBlueLogin{background:radial-gradient(ellipse at 10% 10%,#fffdf5,transparent 34%),radial-gradient(ellipse at 92% 80%,#d9d3c6,transparent 30%),linear-gradient(135deg,#e4e1d7,#f5f2e9)!important}
+.nobleBlueLogin .nobleBlueLoginCard{background:#fffdf8e8!important;border-color:#ffffff!important;border-radius:22px!important;box-shadow:0 28px 80px #60594720!important;backdrop-filter:blur(20px)}
+.nobleBlueLogin .nobleBlueIllustration{background:linear-gradient(145deg,#dedbcf,#efede4)!important}
+.nobleBlueLogin .nobleBlueFormHeading h1{color:#3e4038!important}
+.nobleBlueLogin .nobleBlueFormHeading p{color:#858176!important}
+.nobleBlueLogin .nobleBlueFormPanel label{color:#65645b!important}
+.nobleBlueLogin .nobleBlueFormPanel input{background:#fffefa!important;border-color:#e1ddd2!important;border-radius:11px!important}
+.nobleBlueLogin .nobleBlueSignIn{background:#59604f!important;border-color:#59604f!important;color:#fffdf7!important;border-radius:999px!important}
+.nobleBlueLogin .nobleBlueCreateAccount{background:#fffefa!important;border-color:#e1ddd2!important;border-radius:999px!important;color:#565c4d!important}
+/* ERP dashboard, navigation and data modules */
+.dash{background:linear-gradient(135deg,#eeece4,#f8f6ef)!important;color:#3d4038!important}
+.dash aside{background:linear-gradient(180deg,#454d40,#353c32)!important;border-right:1px solid #5c6355!important;box-shadow:8px 0 28px #3f46370d!important}
+.sideBrand b{color:#fffdf6!important}
+.rolePill{background:#ffffff16!important;color:#e6d8bd!important;border-color:#ffffff24!important}
+.sideNav button,.logout{color:#deddd3!important}
+.sideNav button.selected,.sideNav button:hover{background:#ffffff19!important;color:#fffdf7!important}
+.content{background:radial-gradient(ellipse at 96% 3%,#e1ddd1 0,transparent 24%),linear-gradient(135deg,#f4f1e8,#eeece4)!important;color:#3d4038!important}
+.content h1{color:#3d4038!important}
+.content header p{color:#858176!important}
+.avatar{background:linear-gradient(145deg,#777e68,#4b5345)!important;box-shadow:0 8px 20px #4b53452b!important}
+.statGrid>div,.panel{background:#fffdf8!important;border-color:#e4dfd3!important;border-radius:16px!important;box-shadow:0 10px 28px #5d57490b!important}
+.erpShell{background:#eeece4!important;color:#3d4038!important}
+.erpSidebar{background:linear-gradient(180deg,#454d40,#353c32)!important;border-right-color:#5c6355!important}
+.erpBrand{border-bottom-color:#ffffff20!important}
+.erpTopbar{background:#faf8f1ed!important;border-bottom-color:#e2ded3!important;backdrop-filter:blur(18px)}
+.erpBreadcrumb span,.erpAcademicYear{color:#858176!important}
+.erpBreadcrumb strong{color:#41443b!important}
+.erpPage{background:transparent!important}
+.erpFooter{border-top-color:#e2ded3!important;color:#858176!important}
+.erpNavItem.active{background:#ffffff1b!important;color:#fffdf7!important}
+.erpNavItem:hover{background:#ffffff12!important}
+.moduleHero{border:1px solid #fff!important;border-radius:20px!important;background:linear-gradient(120deg,#fffdf8,#e9e5da)!important;box-shadow:0 12px 32px #5d57490b!important}
+.moduleHero h1{color:#3e4038!important}
+.moduleHero p{color:#858176!important}
+.moduleHero .eyebrow{color:#89806e!important}
+.erpPage button.primary,.erpPage .primary,.moduleHero button.primary{background:#59604f!important;border-color:#59604f!important;color:#fffdf7!important}
+.erpPage button.primary:hover,.erpPage .primary:hover,.moduleHero button.primary:hover{background:#454d40!important}
+.erpPage input,.erpPage select,.erpPage textarea,.erpPage [role=searchbox]{border-color:#e1ddd2!important;background:#fffefa!important;border-radius:9px}
+.erpPage input:focus,.erpPage select:focus,.erpPage textarea:focus{border-color:#a99a7e!important;box-shadow:0 0 0 3px #c9a77c26!important}
+.erpPage th{background:#eeece4!important;color:#65695b!important}
+.erpPage td{border-color:#e8e4da!important}
+.erpPage tr:hover td{background:#faf8f2!important}
+.erpPage [class*=card],.erpPage [class*=Card],.erpPage [class*=panel],.erpPage [class*=Panel]{border-color:#e4dfd3}
+/* Shared cards / forms across remaining role portals */
+.card,.panel,.statCard,.dashboardCard,.moduleCard,.settingsCard{border-color:#e4dfd3!important;border-radius:16px!important;box-shadow:0 10px 28px #5d57490b!important}
+table th{background:#eeece4;color:#65695b}
+input,select,textarea{accent-color:#777e68}
+@media(max-width:900px){.collegeHero:after{width:90vw;height:56vw}.collegeHeroContent{max-width:610px}.collegeHeroBadge{right:18px;bottom:18px}.collegeStats{margin:0 14px!important}.collegeHero{min-height:610px!important}}
+@media(max-width:650px){.collegeTopline span:nth-child(2){display:none}.collegeHero{min-height:600px!important;padding:40px 16px 90px!important}.collegeHero:after{width:110vw;height:78vw;opacity:.85}.collegeHeroContent{padding:28px 18px;border-radius:20px}.collegeHero h1{letter-spacing:-1.8px!important;font-size:clamp(39px,11vw,58px)!important}.collegeHeroBadge{left:18px;right:auto;bottom:14px;padding:11px 13px}.collegeStats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px;padding:18px 10px}.collegeStats>div:nth-child(2){border-right:0}.collegeSection{padding:52px 20px!important}.collegeVision{grid-template-columns:1fr;padding:0 20px!important}.collegeAboutGrid,.collegePlacement,.collegeFaculty{grid-template-columns:1fr!important;gap:24px}.collegeDepartmentGrid,.collegeCourseGrid{grid-template-columns:1fr!important}.collegeCourseCard{grid-template-columns:62px 1fr;gap:12px;padding:16px}.collegeCourseCard>span{width:58px}.collegeCourseCard>a{grid-column:2}.collegeSectionHeading{align-items:flex-start;flex-direction:column}.collegePrincipal{grid-template-columns:1fr;gap:14px}.collegeHeader{padding:10px 14px;gap:8px}.collegeBrand img{width:40px;height:40px}.collegeBrand strong{font-size:10px}.collegeBrand small{font-size:8px;letter-spacing:.7px}.collegeHeaderActions{gap:6px}.collegeInstall,.collegeLogin{font-size:9px;min-height:36px;padding:0 9px}.collegeNav{top:60px}.loginShell{padding:16px}.loginCard{padding:26px 20px}.dash aside{width:76px;padding:18px 8px}.sideBrand{padding:0 4px 20px}.sideBrand b,.rolePill{display:none}.sideNav button{font-size:0;text-align:center;padding:12px 6px}.sideNav button span{width:auto;font-size:16px}.content{padding:24px 14px}.statGrid{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
