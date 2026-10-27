@@ -1,12 +1,10 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
 function LoginForm() {
-  const params = useSearchParams();
   const router = useRouter();
-  const [role, setRole] = useState(params.get("role") || "Student");
   const [id, setId] = useState("");
   const [pass, setPass] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -16,7 +14,6 @@ function LoginForm() {
   useEffect(() => {
     const standalone = window.matchMedia?.("(display-mode: standalone)")?.matches || window.navigator.standalone === true;
     if (!standalone) return;
-    setRole("Student");
     let active = true;
     fetch("/api/dashboard", { cache: "no-store" }).then((res) => {
       if (active && res.ok) { router.replace("/dashboard"); router.refresh(); }
@@ -58,34 +55,31 @@ function LoginForm() {
     }
   }
 
-  return <main className="loginShell">
-    <div className="loginCampusShade" aria-hidden="true" />
-    <aside className="loginCampusFeatures">
-      <div><i>♟</i><span><b>Student Management</b><small>Track · Manage · Grow</small></span></div>
-      <div><i>♟</i><span><b>Faculty &amp; Staff</b><small>Support · Develop · Empower</small></span></div>
-      <div><i>▤</i><span><b>Examination &amp; Results</b><small>Evaluate · Analyze · Excel</small></span></div>
-      <div><i>▣</i><span><b>Library &amp; Resources</b><small>Access · Learn · Achieve</small></span></div>
-    </aside>
-    <div className="loginCard loginCampusCard">
-      <div className="loginTitle"><div className="eyebrow">SECURE COLLEGE PORTAL</div><h1>Noble ERP System</h1><p>College Management System</p></div>
-      <form onSubmit={submit}>
-        <label>Portal role<select value={role} onChange={e => setRole(e.target.value)}>
-          {["Student","Faculty","HOD","Parent","Admin","Super Admin","Accountant","Examination Officer","Librarian","HR/Staff"].map(x => <option key={x}>{x}</option>)}
-        </select></label>
-        <label>User ID / Email<input value={id} onChange={e => setId(e.target.value)} placeholder="Enter your ID or email" autoComplete="username" required /></label>
-        <label>Password
-          <span className="noblePasswordField">
-            <input type={showPassword ? "text" : "password"} value={pass} onChange={e => setPass(e.target.value)} placeholder="Enter password" autoComplete="current-password" required />
-            <button className="noblePasswordToggle" type="button" onClick={() => setShowPassword(value => !value)} aria-label={showPassword ? "Hide password" : "Show password"} aria-pressed={showPassword}>{showPassword ? "Hide" : "Show"}</button>
-          </span>
-        </label>
-        {error && <div className="error">{error}</div>}
-        <button className="primary full" disabled={loading}>{loading ? "Signing in…" : <>↪ &nbsp; Login</>}</button>
-      </form>
-      <div className="authLinks"><button className="back" onClick={() => router.push("/register")}>Create Account / Sign Up</button><button className="back" onClick={() => router.push("/")}>← Back to Noble ERP</button></div>
-      <p className="loginCopyright">© 2026 noble group of Institution. All rights reserved.</p>
-    </div>
-  </main>;
+  return <main className="loginShell nobleBlueLogin">
+    <section className="nobleBlueLoginCard">
+      <div className="nobleBlueIllustration">
+        <img src="/noble-student-login.svg" alt="Student using a laptop" />
+        <div className="nobleBlueIllustrationCaption"><span>LEARN. GROW. ACHIEVE.</span><strong>Noble Group of Institutes</strong></div>
+      </div>
+      <div className="nobleBlueFormPanel">
+        <div className="nobleBlueFormHeading"><h1>Sign In</h1><p>Unlock your world.</p></div>
+        <form onSubmit={submit}>
+          <label>Email / User ID<input value={id} onChange={e => setId(e.target.value)} placeholder="Enter your email or user ID" autoComplete="username" required /></label>
+          <label>Password
+            <span className="nobleBluePasswordField">
+              <input type={showPassword ? "text" : "password"} value={pass} onChange={e => setPass(e.target.value)} placeholder="Enter your password" autoComplete="current-password" required />
+              <button className="nobleBluePasswordToggle" type="button" onClick={() => setShowPassword(value => !value)} aria-label={showPassword ? "Hide password" : "Show password"} aria-pressed={showPassword}>{showPassword ? "Hide" : "Show"}</button>
+            </span>
+          </label>
+          {error && <div className="error">{error}</div>}
+          <button className="nobleBlueSignIn" disabled={loading}>{loading ? "Signing in…" : "Sign In"}</button>
+        </form>
+        <button className="nobleBlueCreateAccount" type="button" onClick={() => router.push("/register")}>Create an account</button>
+        <button className="nobleBlueBack" type="button" onClick={() => router.push("/")}>← Back to Noble ERP</button>
+        <p className="nobleBlueCopyright">© 2026 Noble Group of Institutes</p>
+      </div>
+    </section>
+  </main>;;
 }
 
 export default function Login() {

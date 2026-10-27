@@ -1,0 +1,74 @@
+/* Unified Noble botanical theme inspired by the supplied white-and-sage reference.
+   Overrides presentation only; existing page structure and API behavior remain unchanged. */
+:root{
+ --noble-forest:#294c3d;--noble-forest-deep:#1c382d;--noble-leaf:#5e846b;--noble-sage:#e8efe8;
+ --noble-mist:#f5f7f3;--noble-paper:#fffefa;--noble-ink:#202b25;--noble-muted:#78857b;
+ --noble-line:#e1e8e0;--noble-shadow:0 18px 55px rgba(37,65,48,.10);
+ --navy:var(--noble-forest-deep);--blue:var(--noble-forest);--gold:#91a98f;--ink:var(--noble-ink);--muted:var(--noble-muted);--line:var(--noble-line);--card:var(--noble-paper);
+}
+html{background:var(--noble-mist)}
+body{background:var(--noble-mist);color:var(--noble-ink)}
+button,input,select,textarea{font-family:inherit}
+button,a,[role=button]{transition:color .18s ease,background-color .18s ease,border-color .18s ease,box-shadow .18s ease,transform .18s ease}
+:focus-visible{outline:3px solid rgba(80,125,91,.38);outline-offset:2px}
+.shell{background:radial-gradient(ellipse at 12% 4%,rgba(181,205,177,.38),transparent 30%),radial-gradient(ellipse at 91% 18%,rgba(207,220,204,.48),transparent 28%),linear-gradient(135deg,#f8f8f2,#e9f0e8 55%,#f7f8f3);color:var(--noble-ink)}
+.shell:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.17;background:radial-gradient(ellipse at 6% 20%,#6e9a77 0 1px,transparent 2px),radial-gradient(ellipse at 96% 72%,#6e9a77 0 1px,transparent 2px);background-size:34px 38px;mask-image:linear-gradient(90deg,#000,transparent 28%,transparent 72%,#000)}
+.nav{position:relative;height:76px;background:rgba(255,255,250,.83);border-bottom:1px solid rgba(41,76,61,.13);backdrop-filter:blur(18px);color:var(--noble-forest-deep)}
+.brandMark{background:linear-gradient(145deg,#6e9476,#294c3d);border:1px solid rgba(255,255,255,.75);box-shadow:0 7px 22px rgba(41,76,61,.16)}
+.brand b,.loginBrand b{letter-spacing:1.5px}.brand small,.loginBrand small{color:#788c7c}.status{color:var(--noble-forest)}
+.hero{position:relative;padding-top:clamp(68px,9vw,120px);padding-bottom:clamp(60px,8vw,105px)}
+.eyebrow{color:#66876a;letter-spacing:2px}
+.hero h1,.sectionHead h2{font-family:"DM Sans",Inter,system-ui,sans-serif;color:var(--noble-forest-deep);letter-spacing:-2px}
+.hero h1 span{color:#769a79}.hero p{color:#5f6d62}
+.primary,.nobleBlueSignIn{background:var(--noble-forest);border-color:var(--noble-forest);color:#fff;box-shadow:0 8px 22px rgba(41,76,61,.15)}
+.primary:hover,.nobleBlueSignIn:hover{background:var(--noble-forest-deep);border-color:var(--noble-forest-deep)}
+.secondary{background:rgba(255,255,250,.76);border:1px solid #d8e3d7;color:var(--noble-forest)}
+.trust,.sectionHead p{color:#718175}
+.role{background:rgba(255,255,250,.78);border:1px solid #dce6dc;color:var(--noble-ink);box-shadow:0 8px 24px rgba(37,65,48,.04);backdrop-filter:blur(12px)}
+.role small{color:#6e7e70}.role:hover,.role.active{border-color:#789a7c;background:#fff;box-shadow:var(--noble-shadow);transform:translateY(-3px)}.arrow{color:#64856a}
+.shell footer{border-color:#dbe4da;color:#758478}
+.loginShell:not(.nobleBlueLogin){background:radial-gradient(ellipse at 12% 5%,rgba(183,207,179,.4),transparent 30%),radial-gradient(ellipse at 95% 88%,rgba(208,222,205,.45),transparent 30%),#eef3ec}
+.loginCard{border:1px solid rgba(255,255,255,.9);border-radius:18px;box-shadow:0 24px 70px rgba(37,65,48,.13)}
+.loginTitle h1{font-family:"DM Sans",Inter,system-ui,sans-serif;color:var(--noble-forest-deep)}
+.loginCard input:focus,.loginCard select:focus{border-color:#789a7c;box-shadow:0 0 0 3px rgba(94,132,107,.14)}
+.back{color:#66806a}
+.loginShell.nobleBlueLogin{background:radial-gradient(ellipse at 5% 10%,rgba(174,201,172,.46),transparent 28%),radial-gradient(ellipse at 94% 82%,rgba(197,216,193,.52),transparent 32%),linear-gradient(135deg,#f7f8f2,#e8efe7 60%,#f8f8f3);color:var(--noble-ink)}
+.nobleBlueLogin .nobleBlueLoginCard{background:rgba(255,255,250,.94);border:1px solid rgba(255,255,255,.95);border-radius:12px;box-shadow:0 22px 70px rgba(37,65,48,.13)}
+.nobleBlueLogin .nobleBlueIllustration{background:linear-gradient(140deg,#e6eee4,#d5e2d4)}
+.nobleBlueLogin .nobleBlueIllustrationCaption{color:var(--noble-forest-deep)}
+.nobleBlueLogin .nobleBlueIllustrationCaption span{color:#60866a}
+.nobleBlueLogin .nobleBlueFormHeading h1{color:var(--noble-forest-deep)}
+.nobleBlueLogin .nobleBlueFormHeading p{color:#849086}
+.nobleBlueLogin .nobleBlueFormPanel input:focus{border-color:#739578;box-shadow:0 0 0 3px rgba(94,132,107,.14)}
+.nobleBlueLogin .nobleBlueSignIn{background:var(--noble-forest);border-color:var(--noble-forest)}
+.nobleBlueLogin .nobleBlueSignIn:hover{background:var(--noble-forest-deep)}
+.nobleBlueLogin .nobleBlueCreateAccount{border-color:#dfe6dc;color:var(--noble-forest-deep);background:#fff}
+.nobleBlueLogin .nobleBlueCreateAccount:hover{border-color:#9ab39a;background:#f8faf6}
+.nobleBlueLogin .nobleBlueBack{color:#6e8571}
+.dash{background:linear-gradient(135deg,#f1f5ef,#fafbf8)}
+.dash aside{background:linear-gradient(180deg,#203f32,#294c3d);border-right:1px solid #dce5da}
+.erpShell{background:#f4f7f2;color:var(--noble-ink)}
+.erpSidebar{background:linear-gradient(180deg,#233f33,#294c3d)!important;border-right-color:rgba(255,255,255,.12)!important}
+.erpBrand{border-bottom-color:rgba(255,255,255,.12)!important}
+.erpTopbar{background:rgba(255,255,250,.94)!important;border-bottom-color:var(--noble-line)!important;backdrop-filter:blur(14px)}
+.erpBreadcrumb span,.erpAcademicYear{color:#819084!important}
+.erpBreadcrumb strong{color:var(--noble-forest-deep)!important}
+.erpPage{background:transparent}
+.erpFooter{border-top-color:var(--noble-line)!important;color:#7c897e!important}
+.erpNavItem.active{background:rgba(255,255,255,.14)!important;color:#fff!important}
+.erpNavItem:hover{background:rgba(255,255,255,.09)!important}
+.moduleHero{border:1px solid #e2e9df!important;border-radius:16px!important;background:linear-gradient(120deg,rgba(255,255,250,.98),rgba(239,245,236,.92))!important;box-shadow:0 8px 26px rgba(37,65,48,.04);padding:clamp(18px,2.4vw,30px)!important}
+.moduleHero h1{color:var(--noble-forest-deep)!important;font-family:"DM Sans",Inter,system-ui,sans-serif!important;letter-spacing:-.8px}
+.moduleHero p{color:#748176!important}
+.moduleHero .eyebrow{color:#66876a!important}
+.erpPage button.primary,.erpPage .primary,.moduleHero button.primary{background:var(--noble-forest)!important;border-color:var(--noble-forest)!important;color:white!important}
+.erpPage button.primary:hover,.erpPage .primary:hover,.moduleHero button.primary:hover{background:var(--noble-forest-deep)!important}
+.erpPage input,.erpPage select,.erpPage textarea,.erpPage [role=searchbox]{border-color:#dce5db}
+.erpPage input:focus,.erpPage select:focus,.erpPage textarea:focus{border-color:#739578;box-shadow:0 0 0 3px rgba(94,132,107,.12)}
+.erpPage table{border-color:#e1e8df}
+.erpPage th{background:#eef3eb!important;color:#526856!important}
+.erpPage td{border-color:#e7ece5!important}
+.erpPage tr:hover td{background:#fafcf8}
+.erpPage [class*=card],.erpPage [class*=Card],.erpPage [class*=panel],.erpPage [class*=Panel]{border-color:#e1e8df}
+@media(max-width:760px){.nav{height:68px;padding:0 18px}.hero{padding-left:20px;padding-right:20px}.roleGrid{grid-template-columns:1fr}.actions{flex-wrap:wrap}.shell footer{gap:10px;flex-wrap:wrap}.nobleBlueLogin .nobleBlueIllustration{background:linear-gradient(140deg,#e6eee4,#d5e2d4)}}
+@media(prefers-reduced-motion:reduce){button,a,[role=button]{transition:none!important;scroll-behavior:auto!important}}
