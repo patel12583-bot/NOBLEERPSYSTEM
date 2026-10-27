@@ -19,8 +19,15 @@ export default function Register(){
     }catch{setError("Unable to connect to the server. Please try again.");}
     finally{setLoading(false);}
   }
-  return <main className="loginShell"><div className="loginCard">
-    <div className="loginTitle"><div className="eyebrow">NEW STUDENT ACCOUNT</div><h1>Create account.</h1><p>Register for access to the Noble ERP student portal.</p></div>
+  return <main className="loginShell nobleAuthShell nobleEducationAuth nobleRegisterLayout">
+    <section className="nobleAuthWelcome" aria-label="Welcome to Noble education">
+      <img className="nobleAuthBrand" src="/noble-institutes-logo.svg" alt="Noble Group of Institutes" />
+      <div className="nobleAuthWelcomeCopy"><span className="nobleAuthEyebrow">YOUR FUTURE STARTS HERE</span><h2>Welcome to Noble! <span>✿</span></h2><p>Create your account and begin your learning journey with Noble Group of Institutes.</p></div>
+      <div className="nobleEducationIllustration" aria-hidden="true"><div className="nobleEduWindow"><i></i><i></i><i></i><i></i><b>✦</b></div><div className="nobleEduBooks"><span></span><span></span><span></span><span></span></div><div className="nobleEduDesk"></div><div className="nobleEduPlant"><i></i><i></i><i></i><b></b></div><div className="nobleEduCap"><span>✦</span></div><div className="nobleEduBook"><b>N</b><span>NOBLE</span></div></div>
+      <div className="nobleAuthBenefits"><span>✦ Student Community</span><span>✦ Learning Resources</span><span>✦ Academic Progress</span></div>
+    </section>
+    <div className="loginCard nobleAuthCard nobleRegisterCard">
+    <div className="loginTitle"><div className="eyebrow">NOBLE GROUP OF INSTITUTES</div><h1>Create your account</h1><p>Let’s get started. Fill in your details below.</p></div>
     {success ? <div>
       <div className="successBox"><strong>Account created successfully.</strong><p>Your Student ID is <b>{success.studentId}</b>. You can sign in using your email or Student ID.</p></div>
       <button className="primary full" onClick={()=>router.push("/login?role=Student")}>Go to Student Login <span>→</span></button>
@@ -33,7 +40,7 @@ export default function Register(){
       {error&&<div className="error">{error}</div>}
       <button className="primary full" disabled={loading}>{loading?"Creating account…":<>Create account <span>→</span></>}</button>
     </form>}
-    {!success&&<button className="back" onClick={()=>router.push("/login?role=Student")}>← Already have an account? Sign in</button>}
+    {!success&&<button className="back" onClick={()=>router.push("/login?role=Student")}>Already have an account? Log in</button>}
     {success&&<button className="back" onClick={()=>router.push("/")}>← Back to Noble ERP</button>}
   </div></main>;
 }
