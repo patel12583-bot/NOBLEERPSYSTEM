@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 760" role="img" aria-labelledby="title desc">
+<title id="title">Noble student learning with a laptop</title><desc id="desc">A friendly stylized 3D-inspired student sitting in a chair with a laptop on a pale blue background.</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d5e2ff"/><stop offset="1" stop-color="#bed2ff"/></linearGradient>
+ <linearGradient id="chair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7b8ab0"/><stop offset="1" stop-color="#586a96"/></linearGradient>
+ <linearGradient id="hoodie" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b95b42"/><stop offset="1" stop-color="#8f392c"/></linearGradient>
+ <linearGradient id="pants" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#343746"/><stop offset="1" stop-color="#171a28"/></linearGradient>
+ <linearGradient id="laptop" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8d8da0"/><stop offset="1" stop-color="#595b70"/></linearGradient>
+ <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6c7a5"/><stop offset="1" stop-color="#d9906f"/></linearGradient>
+ <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="14"/></filter>
+</defs>
+<rect width="620" height="760" rx="24" fill="url(#bg)"/>
+<ellipse cx="308" cy="676" rx="210" ry="27" fill="#8ea7df" opacity=".32" filter="url(#shadow)"/>
+<!-- chair -->
+<path d="M245 308Q236 268 268 258L372 257Q411 269 407 320L393 500L258 501Z" fill="url(#chair)"/>
+<path d="M268 291Q310 269 371 287L367 443Q323 469 277 438Z" fill="#8795b8"/>
+<path d="M279 481L254 627M374 482L405 627" stroke="#b08b5c" stroke-width="18" stroke-linecap="round"/>
+<path d="M254 627L224 644M405 627L436 643" stroke="#9b784e" stroke-width="14" stroke-linecap="round"/>
+<!-- legs crossed -->
+<path d="M270 436Q306 433 335 464L386 535Q401 560 379 576L351 591Q331 592 317 569L269 516Q249 492 244 467Z" fill="url(#pants)"/>
+<path d="M332 555Q356 543 378 559L424 601Q441 618 425 636L406 649Q389 654 374 638L324 598Q307 578 332 555Z" fill="#222533"/>
+<!-- sneakers -->
+<path d="M364 622Q385 620 407 638L438 656Q454 670 439 686L399 692Q373 687 356 670L345 652Z" fill="#f8f7f4"/>
+<path d="M367 657L439 666M376 668L430 677" stroke="#a7afc4" stroke-width="5" stroke-linecap="round"/>
+<path d="M229 626Q253 624 270 645L295 672Q304 690 286 701L244 700Q220 694 208 674L205 650Z" fill="#faf9f6"/>
+<path d="M214 674L293 682M223 686L287 693" stroke="#a7afc4" stroke-width="5" stroke-linecap="round"/>
+<!-- torso -->
+<path d="M258 301Q277 281 310 286L353 297Q375 309 373 345L360 438Q316 462 261 435L239 365Q232 326 258 301Z" fill="url(#hoodie)"/>
+<path d="M270 298Q284 323 311 324Q338 322 352 298L367 315Q354 345 314 350Q276 345 258 317Z" fill="#71352e"/>
+<path d="M286 344L308 363L329 345" fill="none" stroke="#d57b61" stroke-width="5" stroke-linecap="round"/>
+<!-- neck and head -->
+<path d="M286 264L287 300Q309 322 331 299L328 260Z" fill="url(#skin)"/>
+<ellipse cx="306" cy="218" rx="64" ry="76" fill="url(#skin)"/>
+<!-- ears -->
+<ellipse cx="244" cy="224" rx="12" ry="20" fill="#dc9b7d"/><ellipse cx="367" cy="224" rx="12" ry="20" fill="#dc9b7d"/>
+<!-- hair -->
+<path d="M244 215Q227 175 253 148Q263 126 293 129Q316 111 339 130Q375 135 376 175L365 208L352 177Q323 180 306 159Q284 181 255 177Z" fill="#302a2b"/>
+<path d="M251 166Q258 140 285 142M282 137Q308 121 331 143M326 140Q352 140 363 166" fill="none" stroke="#514044" stroke-width="8" stroke-linecap="round"/>
+<!-- face -->
+<path d="M276 223Q285 215 294 222M324 222Q333 215 342 222" fill="none" stroke="#51342f" stroke-width="5" stroke-linecap="round"/>
+<ellipse cx="285" cy="238" rx="6" ry="10" fill="#29252a"/><ellipse cx="333" cy="238" rx="6" ry="10" fill="#29252a"/>
+<circle cx="287" cy="235" r="2" fill="#fff"/><circle cx="335" cy="235" r="2" fill="#fff"/>
+<path d="M305 242Q299 257 309 259" fill="none" stroke="#bd775e" stroke-width="4" stroke-linecap="round"/>
+<path d="M291 274Q308 287 326 273" fill="none" stroke="#8f4d42" stroke-width="4" stroke-linecap="round"/>
+<ellipse cx="267" cy="258" rx="12" ry="6" fill="#ed9b89" opacity=".45"/><ellipse cx="346" cy="258" rx="12" ry="6" fill="#ed9b89" opacity=".45"/>
+<!-- thinking hand -->
+<path d="M347 327Q366 314 372 294L368 269Q367 255 354 259Q344 263 348 278L347 292L329 308Z" fill="url(#skin)"/>
+<path d="M348 277Q337 268 331 256Q326 246 335 242Q343 239 350 253L361 267" fill="url(#skin)"/>
+<!-- arm left -->
+<path d="M260 319Q236 335 230 364L220 411Q219 432 238 437Q256 440 263 418L282 363Z" fill="url(#hoodie)"/>
+<path d="M233 408Q228 429 243 438L264 444Q278 439 273 426L254 409Z" fill="url(#skin)"/>
+<!-- crossed leg forward -->
+<path d="M264 437Q303 429 326 457L349 489Q357 509 338 523L315 537Q296 541 283 522L248 485Q230 461 264 437Z" fill="url(#pants)"/>
+<!-- laptop on lap -->
+<path d="M157 404L341 421L373 530L185 515Z" fill="#424657" opacity=".18"/>
+<path d="M155 394L338 410L359 518L176 502Z" fill="url(#laptop)" stroke="#505367" stroke-width="3" stroke-linejoin="round"/>
+<path d="M155 394L338 410L326 419L147 403Z" fill="#a4a7b6"/>
+<circle cx="250" cy="454" r="7" fill="#d9dce8"/>
+<path d="M176 502L359 518L341 531L160 514Z" fill="#e4e5eb" stroke="#a8aaba" stroke-width="2"/>
+<!-- hands typing -->
+<path d="M243 367Q257 368 269 383L290 405Q298 416 287 423Q277 429 267 416L244 398L228 390Z" fill="url(#skin)"/>
+<path d="M302 375Q315 374 325 388L342 406Q349 418 337 424Q327 428 318 416L297 397L286 388Z" fill="url(#skin)"/>
+<!-- hoodie drawstrings -->
+<path d="M300 351L305 380M323 351L319 380" stroke="#e5b2a2" stroke-width="3" stroke-linecap="round"/>
+<circle cx="305" cy="383" r="3" fill="#f4d5c8"/><circle cx="319" cy="383" r="3" fill="#f4d5c8"/>
+</svg>
