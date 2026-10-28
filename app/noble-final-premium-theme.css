@@ -158,3 +158,95 @@ input,select,textarea{accent-color:#777e68}
 @media(max-width:900px){.collegeHero:after{width:90vw;height:56vw}.collegeHeroContent{max-width:610px}.collegeHeroBadge{right:18px;bottom:18px}.collegeStats{margin:0 14px!important}.collegeHero{min-height:610px!important}}
 @media(max-width:650px){.collegeTopline span:nth-child(2){display:none}.collegeHero{min-height:600px!important;padding:40px 16px 90px!important}.collegeHero:after{width:110vw;height:78vw;opacity:.85}.collegeHeroContent{padding:28px 18px;border-radius:20px}.collegeHero h1{letter-spacing:-1.8px!important;font-size:clamp(39px,11vw,58px)!important}.collegeHeroBadge{left:18px;right:auto;bottom:14px;padding:11px 13px}.collegeStats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px;padding:18px 10px}.collegeStats>div:nth-child(2){border-right:0}.collegeSection{padding:52px 20px!important}.collegeVision{grid-template-columns:1fr;padding:0 20px!important}.collegeAboutGrid,.collegePlacement,.collegeFaculty{grid-template-columns:1fr!important;gap:24px}.collegeDepartmentGrid,.collegeCourseGrid{grid-template-columns:1fr!important}.collegeCourseCard{grid-template-columns:62px 1fr;gap:12px;padding:16px}.collegeCourseCard>span{width:58px}.collegeCourseCard>a{grid-column:2}.collegeSectionHeading{align-items:flex-start;flex-direction:column}.collegePrincipal{grid-template-columns:1fr;gap:14px}.collegeHeader{padding:10px 14px;gap:8px}.collegeBrand img{width:40px;height:40px}.collegeBrand strong{font-size:10px}.collegeBrand small{font-size:8px;letter-spacing:.7px}.collegeHeaderActions{gap:6px}.collegeInstall,.collegeLogin{font-size:9px;min-height:36px;padding:0 9px}.collegeNav{top:60px}.loginShell{padding:16px}.loginCard{padding:26px 20px}.dash aside{width:76px;padding:18px 8px}.sideBrand{padding:0 4px 20px}.sideBrand b,.rolePill{display:none}.sideNav button{font-size:0;text-align:center;padding:12px 6px}.sideNav button span{width:auto;font-size:16px}.content{padding:24px 14px}.statGrid{grid-template-columns:repeat(2,1fr)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
+
+
+/* Academic portal dashboard refresh inspired by the supplied SRMS reference.
+   Keeps the public website's approved ivory/champagne theme; portal workspaces use a clean
+   education-first blue/white dashboard system across every role. */
+.nobleDashboard{
+  --portal-ink:#15243c;--portal-blue:#2468d8;--portal-muted:#74839a;
+  background:#f4f7fc!important;color:var(--portal-ink)!important;
+}
+.nobleDashboard .nobleSidebar{
+  background:#fff!important;color:#1b2b45!important;border-right:1px solid #e5ebf4!important;
+  box-shadow:8px 0 30px #183c6808!important;
+}
+.nobleDashboard .nobleSideTop{border-bottom:1px solid #e9eef6!important}
+.nobleDashboard .nobleBrandMark{background:linear-gradient(145deg,#3887f6,#1754b5)!important;border-radius:14px!important;box-shadow:0 8px 20px #2468d82b!important}
+.nobleDashboard .nobleBrandText b{color:#182b49!important;letter-spacing:.8px}
+.nobleDashboard .nobleBrandText small{color:#8390a5!important}
+.nobleDashboard .nobleCollapse{background:#f5f8fd!important;border-color:#e4ebf5!important;color:#4e6380!important}
+.nobleDashboard .nobleRolePill{background:#f4f8ff!important;border:1px solid #e2ebfa!important;color:#25436b!important;border-radius:12px!important}
+.nobleDashboard .nobleRolePill i,.nobleDashboard .nobleLiveBadge i{background:#27c58b!important}
+.nobleDashboard .nobleRolePill em{background:#e8f8f2!important;color:#26896b!important;border-color:#d2f0e5!important}
+.nobleDashboard .nobleMenuSearch{background:#f7f9fd!important;border:1px solid #e5ebf4!important;color:#8b9ab0!important;border-radius:11px!important}
+.nobleDashboard .nobleMenuSearch input{color:#243954!important}
+.nobleDashboard .nobleSideNav button{color:#61728b!important;border:1px solid transparent!important;border-radius:10px!important}
+.nobleDashboard .nobleSideNav button:hover{background:#f3f7ff!important;color:#245db8!important}
+.nobleDashboard .nobleSideNav button.selected{background:linear-gradient(100deg,#e9f2ff,#f5f8ff)!important;color:#1c5ec2!important;border-color:#dce9ff!important}
+.nobleDashboard .nobleNavIcon{background:#edf4ff!important;color:#3978d1!important;border-radius:9px!important}
+.nobleDashboard .nobleSideFoot{border-top:1px solid #e9eef6!important}
+.nobleDashboard .nobleUserAvatar,.nobleDashboard .nobleTopAvatar{background:#d9e9ff!important;color:#205bb4!important}
+.nobleDashboard .nobleUserText b{color:#243954!important}
+.nobleDashboard .nobleUserText small{color:#8290a4!important}
+.nobleDashboard .nobleLogout{background:#f7f9fd!important;border-color:#e5ebf4!important;color:#62738b!important}
+.nobleDashboard .nobleMain{background:#f4f7fc!important}
+.nobleDashboard .nobleTopbar{background:#ffffffed!important;border-bottom:1px solid #e7edf5!important;backdrop-filter:blur(14px)}
+.nobleDashboard .nobleBreadcrumb{color:#8795aa!important}
+.nobleDashboard .nobleBreadcrumb b{color:#263c5c!important}
+.nobleDashboard .nobleAcademicTag{background:#f5f9ff!important;border-color:#dce8f9!important;color:#607b9f!important}
+.nobleDashboard .nobleContent{max-width:1600px}
+.nobleDashboard .nobleWelcome{background:linear-gradient(112deg,#123e78 0%,#1764b7 64%,#3889e5 100%)!important;border:1px solid #2d70b7!important;border-radius:20px!important;box-shadow:0 18px 42px #174b861c!important}
+.nobleDashboard .nobleWelcome:before{background:radial-gradient(circle at 85% 30%,#ffffff1a,transparent 35%)!important}
+.nobleDashboard .nobleWelcomeCopy .nobleEyebrow{color:#b9d8ff!important;letter-spacing:1.7px!important}
+.nobleDashboard .nobleWelcomeCopy h1{color:#fff!important;letter-spacing:-1.3px!important}
+.nobleDashboard .nobleWelcomeCopy h1 em{color:#ffd985!important}
+.nobleDashboard .nobleWelcomeCopy p,.nobleDashboard .nobleWelcomeMeta{color:#e2efff!important}
+.nobleDashboard .nobleWelcomeMeta i{background:#40d5a0!important}
+.nobleDashboard .nobleWelcomeArt{opacity:.92}
+.nobleDashboard .nobleArtMonogram{background:linear-gradient(145deg,#f4f8ff,#c5dcfa)!important;color:#d5b45e!important;border:1px solid #ffffffa6!important;box-shadow:0 18px 40px #001f4a38!important}
+.nobleDashboard .nobleRefresh{background:#ffffff1a!important;border-color:#ffffff45!important;color:#fff!important}
+.nobleDashboard .nobleWelcomeAvatar{background:#f3f7ff!important;color:#1b5cae!important}
+.nobleDashboard .nobleStatCard,.nobleDashboard .nobleInfoPanel,.nobleDashboard .nobleModuleCard{
+  background:#fff!important;border:1px solid #e3eaf4!important;border-radius:15px!important;
+  box-shadow:0 8px 24px #1d4d8008!important;
+}
+.nobleDashboard .nobleStatCard:before{background:linear-gradient(90deg,#4d91f1,#1b5cb9)!important}
+.nobleDashboard .nobleStatCard small,.nobleDashboard .nobleEyebrow{color:#7185a2!important;letter-spacing:1.15px}
+.nobleDashboard .nobleStatCard strong{color:#18395f!important}
+.nobleDashboard .nobleStatCard>span{color:#8190a5!important}
+.nobleDashboard .nobleStatIcon{background:#eaf2ff!important;color:#2772d5!important;border-radius:11px!important}
+.nobleDashboard .statIcon2{background:#e8f8f1!important;color:#2b9a73!important}
+.nobleDashboard .statIcon3{background:#fff4df!important;color:#c28720!important}
+.nobleDashboard .statIcon4{background:#f0eaff!important;color:#8057d8!important}
+.nobleDashboard .nobleStatOrb{background:#edf4ff!important}
+.nobleDashboard .nobleSectionHead h2,.nobleDashboard .noblePanelHead h3{color:#18395f!important}
+.nobleDashboard .nobleSectionHead p{color:#8090a6!important}
+.nobleDashboard .nobleLiveBadge{background:#effbf6!important;border-color:#d8f3e7!important;color:#238767!important}
+.nobleDashboard .nobleModuleCard{color:#25415f!important}
+.nobleDashboard .nobleModuleCard:hover{border-color:#c7dcfb!important;box-shadow:0 14px 28px #245eb614!important;transform:translateY(-2px)}
+.nobleDashboard .nobleModuleIcon,.nobleDashboard .nobleQuickIcon{background:#edf4ff!important;color:#3478d7!important;border-radius:11px!important}
+.nobleDashboard .nobleModuleText b,.nobleDashboard .nobleQuickList b{color:#244264!important}
+.nobleDashboard .nobleModuleText small{color:#8292a8!important}
+.nobleDashboard .noblePanelCount{background:#f3f7fd!important;border-color:#e6edf7!important;color:#7b8da5!important}
+.nobleDashboard .nobleQuickList button{border-color:#edf1f7!important}
+.nobleDashboard .nobleQuickList button:hover{background:#f7faff!important}
+.nobleDashboard .nobleNotice b,.nobleDashboard .nobleEmptyNotice b{color:#294665!important}
+.nobleDashboard .nobleNotice p,.nobleDashboard .nobleNotice small,.nobleDashboard .nobleEmptyNotice p{color:#8190a4!important}
+.nobleDashboard .nobleDashboardFooter{border-color:#e4ebf4!important;color:#8b98aa!important}
+.nobleDashboard .nobleError{background:#fff5f5!important}
+@media(max-width:760px){
+ .nobleDashboard .nobleContent{padding:16px!important}
+ .nobleDashboard .nobleWelcome{min-height:220px!important;border-radius:16px!important}
+ .nobleDashboard .nobleWelcomeCopy h1{font-size:clamp(27px,7vw,40px)!important;line-height:1.12!important}
+ .nobleDashboard .nobleWelcomeArt{opacity:.25!important;right:-65px!important}
+ .nobleDashboard .nobleStats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+ .nobleDashboard .nobleStatCard{padding:16px!important;min-width:0}
+ .nobleDashboard .nobleStatCard strong{font-size:clamp(21px,5vw,30px)!important}
+ .nobleDashboard .nobleModuleGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:420px){
+ .nobleDashboard .nobleModuleGrid{grid-template-columns:1fr!important}
+ .nobleDashboard .nobleStats{grid-template-columns:1fr 1fr!important}
+ .nobleDashboard .nobleStatCard small{font-size:9px!important}
+}
