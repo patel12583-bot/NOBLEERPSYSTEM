@@ -3311,3 +3311,158 @@ html:not(.pwa-standalone) .nobleDashboard.navCollapsed .nobleLogout {justify-con
   html:not(.pwa-standalone) .nobleDashboard *:before,
   html:not(.pwa-standalone) .nobleDashboard *:after {animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+
+/* === NOBLE IMMERSIVE CAMPUS EXPERIENCE | 3D-inspired visual layer === */
+:root{
+  --noble-wine:#702c3a;
+  --noble-wine-deep:#25191f;
+  --noble-ivory:#f7f4f0;
+  --noble-champagne:#c6a46a;
+  --noble-glass:rgba(255,255,255,.12);
+  --noble-glass-line:rgba(255,255,255,.22);
+}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{background:var(--noble-ivory)}
+::selection{background:rgba(112,44,58,.2);color:var(--noble-wine-deep)}
+button,a,[role="button"]{-webkit-tap-highlight-color:transparent}
+:where(a,button,input,select,textarea):focus-visible{outline:3px solid rgba(198,164,106,.8);outline-offset:3px}
+
+/* Cinematic campus hero and layered depth */
+.shell{
+  background:
+    radial-gradient(ellipse at 76% 18%,rgba(198,164,106,.16),transparent 36%),
+    linear-gradient(100deg,rgba(31,16,22,.88) 0%,rgba(65,28,39,.68) 52%,rgba(24,18,23,.56) 100%),
+    url("/WhatsApp%20Image%202026-10-11%20at%2012.35.39%20PM.jpeg") center/cover fixed !important;
+  isolation:isolate;
+}
+.shell:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background:radial-gradient(ellipse at 12% 10%,rgba(255,255,255,.09),transparent 35%),linear-gradient(120deg,transparent 35%,rgba(255,255,255,.035) 50%,transparent 65%);
+  background-size:auto,220% 100%;animation:nobleLightSweep 18s ease-in-out infinite;
+}
+.nav{
+  background:rgba(37,25,31,.54) !important;
+  border-bottom-color:rgba(255,255,255,.19) !important;
+  box-shadow:0 10px 38px rgba(18,8,12,.12);
+}
+.brandMark,.avatar{
+  background:linear-gradient(145deg,#8c4554,#4b202b) !important;
+  box-shadow:0 10px 28px rgba(20,8,12,.25),inset 0 1px 0 rgba(255,255,255,.22) !important;
+}
+.eyebrow{color:#e0c28d !important}
+.hero h1 span{color:#e0c28d !important;text-shadow:0 8px 35px rgba(198,164,106,.15)}
+.hero h1{ text-wrap:balance;text-shadow:0 12px 44px rgba(0,0,0,.16)}
+.hero p{max-width:650px}
+.primary{
+  background:linear-gradient(135deg,#874352,#5d2633) !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+  box-shadow:0 12px 28px rgba(34,10,17,.28),inset 0 1px 0 rgba(255,255,255,.2) !important;
+  transition:transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .28s ease,filter .28s ease !important;
+}
+.primary:hover{transform:translateY(-3px);box-shadow:0 18px 38px rgba(34,10,17,.35),inset 0 1px 0 rgba(255,255,255,.22)!important;filter:saturate(1.08)}
+.secondary{transition:transform .25s ease,background .25s ease,border-color .25s ease!important}
+.secondary:hover{transform:translateY(-2px);background:rgba(255,255,255,.16)!important;border-color:rgba(224,194,141,.6)!important}
+.role{
+  position:relative;overflow:hidden;
+  background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.055)) !important;
+  border:1px solid rgba(255,255,255,.19) !important;
+  border-radius:18px !important;
+  box-shadow:0 12px 30px rgba(12,7,10,.09),inset 0 1px 0 rgba(255,255,255,.12);
+  transform:translateZ(0);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease,border-color .35s ease,background .35s ease!important;
+}
+.role:before{
+  content:"";position:absolute;inset:-1px;pointer-events:none;opacity:0;
+  background:linear-gradient(115deg,transparent 15%,rgba(255,255,255,.13) 42%,transparent 68%);
+  transform:translateX(-70%);transition:opacity .25s ease;
+}
+.role:hover,.role.active{
+  transform:perspective(900px) translateY(-6px) rotateX(1deg) !important;
+  border-color:rgba(224,194,141,.62)!important;
+  background:linear-gradient(145deg,rgba(112,44,58,.55),rgba(255,255,255,.09))!important;
+  box-shadow:0 22px 48px rgba(12,7,10,.22),inset 0 1px 0 rgba(255,255,255,.2)!important;
+}
+.role:hover:before{opacity:1;animation:nobleCardShine .9s ease}
+.roleIcon{filter:drop-shadow(0 7px 12px rgba(0,0,0,.2));transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.role:hover .roleIcon{transform:translateY(-3px) rotate(-5deg) scale(1.08)}
+.arrow{color:#e0c28d!important}
+.sectionHead h2{letter-spacing:-.7px}
+
+/* Classic, warm glass login */
+.loginShell{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 78% 22%,rgba(198,164,106,.17),transparent 35%),
+    linear-gradient(105deg,rgba(37,16,23,.82),rgba(76,35,46,.61) 54%,rgba(25,20,24,.54)),
+    url("/WhatsApp%20Image%202026-10-11%20at%2012.35.39%20PM.jpeg") center/cover fixed !important;
+}
+.loginShell:before,.loginShell:after{content:"";position:absolute;pointer-events:none;border-radius:50%;filter:blur(1px);z-index:-1}
+.loginShell:before{width:360px;height:360px;right:-110px;top:-100px;background:radial-gradient(circle,rgba(224,194,141,.17),transparent 68%);animation:nobleOrbFloat 12s ease-in-out infinite}
+.loginShell:after{width:280px;height:280px;left:-100px;bottom:-90px;background:radial-gradient(circle,rgba(112,44,58,.28),transparent 70%);animation:nobleOrbFloat 15s ease-in-out infinite reverse}
+.loginCard{
+  background:rgba(250,247,243,.91)!important;
+  border:1px solid rgba(255,255,255,.62)!important;
+  border-radius:22px!important;
+  box-shadow:0 34px 90px rgba(22,8,13,.34),0 2px 0 rgba(255,255,255,.35) inset!important;
+  backdrop-filter:blur(22px) saturate(1.15);
+  animation:nobleCardEnter .7s cubic-bezier(.2,.8,.2,1) both;
+}
+.loginTitle h1{color:#38252b!important}
+.loginTitle p{color:#7c6a6c!important}
+.loginCard input:focus,.loginCard select:focus{border-color:var(--noble-wine)!important;box-shadow:0 0 0 4px rgba(112,44,58,.1)!important}
+.loginCard .primary{background:linear-gradient(135deg,#874352,#5d2633)!important;justify-content:center}
+.authLinks .back:first-child{color:var(--noble-wine)!important}
+
+/* Dashboard: refined dark wine navigation, warm canvas and dimensional cards */
+.dash{background:linear-gradient(135deg,#f7f4f0,#f2ece8)!important}
+.dash aside{
+  background:linear-gradient(180deg,#2b1b22 0%,#45232e 54%,#281a20 100%)!important;
+  border-right:1px solid rgba(255,255,255,.09)!important;
+  box-shadow:12px 0 38px rgba(42,20,28,.09)!important;
+}
+.rolePill{background:rgba(224,194,141,.11)!important;color:#e5c995!important;border-color:rgba(224,194,141,.22)!important}
+.sideNav button.selected,.sideNav button:hover{background:linear-gradient(100deg,rgba(153,79,94,.55),rgba(255,255,255,.06))!important;box-shadow:inset 3px 0 #d5b67f}
+.sideNav button span{color:#d9bd8d!important}
+.collapseBtn:hover{background:var(--noble-wine)!important}
+.content{
+  background:
+    radial-gradient(ellipse at 95% 0%,rgba(198,164,106,.10),transparent 28%),
+    linear-gradient(rgba(249,247,244,.95),rgba(247,244,240,.97)),
+    url("/WhatsApp%20Image%202026-10-11%20at%2012.35.39%20PM.jpeg") center/cover fixed !important;
+}
+.content h1{color:#34252b!important}
+.statGrid>div,.panel{
+  background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(250,247,244,.94))!important;
+  border:1px solid rgba(112,44,58,.10)!important;
+  border-radius:16px!important;
+  box-shadow:0 8px 24px rgba(52,31,37,.045),inset 0 1px 0 #fff!important;
+  transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease!important;
+}
+.statGrid>div:hover,.panel:hover{
+  transform:translateY(-3px);
+  border-color:rgba(112,44,58,.2)!important;
+  box-shadow:0 16px 34px rgba(52,31,37,.085),inset 0 1px 0 #fff!important;
+}
+.statGrid b{color:#542a36!important}
+.quick button{border-radius:10px!important;transition:transform .22s ease,border-color .22s ease,background .22s ease!important}
+.quick button:hover{border-color:rgba(112,44,58,.35)!important;color:var(--noble-wine)!important;background:#fffaf7!important;transform:translateX(3px)}
+.error{border:1px solid rgba(181,44,55,.12)}
+@keyframes nobleCardEnter{from{opacity:0;transform:translateY(14px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes nobleOrbFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-16px,18px,0)}}
+@keyframes nobleCardShine{from{transform:translateX(-70%)}to{transform:translateX(70%)}}
+@keyframes nobleLightSweep{0%,100%{background-position:center,0% 0}50%{background-position:center,100% 0}}
+@media(max-width:900px){
+  .shell,.loginShell,.content{background-attachment:scroll!important}
+  .role{min-height:155px}
+}
+@media(max-width:600px){
+  .loginShell{padding:18px!important}
+  .loginCard{padding:25px!important;border-radius:18px!important}
+  .hero h1{font-size:clamp(42px,12vw,60px)!important;line-height:1.04}
+  .role{min-height:140px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
