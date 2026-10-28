@@ -1,0 +1,5 @@
+/* Botanical theme layer — kept separate so the shared layout can load safely. */
+:root {
+  --noble-botanical-forest: #173f32;
+  --noble-botanical-sage: #e8efe8;
+}

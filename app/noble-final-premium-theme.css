@@ -1,0 +1,15 @@
+/* Premium university theme layer — shared design tokens and restrained motion. */
+:root {
+  --noble-premium-ink: #102b49;
+  --noble-premium-blue: #1769d2;
+  --noble-premium-gold: #f0c978;
+  --noble-premium-surface: #f3f7fc;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
