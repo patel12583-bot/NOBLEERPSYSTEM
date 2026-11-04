@@ -28,6 +28,15 @@ export default function DocumentsPage(){
    if(!r.ok)throw new Error(d.error);setMsg("File uploaded successfully.");setFile(null);e.target.reset();await load();
   }catch(x){setErr(x.message)}finally{setBusy(false)}
  }
+ async function setVerification(id,verified){
+  setErr("");setMsg("");
+  try{
+   const r=await fetch("/api/admin/documents",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({id,verified})});
+   const d=await r.json();if(!r.ok)throw new Error(d.error||"Unable to update verification.");
+   setDocs(current=>current.map(item=>item.id===id?{...item,...d.document}:item));
+   setMsg(verified?"Document marked as verified.":"Document moved back to pending verification.");
+  }catch(x){setErr(x.message||"Unable to update verification.");}
+ }
  async function remove(id){
   if(!confirm("Delete this document record?"))return;
   setErr("");setMsg("");
@@ -37,8 +46,8 @@ export default function DocumentsPage(){
    setDocs(current=>current.filter(item=>item.id!==id));setMsg("Document record deleted.");
   }catch(x){setErr(x.message||"Network error while deleting document.");}
  }
- return <AdminShell active="Students"><main>
-  <ModuleHeader eyebrow="NOBLE ERP • DOCUMENTS" title="Student Documents" description="Upload, view and manage official student documents from one secure workspace." />
+ return <AdminShell active="Documents"><main>
+  <ModuleHeader eyebrow="NRS • ADMISSION MANAGEMENT" title="Document Verification" description="Review uploaded admission documents, approve verified files and track pending records." />
   {err&&<div className="error" style={{margin:"16px 0"}}>{err}</div>}{msg&&<div className="panel" style={{margin:"16px 0"}}>{msg}</div>}
   <form className="panel" onSubmit={upload} style={{padding:22,margin:"20px 0"}}>
    <b>Upload Document</b><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:14,marginTop:14}}>
@@ -46,5 +55,5 @@ export default function DocumentsPage(){
     <label>File<input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.webp" onChange={e=>setFile(e.target.files?.[0]||null)} required/></label>
    </div><small>Maximum 10 MB. Vercel Blob is preferred; small files can use the ERP database fallback when Blob is not configured.</small><br/><button className="primary" disabled={busy||!file}>{busy?"Uploading…":"Upload File →"}</button>
   </form>
-  <div className="panel"><b>Uploaded Documents ({docs.length})</b><div style={{marginTop:12,marginBottom:12}}><input aria-label="Search documents" placeholder="Search by student ID, student name or file name…" value={query} onChange={e=>setQuery(e.target.value)} style={{width:"100%",maxWidth:520}}/></div><div style={{overflowX:"auto"}}><table><thead><tr><th>Student</th><th>File</th><th>Type</th><th>Uploaded</th><th>Actions</th></tr></thead><tbody>{loading?<tr><td colSpan={5}>Loading documents…</td></tr>:filteredDocs.length>0?filteredDocs.map(d=><tr key={d.id}><td>{d.student?.studentId} — {d.student?.name}</td><td>{d.name}</td><td>{d.type}</td><td>{new Date(d.createdAt).toLocaleString()}</td><td><a href={d.url} target="_blank" rel="noreferrer">View / Download</a>{" "}<button onClick={()=>remove(d.id)}>Delete</button></td></tr>):<tr><td colSpan={5}>{query?"No documents match your search.":"No documents uploaded yet."}</td></tr>}</tbody></table></div></div>
+  <div className="panel"><b>Uploaded Documents ({docs.length})</b><div style={{marginTop:12,marginBottom:12}}><input aria-label="Search documents" placeholder="Search by student ID, student name or file name…" value={query} onChange={e=>setQuery(e.target.value)} style={{width:"100%",maxWidth:520}}/></div><div style={{overflowX:"auto"}}><table><thead><tr><th>Student</th><th>File</th><th>Type</th><th>Uploaded</th><th>Verification</th><th>Actions</th></tr></thead><tbody>{loading?<tr><td colSpan={6}>Loading documents…</td></tr>:filteredDocs.length>0?filteredDocs.map(d=><tr key={d.id}><td>{d.student?.studentId} — {d.student?.name}</td><td>{d.name}</td><td>{d.type}</td><td>{new Date(d.createdAt).toLocaleString()}</td><td><span style={{display:"inline-block",padding:"5px 10px",borderRadius:999,fontSize:12,fontWeight:700,background:d.verified?"#dcfce7":"#fff2d8",color:d.verified?"#166534":"#925b08"}}>{d.verified?"Verified":"Pending"}</span>{" "}<button type="button" onClick={()=>setVerification(d.id,!d.verified)}>{d.verified?"Move to Pending":"Approve"}</button></td><td><a href={d.url} target="_blank" rel="noreferrer">View / Download</a>{" "}<button onClick={()=>remove(d.id)}>Delete</button></td></tr>):<tr><td colSpan={6}>{query?"No documents match your search.":"No documents uploaded yet."}</td></tr>}</tbody></table></div></div>
  </main></AdminShell>}

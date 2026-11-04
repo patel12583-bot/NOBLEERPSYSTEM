@@ -18,12 +18,7 @@ const ALLOWED=new Set([
 
 async function guard(){
  const u=await getSessionUser();
- if(!u||!["SUPER_ADMIN","ADMIN","HOD","FACULTY","HR_STAFF"].includes(u.role)) return null;
- if(u.role==="HOD"||u.role==="FACULTY"){
-  const faculty=await prisma.faculty.findUnique({where:{userId:u.id},select:{departmentId:true}});
-  if(!faculty?.departmentId) return null;
-  return {...u,departmentId:faculty.departmentId};
- }
+ if(!u||!["SUPER_ADMIN","ADMIN"].includes(u.role)) return null;
  return u;
 }
 
@@ -80,4 +75,19 @@ export async function DELETE(req){
   await prisma.document.delete({where:{id}});
   return NextResponse.json({ok:true});
  }catch(e){return NextResponse.json({error:"Unable to delete document."},{status:400})}
+}
+export async function PATCH(req){
+ const u=await guard();
+ if(!u)return NextResponse.json({error:"Unauthorized"},{status:401});
+ try{
+  const body=await req.json();
+  if(!body.id || typeof body.verified!=="boolean")return NextResponse.json({error:"Document ID and verification status are required."},{status:400});
+  const existing=await prisma.document.findUnique({where:{id:body.id},select:{id:true}});
+  if(!existing)return NextResponse.json({error:"Document not found."},{status:404});
+  const document=await prisma.document.update({where:{id:body.id},data:{verified:body.verified},include:{student:{select:{studentId:true,name:true}}}});
+  return NextResponse.json({document,ok:true});
+ }catch(e){
+  console.error(e);
+  return NextResponse.json({error:"Unable to update document verification status."},{status:400});
+ }
 }
