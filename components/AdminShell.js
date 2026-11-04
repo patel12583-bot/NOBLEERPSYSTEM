@@ -4,20 +4,12 @@ import { useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 const items = [
-  ["Dashboard", "/dashboard", "⌂", "Overview"],
-  ["Institute Profile", "/admin/institute", "▤", "Administration"],
+  ["Dashboard", "/dashboard", "⌂", "Workspace"],
   ["Admissions", "/admin/students", "♟", "Admissions"],
-  ["Faculty", "/admin/faculty", "♣", "Administration"],
-  ["Courses & Academics", "/admin/academics", "▦", "Setup"],
-  ["Attendance", "/admin/attendance", "▣", "Legacy Records"],
-  ["Examination", "/admin/examination", "✎", "Legacy Records"],
-  ["Fees & Finance", "/admin/fees", "₹", "Legacy Records"],
-  ["Results", "/admin/results", "✓", "Legacy Records"],
-  ["Documents", "/admin/documents", "▧", "Documents"],
-  ["HR & Payroll", "/admin/hr", "♙", "Legacy Records"],
-  ["Users & Roles", "/admin/users", "♧", "Administration"],
-  ["Reports", "/admin/reports", "▥", "Reports"],
-  ["Settings", "/admin/settings", "⚙", "Administration"],
+  ["Documents", "/admin/documents", "▧", "Admissions"],
+  ["Courses", "/admin/academics", "▦", "Setup"],
+  ["Reports", "/admin/reports", "▥", "Insights"],
+  ["Settings", "/admin/settings", "⚙", "Setup"],
 ];
 
 export default function AdminShell({ children, active = "Dashboard" }) {
