@@ -52,11 +52,10 @@ function LoginForm() {
 
   return <main className="loginShell">
     <div className="loginCampusShade" aria-hidden="true" />
-    <aside className="loginCampusFeatures">
-      <div><i>✦</i><span><b>Admission Records</b><small>Create and manage student admissions</small></span></div>
-      <div><i>▤</i><span><b>Document Checklist</b><small>Track required and pending documents</small></span></div>
-      <div><i>♧</i><span><b>Student Profiles</b><small>Keep every admission file organised</small></span></div>
-      <div><i>↗</i><span><b>WhatsApp Sharing</b><small>Send requested documents securely</small></span></div>
+    <aside className="nrsAuthShowcase">
+      <div className="nrsAuthLogo"><img src="/noble-institutes-logo.svg" alt="Noble Group of Institutes" /></div>
+      <div className="nrsAuthGlass"><div className="nrsCap">🎓</div><div><strong>NRS</strong><b>Noble Admission System</b><span>Smart. Secure. Unified.</span></div></div>
+      <div className="nrsAuthCaption">ADMISSIONS • DOCUMENTS • INSTITUTE</div>
     </aside>
     <div className="loginCard loginCampusCard">
       <div className="naLoginBrand"><img src="/noble-institutes-logo.svg" alt="Noble Group of Institutes" /><span><b>NOBLE GROUP OF INSTITUTES</b><small>ADMISSION & DOCUMENT MANAGEMENT</small></span></div><div className="loginTitle"><div className="naLoginEyebrow">SECURE ADMINISTRATOR ACCESS</div><h1>Welcome back.</h1><p>Sign in to manage admissions and student documents.</p></div>
