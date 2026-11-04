@@ -250,3 +250,33 @@ body { font-family: "DM Sans", Inter, system-ui, sans-serif; }
   box-shadow: 0 8px 18px rgba(78,60,41,.15);
 }
 .erpPage :where(button.primary, .primary):hover { filter: brightness(1.07); transform: translateY(-1px); }
+
+
+/* NOBLE Admission administrator login */
+.naLoginBrand { display:flex; align-items:center; gap:13px; margin-bottom:34px; }
+.naLoginBrand img { width:58px; height:58px; object-fit:contain; padding:5px; background:#fff; border:1px solid var(--na-line); border-radius:14px; }
+.naLoginBrand b { display:block; color:var(--na-primary-strong); font:700 13px "Playfair Display",Georgia,serif; letter-spacing:1px; }
+.naLoginBrand small { display:block; margin-top:5px; color:#9a876c; font-size:8px; font-weight:800; letter-spacing:1.1px; }
+.loginShell { position:relative; isolation:isolate; display:grid; grid-template-columns:minmax(260px,1fr) minmax(360px,470px); align-items:center; gap:clamp(30px,8vw,110px); padding:clamp(24px,7vw,90px); background:radial-gradient(ellipse at 15% 20%,rgba(185,154,101,.18),transparent 42%),linear-gradient(135deg,#f7f3eb,#eee6d8) !important; }
+.loginCampusShade { display:none; }
+.loginCampusFeatures { display:grid; gap:18px; max-width:520px; }
+.loginCampusFeatures>div { display:flex; align-items:center; gap:15px; padding:17px 19px; border:1px solid rgba(185,154,101,.22); border-radius:16px; background:rgba(255,253,248,.68); box-shadow:0 12px 30px rgba(74,57,35,.04); }
+.loginCampusFeatures i { display:grid; place-items:center; width:42px; height:42px; border-radius:12px; background:#eee4d3; color:#745a39; font-style:normal; font-size:19px; }
+.loginCampusFeatures b,.loginCampusFeatures small { display:block; }
+.loginCampusFeatures b { color:var(--na-primary-strong); font-size:13px; }
+.loginCampusFeatures small { margin-top:4px; color:var(--na-muted); font-size:10px; }
+.loginCard.loginCampusCard { width:100%; padding:clamp(24px,4vw,40px); border:1px solid #e8dfd0; border-radius:22px; background:rgba(255,253,248,.96); box-shadow:0 28px 80px rgba(74,57,35,.12); }
+.loginCampusCard .loginTitle { margin:0 0 26px; }
+.loginCampusCard .loginTitle h1 { margin:9px 0; color:var(--na-primary-strong); font-size:clamp(34px,4vw,43px); }
+.loginCampusCard .loginTitle p { color:var(--na-muted); font-size:12px; line-height:1.7; }
+.naLoginEyebrow { color:#a08458; font-size:9px; font-weight:900; letter-spacing:1.7px; }
+.loginCampusCard form { gap:16px; }
+.loginCampusCard label { color:#75654f; font-size:9px; letter-spacing:.9px; }
+.loginCampusCard input { min-height:46px; border:1px solid #e2d8c8; border-radius:10px; background:#fffefa; }
+.loginCampusCard input:focus { border-color:#b99a65; box-shadow:0 0 0 3px rgba(185,154,101,.15); }
+.loginCampusCard .primary.full { min-height:48px; justify-content:center; border:0; border-radius:10px; background:linear-gradient(135deg,#806544,#57432d); color:#fffdf8; }
+.loginCampusCard .authLinks { justify-content:center; border-color:var(--na-line); }
+.loginCampusCard .authLinks .back { color:#887456; }
+.loginCampusCard .loginCopyright { margin:23px 0 0; color:#a29582; text-align:center; font-size:9px; }
+@media(max-width:850px) { .loginShell { grid-template-columns:1fr; justify-items:center; gap:24px; padding:24px 16px; } .loginCampusFeatures { width:min(470px,100%); grid-template-columns:1fr 1fr; gap:9px; } .loginCampusFeatures>div { padding:12px; gap:9px; } .loginCampusFeatures i { width:34px; height:34px; flex:none; } .loginCampusFeatures b { font-size:10px; } .loginCampusFeatures small { font-size:8px; } .loginCard.loginCampusCard { max-width:470px; } }
+@media(max-width:480px) { .loginCampusFeatures { grid-template-columns:1fr 1fr; } .naLoginBrand { margin-bottom:25px; } .naLoginBrand img { width:48px;height:48px; } }
