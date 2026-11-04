@@ -1,0 +1,252 @@
+/* NOBLE ADMISSION — Premium Beige design foundation.
+   Scoped to the existing ERP shell so legacy modules remain readable during migration. */
+:root {
+  --na-bg: #f6f2e9;
+  --na-surface: #fffdf8;
+  --na-surface-soft: #f1eadc;
+  --na-ink: #30291f;
+  --na-muted: #817565;
+  --na-line: #e7dece;
+  --na-primary: #6b543b;
+  --na-primary-strong: #4d3b29;
+  --na-accent: #b99a65;
+  --na-shadow: 0 14px 38px rgba(74, 57, 35, .07);
+}
+html, body { background: var(--na-bg); color: var(--na-ink); }
+body { font-family: "DM Sans", Inter, system-ui, sans-serif; }
+.erpShell {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 80% 0%, rgba(204, 180, 137, .13), transparent 35%),
+    linear-gradient(135deg, #f8f5ee 0%, #f2ede3 100%);
+  color: var(--na-ink);
+}
+.erpSidebar {
+  width: 252px;
+  min-width: 252px;
+  padding: 22px 14px 16px;
+  background: linear-gradient(180deg, #fdfbf6 0%, #f4eee3 100%);
+  border-right: 1px solid var(--na-line);
+  box-shadow: 8px 0 30px rgba(69, 52, 32, .035);
+  color: var(--na-ink);
+}
+.erpBrand {
+  min-height: 58px;
+  gap: 10px;
+  padding: 0 7px 19px;
+  border-bottom: 1px solid var(--na-line);
+}
+.erpBrandLogo {
+  display: block;
+  width: 43px;
+  height: 43px;
+  flex: 0 0 43px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #fff;
+  padding: 3px;
+  border: 1px solid #e8dfd0;
+}
+.erpBrandText { min-width: 0; }
+.erpBrandText b {
+  display: block;
+  color: var(--na-primary-strong);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 15px;
+  letter-spacing: 1.3px;
+}
+.erpBrandText small {
+  display: block;
+  margin-top: 4px;
+  color: var(--na-muted);
+  font-size: 8px;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+}
+.erpCollapse {
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--na-line);
+  border-radius: 9px;
+  background: #fffdf8;
+  color: var(--na-primary);
+  transition: background .18s ease, transform .18s ease;
+}
+.erpCollapse:hover { background: var(--na-surface-soft); transform: translateY(-1px); }
+.erpSidebarLabel, .erpNavHeading {
+  color: #9a8b77;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.35px;
+}
+.erpSidebarLabel { padding: 18px 10px 9px; }
+.erpSearch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 39px;
+  padding: 0 10px;
+  border: 1px solid var(--na-line);
+  border-radius: 10px;
+  background: rgba(255,255,255,.76);
+  color: var(--na-muted);
+}
+.erpSearch input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--na-ink);
+  font-size: 11px;
+}
+.erpSearch input::placeholder { color: #a39786; }
+.erpNav { gap: 3px; padding-top: 12px; }
+.erpNavGroup { margin-bottom: 10px; }
+.erpNavHeading { padding: 9px 10px 6px; text-transform: uppercase; }
+.erpNavItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  min-height: 42px;
+  padding: 0 11px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: #716451;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  transition: color .18s ease, background .18s ease, border-color .18s ease, transform .18s ease;
+}
+.erpNavItem:hover {
+  background: rgba(231, 222, 206, .55);
+  color: var(--na-primary-strong);
+  transform: translateX(2px);
+}
+.erpNavItem.active {
+  border-color: #e5d8c2;
+  background: linear-gradient(100deg, #eee4d3, #f7f1e6);
+  color: var(--na-primary-strong);
+  box-shadow: inset 3px 0 var(--na-accent), 0 5px 14px rgba(74,57,35,.045);
+  font-weight: 800;
+}
+.erpNavIcon {
+  display: inline-grid;
+  place-items: center;
+  width: 23px;
+  flex: 0 0 23px;
+  color: #9b8058;
+  font-size: 15px;
+}
+.erpNavItem.active .erpNavIcon { color: var(--na-primary); }
+.erpNavActive { display: none; }
+.erpSideFoot {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: auto;
+  padding: 13px 8px 2px;
+  border-top: 1px solid var(--na-line);
+  color: var(--na-muted);
+  font-size: 9px;
+}
+.erpSideFoot .onlineDot { background: #6b9c79; box-shadow: 0 0 0 4px rgba(107,156,121,.12); }
+.erpFootVersion { margin-left: auto; color: #a89b88; font-size: 8px; letter-spacing: .5px; }
+.erpMain { min-width: 0; background: transparent; }
+.erpTopbar {
+  min-height: 68px;
+  padding: 0 clamp(18px, 3vw, 38px);
+  border-bottom: 1px solid rgba(224, 214, 198, .85);
+  background: rgba(255, 253, 248, .82);
+  backdrop-filter: blur(16px);
+}
+.erpBreadcrumb { color: #a09280; font-size: 10px; }
+.erpBreadcrumb b { padding: 0 7px; color: #c2b49e; }
+.erpBreadcrumb strong { color: var(--na-primary-strong); font-size: 11px; }
+.erpAcademicYear {
+  padding: 7px 10px;
+  border: 1px solid var(--na-line);
+  border-radius: 999px;
+  background: #faf6ed;
+  color: #8a7658;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .8px;
+}
+.erpTopAvatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #e4d7c2;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #e9dcc5, #c9ad7e);
+  color: #4e3c29;
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+}
+.erpPage { min-height: calc(100vh - 112px); padding: clamp(18px, 3vw, 38px); }
+.erpFooter {
+  padding: 15px clamp(18px, 3vw, 38px);
+  border-top: 1px solid var(--na-line);
+  color: #9a8d7b;
+  font-size: 9px;
+}
+.erpFooter span:last-child { color: #aa9c89; }
+.erpCollapsed .erpSidebar { width: 78px; min-width: 78px; padding-inline: 10px; }
+.erpCollapsed .erpBrand { justify-content: center; padding-inline: 0; }
+.erpCollapsed .erpBrandText, .erpCollapsed .erpSidebarLabel, .erpCollapsed .erpSearch,
+.erpCollapsed .erpNavHeading, .erpCollapsed .erpNavLabel, .erpCollapsed .erpFootText,
+.erpCollapsed .erpFootVersion { display: none; }
+.erpCollapsed .erpBrandLogo { width: 42px; height: 42px; }
+.erpCollapsed .erpCollapse { position: absolute; right: -13px; z-index: 4; background: #fffdf8; box-shadow: 0 3px 12px rgba(50,38,24,.12); }
+.erpCollapsed .erpNavItem { justify-content: center; padding-inline: 5px; }
+.erpCollapsed .erpNavIcon { width: 28px; flex-basis: 28px; font-size: 17px; }
+.erpCollapsed .erpSideFoot { justify-content: center; }
+.erpMobileShade { background: rgba(43, 34, 24, .38); backdrop-filter: blur(3px); }
+@media (max-width: 850px) {
+  .erpSidebar { background: #fbf8f1; box-shadow: 18px 0 45px rgba(52,39,24,.14); }
+  .erpTopbar { min-height: 60px; }
+  .erpPage { padding: 18px 15px; }
+}
+@media (max-width: 560px) {
+  .erpAcademicYear { display: none; }
+  .erpFooter { flex-direction: column; gap: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .erpShell *, .erpShell *::before, .erpShell *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+/* Admission-era visual defaults for existing forms and data tables. */
+.erpPage :where(.panel, .statGrid > div, .statCard, .moduleCard, .nobleStatCard, .nobleInfoPanel) {
+  border-color: var(--na-line);
+  border-radius: 14px;
+  background: var(--na-surface);
+  box-shadow: var(--na-shadow);
+}
+.erpPage :where(input, select, textarea) {
+  border-color: #e1d7c7;
+  border-radius: 9px;
+  background: #fffefa;
+  color: var(--na-ink);
+}
+.erpPage :where(input, select, textarea):focus {
+  outline: none;
+  border-color: #b99a65;
+  box-shadow: 0 0 0 3px rgba(185,154,101,.14);
+}
+.erpPage :where(button.primary, .primary) {
+  border: 1px solid #5a4631;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #70583e, #4e3c29);
+  color: #fffdf8;
+  box-shadow: 0 8px 18px rgba(78,60,41,.15);
+}
+.erpPage :where(button.primary, .primary):hover { filter: brightness(1.07); transform: translateY(-1px); }
