@@ -43,6 +43,11 @@ export default function CreateAdminPage() {
 
   return <main className="loginShell">
     <div className="loginCampusShade" aria-hidden="true" />
+    <aside className="nrsAuthShowcase nrsSetupShowcase">
+      <div className="nrsAuthLogo"><img src="/noble-institutes-logo.svg" alt="Noble Group of Institutes" /></div>
+      <div className="nrsAuthGlass"><div className="nrsCap">🎓</div><div><strong>NRS</strong><b>Noble Admission System</b><span>Smart. Secure. Unified.</span></div></div>
+      <div className="nrsAuthCaption">AUTHORISED ADMINISTRATOR SETUP</div>
+    </aside>
     <div className="loginCard loginCampusCard">
       <div className="naLoginBrand"><img src="/noble-institutes-logo.svg" alt="Noble Group of Institutes" /><span><b>NOBLE GROUP OF INSTITUTES</b><small>ADMISSION & DOCUMENT MANAGEMENT</small></span></div>
       <div className="loginTitle">
