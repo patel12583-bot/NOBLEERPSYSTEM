@@ -21,19 +21,15 @@ export async function POST(request) {
     }
 
     const body = await request.json();
-    const name = String(body.name || "").trim();
     const email = String(body.email || "").trim().toLowerCase();
     const setupCode = String(body.setupCode || "");
     const password = String(body.password || "");
 
-    if (!name || !email || !setupCode || !password) {
+    if (!email || !setupCode || !password) {
       return NextResponse.json({ error: "All fields are required." }, { status: 400 });
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 190) {
       return NextResponse.json({ error: "Enter a valid email address." }, { status: 400 });
-    }
-    if (name.length > 80) {
-      return NextResponse.json({ error: "Name must be 80 characters or fewer." }, { status: 400 });
     }
     if (password.length < 10 || password.length > 128) {
       return NextResponse.json({ error: "Password must be between 10 and 128 characters." }, { status: 400 });
