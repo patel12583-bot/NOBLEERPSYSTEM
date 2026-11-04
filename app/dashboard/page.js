@@ -6,6 +6,6 @@ export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
   const user = await getSessionUser();
-  if (!user) redirect("/login");
+  if (!user || !["ADMIN", "SUPER_ADMIN"].includes(user.role)) redirect("/login");
   return <DashboardClient user={{ username: user.username, email: user.email, role: user.role }} />;
 }
