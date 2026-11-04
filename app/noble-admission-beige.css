@@ -445,3 +445,106 @@ body { font-family: "DM Sans", Inter, system-ui, sans-serif; }
  .loginCard.loginCampusCard{width:min(100%,470px)!important}
 }
 @media(max-width:520px){.nrsAuthShowcase{display:none}.loginShell{min-height:100svh!important;padding:14px!important}.loginCard.loginCampusCard{padding:23px 18px!important}}
+
+
+/* NRS login — match the supplied Noble campus reference */
+.loginShell{
+  min-height:100svh!important;
+  grid-template-columns:minmax(0,1fr) minmax(430px,540px)!important;
+  gap:clamp(28px,5vw,88px)!important;
+  padding:clamp(22px,4vw,76px)!important;
+  background:#0b3158 url("/WhatsApp%20Image%202026-10-11%20at%2012.35.39%20PM.jpeg") center center/cover no-repeat!important;
+}
+.loginShell:before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(90deg,rgba(5,29,57,.12),rgba(5,29,57,.02) 53%,rgba(5,29,57,.14));
+}
+.nrsAuthShowcase{
+  width:min(100%,510px);justify-self:center;
+  min-height:min(700px,78vh);padding:clamp(10px,1.8vw,24px);
+  align-items:stretch;justify-content:space-between;
+}
+.nrsAuthLogo{
+  width:min(100%,390px);min-height:136px;align-self:flex-start;
+  justify-content:center;padding:14px 22px;border-radius:20px;
+  background:rgba(255,255,255,.91);backdrop-filter:blur(18px);
+}
+.nrsAuthLogo img{width:100%;height:104px;max-width:340px;object-fit:contain}
+.nrsAuthGlass{
+  width:min(100%,430px);min-height:182px;padding:25px 28px;
+  border-radius:24px;background:rgba(255,255,255,.88);
+  backdrop-filter:blur(20px);box-shadow:0 26px 70px rgba(3,25,52,.28);
+}
+.nrsCap{flex-basis:120px;height:120px;font-size:60px}
+.nrsAuthCaption{align-self:flex-start;margin-left:0}
+.loginCard.loginCampusCard{
+  width:100%;max-width:540px!important;padding:clamp(30px,3vw,48px)!important;
+  border-radius:27px!important;background:rgba(255,255,255,.94)!important;
+  box-shadow:0 32px 95px rgba(3,24,49,.34)!important;
+}
+.loginCampusCard .naLoginBrand{justify-content:flex-start;gap:16px;margin:0 auto 32px!important;max-width:390px}
+.loginCampusCard .naLoginBrand img{width:74px;height:74px;border-radius:17px}
+.loginCampusCard .naLoginBrand b{font-size:14px;letter-spacing:1.1px}
+.loginCampusCard .naLoginBrand small{font-size:8px;letter-spacing:1.2px}
+.loginCampusCard .loginTitle{margin-bottom:30px!important}
+.loginCampusCard .loginTitle h1{font-size:clamp(34px,3.2vw,43px)!important}
+.loginCampusCard .loginTitle p{font-size:13px!important}
+.loginCampusCard form{gap:17px!important}
+.loginCampusCard label{font-size:10px!important;font-weight:800;letter-spacing:.8px}
+.loginCampusCard input{min-height:54px!important;padding:0 15px!important;border-radius:12px!important;font-size:12px}
+.loginCampusCard .noblePasswordField{position:relative;display:flex;align-items:center;width:100%}
+.loginCampusCard .noblePasswordField input{width:100%;padding-right:74px!important}
+.loginCampusCard .noblePasswordToggle{
+  position:absolute;right:9px;top:50%;transform:translateY(-50%);
+  min-width:48px;padding:7px 10px;border:1px solid #d7e2ef;border-radius:8px;
+  background:#f5f9ff;color:#1762ad;font-size:10px;font-weight:800;cursor:pointer;
+}
+.loginCampusCard .primary.full{min-height:58px!important;margin-top:4px;border-radius:13px!important;font-size:15px;font-weight:800}
+.loginCampusCard .authLinks{justify-content:space-between;gap:12px;padding-top:16px}
+.loginCampusCard .authLinks .back{
+  min-height:43px;padding:0 14px;border:1px solid #d8e4f1;border-radius:11px;
+  background:#fff;color:#1769c5!important;font-size:11px;font-weight:800;
+  transition:transform .18s,box-shadow .18s,background .18s;
+}
+.loginCampusCard .authLinks .back:hover{transform:translateY(-2px);background:#f5f9ff;box-shadow:0 8px 20px #164d8414}
+.loginCampusCard .loginCopyright{margin-top:25px!important;font-size:9px}
+@media(max-width:1000px){
+  .loginShell{grid-template-columns:minmax(0,.9fr) minmax(390px,500px)!important;gap:22px!important;padding:24px!important}
+  .nrsAuthShowcase{min-height:620px}
+  .nrsAuthLogo{min-height:110px;width:min(100%,340px)}
+  .nrsAuthLogo img{height:78px}
+  .nrsAuthGlass{min-height:150px;padding:18px}
+  .nrsCap{flex-basis:88px;height:88px;font-size:46px}
+}
+@media(max-width:760px){
+  .loginShell{grid-template-columns:1fr!important;justify-items:center;gap:18px!important;padding:18px!important;background-position:center!important}
+  .nrsAuthShowcase{width:min(100%,520px);min-height:0;gap:14px;padding:0;align-items:center}
+  .nrsAuthLogo{width:min(100%,330px);min-height:82px;padding:8px 18px;align-self:center}
+  .nrsAuthLogo img{height:64px}
+  .nrsAuthGlass{width:min(100%,430px);min-height:108px;padding:13px 16px;gap:14px}
+  .nrsCap{flex-basis:70px;height:70px;font-size:38px}
+  .nrsAuthGlass strong{font-size:31px}
+  .nrsAuthGlass b{font-size:12px}
+  .nrsAuthGlass span{font-size:10px;margin-top:5px}
+  .nrsAuthCaption{display:none}
+  .loginCard.loginCampusCard{width:min(100%,540px)!important;max-width:540px!important}
+}
+@media(max-width:520px){
+  .loginShell{padding:12px!important;gap:12px!important}
+  .nrsAuthShowcase{display:flex!important}
+  .nrsAuthLogo{width:245px;min-height:66px}
+  .nrsAuthLogo img{height:48px}
+  .nrsAuthGlass{min-height:88px;padding:10px 12px}
+  .nrsCap{flex-basis:56px;height:56px;font-size:30px;border-radius:13px}
+  .nrsAuthGlass strong{font-size:26px}
+  .nrsAuthGlass b{font-size:10px}
+  .nrsAuthGlass span{font-size:9px}
+  .loginCard.loginCampusCard{padding:24px 18px!important;border-radius:20px!important}
+  .loginCampusCard .naLoginBrand{gap:11px;margin-bottom:24px!important}
+  .loginCampusCard .naLoginBrand img{width:55px;height:55px}
+  .loginCampusCard .naLoginBrand b{font-size:11px}
+  .loginCampusCard .naLoginBrand small{font-size:7px}
+  .loginCampusCard .loginTitle h1{font-size:32px!important}
+  .loginCampusCard .authLinks{flex-direction:column;align-items:stretch}
+  .loginCampusCard .authLinks .back{width:100%}
+}
