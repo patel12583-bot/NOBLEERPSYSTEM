@@ -27,15 +27,6 @@ export async function POST(request) {
       }
     });
 
-    // Student IDs are shown after self-registration, so support them as login identifiers too.
-    if (!user) {
-      const student = await prisma.student.findUnique({
-        where: { studentId: identifier.toUpperCase() },
-        include: { user: true }
-      });
-      user = student?.user || null;
-    }
-
     if (!user || user.status !== "ACTIVE" || !(await bcrypt.compare(password, user.passwordHash))) {
       return NextResponse.json({ error: "Invalid credentials." }, { status: 401 });
     }
@@ -50,7 +41,26 @@ export async function POST(request) {
       user: { username: user.username, email: user.email, role: user.role }
     });
   } catch (error) {
-    console.error("Login error:", error);
-    return NextResponse.json({ error: "Unable to sign in right now." }, { status: 500 });
+    const code = typeof error?.code === "string" ? error.code : "UNKNOWN";
+    console.error("Login error:", { code, message: error?.message, meta: error?.meta });
+
+    if (code === "P2021" || code === "P2022") {
+      return NextResponse.json({
+        error: "The database tables are not ready yet. The administrator database setup needs to be completed.",
+        code: "DATABASE_SCHEMA_NOT_READY"
+      }, { status: 503 });
+    }
+
+    if (["P1001", "P1002", "P1017", "P2024"].includes(code)) {
+      return NextResponse.json({
+        error: "The database is not reachable right now. Please check the DATABASE_URL setting in Vercel.",
+        code: "DATABASE_CONNECTION_ERROR"
+      }, { status: 503 });
+    }
+
+    return NextResponse.json({
+      error: "The login service encountered a server error. Please check the Vercel Function Logs.",
+      code: "LOGIN_SERVICE_ERROR"
+    }, { status: 500 });
   }
 }
