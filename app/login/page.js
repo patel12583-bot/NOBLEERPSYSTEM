@@ -1,93 +1,67 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-function LoginForm() {
-  const params = useSearchParams();
+export default function LoginPage() {
   const router = useRouter();
-  const [role, setRole] = useState(params.get("role") || "Student");
-  const [id, setId] = useState("");
-  const [pass, setPass] = useState("");
+  const [identifier, setIdentifier] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const standalone = window.matchMedia?.("(display-mode: standalone)")?.matches || window.navigator.standalone === true;
-    if (!standalone) return;
-    setRole("Student");
-    let active = true;
-    fetch("/api/dashboard", { cache: "no-store" }).then((res) => {
-      if (active && res.ok) { router.replace("/dashboard"); router.refresh(); }
-    }).catch(() => {});
-    return () => { active = false; };
-  }, [router]);
-
-  async function submit(e) {
-    e.preventDefault();
+  async function submit(event) {
+    event.preventDefault();
     setError("");
-    if (!id || !pass) {
-      setError("Enter your ID/email and password.");
-      return;
-    }
     setLoading(true);
     try {
-      const res = await fetch("/api/auth/login", {
+      const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ identifier: id, password: pass })
+        body: JSON.stringify({ identifier, password })
       });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.error || "Invalid credentials.");
-        return;
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Unable to sign in.");
+      if (!["ADMIN", "SUPER_ADMIN"].includes(data.user?.role)) {
+        throw new Error("This system is restricted to authorised administrators.");
       }
-      const actualRole = data.user.role;
-      const roleMap = {
-        SUPER_ADMIN: "Super Admin", ADMIN: "Admin", HOD: "HOD", FACULTY: "Faculty",
-        STUDENT: "Student", PARENT: "Parent", ACCOUNTANT: "Accountant",
-        EXAM_OFFICER: "Examination Officer", LIBRARIAN: "Librarian", HR_STAFF: "HR/Staff"
-      };
-      router.push("/dashboard?role=" + encodeURIComponent(roleMap[actualRole] || actualRole));
+      router.replace("/admin/admissions");
       router.refresh();
-    } catch {
-      setError("Unable to connect to the server. Please try again.");
+    } catch (err) {
+      setError(err.message || "Unable to connect. Please try again.");
     } finally {
       setLoading(false);
     }
   }
 
-  return <main className="loginShell">
-    <div className="loginCampusShade" aria-hidden="true" />
-    <aside className="loginCampusFeatures">
-      <div><i>♟</i><span><b>Student Management</b><small>Track · Manage · Grow</small></span></div>
-      <div><i>♟</i><span><b>Faculty &amp; Staff</b><small>Support · Develop · Empower</small></span></div>
-      <div><i>▤</i><span><b>Examination &amp; Results</b><small>Evaluate · Analyze · Excel</small></span></div>
-      <div><i>▣</i><span><b>Library &amp; Resources</b><small>Access · Learn · Achieve</small></span></div>
-    </aside>
-    <div className="loginCard loginCampusCard">
-      <div className="loginTitle"><div className="eyebrow">SECURE COLLEGE PORTAL</div><h1>Noble ERP System</h1><p>College Management System</p></div>
-      <form onSubmit={submit}>
-        <label>Portal role<select value={role} onChange={e => setRole(e.target.value)}>
-          {["Student","Faculty","HOD","Parent","Admin","Super Admin","Accountant","Examination Officer","Librarian","HR/Staff"].map(x => <option key={x}>{x}</option>)}
-        </select></label>
-        <label>User ID / Email<input value={id} onChange={e => setId(e.target.value)} placeholder="Enter your ID or email" autoComplete="username" required /></label>
-        <label>Password
-          <span className="noblePasswordField">
-            <input type={showPassword ? "text" : "password"} value={pass} onChange={e => setPass(e.target.value)} placeholder="Enter password" autoComplete="current-password" required />
-            <button className="noblePasswordToggle" type="button" onClick={() => setShowPassword(value => !value)} aria-label={showPassword ? "Hide password" : "Show password"} aria-pressed={showPassword}>{showPassword ? "Hide" : "Show"}</button>
-          </span>
-        </label>
-        {error && <div className="error">{error}</div>}
-        <button className="primary full" disabled={loading}>{loading ? "Signing in…" : <>↪ &nbsp; Login</>}</button>
-      </form>
-      <div className="authLinks"><button className="back" onClick={() => router.push("/register")}>Create Account / Sign Up</button><button className="back" onClick={() => router.push("/")}>← Back to Noble ERP</button></div>
-      <p className="loginCopyright">© 2026 noble group of Institution. All rights reserved.</p>
-    </div>
-  </main>;
-}
-
-export default function Login() {
-  return <Suspense fallback={<main className="loginShell"><div className="loginCard">Loading…</div></main>}><LoginForm /></Suspense>;
+  return (
+    <main className="loginShell">
+      <div className="loginCard">
+        <div className="loginBrand">
+          <img src="/noble-logo.png" alt="Noble Group of Institutes" style={{ width: 64, height: 64, objectFit: "contain" }} />
+          <div><b>NOBLE</b><small>GROUP OF INSTITUTES</small></div>
+        </div>
+        <div className="loginTitle">
+          <div className="eyebrow">ADMINISTRATOR ACCESS</div>
+          <h1>Noble Admission</h1>
+          <p>Admission and document management workspace</p>
+        </div>
+        <form onSubmit={submit}>
+          <label>Admin username or email
+            <input value={identifier} onChange={e => setIdentifier(e.target.value)} placeholder="Enter admin username or email" autoComplete="username" required />
+          </label>
+          <label>Password
+            <span className="noblePasswordField">
+              <input type={showPassword ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} placeholder="Enter password" autoComplete="current-password" required />
+              <button className="noblePasswordToggle" type="button" onClick={() => setShowPassword(value => !value)}>{showPassword ? "Hide" : "Show"}</button>
+            </span>
+          </label>
+          {error && <div className="error" role="alert">{error}</div>}
+          <button className="primary full" disabled={loading}>{loading ? "Signing in…" : "Sign in as Admin →"}</button>
+        </form>
+        <p className="loginCopyright">Secure access for Noble Group of Institutes administrators.</p>
+      </div>
+    </main>
+  );
 }
