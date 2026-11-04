@@ -1,12 +1,11 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
 function LoginForm() {
-  const params = useSearchParams();
   const router = useRouter();
-  const [role, setRole] = useState(params.get("role") || "Student");
+  
   const [id, setId] = useState("");
   const [pass, setPass] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -16,7 +15,6 @@ function LoginForm() {
   useEffect(() => {
     const standalone = window.matchMedia?.("(display-mode: standalone)")?.matches || window.navigator.standalone === true;
     if (!standalone) return;
-    setRole("Student");
     let active = true;
     fetch("/api/dashboard", { cache: "no-store" }).then((res) => {
       if (active && res.ok) { router.replace("/dashboard"); router.refresh(); }
@@ -43,13 +41,7 @@ function LoginForm() {
         setError(data.error || "Invalid credentials.");
         return;
       }
-      const actualRole = data.user.role;
-      const roleMap = {
-        SUPER_ADMIN: "Super Admin", ADMIN: "Admin", HOD: "HOD", FACULTY: "Faculty",
-        STUDENT: "Student", PARENT: "Parent", ACCOUNTANT: "Accountant",
-        EXAM_OFFICER: "Examination Officer", LIBRARIAN: "Librarian", HR_STAFF: "HR/Staff"
-      };
-      router.push("/dashboard?role=" + encodeURIComponent(roleMap[actualRole] || actualRole));
+        router.push("/dashboard");
       router.refresh();
     } catch {
       setError("Unable to connect to the server. Please try again.");
@@ -61,17 +53,15 @@ function LoginForm() {
   return <main className="loginShell">
     <div className="loginCampusShade" aria-hidden="true" />
     <aside className="loginCampusFeatures">
-      <div><i>♟</i><span><b>Student Management</b><small>Track · Manage · Grow</small></span></div>
-      <div><i>♟</i><span><b>Faculty &amp; Staff</b><small>Support · Develop · Empower</small></span></div>
-      <div><i>▤</i><span><b>Examination &amp; Results</b><small>Evaluate · Analyze · Excel</small></span></div>
-      <div><i>▣</i><span><b>Library &amp; Resources</b><small>Access · Learn · Achieve</small></span></div>
+      <div><i>✦</i><span><b>Admission Records</b><small>Create and manage student admissions</small></span></div>
+      <div><i>▤</i><span><b>Document Checklist</b><small>Track required and pending documents</small></span></div>
+      <div><i>♧</i><span><b>Student Profiles</b><small>Keep every admission file organised</small></span></div>
+      <div><i>↗</i><span><b>WhatsApp Sharing</b><small>Send requested documents securely</small></span></div>
     </aside>
     <div className="loginCard loginCampusCard">
-      <div className="loginTitle"><div className="eyebrow">SECURE COLLEGE PORTAL</div><h1>Noble ERP System</h1><p>College Management System</p></div>
+      <div className="naLoginBrand"><img src="/noble-institutes-logo.svg" alt="Noble Group of Institutes" /><span><b>NOBLE GROUP OF INSTITUTES</b><small>ADMISSION & DOCUMENT MANAGEMENT</small></span></div><div className="loginTitle"><div className="naLoginEyebrow">SECURE ADMINISTRATOR ACCESS</div><h1>Welcome back.</h1><p>Sign in to manage admissions and student documents.</p></div>
       <form onSubmit={submit}>
-        <label>Portal role<select value={role} onChange={e => setRole(e.target.value)}>
-          {["Student","Faculty","HOD","Parent","Admin","Super Admin","Accountant","Examination Officer","Librarian","HR/Staff"].map(x => <option key={x}>{x}</option>)}
-        </select></label>
+        
         <label>User ID / Email<input value={id} onChange={e => setId(e.target.value)} placeholder="Enter your ID or email" autoComplete="username" required /></label>
         <label>Password
           <span className="noblePasswordField">
@@ -82,8 +72,8 @@ function LoginForm() {
         {error && <div className="error">{error}</div>}
         <button className="primary full" disabled={loading}>{loading ? "Signing in…" : <>↪ &nbsp; Login</>}</button>
       </form>
-      <div className="authLinks"><button className="back" onClick={() => router.push("/register")}>Create Account / Sign Up</button><button className="back" onClick={() => router.push("/")}>← Back to Noble ERP</button></div>
-      <p className="loginCopyright">© 2026 noble group of Institution. All rights reserved.</p>
+      <div className="authLinks"><button className="back" onClick={() => router.push("/create-admin")}>＋ Create Admin Account</button><button className="back" onClick={() => router.push("/")}>← Back to Noble website</button></div>
+      <p className="loginCopyright">© 2026 Noble Group of Institutes. All rights reserved.</p>
     </div>
   </main>;
 }

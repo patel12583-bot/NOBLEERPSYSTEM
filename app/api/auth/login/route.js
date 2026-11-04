@@ -40,6 +40,10 @@ export async function POST(request) {
       return NextResponse.json({ error: "Invalid credentials." }, { status: 401 });
     }
 
+    if (!["ADMIN", "SUPER_ADMIN"].includes(user.role)) {
+      return NextResponse.json({ error: "This portal is restricted to authorised administrators." }, { status: 403 });
+    }
+
     await createSession(user.id);
     return NextResponse.json({
       ok: true,
