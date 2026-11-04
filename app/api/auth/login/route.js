@@ -17,7 +17,7 @@ export async function POST(request) {
       return NextResponse.json({ error: "User ID/email and password are required." }, { status: 400 });
     }
 
-    let user = await prisma.user.findFirst({
+    const user = await prisma.user.findFirst({
       where: {
         OR: [
           { username: identifier },
@@ -42,7 +42,12 @@ export async function POST(request) {
     });
   } catch (error) {
     const code = typeof error?.code === "string" ? error.code : "UNKNOWN";
-    console.error("Login error:", { code, message: error?.message, meta: error?.meta });
+    console.error("Login error:", {
+      name: error?.name,
+      code,
+      message: error?.message,
+      meta: error?.meta
+    });
 
     if (code === "P2021" || code === "P2022") {
       return NextResponse.json({
@@ -51,9 +56,9 @@ export async function POST(request) {
       }, { status: 503 });
     }
 
-    if (["P1001", "P1002", "P1017", "P2024"].includes(code)) {
+    if (["P1001", "P1002", "P1017", "P2024"].includes(code) || error?.name === "PrismaClientInitializationError") {
       return NextResponse.json({
-        error: "The database is not reachable right now. Please check the DATABASE_URL setting in Vercel.",
+        error: "The database is not reachable right now. Please check the Production DATABASE_URL setting in Vercel.",
         code: "DATABASE_CONNECTION_ERROR"
       }, { status: 503 });
     }
