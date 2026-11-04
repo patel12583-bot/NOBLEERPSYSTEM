@@ -72,7 +72,7 @@ function LoginForm() {
         {error && <div className="error">{error}</div>}
         <button className="primary full" disabled={loading}>{loading ? "Signing in…" : <>↪ &nbsp; Login</>}</button>
       </form>
-      <div className="authLinks"><button className="back" onClick={() => router.push("/")}>← Back to Noble website</button></div>
+      <div className="authLinks"><button className="back" onClick={() => router.push("/create-admin")}>＋ Create Admin Account</button><button className="back" onClick={() => router.push("/")}>← Back to Noble website</button></div>
       <p className="loginCopyright">© 2026 Noble Group of Institutes. All rights reserved.</p>
     </div>
   </main>;
