@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/auth";
-import DashboardClient from "./DashboardClient";
 
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
   const user = await getSessionUser();
   if (!user) redirect("/login");
-  return <DashboardClient user={{ username: user.username, email: user.email, role: user.role }} />;
+  if (!["ADMIN", "SUPER_ADMIN"].includes(user.role)) redirect("/login");
+  redirect("/admin/admissions");
 }
