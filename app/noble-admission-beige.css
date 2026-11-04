@@ -381,3 +381,67 @@ body { font-family: "DM Sans", Inter, system-ui, sans-serif; }
 @media(max-width:1000px) { .naHomeHeader nav { display:none; } .naHomeHero { gap:30px; padding-inline:5vw; } .naHomeFeatureGrid { grid-template-columns:repeat(2,1fr); } .naHomeCourseSection { gap:5vw; } }
 @media(max-width:700px) { .naHomeTopline span:last-child { display:none; } .naHomeHeader { height:72px; padding-inline:15px; } .naHomeBrand { min-width:0; gap:8px; } .naHomeBrand img { width:43px;height:43px; } .naHomeBrand b { font-size:9px; } .naHomeBrand small { font-size:6px; } .naHomeLogin { padding:11px 12px; gap:8px; font-size:9px; } .naHomeHero { grid-template-columns:1fr; padding:58px 22px 48px; } .naHomeHero h1 { font-size:47px; } .naHomeVisual { justify-self:center; max-width:440px; transform:none; } .naHomeStrip { padding:20px; gap:12px; } .naHomeStrip>div { padding:0 9px; } .naHomeStrip b { font-size:7px; } .naHomeStrip span { font-size:8px; line-height:1.5; } .naHomeSection { padding:62px 22px; } .naHomeSectionHead { grid-template-columns:1fr; gap:12px; } .naHomeFeatureGrid { grid-template-columns:1fr 1fr; gap:9px; } .naHomeFeatureGrid article { padding:15px; min-height:225px; } .naHomeFeatureGrid h3 { font-size:14px; } .naHomeCourseSection { grid-template-columns:1fr; padding:62px 22px; gap:25px; } .naHomeCourseList { gap:7px; } .naHomeCourseList>div { padding:13px 10px; } .naHomeSteps { grid-template-columns:1fr; margin-top:27px; } .naHomeSteps>div { padding:17px; } .naHomeSteps span { margin-bottom:12px; } .naHomeCTA { align-items:flex-start; flex-direction:column; padding:38px 22px; } .naHomeFooter { flex-wrap:wrap; padding:20px; } .naHomeFooter>span { order:3; width:100%; } }
 @media(max-width:390px) { .naHomeHero h1 { font-size:40px; } .naHomeTrust { gap:9px; } .naHomeFeatureGrid { grid-template-columns:1fr; } .naHomeFeatureGrid article { min-height:0; } .naHomeFeatureGrid p { min-height:0; } }
+
+
+/* NRS reference showcase — campus glass login + navy admin workspace */
+.loginShell{
+  min-height:100svh!important;display:grid!important;
+  grid-template-columns:minmax(0,1.05fr) minmax(360px,470px)!important;
+  align-items:center!important;gap:clamp(28px,6vw,90px)!important;
+  padding:clamp(22px,5vw,76px)!important;
+  background:#082748 url("/WhatsApp%20Image%202026-10-11%20at%2012.35.39%20PM.jpeg") center/cover no-repeat!important;
+}
+.loginShell:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(4,24,49,.25),rgba(4,24,49,.08) 48%,rgba(4,24,49,.22))}
+.nrsAuthShowcase{position:relative;z-index:1;min-height:min(620px,76vh);display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;padding:clamp(10px,2vw,28px);color:#fff}
+.nrsAuthLogo{display:flex;align-items:center;padding:12px 18px;border:1px solid #ffffff65;border-radius:18px;background:#ffffffdf;box-shadow:0 15px 40px #061d3a30}
+.nrsAuthLogo img{width:clamp(190px,23vw,300px);height:92px;object-fit:contain}
+.nrsAuthGlass{display:flex;align-items:center;gap:22px;width:min(100%,490px);padding:25px;border:1px solid #ffffff8c;border-radius:22px;background:linear-gradient(135deg,#ffffffdf,#ffffffa8);color:#092c56;box-shadow:0 25px 65px #041b3838;backdrop-filter:blur(18px)}
+.nrsCap{display:grid;place-items:center;flex:0 0 104px;height:104px;border-radius:18px;background:linear-gradient(145deg,#e8f2ff,#cbdcf3);font-size:56px}
+.nrsAuthGlass strong,.nrsAuthGlass b,.nrsAuthGlass span{display:block}
+.nrsAuthGlass strong{font-size:clamp(35px,4vw,52px);line-height:1;font-weight:900;letter-spacing:-1px}
+.nrsAuthGlass b{margin-top:7px;font-size:16px}
+.nrsAuthGlass span{margin-top:12px;color:#174e8b;font-size:13px;font-style:italic}
+.nrsAuthCaption{padding:10px 14px;border:1px solid #ffffff55;border-radius:999px;background:#082748a8;color:#fff;font-size:9px;font-weight:900;letter-spacing:2px}
+.loginCard.loginCampusCard{position:relative;z-index:2;max-width:470px!important;margin:0!important;padding:clamp(26px,3vw,40px)!important;border:1px solid #ffffffb8!important;border-radius:24px!important;background:#ffffffed!important;box-shadow:0 30px 90px #031a3a55!important;backdrop-filter:blur(20px)}
+.loginCampusCard .naLoginBrand{justify-content:center;margin-bottom:25px!important}
+.loginCampusCard .naLoginBrand img{width:65px;height:65px;border-color:#d9e5f4!important}
+.loginCampusCard .naLoginBrand b{color:#092e5b!important}
+.loginCampusCard .naLoginBrand small{color:#55718f!important}
+.loginCampusCard .loginTitle{text-align:center!important}
+.loginCampusCard .loginTitle h1{color:#092e5b!important;font-size:clamp(28px,3vw,36px)!important}
+.loginCampusCard .loginTitle p{color:#637991!important}
+.loginCampusCard .naLoginEyebrow{color:#1769c5!important}
+.loginCampusCard form{gap:14px!important}
+.loginCampusCard label{color:#385675!important;font-size:10px!important}
+.loginCampusCard input{min-height:46px!important;border-color:#d7e2ef!important;background:#fbfdff!important;color:#173b61!important}
+.loginCampusCard .primary.full{min-height:48px!important;background:linear-gradient(135deg,#1769d2,#0a3d78)!important;color:#fff!important;box-shadow:0 10px 22px #1769d233!important}
+.loginCampusCard .authLinks{border-color:#e2eaf3!important}
+.loginCampusCard .authLinks .back{color:#1769c5!important}
+.loginCampusCard .loginCopyright{color:#8191a5!important}
+.nobleDashboard{display:flex!important;min-height:100vh!important;background:linear-gradient(145deg,#f4f8fd,#eaf1f9)!important;color:#143253!important}
+.nobleDashboard .nobleSidebar{background:linear-gradient(180deg,#082748 0%,#0b3155 62%,#061e38 100%)!important;border-right:0!important;box-shadow:8px 0 28px #0827481c!important}
+.nobleDashboard .nobleBrandLogo{display:block;width:43px;height:43px;flex:0 0 43px;object-fit:contain;padding:3px;border-radius:10px;background:#fff}
+.nobleDashboard .nobleBrandText b{color:#fff!important;font-size:13px!important;letter-spacing:1px}
+.nobleDashboard .nobleBrandText small{color:#b7cce3!important;font-size:8px!important;letter-spacing:1px}
+.nobleDashboard .nobleSideNav button.selected{background:linear-gradient(90deg,#1769d2,#1559a9)!important;color:#fff!important;box-shadow:0 7px 18px #001c3d55!important}
+.nobleDashboard .nobleMain{min-width:0;background:transparent!important}
+.nobleDashboard .nobleTopbar{min-height:66px!important;padding:0 clamp(18px,3vw,38px)!important;border-bottom:1px solid #dce6f0!important;background:#ffffffed!important}
+.nobleDashboard .nobleWelcome{border-radius:18px!important;background:linear-gradient(115deg,#082748,#104d83 70%,#1769b4)!important}
+.nobleDashboard .nobleWelcome h1{color:#fff!important}
+.nobleDashboard .nobleWelcomeCopy>p{color:#e0ecf8!important}
+.nobleDashboard .nobleStatCard,.nobleDashboard .nobleInfoPanel,.nobleDashboard .nobleModuleCard{border:1px solid #dfe8f2!important;border-radius:14px!important;background:#fff!important;box-shadow:0 8px 24px #0b315510!important}
+.nobleDashboard .nobleModuleCard:hover{transform:translateY(-3px)!important;border-color:#9fc3ec!important;box-shadow:0 15px 30px #0b31551c!important}
+.nobleDashboard .nobleStatIcon{border-radius:12px!important}
+@media(max-width:850px){
+ .loginShell{grid-template-columns:1fr!important;gap:16px!important;padding:16px!important}
+ .nrsAuthShowcase{min-height:auto;gap:14px;align-items:center;padding:4px}
+ .nrsAuthLogo img{height:62px;width:210px}
+ .nrsAuthGlass{width:min(100%,470px);padding:14px;gap:14px}
+ .nrsCap{flex-basis:64px;height:64px;font-size:36px}
+ .nrsAuthGlass strong{font-size:32px}
+ .nrsAuthGlass b{font-size:12px}
+ .nrsAuthGlass span{font-size:10px;margin-top:6px}
+ .nrsAuthCaption{display:none}
+ .loginCard.loginCampusCard{width:min(100%,470px)!important}
+}
+@media(max-width:520px){.nrsAuthShowcase{display:none}.loginShell{min-height:100svh!important;padding:14px!important}.loginCard.loginCampusCard{padding:23px 18px!important}}
