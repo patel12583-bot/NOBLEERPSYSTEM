@@ -548,3 +548,111 @@ body { font-family: "DM Sans", Inter, system-ui, sans-serif; }
   .loginCampusCard .authLinks{flex-direction:column;align-items:stretch}
   .loginCampusCard .authLinks .back{width:100%}
 }
+
+
+/* Login page aligned with the public homepage's premium beige visual system */
+.loginShell{
+  min-height:100svh!important;
+  grid-template-columns:minmax(0,1fr) minmax(360px,470px)!important;
+  gap:clamp(28px,6vw,88px)!important;
+  padding:clamp(24px,6vw,92px)!important;
+  background:
+    radial-gradient(ellipse at 12% 15%,rgba(185,154,101,.20),transparent 38%),
+    radial-gradient(ellipse at 85% 90%,rgba(185,154,101,.13),transparent 34%),
+    linear-gradient(135deg,#f8f5ee 0%,#f1eadc 100%)!important;
+}
+.loginShell:before{content:none!important}
+.loginCampusShade{display:none!important}
+.nrsAuthShowcase{
+  min-height:570px!important;
+  justify-content:center!important;
+  gap:24px!important;
+  padding:clamp(8px,2vw,24px)!important;
+  color:#453725!important;
+}
+.nrsAuthLogo{
+  width:min(100%,390px)!important;
+  min-height:110px!important;
+  padding:14px 22px!important;
+  border:1px solid #e9e0d2!important;
+  border-radius:18px!important;
+  background:#fffdf8!important;
+  box-shadow:0 14px 38px rgba(74,57,35,.07)!important;
+}
+.nrsAuthLogo img{width:100%!important;height:82px!important;object-fit:contain}
+.nrsAuthGlass{
+  width:min(100%,490px)!important;
+  min-height:190px!important;
+  padding:28px!important;
+  border:1px solid #e9e0d2!important;
+  border-radius:18px!important;
+  background:rgba(255,253,248,.88)!important;
+  color:#453725!important;
+  box-shadow:0 18px 48px rgba(74,57,35,.08)!important;
+  backdrop-filter:blur(14px);
+}
+.nrsCap{background:#f0e7d8!important;color:#8b7048!important}
+.nrsAuthGlass strong{color:#4d3b29!important}
+.nrsAuthGlass b{color:#59462f!important}
+.nrsAuthGlass span{color:#8a6c42!important}
+.nrsAuthCaption{
+  border:1px solid #e5d8c2!important;
+  background:#f1eadc!important;
+  color:#8c7149!important;
+  letter-spacing:1.5px!important;
+}
+.loginCard.loginCampusCard{
+  max-width:470px!important;
+  padding:clamp(28px,3vw,42px)!important;
+  border:1px solid #e9e0d2!important;
+  border-radius:18px!important;
+  background:#fffdf8!important;
+  box-shadow:0 22px 60px rgba(74,57,35,.10)!important;
+  backdrop-filter:none!important;
+}
+.loginCampusCard .naLoginBrand{justify-content:flex-start!important;margin-bottom:28px!important}
+.loginCampusCard .naLoginBrand img{border-color:#e9e0d2!important;background:#fff!important}
+.loginCampusCard .naLoginBrand b{color:#4d3b29!important}
+.loginCampusCard .naLoginBrand small{color:#9a876c!important}
+.loginCampusCard .loginTitle{text-align:left!important}
+.loginCampusCard .loginTitle h1{color:#453725!important;font-family:"Playfair Display",Georgia,serif!important}
+.loginCampusCard .loginTitle p{color:#857967!important}
+.loginCampusCard .naLoginEyebrow{color:#8c7149!important}
+.loginCampusCard label{color:#69563c!important}
+.loginCampusCard input{border-color:#e1d7c7!important;background:#fffefa!important;color:#30291f!important}
+.loginCampusCard .noblePasswordToggle{border-color:#e7dece!important;background:#f7f3eb!important;color:#745a39!important}
+.loginCampusCard .primary.full{
+  border:1px solid #4d3b29!important;
+  background:linear-gradient(135deg,#70583e,#4e3c29)!important;
+  color:#fffdf8!important;
+  box-shadow:0 8px 18px rgba(78,60,41,.15)!important;
+}
+.loginCampusCard .authLinks{border-color:#e7dece!important}
+.loginCampusCard .authLinks .back{
+  border-color:#e7dece!important;
+  background:#fffdf8!important;
+  color:#8a6c42!important;
+}
+.loginCampusCard .loginCopyright{color:#9a8d7b!important}
+@media(max-width:850px){
+  .loginShell{grid-template-columns:1fr!important;gap:18px!important;padding:22px!important}
+  .nrsAuthShowcase{min-height:0!important;align-items:center!important;gap:14px!important}
+  .nrsAuthLogo{width:min(100%,300px)!important;min-height:82px!important}
+  .nrsAuthLogo img{height:60px!important}
+  .nrsAuthGlass{width:min(100%,470px)!important;min-height:110px!important;padding:14px!important}
+  .nrsCap{flex-basis:68px!important;height:68px!important;font-size:36px!important}
+  .nrsAuthGlass strong{font-size:32px!important}
+  .nrsAuthGlass b{font-size:12px!important}
+  .nrsAuthGlass span{font-size:10px!important;margin-top:5px!important}
+  .nrsAuthCaption{display:none!important}
+  .loginCard.loginCampusCard{width:min(100%,470px)!important}
+}
+@media(max-width:520px){
+  .loginShell{padding:14px!important;gap:12px!important}
+  .nrsAuthGlass{gap:12px!important;padding:12px!important}
+  .nrsCap{flex-basis:58px!important;height:58px!important;font-size:30px!important}
+  .nrsAuthGlass strong{font-size:27px!important}
+  .loginCard.loginCampusCard{padding:24px 18px!important}
+  .loginCampusCard .authLinks{flex-direction:column!important;align-items:stretch!important}
+  .loginCampusCard .authLinks .back{width:100%!important}
+}
