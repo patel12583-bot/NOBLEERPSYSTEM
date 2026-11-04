@@ -13,8 +13,8 @@ const menus = {
   FACULTY: ["Dashboard", "My Profile", "My Subjects", "Students", "Attendance", "Marks / Results", "Assignments", "Study Materials", "Timetable", "Notices", "Change Password", "Logout"],
   HOD: ["Dashboard", "Department", "Faculty", "Subjects", "Approvals", "Attendance Reports", "Examination", "Timetable"],
   PARENT: ["Dashboard", "Student Profile", "Attendance", "Results", "Fees", "Leave", "Examination"],
-  ADMIN: ["Dashboard", "Admissions", "Students", "Documents", "Courses", "Reports", "Settings"],
-  SUPER_ADMIN: ["Dashboard", "Admissions", "Students", "Documents", "Courses", "Reports", "Settings"],
+  ADMIN: ["Dashboard", "Admissions", "Documents", "Courses", "Reports", "Settings"],
+  SUPER_ADMIN: ["Dashboard", "Admissions", "Documents", "Courses", "Reports", "Settings"],
   ACCOUNTANT: ["Dashboard", "Students", "Fees", "Payments", "Reports"],
   EXAM_OFFICER: ["Dashboard", "Examinations", "Schedules", "Hall Tickets", "Results", "Reports"],
   LIBRARIAN: ["Dashboard", "Students", "Books", "Issue/Return", "Fines", "Reports"],
@@ -165,7 +165,7 @@ export default function DashboardClient({ user }) {
 
         <div className="nobleContent">
           <section className="nobleWelcome">
-            <div className="nobleWelcomeCopy"><span className="nobleEyebrow">NOBLE GROUP OF INSTITUTES <i>•</i> ADMISSION MANAGEMENT</span><h1>{greeting}, <em>{displayName}</em></h1><p>Welcome to your admission workspace. Manage student applications and documents in one place.</p><div className="nobleWelcomeMeta"><span><i /> Secure session active</span><span>Role-based workspace</span></div></div>
+            <div className="nobleWelcomeCopy"><span className="nobleEyebrow">NOBLE GROUP OF INSTITUTES <i>•</i> ADMISSION MANAGEMENT</span><h1>{greeting}, <em>{displayName}</em></h1><p>Manage admissions, organise required documents, and track verification from one secure workspace.</p><div className="nobleWelcomeMeta"><span><i /> Secure session active</span><span>Role-based workspace</span></div></div>
             <div className="nobleWelcomeArt" aria-hidden="true"><div className="nobleArtRing ringOne" /><div className="nobleArtRing ringTwo" /><div className="nobleArtMonogram">N</div><span className="nobleArtDot dotOne" /><span className="nobleArtDot dotTwo" /><span className="nobleArtDot dotThree" /></div>
             <div className="nobleWelcomeActions"><button className="nobleRefresh" onClick={() => window.location.reload()} title="Refresh dashboard" aria-label="Refresh dashboard">↻</button><span className="nobleWelcomeAvatar">{displayName.slice(0, 1).toUpperCase()}</span></div>
           </section>
@@ -211,7 +211,7 @@ export default function DashboardClient({ user }) {
           </section>
 
           <section className="nobleCommand">
-            <div className="nobleSectionHead"><div><span className="nobleEyebrow">ROLE COMMAND CENTRE</span><h2>{displayRole} workspace</h2><p>Your modules, records and daily actions — all in one place.</p></div><span className="nobleLiveBadge"><i /> Live dashboard</span></div>
+            <div className="nobleSectionHead"><div><span className="nobleEyebrow">ROLE COMMAND CENTRE</span><h2>{displayRole} workspace</h2><p>Admissions, student records and document verification — all in one place.</p></div><span className="nobleLiveBadge"><i /> Live dashboard</span></div>
             <div className="nobleModuleGrid">{items.slice(1).map(label => <button className="nobleModuleCard" key={label} onClick={() => go(label)}><span className="nobleModuleIcon">{icons[label] || "•"}</span><span className="nobleModuleText"><b>{label}</b><small>Open module</small></span><span className="nobleModuleArrow">↗</span></button>)}</div>
           </section>
 
