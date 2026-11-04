@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 
 export default function CreateAdminPage() {
   const router = useRouter();
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +25,7 @@ export default function CreateAdminPage() {
       const response = await fetch("/api/auth/register-admin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, setupCode: code, password })
+        body: JSON.stringify({ email, setupCode: code, password })
       });
       const data = await response.json();
       if (!response.ok) {
@@ -52,7 +51,6 @@ export default function CreateAdminPage() {
         <p>Register an authorised administrator for the Noble admission system.</p>
       </div>
       <form onSubmit={submit}>
-        <label>Administrator name<input value={name} onChange={event => setName(event.target.value)} placeholder="Enter your full name" autoComplete="name" required maxLength={80} /></label>
         <label>Email address<input type="email" value={email} onChange={event => setEmail(event.target.value)} placeholder="name@example.com" autoComplete="email" required maxLength={190} /></label>
         <label>Admin setup code<input value={code} onChange={event => setCode(event.target.value)} placeholder="Enter the private setup code" autoComplete="off" required /></label>
         <label>Password<span className="noblePasswordField"><input type={showPassword ? "text" : "password"} value={password} onChange={event => setPassword(event.target.value)} placeholder="At least 10 characters" autoComplete="new-password" required minLength={10} /><button className="noblePasswordToggle" type="button" onClick={() => setShowPassword(value => !value)}>{showPassword ? "Hide" : "Show"}</button></span></label>
