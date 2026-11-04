@@ -2996,6 +2996,7 @@ html.pwa-standalone .loginShell .loginCampusCard .loginTitle h1 {
 html.pwa-standalone .loginShell .loginCampusCard .authLinks .back {
   box-shadow:0 7px 18px rgba(45,37,170,.10),inset 0 1px 0 rgba(255,255,255,.65);
   transition:transform .18s ease,box-shadow .18s ease;
+}
 
 /* NOBLE ERP University-grade dashboard refresh.
    Browser ERP workspace only: preserve the separately styled installed PWA. */
