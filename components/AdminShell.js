@@ -5,20 +5,18 @@ import { usePathname, useRouter } from "next/navigation";
 
 const items = [
   ["Dashboard", "/dashboard", "⌂", "Overview"],
-  ["Institute", "/admin/institute", "▤", "Administration"],
-  ["Students", "/admin/students", "♟", "People"],
-  ["Faculty", "/admin/faculty", "♣", "People"],
-  ["Academics", "/admin/academics", "▦", "Academics"],
-  ["Attendance", "/admin/attendance", "▣", "Academics"],
-  ["Attendance Reports", "/admin/attendance/reports", "▥", "Academics"],
-  ["Examination", "/admin/examination", "✎", "Academics"],
-  ["Fees & Finance", "/admin/fees", "₹", "Finance"],
-  ["Results", "/admin/results", "✓", "Academics"],
-  ["Library", "/admin/library", "▥", "Campus"],
-  ["Documents", "/admin/documents", "▧", "Campus"],
-  ["HR & Payroll", "/admin/hr", "♙", "Administration"],
+  ["Institute Profile", "/admin/institute", "▤", "Administration"],
+  ["Admissions", "/admin/students", "♟", "Admissions"],
+  ["Faculty", "/admin/faculty", "♣", "Administration"],
+  ["Courses & Academics", "/admin/academics", "▦", "Setup"],
+  ["Attendance", "/admin/attendance", "▣", "Legacy Records"],
+  ["Examination", "/admin/examination", "✎", "Legacy Records"],
+  ["Fees & Finance", "/admin/fees", "₹", "Legacy Records"],
+  ["Results", "/admin/results", "✓", "Legacy Records"],
+  ["Documents", "/admin/documents", "▧", "Documents"],
+  ["HR & Payroll", "/admin/hr", "♙", "Legacy Records"],
   ["Users & Roles", "/admin/users", "♧", "Administration"],
-  ["Exports & Reports", "/admin/exports", "⇩", "Reports"],
+  ["Reports", "/admin/reports", "▥", "Reports"],
   ["Settings", "/admin/settings", "⚙", "Administration"],
 ];
 
@@ -48,13 +46,13 @@ export default function AdminShell({ children, active = "Dashboard" }) {
       <button className="erpMobileShade" aria-label="Close navigation" onClick={() => setMobileOpen(false)} />
       <aside className="erpSidebar">
         <div className="erpBrand">
-          
-          <div className="erpBrandText"><b>NOBLE ERP</b><small>noble group of Institution</small></div>
+          <img className="erpBrandLogo" src="/noble-institutes-logo.svg" alt="Noble Group of Institutes logo" />
+          <div className="erpBrandText"><b>NOBLE ADMISSION</b><small>Group of Institutes</small></div>
           <button className="erpCollapse" onClick={() => setCollapsed(v => !v)} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"} title={collapsed ? "Expand sidebar" : "Collapse sidebar"}>{collapsed ? "»" : "«"}</button>
         </div>
-        <div className="erpSidebarLabel">WORKSPACE</div>
-        <label className="erpSearch"><span aria-hidden="true">⌕</span><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Find a module..." aria-label="Find a module" />{query && <button type="button" onClick={() => setQuery("")} aria-label="Clear search">×</button>}</label>
-        <nav className="erpNav" aria-label="ERP modules">
+        <div className="erpSidebarLabel">ADMISSION WORKSPACE</div>
+        <label className="erpSearch"><span aria-hidden="true">⌕</span><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Find a section..." aria-label="Find a section" />{query && <button type="button" onClick={() => setQuery("")} aria-label="Clear search">×</button>}</label>
+        <nav className="erpNav" aria-label="Admission management sections">
           {Object.entries(groups).map(([group, links]) => (
             <div className="erpNavGroup" key={group}>
               {!collapsed && <div className="erpNavHeading">{group}</div>}
@@ -64,20 +62,20 @@ export default function AdminShell({ children, active = "Dashboard" }) {
               })}
             </div>
           ))}
-          {Object.keys(groups).length === 0 && <p className="erpNoResults">No modules match “{query}”.</p>}
+          {Object.keys(groups).length === 0 && <p className="erpNoResults">No sections match “{query}”.</p>}
         </nav>
-        <div className="erpSideFoot"><span className="onlineDot" /><span className="erpFootText">Workspace ready</span><small className="erpFootVersion">NOBLE ERP</small></div>
+        <div className="erpSideFoot"><span className="onlineDot" /><span className="erpFootText">Admission workspace</span><small className="erpFootVersion">NOBLE</small></div>
       </aside>
       <section className="erpMain">
         <header className="erpTopbar">
           <div className="erpTopLeft">
             <button className="erpMenuToggle" onClick={() => setMobileOpen(v => !v)} aria-label="Toggle navigation">☰</button>
-            <div className="erpBreadcrumb"><span>Workspace</span><b> / </b><strong>{pageTitle}</strong></div>
+            <div className="erpBreadcrumb"><span>Noble Admission</span><b> / </b><strong>{pageTitle}</strong></div>
           </div>
-          <div className="erpTopRight"><span className="erpAcademicYear">ACADEMIC WORKSPACE</span><div className="erpTopAvatar" aria-hidden="true">N</div></div>
+          <div className="erpTopRight"><span className="erpAcademicYear">ADMISSION WORKSPACE</span><div className="erpTopAvatar" aria-hidden="true">N</div></div>
         </header>
         <main className="erpPage">{children}</main>
-        <footer className="erpFooter"><span>noble group of Institution</span><span>University Management System</span></footer>
+        <footer className="erpFooter"><span>Noble Group of Institutes</span><span>Admission &amp; Document Management</span></footer>
       </section>
     </div>
   );
