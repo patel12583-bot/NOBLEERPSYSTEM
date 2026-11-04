@@ -13,8 +13,8 @@ const menus = {
   FACULTY: ["Dashboard", "My Profile", "My Subjects", "Students", "Attendance", "Marks / Results", "Assignments", "Study Materials", "Timetable", "Notices", "Change Password", "Logout"],
   HOD: ["Dashboard", "Department", "Faculty", "Subjects", "Approvals", "Attendance Reports", "Examination", "Timetable"],
   PARENT: ["Dashboard", "Student Profile", "Attendance", "Results", "Fees", "Leave", "Examination"],
-  ADMIN: ["Dashboard", "Students", "Faculty", "Departments", "Courses", "Subjects", "Attendance", "Exams", "Results", "Fees", "Timetable", "Assignments", "Study Materials", "Notices", "Events", "Gallery", "Reports", "Settings", "HOD", "Academic Management", "Documents", "Exports", "Leave", "Examination", "Hall Ticket"],
-  SUPER_ADMIN: ["Dashboard", "Institutes", "Admins", "Students", "Faculty", "Departments", "Courses", "Subjects", "Attendance", "Exams", "Results", "Fees", "Timetable", "Assignments", "Study Materials", "Notices", "Events", "Gallery", "Reports", "Settings", "Academics", "Documents", "Exports", "Examination"],
+  ADMIN: ["Dashboard", "Admissions", "Students", "Documents", "Courses", "Reports", "Settings"],
+  SUPER_ADMIN: ["Dashboard", "Admissions", "Students", "Documents", "Courses", "Reports", "Settings"],
   ACCOUNTANT: ["Dashboard", "Students", "Fees", "Payments", "Reports"],
   EXAM_OFFICER: ["Dashboard", "Examinations", "Schedules", "Hall Tickets", "Results", "Reports"],
   LIBRARIAN: ["Dashboard", "Students", "Books", "Issue/Return", "Fines", "Reports"],
@@ -32,7 +32,7 @@ const icons = {
   Schedules: "◷", "Change Password": "⚿", Logout: "↪",
 };
 const adminLinks = {
-  Students: "/admin/students", Faculty: "/admin/faculty", HOD: "/admin/hod",
+  Admissions: "/admin/students", Students: "/admin/students", Faculty: "/admin/faculty", HOD: "/admin/hod",
   Departments: "/admin/core?module=departments", Courses: "/admin/academics", Department: "/admin/core?module=departments",
   Programs: "/admin/core?module=programs", Academics: "/admin/academics",
   Semesters: "/admin/core?module=semesters", Divisions: "/admin/core?module=divisions",
@@ -138,8 +138,8 @@ export default function DashboardClient({ user }) {
       <button className="nobleMobileShade" aria-label="Close menu" onClick={() => setMobileOpen(false)} />
       <aside className="nobleSidebar">
         <div className="nobleSideTop">
-          <div className="nobleBrandMark" aria-hidden="true">N</div>
-          <div className="nobleBrandText"><b>NOBLE ERP</b><small>noble group of Institution</small></div>
+          <img className="nobleBrandLogo" src="/noble-institutes-logo.svg" alt="Noble Group of Institutes" />
+          <div className="nobleBrandText"><b>NOBLE ADMISSION</b><small>GROUP OF INSTITUTES</small></div>
           <button className="nobleCollapse" onClick={() => setCollapsed(v => !v)} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}>{collapsed ? "→" : "←"}</button>
         </div>
         <div className="nobleRolePill"><i /><span>{displayRole} Portal</span><em>SECURE</em></div>
@@ -165,7 +165,7 @@ export default function DashboardClient({ user }) {
 
         <div className="nobleContent">
           <section className="nobleWelcome">
-            <div className="nobleWelcomeCopy"><span className="nobleEyebrow">noble group of Institution <i>•</i> ERP</span><h1>{greeting}, <em>{displayName}</em></h1><p>Welcome back to your {displayRole.toLowerCase()} workspace. Here’s your institute at a glance.</p><div className="nobleWelcomeMeta"><span><i /> Secure session active</span><span>Role-based workspace</span></div></div>
+            <div className="nobleWelcomeCopy"><span className="nobleEyebrow">NOBLE GROUP OF INSTITUTES <i>•</i> ADMISSION MANAGEMENT</span><h1>{greeting}, <em>{displayName}</em></h1><p>Welcome to your admission workspace. Manage student applications and documents in one place.</p><div className="nobleWelcomeMeta"><span><i /> Secure session active</span><span>Role-based workspace</span></div></div>
             <div className="nobleWelcomeArt" aria-hidden="true"><div className="nobleArtRing ringOne" /><div className="nobleArtRing ringTwo" /><div className="nobleArtMonogram">N</div><span className="nobleArtDot dotOne" /><span className="nobleArtDot dotTwo" /><span className="nobleArtDot dotThree" /></div>
             <div className="nobleWelcomeActions"><button className="nobleRefresh" onClick={() => window.location.reload()} title="Refresh dashboard" aria-label="Refresh dashboard">↻</button><span className="nobleWelcomeAvatar">{displayName.slice(0, 1).toUpperCase()}</span></div>
           </section>
