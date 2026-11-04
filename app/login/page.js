@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
 function LoginForm() {
@@ -53,10 +53,10 @@ function LoginForm() {
   return <main className="loginShell">
     <div className="loginCampusShade" aria-hidden="true" />
     <aside className="loginCampusFeatures">
-      <div><i>♟</i><span><b>Student Management</b><small>Track · Manage · Grow</small></span></div>
-      <div><i>♟</i><span><b>Faculty &amp; Staff</b><small>Support · Develop · Empower</small></span></div>
-      <div><i>▤</i><span><b>Examination &amp; Results</b><small>Evaluate · Analyze · Excel</small></span></div>
-      <div><i>▣</i><span><b>Library &amp; Resources</b><small>Access · Learn · Achieve</small></span></div>
+      <div><i>✦</i><span><b>Admission Records</b><small>Create and manage student admissions</small></span></div>
+      <div><i>▤</i><span><b>Document Checklist</b><small>Track required and pending documents</small></span></div>
+      <div><i>♧</i><span><b>Student Profiles</b><small>Keep every admission file organised</small></span></div>
+      <div><i>↗</i><span><b>WhatsApp Sharing</b><small>Send requested documents securely</small></span></div>
     </aside>
     <div className="loginCard loginCampusCard">
       <div className="naLoginBrand"><img src="/noble-institutes-logo.svg" alt="Noble Group of Institutes" /><span><b>NOBLE GROUP OF INSTITUTES</b><small>ADMISSION & DOCUMENT MANAGEMENT</small></span></div><div className="loginTitle"><div className="naLoginEyebrow">SECURE ADMINISTRATOR ACCESS</div><h1>Welcome back.</h1><p>Sign in to manage admissions and student documents.</p></div>
