@@ -26,6 +26,54 @@
 ## Planned data models
 User, MemberProfile, Club, ClubMembership, Season, Match, MatchSquad, Innings, BallEvent, PlayerMatchStats, Tournament, TournamentTeam, Fixture, PointsTableEntry, Contribution, Expense, ExpenseAttachment, FinanceCategory, Attendance, Notice, AuditLog, InvitationToken, PasswordResetToken.
 
+
+## Detailed live cricket scoring (score-app style)
+The scoring center is a first-class module, designed for local club matches and phone use at the ground.
+
+### Match setup and toss
+- Select home/away teams, match date, venue, format (T10/T20/ODI/Test/custom) and scheduled overs.
+- Select playing XI/squad, captain, wicketkeeper, umpires and scorer.
+- Toss winner and decision (bat/bowl); choose innings start batters and opening bowler.
+- Support friendly matches and tournament fixtures.
+
+### Ball-by-ball scorer console
+- Large, fast-tap controls for 0, 1, 2, 3, 4, 5 and 6 runs.
+- Extras: wides, no-balls, byes, leg-byes and penalty runs, with configurable local rules.
+- Wicket flow: select dismissal type, dismissed batter and fielder where relevant; support bowled, caught, caught behind, caught & bowled, LBW, stumped, run out, hit wicket, retired hurt and retired out.
+- Automatically calculate legal balls, overs, striker rotation, batter runs/balls, bowler figures, extras, fall of wickets, run rate and required run rate.
+- Manual strike change, batter/bowler replacement, retired batter handling, innings end/declare and match end.
+- Powerplay/over limits and configurable tennis-ball or gully-cricket rules.
+- Undo last ball, edit a past delivery, add scorer notes and keep a full audit trail for corrections.
+- Save every delivery immediately; allow scorer to leave and resume a match, including from another signed-in device.
+
+### Live match centre and scorecard
+- Live score, wickets, overs, target, runs required, balls remaining, CRR/RRR and current partnership.
+- Current batters and bowler cards with individual figures.
+- Ball-by-ball commentary/timeline and over-by-over summary.
+- Full batting, bowling and fall-of-wickets scorecards for each innings.
+- Match result, player of the match, best batter and best bowler.
+- Spectator-friendly read-only live score page and shareable match link; scoring/edit controls remain behind scorer permissions.
+- Real-time updates without manual page refresh.
+
+### Match analytics and player records
+- Batting: runs, balls, fours, sixes, strike rate, average and high score.
+- Bowling: overs, maidens, runs, wickets, economy, average and strike rate.
+- Partnerships, innings run-rate chart, over-by-over Manhattan chart and worm chart.
+- Optional advanced shot map (wagon wheel) and pitch map when the scorer records shot/line/length locations.
+- Season and tournament leaderboards; statistics derived from validated ball events.
+
+### Reliability and permissions
+- Only assigned SCORER, ADMIN or SUPER_ADMIN can enter/edit a score.
+- Members can follow live scores and view completed scorecards; no member can change match data unless assigned scorer permissions.
+- Scoring actions must be transaction-safe and idempotent to prevent duplicate ball entries on slow connections.
+- Provide clear connection/sync state and a safe retry path. Offline-first scoring is a later enhancement and must sync without duplicating deliveries.
+- Do not copy another app's branding, screen assets or proprietary code; implement familiar cricket scoring workflows with original Royal Cricket Club UI.
+
+### Later optional enhancements
+- Live video/streaming and scoreboard overlays (requires streaming/overlay infrastructure).
+- Push notifications for wickets, innings breaks, match start and result.
+- DLS/revised-target calculator and advanced umpire/official tools after core scoring is stable.
+
 ## Finance rules
 - Balance = confirmed collections - approved expenses.
 - Collections link to a member, payment method, date and receipt/reference.
