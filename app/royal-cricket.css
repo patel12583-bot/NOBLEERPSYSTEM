@@ -16,3 +16,6 @@
 @media(max-width:850px){.rcTopbar{gap:12px}.rcMobileMenu{display:block}.rcSidebar.rcSidebarOpen{display:flex;position:fixed;z-index:100;inset:0 auto 0 0;width:260px;max-width:82vw;overflow-y:auto;box-shadow:18px 0 50px #183b2a24}.rcTopbar strong{font-size:12px}.rcTopbar>span{font-size:11px}}
 
 .rcBrandMark{overflow:hidden;background:#fff;border:1px solid #e4ece5}.rcBrandMark img{display:block;width:100%;height:100%;object-fit:contain;border-radius:inherit}
+
+/* Use the supplied original DCA Cricket Club logo consistently across public, auth and workspace branding. */
+.rcBrandMark{background:#fff!important;border:1px solid #e2ebe4;overflow:hidden;border-radius:13px;box-shadow:0 6px 16px #183b2a12}.rcBrandMark img{display:block;width:100%;height:100%;object-fit:contain;padding:3px;box-sizing:border-box}
