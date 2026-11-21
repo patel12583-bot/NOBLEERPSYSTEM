@@ -149,4 +149,4 @@ The additive migrations are committed but have NOT been applied to Neon:
 The timestamp order should be checked before migration deployment: the attendance/notices migration is currently named `20261121190000` and the batting-order migration `20261121200000`, which is correct. All must be rehearsed in a separate Royal Cricket Club Neon database after backup. Never run these migrations against active Noble production as a shortcut.
 
 ### Verification status
-The GitHub Actions build workflow has been added and triggered; check its latest run before merging. No production deployment or database migration has been completed.
+GitHub Actions run for the latest code commit passed: Prisma validation and Next.js production build both succeeded. Vercel's most recent deployment attempt was rate-limited by the free daily deployment cap; the Preview URL points to the last successful Preview build, not the latest commit. No production deployment or database migration has been completed.
