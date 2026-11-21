@@ -97,6 +97,9 @@ model User {
   matchesCreated Match[] @relation("MatchCreator")
   ballsRecorded MatchBall[] @relation("BallScorer")
   tournamentsCreated Tournament[] @relation("TournamentCreator")
+  clubAttendance ClubAttendance[] @relation("AttendanceMember")
+  clubAttendanceMarked ClubAttendance[] @relation("AttendanceMarker")
+  clubNotices ClubNotice[] @relation("ClubNoticeAuthor")
 }
 
 model Session {
@@ -806,4 +809,34 @@ model MatchPlayer {
   createdAt DateTime @default(now())
   @@unique([matchId, teamName, playerName])
   @@index([matchId, teamName, battingOrder])
+}
+
+
+model ClubAttendance {
+  id String @id @default(cuid())
+  userId String
+  date DateTime
+  status String @default("PRESENT")
+  note String?
+  markedById String
+  user User @relation("AttendanceMember", fields: [userId], references: [id], onDelete: Cascade)
+  markedBy User @relation("AttendanceMarker", fields: [markedById], references: [id], onDelete: Restrict)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([userId, date])
+  @@index([date, status])
+}
+
+model ClubNotice {
+  id String @id @default(cuid())
+  title String
+  content String
+  audience String @default("ALL")
+  published Boolean @default(false)
+  publishedAt DateTime?
+  authorId String
+  author User @relation("ClubNoticeAuthor", fields: [authorId], references: [id], onDelete: Restrict)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([published, publishedAt])
 }
