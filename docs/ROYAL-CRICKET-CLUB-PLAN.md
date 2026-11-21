@@ -98,18 +98,21 @@ Keep the existing Noble production app and database intact until the Cricket app
 
 ### Added to the feature branch
 - Royal Cricket Club branded login for both administrators and members.
-- Public member registration creates a MEMBER account with a bcrypt-hashed password and a unique RCC member code.
+- Public member registration creates a MEMBER account with a bcrypt-hashed password and a unique RCC member code; new registrations remain PENDING until Admin approval.
+- Admin/Super Admin can approve or reject applications; every authenticated request checks the approval state, so suspended/rejected members lose access.
+- Members can view the full finance ledger; ADMIN, SUPER_ADMIN and TREASURER can add entries and approve/reject them. Approved income/expenses drive the balance; actions are recorded in AuditLog.
+- Added /api/auth/me session profile endpoint and /club/transactions ledger interface.
 - Sign-in accepts email or RCC member code; sessions use the existing server-side hashed-token cookie flow.
 - Authenticated dashboard supports ADMIN, SUPER_ADMIN, TREASURER, SCORER and MEMBER roles.
 - Signed-in member directory with search by name, member code, phone or email.
 - Workspace sign-out action.
-- Additive SQL migration adds the three club roles and MemberProfile table; it does not drop or rewrite existing Noble tables.
+- Additive SQL migrations add the three club roles, member approval status and FinanceEntry ledger table; they do not drop or rewrite existing Noble tables.
 
 ### Required before testing against Neon
-The migration has been committed as `prisma/migrations/20261121090000_royal_member_foundation/migration.sql`, but it has NOT been applied to the live Neon database. Review and back up the database first, then apply this SQL in the intended Royal Cricket Club database. Do not apply it to the active Noble production database until the cutover is approved. The current Vercel production deployment is not changed by this feature branch until the PR is merged/deployed.
+The migration has been committed as `prisma/migrations/20261121090000_royal_member_foundation/migration.sql` and `prisma/migrations/20261121120000_royal_approval_finance/migration.sql`, but they have NOT been applied to the live Neon database. Review and back up the database first, then apply this SQL in the intended Royal Cricket Club database. Do not apply it to the active Noble production database until the cutover is approved. The current Vercel production deployment is not changed by this feature branch until the PR is merged/deployed.
 
 ### Not implemented yet
-- Admin-only member approval, member editing and role assignment.
-- Finance collections/expenses/ledger database workflows.
+- Member editing, role assignment and richer member profile management.
+- Separate collection/expense workflows, receipts, exports and finance reports.
 - Match setup, ball-by-ball scoring and live score updates.
 - Automated build/deployment verification and production database migration.
