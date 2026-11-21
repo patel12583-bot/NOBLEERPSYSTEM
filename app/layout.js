@@ -10,8 +10,8 @@ import PWARegister from "@/components/PWARegister";
 import PWAAppMode from "@/components/PWAAppMode";
 
 export const metadata = {
-  title: "Royal Cricket Club",
-  description: "Royal Cricket Club team, finance, match and tournament management.",
+  title: "DCA Cricket Club",
+  description: "DCA Cricket Club team, finance, match and tournament management.",
   manifest: "/manifest.webmanifest",
 };
 
