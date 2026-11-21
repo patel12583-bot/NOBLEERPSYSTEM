@@ -14,7 +14,7 @@ export async function PATCH(request,{params}){
  const user=await getSessionUser();if(!user)return NextResponse.json({error:"Please sign in."},{status:401});
  if(!scorers.includes(user.role))return NextResponse.json({error:"Scorer permission required."},{status:403});
  try{const {id}=await params,b=await request.json(),data={};
- for(const key of ["tossWinner","tossDecision","result","playerOfMatch"])if(b[key]!==undefined)data[key]=String(b[key]).slice(0,160)||null;
+ for(const key of ["tossWinner","tossDecision","result","winner","playerOfMatch"])if(b[key]!==undefined)data[key]=String(b[key]).slice(0,160)||null;
  if(b.status!==undefined){if(!["SCHEDULED","LIVE","COMPLETED","ABANDONED"].includes(b.status))return NextResponse.json({error:"Invalid match status."},{status:400});data.status=b.status}
  const match=await prisma.match.update({where:{id},data});
  await prisma.auditLog.create({data:{userId:user.id,action:"MATCH_UPDATED",module:"ROYAL_CRICKET",recordId:id,metadata:JSON.stringify(data)}});
