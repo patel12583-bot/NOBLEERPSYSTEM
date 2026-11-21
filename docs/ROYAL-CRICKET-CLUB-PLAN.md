@@ -1,7 +1,7 @@
-# Royal Cricket Club Management App
+# DCA Cricket Club Management App
 
 ## Locked decisions
-- Club: Royal Cricket Club
+- Club: DCA Cricket Club
 - Theme: Light white + cricket green
 - Login: Admin and every member
 - Finance: all signed-in members can view the complete club ledger
@@ -67,7 +67,7 @@ The scoring center is a first-class module, designed for local club matches and 
 - Members can follow live scores and view completed scorecards; no member can change match data unless assigned scorer permissions.
 - Scoring actions must be transaction-safe and idempotent to prevent duplicate ball entries on slow connections.
 - Provide clear connection/sync state and a safe retry path. Offline-first scoring is a later enhancement and must sync without duplicating deliveries.
-- Do not copy another app's branding, screen assets or proprietary code; implement familiar cricket scoring workflows with original Royal Cricket Club UI.
+- Do not copy another app's branding, screen assets or proprietary code; implement familiar cricket scoring workflows with original DCA Cricket Club UI.
 
 ### Later optional enhancements
 - Live video/streaming and scoreboard overlays (requires streaming/overlay infrastructure).
@@ -97,19 +97,19 @@ Keep the existing Noble production app and database intact until the Cricket app
 ## Implementation progress — first working milestone
 
 ### Added to the feature branch
-- Royal Cricket Club branded login for both administrators and members.
-- Public member registration creates a MEMBER account with a bcrypt-hashed password and a unique RCC member code; new registrations remain PENDING until Admin approval.
+- DCA Cricket Club branded login for both administrators and members.
+- Public member registration creates a MEMBER account with a bcrypt-hashed password and a unique DCA member code; new registrations remain PENDING until Admin approval.
 - Admin/Super Admin can approve or reject applications; every authenticated request checks the approval state, so suspended/rejected members lose access.
 - Members can view the full finance ledger; ADMIN, SUPER_ADMIN and TREASURER can add entries and approve/reject them. Approved income/expenses drive the balance; actions are recorded in AuditLog.
 - Added /api/auth/me session profile endpoint and /club/transactions ledger interface.
-- Sign-in accepts email or RCC member code; sessions use the existing server-side hashed-token cookie flow.
+- Sign-in accepts email or DCA member code; sessions use the existing server-side hashed-token cookie flow.
 - Authenticated dashboard supports ADMIN, SUPER_ADMIN, TREASURER, SCORER and MEMBER roles.
 - Signed-in member directory with search by name, member code, phone or email.
 - Workspace sign-out action.
 - Additive SQL migrations add the three club roles, member approval status and FinanceEntry ledger table; they do not drop or rewrite existing Noble tables.
 
 ### Required before testing against Neon
-The migration has been committed as `prisma/migrations/20261121090000_royal_member_foundation/migration.sql` and `prisma/migrations/20261121120000_royal_approval_finance/migration.sql`, but they have NOT been applied to the live Neon database. Review and back up the database first, then apply this SQL in the intended Royal Cricket Club database. Do not apply it to the active Noble production database until the cutover is approved. The current Vercel production deployment is not changed by this feature branch until the PR is merged/deployed.
+The migration has been committed as `prisma/migrations/20261121090000_royal_member_foundation/migration.sql` and `prisma/migrations/20261121120000_royal_approval_finance/migration.sql`, but they have NOT been applied to the live Neon database. Review and back up the database first, then apply this SQL in the intended DCA Cricket Club database. Do not apply it to the active Noble production database until the cutover is approved. The current Vercel production deployment is not changed by this feature branch until the PR is merged/deployed.
 
 ### Not implemented yet
 - Admin role assignment and richer member profile administration.
@@ -146,7 +146,7 @@ The additive migrations are committed but have NOT been applied to Neon:
 - `20261121200000_royal_batting_order`
 - `20261121190000_royal_attendance_notices`
 
-The timestamp order should be checked before migration deployment: the attendance/notices migration is currently named `20261121190000` and the batting-order migration `20261121200000`, which is correct. All must be rehearsed in a separate Royal Cricket Club Neon database after backup. Never run these migrations against active Noble production as a shortcut.
+The timestamp order should be checked before migration deployment: the attendance/notices migration is currently named `20261121190000` and the batting-order migration `20261121200000`, which is correct. All must be rehearsed in a separate DCA Cricket Club Neon database after backup. Never run these migrations against active Noble production as a shortcut.
 
 ### Verification status
 GitHub Actions run for the latest code commit passed: Prisma validation and Next.js production build both succeeded. Vercel's most recent deployment attempt was rate-limited by the free daily deployment cap; the Preview URL points to the last successful Preview build, not the latest commit. No production deployment or database migration has been completed.
