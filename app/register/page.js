@@ -1,39 +1,26 @@
 "use client";
-import {useState} from "react";
-import {useRouter} from "next/navigation";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-export default function Register(){
-  const router=useRouter();
-  const [form,setForm]=useState({name:"",email:"",mobile:"",password:"",confirm:""});
-  const [error,setError]=useState(""); const [success,setSuccess]=useState(null); const [loading,setLoading]=useState(false);
-  function change(e){setForm({...form,[e.target.name]:e.target.value});}
-  async function submit(e){
-    e.preventDefault(); setError(""); setSuccess(null);
-    if(form.password!==form.confirm){setError("Passwords do not match.");return;}
+export default function RegisterPage() {
+  const router = useRouter();
+  const [form, setForm] = useState({ name: "", email: "", mobile: "", password: "", confirm: "" });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
+  const change = e => setForm(v => ({ ...v, [e.target.name]: e.target.value }));
+  async function submit(e) {
+    e.preventDefault(); setError(""); setSuccess("");
+    if (form.password !== form.confirm) return setError("Passwords do not match.");
     setLoading(true);
-    try{
-      const res=await fetch("/api/auth/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(form)});
-      const data=await res.json();
-      if(!res.ok){setError(data.error||"Unable to create account.");return;}
-      setSuccess(data);
-    }catch{setError("Unable to connect to the server. Please try again.");}
-    finally{setLoading(false);}
+    try {
+      const response = await fetch("/api/auth/register", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: form.name, email: form.email, mobile: form.mobile, password: form.password }) });
+      const data = await response.json();
+      if (!response.ok) { setError(data.error || "Registration failed."); return; }
+      setSuccess(data.memberCode);
+    } catch { setError("Unable to connect. Please try again."); }
+    finally { setLoading(false); }
   }
-  return <main className="loginShell"><div className="loginCard">
-    <div className="loginTitle"><div className="eyebrow">NEW STUDENT ACCOUNT</div><h1>Create account.</h1><p>Register for access to the Noble ERP student portal.</p></div>
-    {success ? <div>
-      <div className="successBox"><strong>Account created successfully.</strong><p>Your Student ID is <b>{success.studentId}</b>. You can sign in using your email or Student ID.</p></div>
-      <button className="primary full" onClick={()=>router.push("/login?role=Student")}>Go to Student Login <span>→</span></button>
-    </div> : <form onSubmit={submit}>
-      <label>Full name<input name="name" value={form.name} onChange={change} placeholder="Enter your full name" autoComplete="name" required/></label>
-      <label>Email address<input name="email" type="email" value={form.email} onChange={change} placeholder="name@example.com" autoComplete="email" required/></label>
-      <label>Mobile number<input name="mobile" value={form.mobile} onChange={change} placeholder="Enter mobile number" autoComplete="tel"/></label>
-      <label>Password<input name="password" type="password" minLength={6} value={form.password} onChange={change} placeholder="Minimum 6 characters" autoComplete="new-password" required/></label>
-      <label>Confirm password<input name="confirm" type="password" minLength={6} value={form.confirm} onChange={change} placeholder="Re-enter password" autoComplete="new-password" required/></label>
-      {error&&<div className="error">{error}</div>}
-      <button className="primary full" disabled={loading}>{loading?"Creating account…":<>Create account <span>→</span></>}</button>
-    </form>}
-    {!success&&<button className="back" onClick={()=>router.push("/login?role=Student")}>← Already have an account? Sign in</button>}
-    {success&&<button className="back" onClick={()=>router.push("/")}>← Back to Noble ERP</button>}
-  </div></main>;
+  return <main className="rcAuthPage"><div className="rcAuthCard rcRegisterCard"><Link href="/" className="rcAuthBrand"><span className="rcBrandMark"><img src="/dca-cricket-logo.webp" alt="DCA Cricket Club logo" /></span><span><b>DCA CRICKET CLUB</b><small>MEMBER REGISTRATION</small></span></Link>{success ? <><div className="rcEyebrow">ACCOUNT CREATED</div><h1>You're on the team.</h1><p className="rcAuthIntro">Your member ID is shown below. Keep it safe for future sign-ins.</p><div className="rcMemberCode">{success}</div><button className="rcPrimary rcAuthSubmit" onClick={()=>router.push("/login")}>Go to login →</button></> : <><div className="rcEyebrow">JOIN THE CLUB</div><h1>Create your account.</h1><p className="rcAuthIntro">Register as a DCA Cricket Club member. Your account will be ready to sign in.</p><form onSubmit={submit} className="rcAuthForm"><label>Full name<input name="name" value={form.name} onChange={change} placeholder="Your full name" autoComplete="name" minLength={2} required /></label><label>Email address<input name="email" type="email" value={form.email} onChange={change} placeholder="you@example.com" autoComplete="email" required /></label><label>Mobile number<input name="mobile" value={form.mobile} onChange={change} placeholder="Your WhatsApp/mobile number" autoComplete="tel" /></label><label>Password<input name="password" type="password" value={form.password} onChange={change} placeholder="At least 8 characters" autoComplete="new-password" minLength={8} required /></label><label>Confirm password<input name="confirm" type="password" value={form.confirm} onChange={change} placeholder="Enter password again" autoComplete="new-password" minLength={8} required /></label>{error&&<div className="rcFormError" role="alert">{error}</div>}<button className="rcPrimary rcAuthSubmit" disabled={loading}>{loading?"Creating account…":"Create member account →"}</button></form><div className="rcAuthFoot">Already registered? <Link href="/login">Sign in</Link></div></>}<Link href="/" className="rcBackHome">← Back to home</Link></div></main>;
 }

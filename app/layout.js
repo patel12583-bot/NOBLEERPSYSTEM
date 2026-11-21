@@ -4,13 +4,14 @@ import "./noble-visual-refresh.css";
 import "./college-theme.css";
 import "./noble-university-theme.css";
 import "./noble-admission-beige.css";
+import "./royal-cricket.css";
 import GlobalBack from "@/components/GlobalBack";
 import PWARegister from "@/components/PWARegister";
 import PWAAppMode from "@/components/PWAAppMode";
 
 export const metadata = {
-  title: "NOBLE Admission Management",
-  description: "Admission and student document management for Noble Group of Institutes",
+  title: "DCA Cricket Club",
+  description: "DCA Cricket Club team, finance, match and tournament management.",
   manifest: "/manifest.webmanifest",
 };
 
@@ -18,7 +19,7 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#f6f2e9",
+  themeColor: "#16834a",
   colorScheme: "light",
 };
 

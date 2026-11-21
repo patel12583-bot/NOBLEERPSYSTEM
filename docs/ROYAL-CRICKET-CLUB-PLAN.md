@@ -1,0 +1,152 @@
+# DCA Cricket Club Management App
+
+## Locked decisions
+- Club: DCA Cricket Club
+- Theme: Light white + cricket green
+- Login: Admin and every member
+- Finance: all signed-in members can view the complete club ledger
+- Writes: restricted by role; finance corrections use reversals/adjustments, not silent deletion
+- Stack: Next.js App Router, Neon PostgreSQL, Prisma, GitHub, Vercel
+
+## Routes
+- Public: /, /login, /register, /forgot-password
+- Workspace: /dashboard
+- Team: /club/members, /club/attendance
+- Finance: /club/collections, /club/expenses, /club/transactions, /club/reports
+- Cricket: /club/matches, /club/scoring, /club/tournaments, /club/statistics
+- Community: /club/notices, /club/settings
+
+## Roles
+- SUPER_ADMIN: system owner and all configuration
+- ADMIN: club-wide management
+- TREASURER: collections, expenses, receipts and finance reports
+- SCORER: match setup and scoring
+- MEMBER: read all club finance and club information; update own profile
+
+## Planned data models
+User, MemberProfile, Club, ClubMembership, Season, Match, MatchSquad, Innings, BallEvent, PlayerMatchStats, Tournament, TournamentTeam, Fixture, PointsTableEntry, Contribution, Expense, ExpenseAttachment, FinanceCategory, Attendance, Notice, AuditLog, InvitationToken, PasswordResetToken.
+
+
+## Detailed live cricket scoring (score-app style)
+The scoring center is a first-class module, designed for local club matches and phone use at the ground.
+
+### Match setup and toss
+- Select home/away teams, match date, venue, format (T10/T20/ODI/Test/custom) and scheduled overs.
+- Select playing XI/squad, captain, wicketkeeper, umpires and scorer.
+- Toss winner and decision (bat/bowl); choose innings start batters and opening bowler.
+- Support friendly matches and tournament fixtures.
+
+### Ball-by-ball scorer console
+- Large, fast-tap controls for 0, 1, 2, 3, 4, 5 and 6 runs.
+- Extras: wides, no-balls, byes, leg-byes and penalty runs, with configurable local rules.
+- Wicket flow: select dismissal type, dismissed batter and fielder where relevant; support bowled, caught, caught behind, caught & bowled, LBW, stumped, run out, hit wicket, retired hurt and retired out.
+- Automatically calculate legal balls, overs, striker rotation, batter runs/balls, bowler figures, extras, fall of wickets, run rate and required run rate.
+- Manual strike change, batter/bowler replacement, retired batter handling, innings end/declare and match end.
+- Powerplay/over limits and configurable tennis-ball or gully-cricket rules.
+- Undo last ball, edit a past delivery, add scorer notes and keep a full audit trail for corrections.
+- Save every delivery immediately; allow scorer to leave and resume a match, including from another signed-in device.
+
+### Live match centre and scorecard
+- Live score, wickets, overs, target, runs required, balls remaining, CRR/RRR and current partnership.
+- Current batters and bowler cards with individual figures.
+- Ball-by-ball commentary/timeline and over-by-over summary.
+- Full batting, bowling and fall-of-wickets scorecards for each innings.
+- Match result, player of the match, best batter and best bowler.
+- Spectator-friendly read-only live score page and shareable match link; scoring/edit controls remain behind scorer permissions.
+- Real-time updates without manual page refresh.
+
+### Match analytics and player records
+- Batting: runs, balls, fours, sixes, strike rate, average and high score.
+- Bowling: overs, maidens, runs, wickets, economy, average and strike rate.
+- Partnerships, innings run-rate chart, over-by-over Manhattan chart and worm chart.
+- Optional advanced shot map (wagon wheel) and pitch map when the scorer records shot/line/length locations.
+- Season and tournament leaderboards; statistics derived from validated ball events.
+
+### Reliability and permissions
+- Only assigned SCORER, ADMIN or SUPER_ADMIN can enter/edit a score.
+- Members can follow live scores and view completed scorecards; no member can change match data unless assigned scorer permissions.
+- Scoring actions must be transaction-safe and idempotent to prevent duplicate ball entries on slow connections.
+- Provide clear connection/sync state and a safe retry path. Offline-first scoring is a later enhancement and must sync without duplicating deliveries.
+- Do not copy another app's branding, screen assets or proprietary code; implement familiar cricket scoring workflows with original DCA Cricket Club UI.
+
+### Later optional enhancements
+- Live video/streaming and scoreboard overlays (requires streaming/overlay infrastructure).
+- Push notifications for wickets, innings breaks, match start and result.
+- DLS/revised-target calculator and advanced umpire/official tools after core scoring is stable.
+
+## Finance rules
+- Balance = confirmed collections - approved expenses.
+- Collections link to a member, payment method, date and receipt/reference.
+- Expenses include category, payee, amount, description, creator and optional receipt.
+- Every financial change is auditable; no silent deletion.
+- All signed-in members can read the ledger; only authorised roles can write.
+- Currency: INR.
+
+## Milestones
+1. Brand reset, light theme, public landing and workspace shell.
+2. Authentication roles and member onboarding.
+3. Member directory and finance ledger.
+4. Collections, expenses, receipts and reports.
+5. Matches, squads, attendance and results.
+6. Live scoring, tournaments and player statistics.
+7. Security review, responsive QA and Vercel deployment.
+
+## Migration safety
+Keep the existing Noble production app and database intact until the Cricket app builds and passes review. Back up Neon data before any schema cutover. Never put secrets in source code or client bundles.
+
+## Implementation progress — first working milestone
+
+### Added to the feature branch
+- DCA Cricket Club branded login for both administrators and members.
+- Public member registration creates a MEMBER account with a bcrypt-hashed password and a unique DCA member code; new registrations remain PENDING until Admin approval.
+- Admin/Super Admin can approve or reject applications; every authenticated request checks the approval state, so suspended/rejected members lose access.
+- Members can view the full finance ledger; ADMIN, SUPER_ADMIN and TREASURER can add entries and approve/reject them. Approved income/expenses drive the balance; actions are recorded in AuditLog.
+- Added /api/auth/me session profile endpoint and /club/transactions ledger interface.
+- Sign-in accepts email or DCA member code; sessions use the existing server-side hashed-token cookie flow.
+- Authenticated dashboard supports ADMIN, SUPER_ADMIN, TREASURER, SCORER and MEMBER roles.
+- Signed-in member directory with search by name, member code, phone or email.
+- Workspace sign-out action.
+- Additive SQL migrations add the three club roles, member approval status and FinanceEntry ledger table; they do not drop or rewrite existing Noble tables.
+
+### Required before testing against Neon
+The migration has been committed as `prisma/migrations/20261121090000_royal_member_foundation/migration.sql` and `prisma/migrations/20261121120000_royal_approval_finance/migration.sql`, but they have NOT been applied to the live Neon database. Review and back up the database first, then apply this SQL in the intended DCA Cricket Club database. Do not apply it to the active Noble production database until the cutover is approved. The current Vercel production deployment is not changed by this feature branch until the PR is merged/deployed.
+
+### Not implemented yet
+- Admin role assignment and richer member profile administration.
+- Advanced scoring corrections/edit-past-delivery, innings declaration, custom local rules, offline-first sync and push notifications.
+- Advanced tournament scheduling/fixtures, net run rate, playoff brackets and deeper analytics.
+- Final permission/security testing, responsive QA, Neon migration rehearsal and Vercel production cutover.
+
+
+## Implementation progress — cricket, finance and club operations milestone
+
+### Added on the feature branch
+- Match fixture creation with format, overs, date, venue and optional tournament association.
+- Match setup for toss, result, winner and player of the match.
+- Team squad / Playing XI entry with captain and wicketkeeper designation.
+- Phone-friendly ball-by-ball scorer for 0–6, wides, no-balls, byes, leg-byes, penalty runs and common dismissal types.
+- Delivery audit records and undo-last-delivery action; server checks scheduled overs, ten-wicket innings limit and chase completion.
+- Live score share links with a public read-only score page that refreshes automatically.
+- Innings batting/bowling scorecards, current partnership, chase target and run rate.
+- Tournament creation and points table; batting and bowling leaderboard from recorded deliveries.
+- Club attendance register for Admins and personal attendance history for members.
+- Club notices and announcements, with Admin publishing controls.
+- Member self-service player profile for approved members.
+- Collections, expenses, finance reports, CSV export and downloadable PDF finance vouchers.
+- Responsive mobile navigation and dashboard metrics connected to approved finance and match records.
+- Added GitHub Actions workflow for Prisma validation and Next.js production build.
+
+### Database migrations still pending
+The additive migrations are committed but have NOT been applied to Neon:
+- `20261121090000_royal_member_foundation`
+- `20261121120000_royal_approval_finance`
+- `20261121150000_royal_cricket_match_centre`
+- `20261121170000_royal_match_squads`
+- `20261121180000_royal_match_result`
+- `20261121200000_royal_batting_order`
+- `20261121190000_royal_attendance_notices`
+
+The timestamp order should be checked before migration deployment: the attendance/notices migration is currently named `20261121190000` and the batting-order migration `20261121200000`, which is correct. All must be rehearsed in a separate DCA Cricket Club Neon database after backup. Never run these migrations against active Noble production as a shortcut.
+
+### Verification status
+GitHub Actions run for the latest code commit passed: Prisma validation and Next.js production build both succeeded. Vercel's most recent deployment attempt was rate-limited by the free daily deployment cap; the Preview URL points to the last successful Preview build, not the latest commit. No production deployment or database migration has been completed.
