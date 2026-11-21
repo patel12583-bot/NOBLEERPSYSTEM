@@ -19,3 +19,72 @@
 
 /* Use the supplied original DCA Cricket Club logo consistently across public, auth and workspace branding. */
 .rcBrandMark{background:#fff!important;border:1px solid #e2ebe4;overflow:hidden;border-radius:13px;box-shadow:0 6px 16px #183b2a12}.rcBrandMark img{display:block;width:100%;height:100%;object-fit:contain;padding:3px;box-sizing:border-box}
+
+/* DCA cinematic cricket-night visual refresh */
+.rcHome{background:#06152b;color:#eef6ff;overflow:hidden}
+.rcHeader{position:relative;z-index:2;color:#f4f8ff}
+.rcHeader nav a{color:#c7d8ed}
+.rcHeader .rcBrand{color:#fff}
+.rcHeader .rcBrand small{color:#a9bfd9}
+.rcHero{max-width:none;width:min(1320px,100%);box-sizing:border-box;margin:0 auto;padding:78px 40px 94px;min-height:620px;isolation:isolate;color:#fff}
+.rcHero:before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(ellipse at 50% 105%,#1e7c43 0,transparent 34%),radial-gradient(ellipse at 85% 30%,#174b88 0,transparent 38%),linear-gradient(120deg,#06152b 0%,#09264b 52%,#07152b 100%)}
+.rcHero:after{content:"";position:absolute;inset:0;z-index:-1;opacity:.52;background:repeating-linear-gradient(165deg,transparent 0 68px,#ffffff0a 69px 70px),radial-gradient(ellipse at 50% 100%,transparent 0 42%,#020916a8 100%)}
+.rcHero h1{color:#fff;text-shadow:0 8px 36px #0008}
+.rcHero h1 em{color:#f8c95a}
+.rcHero p{color:#c4d5e9}
+.rcHero .rcEyebrow{color:#f4ca63}
+.rcHero .rcEyebrow:before{background:#f4ca63}
+.rcHero .rcPrimary{background:linear-gradient(135deg,#f7d36f,#d99a22);color:#15223a;box-shadow:0 14px 34px #e5a82b3d}
+.rcHero .rcSecondary{color:#e0eaf6}
+.rcTrust{color:#b8cbe0}
+.rcTrust span:before{color:#f4c75d}
+.rcPreview{background:linear-gradient(145deg,#102c4d,#091b33);border:1px solid #91b7e34a;color:#f3f8ff;box-shadow:0 28px 80px #0008;transform:rotate(1deg)}
+.rcPreviewTop,.rcSub,.rcStat span{color:#a9c0d8}
+.rcPreview h3{color:#fff}
+.rcLive{color:#7de0a1}
+.rcStat{background:#ffffff0c;border:1px solid #ffffff17}
+.rcStat small{color:#a9c0d8}
+.rcStat b{color:#f6d16c}
+.rcLedger{border-color:#ffffff20}
+.rcLedgerHead{color:#f2f7ff}
+.rcLedgerHead span:last-child{color:#f3ca64}
+.rcLedgerRow{border-color:#ffffff17;color:#d9e7f5}
+.rcLedgerRow span:last-child{color:#85e0a4}
+.rcSection{color:#f2f7ff}
+.rcSection h2{color:#fff}
+.rcSectionHead p{color:#b4c6d9}
+.rcFeature{background:linear-gradient(145deg,#102b49,#0b2039);border-color:#ffffff18;color:#f3f8ff}
+.rcFeatureIcon{background:#f3c85c1c;color:#f5cb62}
+.rcFeature p{color:#b4c6d9}
+.rcFooter{border-color:#ffffff1b;color:#9fb5cb}
+.rcFooter b{color:#f2c65c}
+.rcAuthPage{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 50% 100%,#16713f 0,transparent 40%),radial-gradient(ellipse at 85% 12%,#245a99 0,transparent 38%),linear-gradient(135deg,#06152b,#0c2a4c 55%,#06152b);color:#f5f8ff}
+.rcAuthPage:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.3;background:repeating-linear-gradient(160deg,transparent 0 70px,#fff 71px 72px)}
+.rcAuthCard{background:#0c2440ed;border:1px solid #b4d2ef35;color:#f6f9ff;box-shadow:0 30px 90px #0008;backdrop-filter:blur(18px)}
+.rcAuthCard h1{color:#fff}
+.rcAuthIntro,.rcAuthFoot{color:#b5c9df}
+.rcAuthBrand{color:#fff}
+.rcAuthBrand small{color:#a9bfd8}
+.rcAuthForm label{color:#d5e3f2}
+.rcAuthForm input{background:#071a30;border-color:#ffffff27;color:#fff}
+.rcAuthForm input::placeholder{color:#8fa9c4}
+.rcAuthForm input:focus{border-color:#f2c65c;box-shadow:0 0 0 3px #f2c65c20}
+.rcAuthSubmit{background:linear-gradient(135deg,#f7d36f,#d99a22)!important;color:#13233a!important}
+.rcAuthFoot a,.rcBackHome{color:#f5cc65}
+.rcShell{background:radial-gradient(ellipse at 95% 0,#163a61 0,transparent 34%),#07182d;color:#eaf3fc}
+.rcSidebar,.rcTopbar{background:#0b223d;border-color:#ffffff1c;color:#f3f8ff}
+.rcSideBrand{color:#fff;border-color:#ffffff1c}
+.rcSideBrand small,.rcNavLabel{color:#91aaca}
+.rcNav a{color:#b9cce0}
+.rcNav a:hover,.rcNav a.active{background:#f1c65a1c;color:#f5cf70}
+.rcSideNote{background:#ffffff0b;border-color:#ffffff1c;color:#b7cbe0}
+.rcContent{color:#f2f7ff}
+.rcPageTitle p{color:#a9bfd2}
+.rcCard,.rcMetric{background:#0e2947;border-color:#ffffff1c;color:#f3f8ff;box-shadow:0 12px 32px #0002}
+.rcMetric small,.rcMetric span{color:#a9bfd2}
+.rcMetric b{color:#f5ce68}
+.rcQuickLinks a{background:#102f50;border-color:#ffffff1c;color:#e4effb}
+.rcMemberRow{border-color:#ffffff1c}
+.rcTopbar button{background:#102f50!important;border-color:#ffffff2b!important;color:#f5cf70!important}
+@media(max-width:850px){.rcHero{padding:54px 24px 68px;min-height:auto}.rcSection{padding:42px 24px}}
+@media(max-width:520px){.rcHeader{background:#07182d}.rcHero{padding:40px 18px 52px}.rcHero h1{font-size:44px}}
