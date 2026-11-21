@@ -8,7 +8,7 @@ export default function ScoringPage(){const {id}=useParams();const [user,setUser
  const load=useCallback(async()=>{const [r,u]=await Promise.all([fetch("/api/club/matches/"+id,{cache:"no-store"}),fetch("/api/auth/me",{cache:"no-store"})]);const d=await r.json(),ud=await u.json();if(!r.ok)throw new Error(d.error);setMatch(d.match);setCanScore(d.canScore);setUser(ud.user);},[id]);
  useEffect(()=>{load().catch(e=>setError(e.message))},[load]);
  const balls=(match?.balls||[]).filter(b=>b.innings===innings),runs=balls.reduce((s,b)=>s+b.runsBat+b.extrasRuns,0),wickets=balls.filter(b=>b.wicket).length,legal=balls.filter(b=>b.legalBall).length,overs=Math.floor(legal/6)+"."+(legal%6),crr=legal?(runs/(legal/6)).toFixed(2):"0.00";
- const target=innings===2?match.balls.filter(b=>b.innings===1).reduce((s,b)=>s+b.runsBat+b.extrasRuns,0)+1:null;
+ const target=innings===2?(match?.balls||[]).filter(b=>b.innings===1).reduce((s,b)=>s+b.runsBat+b.extrasRuns,0)+1:null;
  const batting=Object.values(balls.reduce((acc,b)=>{const x=acc[b.batter]||{name:b.batter,runs:0,balls:0,fours:0,sixes:0};x.runs+=b.runsBat;if(b.extrasType!=="WIDE")x.balls++;if(b.runsBat===4)x.fours++;if(b.runsBat===6)x.sixes++;acc[b.batter]=x;return acc},{}));
  const bowling=Object.values(balls.reduce((acc,b)=>{const x=acc[b.bowler]||{name:b.bowler,balls:0,runs:0,wickets:0};if(b.legalBall)x.balls++;x.runs+=b.runsBat+(["WIDE","NO_BALL"].includes(b.extrasType)?b.extrasRuns:0);if(b.wicket&&!["RUN_OUT","RETIRED_OUT"].includes(b.dismissalType))x.wickets++;acc[b.bowler]=x;return acc},{}));
  const lastWicket=balls.map((b,i)=>b.wicket?i:-1).filter(i=>i>=0).pop()??-1,partnership=balls.slice(lastWicket+1).reduce((s,b)=>s+b.runsBat+b.extrasRuns,0);
