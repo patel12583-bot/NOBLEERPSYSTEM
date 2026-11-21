@@ -14,7 +14,7 @@ export async function POST(request) {
     const password = String(body.password || "");
     if (!identifier || !password) return NextResponse.json({ error: "Enter your email/member ID and password." }, { status: 400 });
 
-    const user = await prisma.user.findFirst({ where: { OR: [{ username: identifier }, { username: normalized }, { email: normalized }] } });
+    const user = await prisma.user.findFirst({ where: { OR: [{ username: identifier }, { username: normalized }, { email: normalized }, { memberProfile: { is: { memberCode: identifier.toUpperCase() } } }] } });
     if (!user || user.status !== "ACTIVE" || !(await bcrypt.compare(password, user.passwordHash))) {
       return NextResponse.json({ error: "Incorrect login details. Please try again." }, { status: 401 });
     }
