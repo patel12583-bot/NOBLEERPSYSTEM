@@ -112,7 +112,32 @@ Keep the existing Noble production app and database intact until the Cricket app
 The migration has been committed as `prisma/migrations/20261121090000_royal_member_foundation/migration.sql` and `prisma/migrations/20261121120000_royal_approval_finance/migration.sql`, but they have NOT been applied to the live Neon database. Review and back up the database first, then apply this SQL in the intended Royal Cricket Club database. Do not apply it to the active Noble production database until the cutover is approved. The current Vercel production deployment is not changed by this feature branch until the PR is merged/deployed.
 
 ### Not implemented yet
-- Member editing, role assignment and richer member profile management.
-- Separate collection/expense workflows, receipts, exports and finance reports.
-- Match setup, ball-by-ball scoring and live score updates.
-- Automated build/deployment verification and production database migration.
+- Admin role assignment and richer member profile administration.
+- Advanced scoring corrections/edit-past-delivery, innings declaration, custom local rules, offline-first sync and push notifications.
+- Advanced tournament scheduling/fixtures, net run rate, playoff brackets and deeper analytics.
+- Final permission/security testing, responsive QA, Neon migration rehearsal and Vercel production cutover.
+
+
+## Implementation progress — cricket, finance and club operations milestone
+
+### Added on the feature branch
+- Match fixture creation with format, overs, date, venue and optional tournament association.
+- Match setup for toss, result, winner and player of the match.
+- Team squad / Playing XI entry with captain and wicketkeeper designation.
+- Phone-friendly ball-by-ball scorer for 0–6, wides, no-balls, byes, leg-byes, penalty runs and common dismissal types.
+- Delivery audit records and undo-last-delivery action; server checks scheduled overs, ten-wicket innings limit and chase completion.
+- Live score share links with a public read-only score page that refreshes automatically.
+- Innings batting/bowling scorecards, current partnership, chase target and run rate.
+- Tournament creation and points table; batting and bowling leaderboard from recorded deliveries.
+- Club attendance register for Admins and personal attendance history for members.
+- Club notices and announcements, with Admin publishing controls.
+- Member self-service player profile for approved members.
+- Collections, expenses, finance reports, CSV export and downloadable PDF finance vouchers.
+- Responsive mobile navigation and dashboard metrics connected to approved finance and match records.
+- Added GitHub Actions workflow for Prisma validation and Next.js production build.
+
+### Database migrations still pending
+The new additive migrations are committed but have NOT been applied to Neon. The match, squad, result, attendance and notice migrations must be tested in a separate Royal Cricket Club database after a backup. Never run these migrations against the active Noble production database as a shortcut.
+
+### Verification status
+The GitHub Actions build workflow has been added and triggered; check its latest run before merging. No production deployment or database migration has been completed.
