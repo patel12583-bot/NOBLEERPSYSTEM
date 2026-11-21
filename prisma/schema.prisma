@@ -748,6 +748,7 @@ model Match {
   tossWinner String?
   tossDecision String?
   result String?
+  winner String?
   playerOfMatch String?
   shareToken String @unique @default(cuid())
   tournamentId String?
