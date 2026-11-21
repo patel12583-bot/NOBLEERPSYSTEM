@@ -137,7 +137,16 @@ The migration has been committed as `prisma/migrations/20261121090000_royal_memb
 - Added GitHub Actions workflow for Prisma validation and Next.js production build.
 
 ### Database migrations still pending
-The new additive migrations are committed but have NOT been applied to Neon. The match, squad, result, attendance and notice migrations must be tested in a separate Royal Cricket Club database after a backup. Never run these migrations against the active Noble production database as a shortcut.
+The additive migrations are committed but have NOT been applied to Neon:
+- `20261121090000_royal_member_foundation`
+- `20261121120000_royal_approval_finance`
+- `20261121150000_royal_cricket_match_centre`
+- `20261121170000_royal_match_squads`
+- `20261121180000_royal_match_result`
+- `20261121200000_royal_batting_order`
+- `20261121190000_royal_attendance_notices`
+
+The timestamp order should be checked before migration deployment: the attendance/notices migration is currently named `20261121190000` and the batting-order migration `20261121200000`, which is correct. All must be rehearsed in a separate Royal Cricket Club Neon database after backup. Never run these migrations against active Noble production as a shortcut.
 
 ### Verification status
 The GitHub Actions build workflow has been added and triggered; check its latest run before merging. No production deployment or database migration has been completed.
