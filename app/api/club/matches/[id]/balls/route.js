@@ -10,7 +10,7 @@ export async function POST(request,{params}){
  if(!scorers.includes(user.role))return NextResponse.json({error:"Only assigned scorers can record deliveries."},{status:403});
  try{
  const {id:matchId}=await params,b=await request.json(),innings=Number(b.innings||1),runsBat=Number(b.runsBat||0),extrasType=b.extrasType||null,extrasRuns=Number(b.extrasRuns||0),wicket=!!b.wicket;
- if(![1,2].includes(innings)||!Number.isInteger(runsBat)||runsBat<0||runsBat>6||!Number.isInteger(extrasRuns)||extrasRuns<0||extrasRuns>7|| (extrasType&&!extras.includes(extrasType)))return NextResponse.json({error:"Invalid delivery details."},{status:400});
+ if(!String(b.batter||"").trim()||!String(b.nonStriker||"").trim()||!String(b.bowler||"").trim()||![1,2].includes(innings)||!Number.isInteger(runsBat)||runsBat<0||runsBat>6||!Number.isInteger(extrasRuns)||extrasRuns<0||extrasRuns>7|| (extrasType&&!extras.includes(extrasType)))return NextResponse.json({error:"Invalid delivery details."},{status:400});
  if(wicket&&!dismissals.includes(b.dismissalType))return NextResponse.json({error:"Choose a valid dismissal type."},{status:400});
  const match=await prisma.match.findUnique({where:{id:matchId}});if(!match)return NextResponse.json({error:"Match not found."},{status:404});
  if(["COMPLETED","ABANDONED"].includes(match.status))return NextResponse.json({error:"This match is closed."},{status:409});
