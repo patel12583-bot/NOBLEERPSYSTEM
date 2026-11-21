@@ -5,7 +5,7 @@ export const runtime="nodejs"; export const dynamic="force-dynamic";
 const scorers=["SUPER_ADMIN","ADMIN","SCORER"];
 export async function GET(request,{params}){
  const user=await getSessionUser();if(!user)return NextResponse.json({error:"Please sign in."},{status:401});
- try{const {id}=await params;const match=await prisma.match.findUnique({where:{id},include:{tournament:{select:{name:true}},balls:{orderBy:[{innings:"asc"},{sequence:"asc"}]}}});
+ try{const {id}=await params;const match=await prisma.match.findUnique({where:{id},include:{tournament:{select:{name:true}},squad:{orderBy:[{teamName:"asc"},{battingOrder:"asc"}]},balls:{orderBy:[{innings:"asc"},{sequence:"asc"}]}}});
  if(!match)return NextResponse.json({error:"Match not found."},{status:404});
  return NextResponse.json({match,canScore:scorers.includes(user.role)});
  }catch(e){console.error("Match detail:",e?.code||e?.message);return NextResponse.json({error:"Unable to load match."},{status:500})}
