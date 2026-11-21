@@ -93,3 +93,23 @@ The scoring center is a first-class module, designed for local club matches and 
 
 ## Migration safety
 Keep the existing Noble production app and database intact until the Cricket app builds and passes review. Back up Neon data before any schema cutover. Never put secrets in source code or client bundles.
+
+## Implementation progress — first working milestone
+
+### Added to the feature branch
+- Royal Cricket Club branded login for both administrators and members.
+- Public member registration creates a MEMBER account with a bcrypt-hashed password and a unique RCC member code.
+- Sign-in accepts email or RCC member code; sessions use the existing server-side hashed-token cookie flow.
+- Authenticated dashboard supports ADMIN, SUPER_ADMIN, TREASURER, SCORER and MEMBER roles.
+- Signed-in member directory with search by name, member code, phone or email.
+- Workspace sign-out action.
+- Additive SQL migration adds the three club roles and MemberProfile table; it does not drop or rewrite existing Noble tables.
+
+### Required before testing against Neon
+The migration has been committed as `prisma/migrations/20261121090000_royal_member_foundation/migration.sql`, but it has NOT been applied to the live Neon database. Review and back up the database first, then apply this SQL in the intended Royal Cricket Club database. Do not apply it to the active Noble production database until the cutover is approved. The current Vercel production deployment is not changed by this feature branch until the PR is merged/deployed.
+
+### Not implemented yet
+- Admin-only member approval, member editing and role assignment.
+- Finance collections/expenses/ledger database workflows.
+- Match setup, ball-by-ball scoring and live score updates.
+- Automated build/deployment verification and production database migration.
