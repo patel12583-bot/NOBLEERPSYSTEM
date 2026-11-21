@@ -1,0 +1,9 @@
+"use client";
+import { useEffect, useState } from "react";
+import CricketShell from "@/components/CricketShell";
+export default function MembersPage() {
+  const [members,setMembers]=useState([]); const [user,setUser]=useState(null); const [error,setError]=useState(""); const [query,setQuery]=useState("");
+  useEffect(()=>{let live=true;Promise.all([fetch("/api/club/members",{cache:"no-store"}),fetch("/api/auth/me",{cache:"no-store"})]).then(async ([mr,ur])=>{const md=await mr.json();const ud=await ur.json();if(!live)return;if(!mr.ok){setError(md.error||"Unable to load members.");return;}setMembers(md.members||[]);setUser(ud.user||null);}).catch(()=>live&&setError("Unable to connect."));return()=>{live=false}},[]);
+  const filtered=members.filter(m=>[m.name,m.memberCode,m.mobile,m.user?.email].some(v=>String(v||"").toLowerCase().includes(query.toLowerCase())));
+  return <CricketShell user={user}><div className="rcPageTitle"><div><h1>Members</h1><p>Royal Cricket Club member directory and player profiles.</p></div><span className="rcRolePill">{members.length} MEMBERS</span></div><section className="rcCard"><input aria-label="Search members" placeholder="Search by name, member ID, phone or email…" value={query} onChange={e=>setQuery(e.target.value)} style={{width:"100%",maxWidth:430,padding:12,border:"1px solid #dfe9e1",borderRadius:10,marginBottom:15}}/>{error?<p style={{color:"#b43c31"}}>{error}</p>:filtered.length===0?<p style={{color:"#7b8a81",fontSize:13}}>No members found. New registrations will appear here.</p>:<div className="rcMemberList">{filtered.map(m=><div className="rcMemberRow" key={m.id}><div><b>{m.name}</b><small>{m.memberCode} · {m.user?.email||"No email"} {m.mobile?"· "+m.mobile:""}</small></div><span className="rcRolePill">{m.user?.status||"ACTIVE"}</span></div>)}</div>}</section></CricketShell>;
+}
