@@ -28,7 +28,7 @@ enum UserStatus {
   INACTIVE
 }
 
-enum StudentStatus {
+enum MemberApprovalStatus {\n  PENDING\n  ACTIVE\n  REJECTED\n  SUSPENDED\n}\n\nenum FinanceEntryType {\n  CONTRIBUTION\n  INCOME\n  EXPENSE\n  ADJUSTMENT\n}\n\nenum FinanceEntryStatus {\n  PENDING\n  APPROVED\n  REJECTED\n  VOID\n}\n\nenum StudentStatus {
   ACTIVE
   INACTIVE
   GRADUATED
@@ -661,3 +661,4 @@ model MemberProfile {
   @@index([name])
   @@index([mobile])
 }
+\n\nmodel FinanceEntry {\n  id          String            @id @default(cuid())\n  type        FinanceEntryType\n  status      FinanceEntryStatus @default(PENDING)\n  amount      Decimal           @db.Decimal(12,2)\n  category    String\n  description String\n  reference   String?\n  occurredAt  DateTime          @default(now())\n  createdById String\n  approvedById String?\n  approvedAt  DateTime?\n  createdAt   DateTime          @default(now())\n  updatedAt   DateTime          @updatedAt\n  @@index([status, occurredAt])\n  @@index([type, occurredAt])\n  @@index([createdById, createdAt])\n}\n
