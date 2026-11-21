@@ -22,7 +22,7 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Finance ledger error:", error?.code || error?.message);
-    return NextResponse.json({ error: "Finance ledger is not ready. Apply the Royal Cricket Club database migration first." }, { status: 503 });
+    return NextResponse.json({ error: "Finance ledger is not ready. Apply the DCA Cricket Club database migration first." }, { status: 503 });
   }
 }
 
