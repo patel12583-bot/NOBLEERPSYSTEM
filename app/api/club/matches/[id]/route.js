@@ -14,6 +14,9 @@ export async function PATCH(request,{params}){
  const user=await getSessionUser();if(!user)return NextResponse.json({error:"Please sign in."},{status:401});
  if(!scorers.includes(user.role))return NextResponse.json({error:"Scorer permission required."},{status:403});
  try{const {id}=await params,b=await request.json(),current=await prisma.match.findUnique({where:{id}});if(!current)return NextResponse.json({error:"Match not found."},{status:404});const data={};
+ if(b.tossWinner!==undefined&&b.tossWinner&&! [current.teamA,current.teamB].includes(b.tossWinner))return NextResponse.json({error:"Toss winner must be one of the two teams."},{status:400});
+ if(b.tossDecision!==undefined&&b.tossDecision&&!["BAT","BOWL"].includes(b.tossDecision))return NextResponse.json({error:"Toss decision must be bat or bowl."},{status:400});
+ if(b.winner!==undefined&&b.winner&&! [current.teamA,current.teamB,"TIE"].includes(b.winner))return NextResponse.json({error:"Winner must be one of the two teams or a tie."},{status:400});
  for(const key of ["tossWinner","tossDecision","result","winner","playerOfMatch"])if(b[key]!==undefined)data[key]=String(b[key]).slice(0,160)||null;
  if(b.status!==undefined){if(!["SCHEDULED","LIVE","COMPLETED","ABANDONED"].includes(b.status))return NextResponse.json({error:"Invalid match status."},{status:400});data.status=b.status}
  const tossWinner=b.tossWinner!==undefined?String(b.tossWinner):current.tossWinner;
