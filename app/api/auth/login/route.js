@@ -22,7 +22,7 @@ export async function POST(request) {
     if (!clubRoles.includes(user.role)) return NextResponse.json({ error: "This account does not have Royal Cricket Club access." }, { status: 403 });
 
     const profile = await prisma.memberProfile.findUnique({ where: { userId: user.id }, select: { name: true, memberCode: true, approvalStatus: true } }).catch(() => null);
-    if (user.role === "MEMBER" && profile?.approvalStatus !== "ACTIVE") {
+    if ((user.role === "MEMBER" || profile) && profile?.approvalStatus !== "ACTIVE") {
       const status = profile?.approvalStatus || "PENDING";
       const message = status === "REJECTED"
         ? "Your membership application was not approved. Please contact the club administrator."
