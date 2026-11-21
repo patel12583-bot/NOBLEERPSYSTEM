@@ -19,7 +19,7 @@ export async function POST(request) {
     if (existing) return NextResponse.json({ error: "An account with this email already exists. Please sign in." }, { status: 409 });
 
     const passwordHash = await bcrypt.hash(password, 12);
-    const memberCode = "RCC-" + randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase();
+    const memberCode = "DCA-" + randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase();
     const result = await prisma.$transaction(async tx => {
       const user = await tx.user.create({ data: { username: email, email, passwordHash, role: "MEMBER", status: "ACTIVE" } });
       const profile = await tx.memberProfile.create({ data: { userId: user.id, memberCode, name, mobile: mobile || null, approvalStatus: "PENDING" } });
@@ -29,7 +29,7 @@ export async function POST(request) {
   } catch (error) {
     if (error?.code === "P2002") return NextResponse.json({ error: "An account with this email already exists." }, { status: 409 });
     const code = typeof error?.code === "string" ? error.code : "UNKNOWN";
-    console.error("Royal Club registration error:", { code, message: error?.message });
+    console.error("DCA Club registration error:", { code, message: error?.message });
     if (code === "P2021" || code === "P2022") return NextResponse.json({ error: "Member registration database setup is not complete yet. Please contact the administrator." }, { status: 503 });
     return NextResponse.json({ error: "Unable to create your account right now." }, { status: 500 });
   }
