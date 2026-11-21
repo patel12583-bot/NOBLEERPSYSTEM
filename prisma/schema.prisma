@@ -85,6 +85,8 @@ model User {
   memberProfile MemberProfile?
   auditLogs    AuditLog[]
   sessions     Session[]
+  financeEntriesCreated FinanceEntry[] @relation("FinanceCreatedBy")
+  financeEntriesApproved FinanceEntry[] @relation("FinanceApprovedBy")
 }
 
 model Session {
