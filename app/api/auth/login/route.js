@@ -19,7 +19,7 @@ export async function POST(request) {
       return NextResponse.json({ error: "Incorrect login details. Please try again." }, { status: 401 });
     }
     const clubRoles = ["SUPER_ADMIN", "ADMIN", "TREASURER", "SCORER", "MEMBER"];
-    if (!clubRoles.includes(user.role)) return NextResponse.json({ error: "This account does not have Royal Cricket Club access." }, { status: 403 });
+    if (!clubRoles.includes(user.role)) return NextResponse.json({ error: "This account does not have DCA Cricket Club access." }, { status: 403 });
 
     const profile = await prisma.memberProfile.findUnique({ where: { userId: user.id }, select: { name: true, memberCode: true, approvalStatus: true } }).catch(() => null);
     if ((user.role === "MEMBER" || profile) && profile?.approvalStatus !== "ACTIVE") {
@@ -35,9 +35,9 @@ export async function POST(request) {
     return NextResponse.json({ ok: true, user: { username: user.username, email: user.email, role: user.role, name: profile?.name || user.username, memberCode: profile?.memberCode || null } });
   } catch (error) {
     const code = typeof error?.code === "string" ? error.code : "UNKNOWN";
-    console.error("Royal Club login error:", { name: error?.name, code, message: error?.message });
+    console.error("DCA Club login error:", { name: error?.name, code, message: error?.message });
     if (["P1001", "P1002", "P1017", "P2024"].includes(code) || error?.name === "PrismaClientInitializationError") return NextResponse.json({ error: "Database connection failed. Check the Production DATABASE_URL in Vercel." }, { status: 503 });
-    if (code === "P2021" || code === "P2022") return NextResponse.json({ error: "Royal Cricket Club database setup is not complete yet. Please contact the club administrator." }, { status: 503 });
+    if (code === "P2021" || code === "P2022") return NextResponse.json({ error: "DCA Cricket Club database setup is not complete yet. Please contact the club administrator." }, { status: 503 });
     return NextResponse.json({ error: "Login service is temporarily unavailable." }, { status: 500 });
   }
 }
