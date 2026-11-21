@@ -698,6 +698,8 @@ model FinanceEntry {
   occurredAt  DateTime          @default(now())
   createdById String
   approvedById String?
+  createdBy    User               @relation("FinanceCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  approvedBy   User?              @relation("FinanceApprovedBy", fields: [approvedById], references: [id], onDelete: SetNull)
   approvedAt  DateTime?
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
