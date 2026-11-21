@@ -11,3 +11,6 @@
 @media(max-width:900px){.rcMetricGrid{grid-template-columns:repeat(2,1fr)}.rcDashGrid{grid-template-columns:1fr}}@media(max-width:520px){.rcAuthPage{padding:14px}.rcAuthCard{padding:25px 20px}.rcAuthCard h1{font-size:29px}.rcMetricGrid{gap:9px}.rcMetric{padding:14px}.rcMetric b{font-size:22px}.rcWelcome{display:block}.rcQuickLinks{grid-template-columns:1fr}}
 
 @media(max-width:850px){.rcMetricGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.rcMobileMenu{display:none;border:1px solid #dce8df;background:#fff;color:#176a3b;border-radius:9px;padding:8px 11px;font-size:18px;cursor:pointer}
+@media(max-width:850px){.rcTopbar{gap:12px}.rcMobileMenu{display:block}.rcSidebar.rcSidebarOpen{display:flex;position:fixed;z-index:100;inset:0 auto 0 0;width:260px;max-width:82vw;overflow-y:auto;box-shadow:18px 0 50px #183b2a24}.rcTopbar strong{font-size:12px}.rcTopbar>span{font-size:11px}}
