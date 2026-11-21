@@ -6,6 +6,10 @@ on:
   push:
     branches: [feat/royal-cricket-club-foundation]
 
+concurrency:
+  group: royal-cricket-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
