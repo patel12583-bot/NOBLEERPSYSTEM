@@ -38,8 +38,9 @@ export async function PATCH(request) {
     if (!memberId || (!approvalStatus && !requestedRole)) return NextResponse.json({ error: "Choose a member and a change to apply." }, { status: 400 });
     if (approvalStatus && !["ACTIVE", "REJECTED", "SUSPENDED", "PENDING"].includes(approvalStatus)) return NextResponse.json({ error: "Invalid membership status." }, { status: 400 });
     if (requestedRole && !["MEMBER", "TREASURER", "SCORER", "ADMIN"].includes(requestedRole)) return NextResponse.json({ error: "Invalid club role." }, { status: 400 });
+    if (requestedRole && requestedRole !== "MEMBER" && current.approvalStatus !== "ACTIVE") return NextResponse.json({ error: "Approve the member before assigning a staff role." }, { status: 409 });
     if (requestedRole === "ADMIN" && actor.role !== "SUPER_ADMIN") return NextResponse.json({ error: "Only a Super Admin can assign the Admin role." }, { status: 403 });
-    const current = await prisma.memberProfile.findUnique({ where: { id: memberId }, select: { id: true, userId: true, memberCode: true, name: true } });
+    const current = await prisma.memberProfile.findUnique({ where: { id: memberId }, select: { id: true, userId: true, memberCode: true, name: true, approvalStatus: true } });
     if (!current) return NextResponse.json({ error: "Member not found." }, { status: 404 });
     if (current.userId === actor.id && requestedRole) return NextResponse.json({ error: "You cannot change your own role." }, { status: 409 });
     const result = await prisma.$transaction(async tx => {
