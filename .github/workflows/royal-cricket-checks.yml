@@ -1,13 +1,13 @@
-name: Royal Cricket Club checks
+name: DCA Cricket Club checks
 
 on:
   pull_request:
     branches: [main]
   push:
-    branches: [feat/royal-cricket-club-foundation]
+    branches: [feat/dca-cricket-club-foundation]
 
 concurrency:
-  group: royal-cricket-${{ github.ref }}
+  group: dca-cricket-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
