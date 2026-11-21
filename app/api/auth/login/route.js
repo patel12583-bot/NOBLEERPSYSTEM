@@ -21,8 +21,17 @@ export async function POST(request) {
     const clubRoles = ["SUPER_ADMIN", "ADMIN", "TREASURER", "SCORER", "MEMBER"];
     if (!clubRoles.includes(user.role)) return NextResponse.json({ error: "This account does not have Royal Cricket Club access." }, { status: 403 });
 
+    const profile = await prisma.memberProfile.findUnique({ where: { userId: user.id }, select: { name: true, memberCode: true, approvalStatus: true } }).catch(() => null);
+    if (user.role === "MEMBER" && profile?.approvalStatus !== "ACTIVE") {
+      const status = profile?.approvalStatus || "PENDING";
+      const message = status === "REJECTED"
+        ? "Your membership application was not approved. Please contact the club administrator."
+        : status === "SUSPENDED"
+          ? "Your membership is currently suspended. Please contact the club administrator."
+          : "Your registration is waiting for Admin approval. You can sign in after approval.";
+      return NextResponse.json({ error: message, approvalStatus: status }, { status: 403 });
+    }
     await createSession(user.id);
-    const profile = await prisma.memberProfile.findUnique({ where: { userId: user.id }, select: { name: true, memberCode: true } }).catch(() => null);
     return NextResponse.json({ ok: true, user: { username: user.username, email: user.email, role: user.role, name: profile?.name || user.username, memberCode: profile?.memberCode || null } });
   } catch (error) {
     const code = typeof error?.code === "string" ? error.code : "UNKNOWN";
