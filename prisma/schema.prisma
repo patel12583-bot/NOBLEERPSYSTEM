@@ -750,6 +750,7 @@ model Match {
   status MatchState @default(SCHEDULED)
   tossWinner String?
   tossDecision String?
+  battingFirst String?
   result String?
   winner String?
   playerOfMatch String?
