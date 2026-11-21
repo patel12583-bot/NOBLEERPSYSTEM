@@ -13,9 +13,12 @@ export async function GET(request,{params}){
 export async function PATCH(request,{params}){
  const user=await getSessionUser();if(!user)return NextResponse.json({error:"Please sign in."},{status:401});
  if(!scorers.includes(user.role))return NextResponse.json({error:"Scorer permission required."},{status:403});
- try{const {id}=await params,b=await request.json(),data={};
+ try{const {id}=await params,b=await request.json(),current=await prisma.match.findUnique({where:{id}});if(!current)return NextResponse.json({error:"Match not found."},{status:404});const data={};
  for(const key of ["tossWinner","tossDecision","result","winner","playerOfMatch"])if(b[key]!==undefined)data[key]=String(b[key]).slice(0,160)||null;
  if(b.status!==undefined){if(!["SCHEDULED","LIVE","COMPLETED","ABANDONED"].includes(b.status))return NextResponse.json({error:"Invalid match status."},{status:400});data.status=b.status}
+ const tossWinner=b.tossWinner!==undefined?String(b.tossWinner):current.tossWinner;
+ const tossDecision=b.tossDecision!==undefined?String(b.tossDecision):current.tossDecision;
+ if(tossWinner&&[current.teamA,current.teamB].includes(tossWinner)&&["BAT","BOWL"].includes(tossDecision)){const other=tossWinner===current.teamA?current.teamB:current.teamA;data.battingFirst=tossDecision==="BAT"?tossWinner:other}
  const match=await prisma.match.update({where:{id},data});
  await prisma.auditLog.create({data:{userId:user.id,action:"MATCH_UPDATED",module:"ROYAL_CRICKET",recordId:id,metadata:JSON.stringify(data)}});
  return NextResponse.json({ok:true,match});
