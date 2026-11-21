@@ -23,8 +23,8 @@ export async function POST(request,{params}){
   const currentWickets=existing.filter(x=>x.wicket).length;
   const currentRuns=existing.reduce((sum,x)=>sum+x.runsBat+x.extrasRuns,0);
   const sequence=(existing[0]?.sequence||0)+1;
-  if(legalBall&&legalCount>=currentMatch.overs*6)throw new Error("INNINGS_OVERS_COMPLETE");
-  if(wicket&&currentWickets>=10)throw new Error("INNINGS_WICKETS_COMPLETE");
+  if(legalCount>=currentMatch.overs*6)throw new Error("INNINGS_OVERS_COMPLETE");
+  if(currentWickets>=10)throw new Error("INNINGS_WICKETS_COMPLETE");
   if(innings===2){
     const first=await tx.matchBall.findMany({where:{matchId,innings:1},select:{runsBat:true,extrasRuns:true}});
     const target=first.reduce((sum,x)=>sum+x.runsBat+x.extrasRuns,0)+1;
